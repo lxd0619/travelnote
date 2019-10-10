@@ -1,34 +1,132 @@
 <template>
   <div class="index">
-    <div id="nav">
-      <router-link to="/index/home" tag="li">首页</router-link>
-      <router-link to="/index/aim" tag="li">目的地</router-link>
-      <router-link to="/index/view" tag="li">景点攻略</router-link>
-      <router-link to="/index/deicious" tag="li">美食攻略</router-link>
-      <router-link to="/index/line" tag="li">个性路线</router-link>
-      <router-link to="/index/userCenter" tag="li">个人中心</router-link>
-      <router-link to="/login" tag="li">登录</router-link>
-      <router-link to="/register" tag="li">注册</router-link>
-    </div>
-    <router-view></router-view>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container">
+        <div class="row" style="margin: 0 auto">
+          <!-- LOGO -->
+          <a class="navbar-brand" href="/index/home" @click.prevent="goHome">
+            <img src="../assets/logo.png" alt />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarContent"
+            aria-controls="navbarContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse text-center" id="navbarContent">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="/index/home" @click.prevent="goHome">
+                  首页
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/index/aim" @click.prevent="goAim">目的地</a>
+              </li>
 
-    <!-- <ul>
-      <li v-for="stu in students" :key='stu.stuNo'>
-    <h2>{{stu.stuName}}</h2>-->
-    <!-- </li>
-    </ul>-->
-    <!-- <el-row>
-      <el-col :span="24"><div class="grid-content bg-purple-dark"></div></el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-      <el-col :span="8"><div class="grid-content bg-purple-light"></div></el-col>
-      <el-col :span="8"><div class="grid-content bg-purple"></div></el-col>
-    </el-row>-->
+              <li class="nav-item">
+                <a class="nav-link" href="/index/view" @click.prevent="goView">景点攻略</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/index/delicious" @click.prevent="goDelicious">美食攻略</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/index/line" @click.prevent="goLine">个性路线</a>
+              </li>
+              <!-- 搜索框 -->
+              <li class="nav-item d-flex justify-content-center">
+                <form
+                  class="form-inline pull-right"
+                  role="search"
+                  action="/Search/SearchList"
+                  method="get"
+                  target="_blank"
+                >
+                  <input
+                    id="search"
+                    style="width: 120px"
+                    name="search"
+                    class="form-control mr-sm-2 text-muted"
+                    type="search"
+                    placeholder="全站搜索..."
+                    aria-label="搜索"
+                  />
+                  <a
+                    style="background:none; margin-left:-2rem; color:#ff9d00;"
+                    href="/index/search"
+                    @click.prevent="goSearch"
+                  >
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </a>
+                </form>
+              </li>
+              <li class="nav-item dropdown" id="message">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="userCenter.html"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fa fa-bell-o mr-2" aria-hidden="true"></i>消息中心
+                </a>
+                <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">
+                    <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>系统通知
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <i class="fa fa-at mr-2" aria-hidden="true"></i>关注通知
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <i class="fa fa-commenting-o mr-2" aria-hidden="true"></i>回复消息
+                  </a>
+                </div>
+              </li>
+
+              <div class="dropdown-divider"></div>
+              <li class="nav-item" id="login">
+                <a class="nav-link" href="/login" @click.prevent="goLogin">登录</a>
+              </li>
+              <li class="nav-item" id="register">
+                <a class="nav-link" href="/register" @click.prevent="goRegister">注册</a>
+              </li>
+              <li class="nav-item dropdown ml-2">
+                <a
+                  class="nav-link dropdown-toggle d-flex align-items-center justify-content-center"
+                  href="userCenter.html"
+                  id="userDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >个人中心</a>
+                <div class="dropdown-menu text-center" aria-labelledby="userDropdown">
+                  <a class="dropdown-item" href="/index/userCenter" @click.prevent="goUserCenter">
+                    <i class="fa fa-user-o mr-2" aria-hidden="true"></i>个人中心
+                  </a>
+                  <a class="dropdown-item" href="/index/editor" @click.prevent="goEditor">
+                    <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>撰写攻略
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/index" @click.prevent="goHome">
+                    <i class="fa fa-sign-out mr-2" aria-hidden="true"></i>退出登录
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -38,52 +136,91 @@ export default {
       students: [],
       currentUser: {}
     };
-  }
+  },
   //组件创建完成后执行的操作
-  // created(){
-  //   this.$axios.get('http://localhost:3000/users')
-  //   .then(res => {
-  //     console.log('查询结果：',res.data.data)
-  //     this.students = res.data.data
-  //   })
-  //   .catch(err => {
-  //     console.log('错误信息：',err)
-  //   })
-  // }
+  created() {
+    $(function() {
+      $(".navbar ul li:last-child").hide();
+      $("#message").hide();
+      if (localStorage.getItem("user")) {
+        var username = localStorage.getItem("user");
+        $("#login").hide();
+        $("#register").hide();
+        $(".navbar ul li:last-child>a").html(
+          '<i class="rounded-circle" id="navHeadPic"></i>'
+        );
+        $(".navbar ul li:last-child").show();
+        $("#message").show();
+      }
+      $(".navbar ul li a:last-child").click(function() {
+        var user = localStorage.getItem("user");
+        if (user != "") {
+          localStorage.setItem("user", "");
+        }
+      });
+
+      $("#search").click(function() {
+        $("#search").animate({ width: "220px" }, 1000);
+      });
+      $("#search").blur(function() {
+        $("#search").animate({ width: "120px" }, 1000);
+      });
+
+      console.log(window.location.pathname);
+      if (window.location.pathname != "/public/index.html") {
+        $(".navbar").css("background-color", "#f00!import");
+      }
+    });
+  },
+  methods: {
+    goAim() {
+      this.$router.push("/index/Aim");
+    },
+    goDelicious() {
+      this.$router.push("/index/delicious");
+    },
+    goEditor() {
+      this.$router.push("/index/editor");
+    },
+    goHome() {
+      this.$router.push("/index/home");
+    },
+    goLine() {
+      this.$router.push("/index/line");
+    },
+    goLogin() {
+      this.$router.push("/login");
+    },
+    goRegister() {
+      this.$router.push("/register");
+    },
+    goSearch() {
+      this.$router.push("/index/search");
+    },
+    goUserCenter() {
+      this.$router.push("/index/userCenter");
+    },
+    goView() {
+      this.$router.push("/index/view");
+    }
+  }
 };
 </script>
-<style lang="scss" scoped>
-li {
-  list-style: none;
+<style lang="css" scoped>
+#navHeadPic {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  background-image: url(../assets/headPic/head1.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
-#nav {
-  display: block;
-  height: 30px;
+
+#userDropdown {
+  padding: 0;
 }
-.el-row {
-  margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-.el-col {
-  border-radius: 4px;
-}
-.bg-purple-dark {
-  background: #99a9bf;
-}
-.bg-purple {
-  background: #d3dce6;
-}
-.bg-purple-light {
-  background: #e5e9f2;
-}
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-}
-.row-bg {
-  padding: 10px 0;
-  background-color: #f9fafc;
+#search{
+  font-size: 15px;
 }
 </style>

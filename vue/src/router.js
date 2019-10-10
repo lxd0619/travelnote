@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Aim from './views/Aim.vue'
-import Deicious from './views/Deicious.vue'
+import Delicious from './views/Delicious.vue'
 import Editor from './views/Editor.vue'
 import Home from './views/Home.vue'
 import Index from './views/Index.vue'
@@ -34,9 +34,9 @@ let router = new Router({
           component:Aim 
         },
         {
-          path: 'deicious',
-          name: 'deicious',
-          component: Deicious
+          path: 'delicious',
+          name: 'delicious',
+          component: Delicious
         },
         {
           path: 'editor',
