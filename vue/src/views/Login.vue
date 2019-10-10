@@ -30,6 +30,9 @@
           <span></span>
         </div>
         <input type="button" value="登录" @click="login()" />
+        <!-- `checked` 为 true 或 false -->
+        <el-checkbox v-model="checked">备选项</el-checkbox>
+
         <input type="checkbox" id="checkbox" />
         <label for="checkbox">记住密码</label>
         <a href="#" class="forget">忘记密码？</a>
@@ -51,7 +54,8 @@ export default {
     return {
       loginUser: {
         tel: "",
-        password: ""
+        password: "",
+         checked: true
       }
     };
   },
@@ -91,7 +95,7 @@ export default {
         span.className = "tipMsg";
         span.innerHTML = "请输入密码";
       } else {
-        if (this.loginUser.password =="") {
+        if (this.loginUser.password == "") {
           span.className = "error";
           span.innerHTML = "密码不能为空";
         }
