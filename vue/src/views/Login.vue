@@ -6,13 +6,28 @@
       <h1>登录</h1>
       <form action="#">
         <div class="inputBox">
-          <input type="text" required v-model="loginUser.tel" />
+          <input
+            type="text"
+            required
+            v-model="loginUser.tel"
+            id="tel"
+            @focus="tel_tip('focus')"
+            @blur="tel_tip('blur')"
+          />
           <label for>电话号</label>
           <span></span>
         </div>
         <div class="inputBox">
-          <input type="password" required v-model="loginUser.password" />
+          <input
+            type="password"
+            required
+            v-model="loginUser.password"
+            id="password"
+            @focus="pwd_tip('focus')"
+            @blur="pwd_tip('blur')"
+          />
           <label for>密码</label>
+          <span></span>
         </div>
         <input type="button" value="登录" @click="login()" />
         <input type="checkbox" id="checkbox" />
@@ -26,6 +41,10 @@
 
 <script>
 import jwt_decode from "jwt-decode";
+
+window.onload = function() {
+  document.getElementById("tel").focus();
+};
 export default {
   name: "login",
   data: function() {
@@ -41,16 +60,43 @@ export default {
       this.$axios
         .post("http://localhost:3000/login/login", this.loginUser)
         .then(res => {
-          console.log("登录成功！", res);
-          console.log(res.data.token);
-          console.log("token对象：", jwt_decode(res.data.token));
-          localStorage.setItem("mytoken", res.data.token); //1.把token保存到本地存储
-          this.$router.push("/index/home"); //路由转向登录组件
+          if (res.data.data) {
+            console.log("登录成功！", res);
+            console.log(res.data.token);
+            localStorage.setItem("mytoken", res.data.token); //1.把token保存到本地存储
+            this.$router.push("/index/home"); //路由转向登录组件
+          } else {
+            console.log(res.data.msg);
+          }
         })
         .catch(err => {
           console.log(err);
         });
     },
+    tel_tip(flag) {
+      var tel = document.getElementById("tel");
+      var span = tel.nextElementSibling.nextElementSibling;
+      if (flag == "focus") {
+        span.className = "tipMsg";
+        span.innerHTML = "请输入手机号";
+      } else {
+        if (this.loginUser.tel == "") span.className = "error";
+        span.innerHTML = "手机号不能为空";
+      }
+    },
+    pwd_tip(flag) {
+      var pwd = document.getElementById("password");
+      var span = pwd.nextElementSibling.nextElementSibling;
+      if (flag == "focus") {
+        span.className = "tipMsg";
+        span.innerHTML = "请输入密码";
+      } else {
+        if (this.loginUser.password =="") {
+          span.className = "error";
+          span.innerHTML = "密码不能为空";
+        }
+      }
+    }
   }
 };
 </script>
@@ -156,5 +202,8 @@ label {
 }
 .tipMsg {
   color: #aaa;
+}
+.error {
+  color: #f00;
 }
 </style>
