@@ -1,12 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from './views/Index.vue'
-import Login from './views/Login.vue'
-import Register from './views/Register.vue'
-import NotFound from './views/Not404.vue'
-import Honey from './views/Honey.vue'
-import Person from './views/Person.vue'
+import Accusation from './views/Accusation.vue'
+import Aim from './views/Aim.vue'
+import Article from './views/Article.vue'
+import Ban from './views/Ban.vue'
+import Deicious from './views/Deicious.vue'
+import Editor from './views/Editor.vue'
+import Food from './views/Food.vue'
 import Home from './views/Home.vue'
+import Index from './views/Index.vue'
+import Line from './views/Line.vue'
+import Login from './views/Login.vue'
+import Manage from './views/Manage.vue'
+import Normal from './views/Normal.vue'
+import Not404 from './views/Not404.vue'
+import PartView from './views/PartView.vue'
+import Register from './views/Register.vue'
+import ScenicSport from './views/ScenicSport.vue'
+import Search from './views/Search.vue'
+import UserCenter from './views/UserCenter.vue'
+import View from './views/View.vue'
+import ViewPart from './views/ViewPart.vue'
 
 Vue.use(Router)
 let router = new Router({
@@ -23,20 +37,60 @@ let router = new Router({
       component: Index,
       children:[
         {
+          path: 'aim',
+          name: 'aim',
+          component:Aim 
+        },
+        {
+          path: 'deicious',
+          name: 'deicious',
+          component: Deicious
+        },
+        {
+          path: 'editor',
+          name: 'editor',
+          component: Editor
+        },
+        {
+          path: 'Food',
+          name: 'food',
+          component: Food
+        },
+        {
           path: 'home',
           name: 'home',
           component: Home
         },
         {
-          path: 'person',
-          name: 'person',
-          component: Person
+          path: 'line',
+          name: 'line',
+          component: Line
         },
         {
-          path: 'honey',
-          name: 'honey',
-          component: Honey
+          path: 'manage',
+          name: 'manage',
+          component: Manage
         },
+        {
+          path: 'scenicSport',
+          name: 'scenicSport',
+          component: ScenicSport
+        },
+        {
+          path: 'search',
+          name: 'search',
+          component: Search
+        },
+        {
+          path: 'userCenter',
+          name: 'userCenter',
+          component: UserCenter
+        },
+        {
+          path: 'view',
+          name: 'view',
+          component: View
+        }
       ]
     },
     
@@ -44,12 +98,6 @@ let router = new Router({
       path: '/login',
       name: 'login',
       component: Login
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      // component: function () { 
-      //   return import(/* webpackChunkName: "about" */ './views/About.vue')
-      // }
     },
     {
       path: '/register',
