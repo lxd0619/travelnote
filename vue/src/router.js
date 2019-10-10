@@ -1,26 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Accusation from './views/Accusation.vue'
 import Aim from './views/Aim.vue'
-import Article from './views/Article.vue'
-import Ban from './views/Ban.vue'
 import Deicious from './views/Deicious.vue'
 import Editor from './views/Editor.vue'
-import Food from './views/Food.vue'
 import Home from './views/Home.vue'
 import Index from './views/Index.vue'
 import Line from './views/Line.vue'
 import Login from './views/Login.vue'
 import Manage from './views/Manage.vue'
-import Normal from './views/Normal.vue'
-import Not404 from './views/Not404.vue'
-import PartView from './views/PartView.vue'
+import NotFound from './views/Not404.vue'
 import Register from './views/Register.vue'
-import ScenicSport from './views/ScenicSport.vue'
 import Search from './views/Search.vue'
 import UserCenter from './views/UserCenter.vue'
 import View from './views/View.vue'
-import ViewPart from './views/ViewPart.vue'
 
 Vue.use(Router)
 let router = new Router({
@@ -52,11 +44,6 @@ let router = new Router({
           component: Editor
         },
         {
-          path: 'Food',
-          name: 'food',
-          component: Food
-        },
-        {
           path: 'home',
           name: 'home',
           component: Home
@@ -70,11 +57,6 @@ let router = new Router({
           path: 'manage',
           name: 'manage',
           component: Manage
-        },
-        {
-          path: 'scenicSport',
-          name: 'scenicSport',
-          component: ScenicSport
         },
         {
           path: 'search',
