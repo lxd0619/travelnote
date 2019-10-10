@@ -17,8 +17,17 @@ var operationRouter=require('./routes/operation');
 var registRouter=require('./routes/regist');
 var userCenterRouter = require('./routes/userCenter');
 var scenicSpotRouter=require('./routes/scenicSpot')
-
 var app = express();
+
+app.all('*', function (req, res, next) {
+  // res.header('Access-Control-Allow-Origin', '*'); //针对所有请求用户都允许
+  res.header('Access-Control-Allow-Origin', 'http://localhost:8080'); //针对指定的请求用户允许，其他用户禁止访问
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Allow-Methods', '*');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next()
+})
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
