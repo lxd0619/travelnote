@@ -99,7 +99,7 @@ export default {
   position:absolute;
   left:50%;
   top:50%;
-  margin-left:200px;
+  margin-left:-200px;
   margin-top:-190px;
   border-radius: 5px;
   background-color: #fff;

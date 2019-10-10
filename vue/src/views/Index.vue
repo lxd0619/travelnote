@@ -3,7 +3,7 @@
     <div id="nav">
       <router-link to="/index/home" tag="li">首页</router-link>
       <router-link to="/index/aim" tag="li">目的地</router-link>
-      <router-link to="/index/scenicSport" tag="li">景点攻略</router-link>
+      <router-link to="/index/view" tag="li">景点攻略</router-link>
       <router-link to="/index/deicious" tag="li">美食攻略</router-link>
       <router-link to="/index/line" tag="li">个性路线</router-link>
       <router-link to="/index/userCenter" tag="li">个人中心</router-link>
