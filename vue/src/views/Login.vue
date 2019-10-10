@@ -15,7 +15,7 @@
         <el-input type="password" v-model="loginUser.password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -29,8 +29,8 @@ export default {
   data: function() {
     return {
       loginUser: {
-        tel: "",
-        password: ""
+        tel: "12345678900",
+        password: "111111"
       },
       rules: {
         tel: [
@@ -40,7 +40,7 @@ export default {
         password: [
           { required: true, message: "密码不能为空", trigger: "blur" },
           { min: 6, max: 6, message: "密码必须是6位", trigger: "blur" }
-        ],
+        ]
       }
     };
   },
@@ -53,10 +53,11 @@ export default {
           this.$axios
             .post("http://localhost:3000/users/login", this.loginUser)
             .then(res => {
-              console.log(res);
-              console.log('token对象',jwt_decode(res.data.token)) //token解码
-              localStorage.setItem('mytoken',res.data.token)//把token保存到本地
-              this.$router.push('/index')
+              console.log("登录成功！", res);
+              console.log(res.data.token)
+              console.log('token对象：',jwt_decode(res.data.token))
+              localStorage.setItem('mytoken',res.data.token)  //1.把token保存到本地存储
+              this.$router.push("/index/home"); //路由转向登录组件
             })
             .catch(err => {
               console.log(err);

@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/" tag='li'>首页</router-link> |
-      <router-link to="/login" tag='li'>登录</router-link>
-      <router-link to="/register" tag='li'>注册</router-link>
-    </div> -->
     <router-view/>
   </div>
 </template>

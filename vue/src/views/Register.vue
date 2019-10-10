@@ -65,9 +65,12 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             alert('submit!');
-            this.$axios.post('http://localhost:3000/users/register',this.registerUser).then(res=>{
-              console.log(res)
-            }).catch(err=>{
+            this.$axios.post('http://localhost:3000/users/register',this.registerUser)
+            .then(res => {
+              console.log('注册成功！',res)
+              this.$router.push('/login') //路由转向登录组件
+            })
+            .catch(err =>{
               console.log(err)
             })
           } else {
