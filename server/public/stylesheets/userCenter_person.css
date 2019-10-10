@@ -1,0 +1,45 @@
+#personinfo{
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+}
+#personinfo form{
+    font-size: 20px;
+    color: #666;
+}
+#personinfo li{
+    margin: 20px;
+}
+#personinfo input{
+    width: 300px;
+    height: 30px;
+}
+#personinfo input[type=radio]{
+    width: 20px;
+    height: 20px;
+}
+#personinfo #intro{
+    width: 500px;
+    height: 100px;
+}
+#personinfo li:first-child{
+    position: relative;
+    left: 40px;
+}
+#personinfo li:nth-child(2){
+    position: relative;
+    left: 40px;
+}
+#personinfo li:last-child{
+    display: flex;
+    justify-content: center;
+}
+#personinfo input[type=button]{
+    font-size: 20px;
+    width: 100px;
+    height:40px;
+    color: #666;
+}
+#personinfo input[type=button]:hover{
+    color: #333
+}

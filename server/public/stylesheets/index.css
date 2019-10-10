@@ -1,0 +1,42 @@
+.carousel-item {
+    height: 25em;
+}
+
+.card img {
+    width: 14em;
+    height: 12em;
+}
+
+.card-text {
+    height: 4em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.media img {
+    width: 10em;
+    height: 10em;
+}
+
+#ranks ul li {
+    height: 4em;
+}
+
+#ranks ul em {
+    color: #ff9d00;
+    font-size: 20px;
+}
+
+#ranks ul span {
+    float: right;
+    line-height: 2;
+}
+
+#ranks ul li:hover em {
+    font-size: 22px;
+}
+
+#ranks ul li:hover span {
+    line-height: 2;
+    font-size: 17px;
+}

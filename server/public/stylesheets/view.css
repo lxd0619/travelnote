@@ -1,0 +1,26 @@
+.contain {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.waveline {
+    margin-top: 30px;
+}
+
+.ViewProduce {
+    text-align: center;
+    color: rgba(36, 35, 35, 0.4);
+    font-size: 50px;
+}
+
+.sheadsecond {
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 40px;
+}

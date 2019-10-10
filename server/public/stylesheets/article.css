@@ -1,0 +1,113 @@
+.nav{
+    width: 100%;
+    height: 60px;
+    background-color: #00b894;
+}
+.nav span{
+    color: white;
+    padding-left: 50px;
+    line-height: 60px;
+    font-size: 30px;
+}
+.nav a{
+    float: right;
+    line-height: 60px;
+    padding-right: 20px;
+    font-size:20px;
+    color: white;
+}
+
+#left{
+    float: left;
+    position: relative;
+    width:75%;
+}
+#content{
+    float: right;
+    margin-top: 50px;
+    margin-right:40px;
+    width: 85%;
+    border: 1px solid #aaaaaa;
+    box-shadow: 6px 5px 5px #807e7e;
+    padding:50px 50px;
+    background-color: white;
+}
+#content img{ 
+    width:500px;
+    height: 400px;
+}
+#button{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+}
+#button button{
+    margin-top: 10px;
+    box-shadow: 4px 5px 5px #807e7e;
+    float: left;
+    outline-style: none;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
+#bottom_img {
+    position: absolute;
+    top:100px;
+    right:50px;
+    width: 300px;
+}
+
+#bottom_img ul {
+    /* border:1px solid #aaaaaa; */
+    height: 1000px;
+    margin: 0;padding:0;
+    overflow: hidden;
+    border:1px dashed #00b894;
+    text-align: center;
+}
+#bottom_img h3{
+    color: white;
+    margin:0;
+    line-height: 50px;
+    background-color: #00b894;
+}
+#bottom_img ul li {
+    background-color: white;
+    margin: 10px;
+    height: 400px;
+    text-align: center;
+    line-height: 30px;
+    overflow: hidden;
+    cursor: pointer;
+    border:1px solid #aaaaaa;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px #807e7e;
+}
+
+#bottom_img>ul>li>span {
+    font-size: 13px;
+    position: relative;
+    top: 30px;
+    left: -50px;
+    margin-left: 45px;
+}
+
+#line_bottom {
+    float: left;
+    position: relative;
+    left: 700px;
+
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: rgb(66, 66, 66);
+    margin-top: 80px;
+}
+
+#line_bottom p {
+    margin-top: 30px;
+    color: rgb(158, 156, 156);
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="stylesheets/ban.css">
+    <link rel="stylesheet" href="bs4.0/css/bootstrap.min.css">
+</head>
+<script src="javascripts/jquery-3.4.1.min.js"></script>
+<script src="bs4.0/js/bootstrap.min.js"></script>
+<script src="javascripts/ban.js"></script>
+
+<body>
+    <div id="main">
+        <div class="nav"> 
+            <span>攻略详情</span>
+            <a href="manage.html">返回</a></div>
+        <div id="left">
+            <div id="content">
+                <h1>度假的正确打开方式——吃泡三亚</h1>
+                <h2>民以食为天，人气餐厅必打卡</h2>
+                <h3>张猫猫的店</h3>
+                <p>从很久以前开始，吃饭就变得不再是饱腹那么简单。许多餐厅不只是将自己的追求局限在菜色的研究上，顾客也希望一家餐厅能够留下
+                    足以打动自己的回忆。这家经营了八年的老店直到今天还是非常火热，在大众点评和美团一共拥有4.9万的评论。2016“中国特色餐饮
+                    名店”、2018“金牌老字号海南菜餐厅”，这么多响亮的名头加在一起，足以证明它在三亚的人气。</p>
+                <h6>最梦幻的亲子餐厅</h6>
+                <p>无论谁来到张猫猫的店附近，都会注意到摆在门口的猫猫玩偶。其实通过这样有趣的玩偶，大致能感受到餐厅所想营造的愉快氛围。</p>
+                <img src="images/3.jpg" alt="">
+                <p>招牌上可爱的卡通形象和周围的墙绘绿植，长椅上萌萌的座椅和旁边的小木马，在一片柔和的灯光下，有一些些甜甜的温馨感。从餐
+                    厅步行到海边只要五分钟的时间，如果在排队或者等餐的时候，荡在秋千上或许能听到不远处海浪的声音。</p>
+            </div>
+            <div id="button">
+                <button class="btn btn-success glyphicon glyphicon-ok" data-toggle="modal" data-target="#myModal" onclick="OK()"></button>
+                <!-- <button class="btn btn-danger glyphicon glyphicon-remove " data-toggle="modal" data-target="#myModal"></button> -->
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">请输入文章解禁理由</h4>
+                </div>
+                <div class="modal-body">
+                  <textarea name="" id="backtext" cols="78" rows="10" style="resize: none"></textarea>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                  <button type="button" class="btn btn-primary" id="sure">确定</button>
+                </div>
+              </div>
+            </div>
+          </div>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+#collection{
+    margin: 5px;
+}
+#collNav{
+    border-bottom: 1px solid rgba(100, 100, 100, 0.5);
+    width: 90%;
+    height: 40px;
+    line-height: 0;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+#collNav li{
+    float: left;
+    font-size: 20px;
+    margin: 15px;
+    color: #666;
+}
+#collNav li:hover{
+    color:rgb(255, 123, 0);
+}
+#placeColl{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+}
+#placeColl>div{
+    margin: 5px;
+    box-shadow: 1px 2px 5px rgba(100, 100, 100, 0.5);
+}
+#placeColl img{
+    width: 300px;
+    height: 200px;
+}
+#strategyColl{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.content{
+    width: 410px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 1px 2px 5px rgba(100, 100, 100, 0.5);
+}
+.img{
+    width: 60%;
+    height: 180px;
+    background-size: cover;
+    border-image-repeat: no-repeat;
+    margin-left: 5px;
+}
+.img img{
+    width: 240px;
+    height: 180px;
+}
+.article{
+    width: 38%;
+    height: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.title{
+    height: 40px;
+    background-color: #ddfdff;
+}
+.txt{
+    height: 130px;
+    background-color: #efefef;
+    margin-top: 10px;
+    margin-right: 5px;
+}

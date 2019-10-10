@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>美食攻略</title>
+    <link rel="stylesheet" href="stylesheets/deliousfood.css">
+    <link rel="stylesheet" href="bs4.0/css/bootstrap.css">
+    <script src="javascripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function() {
+            $('[data-toggle~="tooltip"]').tooltip() /*[data-toggle~="tooltip"] 选择 data-toggle 属性包含单词 "tooltip" 的所有元素*/
+        })
+        $(document).ready(function() {
+            $('#head').load('head.html')
+            $('#foot').load('foot.html')
+        });
+        window.onload = function() {
+            var pop = document.querySelector('.drop-pop')
+            var trigger = document.querySelector('.trigger')
+            trigger.onclick = function() {
+                pop.style.display = "block"
+            }
+        }
+    </script>
+
+
+
+
+
+</head>
+
+<body>
+    <div class="contain">
+        <div id="head"></div>
+        <div class="navfont">美食攻略</div>
+        <div class="total">
+            <section id="timeline">
+                <div class="totalcontainer">
+                    <div class="mine-item">
+                        <div class="figcaption">
+                            <div class="bg" style="background-image: url('images/food/food3.jpg');"></div>
+                            <div class="name">
+                                <p>Groot</p>
+                            </div>
+                            <div class="content">
+                                <h1>Avengers Hero---GROOT</h1>
+                                <p>Groot is a fictional superhero appearing in American comic books published by Marvel Comics. Created by Stan Lee, Larry Lieber and Jack Kirby, the character first appeared in Tales to Astonish #13 (November 1960). </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mine-item">
+                        <div class="figcaption">
+                            <div class="bg" style="background-image: url('images/food/food12.jpg');"></div>
+                            <div class="name">
+                                <p>Vision</p>
+                            </div>
+                            <div class="content">
+                                <h1>Avengers Hero---VISION</h1>
+                                <p>Vision was an android who possessed a synthetic vibranium body created by Ultron and Helen Cho, along with the powerful space gem known as the Mind Stone. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mine-item">
+                        <div class="figcaption">
+                            <div class="bg" style="background-image:url('images/food/food1.jpg');"></div>
+                            <div class="name">
+                                <p>Black Widow</p>
+                            </div>
+                            <div class="content">
+                                <h1>Avengers Hero---BLACK WIDOW</h1>
+                                <p>Black Widow, was one of the most talented spies and assassins in the entire world and a founding member of the Avengers. Originally an agent of the Soviet agency for foreign intelligence, the KGB. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mine-item">
+                        <div class="figcaption">
+                            <div class="bg" style="background-image: url('images/food/food11.jpg');"></div>
+                            <div class="name">
+                                <p>Iron Man</p>
+                            </div>
+                            <div class="content">
+                                <h1>Avengers Hero---IRON MAN</h1>
+                                <p>Iron Man is a fictional superhero appearing in American comic books published by Marvel Comics. The character was co-created by writer and editor Stan Lee, developed by scripter Larry Lieber, and designed by artists Don
+                                    Heck and Jack Kirby. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mine-item">
+                        <div class="figcaption">
+                            <div class="bg" style="background-image: url('images/food/food13.jpg');"></div>
+                            <div class="name">
+                                <p>Spider Man</p>
+                            </div>
+                            <div class="content">
+                                <h1>Avengers</h1>
+                                <p>看！居中</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="headline container-fluid">
+            <h2>特色美食</h2>
+        </div>
+        <div class="specialFood">
+            <div class="container" id="centerNav" style="height: 52px">
+                <div class="tab_title">
+                    <h2><a href="//gny.ly.com/" target="_blank" title="游中国">游中国</a></h2>
+                    <ul>
+                        <li class="at" li-type="1">热门</li>
+                        <li li-type="0" class="">上海</li>
+                        <li li-type="0" class="">北京</li>
+                        <li li-type="0" class="">成都</li>
+                        <li li-type="0" class="">厦门</li>
+                        <li li-type="0" class="">三亚</li>
+                        <li li-type="0" class="">昆明</li>
+                        <li li-type="0" class="">西安</li>
+                        <li li-type="0" class="">桂林</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="infocon clearfix">
+                <div class="slpnel">
+                    <div class="gn_list">
+                        <ul class="clearfix">
+                            <li>
+                                <img src="images/bg.jpg" data-original-background="none" style="background: none;">
+                                <div class="intro_box">
+                                    <p>上海</p>
+                                    <span>吃喝玩乐在魔都</span>
+                                </div>
+                                </a>
+                            </li>
+
+                            <li>
+
+                                <img src="images/bg.jpg" data-original-background="none" style="background: none;">
+                                <div class="intro_box">
+                                    <p>北京</p>
+                                    <span>皇城脚下的气魄</span>
+                                </div>
+                                </a>
+                            </li>
+
+                            <li>
+
+                                <img src="images/bg.jpg" data-original-background="none" style="background: none;">
+                                <div class="intro_box">
+                                    <p>成都</p>
+                                    <span>吃香喝辣在巴蜀</span>
+                                </div>
+                                </a>
+                            </li>
+
+                            <li>
+
+                                <img src="images/bg.jpg" data-original-background="none" style="background: none;">
+                                <div class="intro_box">
+                                    <p>厦门</p>
+                                    <span>海滨的文艺小城</span>
+                                </div>
+                                </a>
+                            </li>
+
+                            <li>
+
+                                <img src="images/bg.jpg" data-original-background="none" style="background: none;">
+                                <div class="intro_box">
+                                    <p>三亚</p>
+                                    <span>被称为“东方夏威夷”。</span>
+                                </div>
+                                </a>
+                            </li>
+
+                            <li>
+
+                                <img src="images/bg.jpg" data-original-background="none" style="background: none;">
+                                <div class="intro_box">
+                                    <p>昆明</p>
+                                    <span>春城无处不飞花</span>
+                                </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <img src="images/bg.jpg" data-original-background="none" style="background: none;">
+                                <div class="intro_box">
+                                    <p>西安</p>
+                                    <span>长安城的前世今生</span>
+                                </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a>
+                                    <img src="images/bg.jpg" data-original-background="none" style="background: none; z-index: -1">
+                                    <p style="display: block">桂林</p>
+                                    <span>桂林山水甲天下</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="">
+                    <a><img style="width:172px ;height: 360px" src="https://pavo.elongstatic.com/i/ori/000fmtkz.jpg"></a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="drop-pop">
+            <div class="inner">
+                <ul>
+                    <li>北京(21)</li>
+                    <li>河北(16)</li>
+                    <li>山东(15)</li>
+                    <li>黑龙江(10)</li>
+                    <li>吉林(9)</li>
+                    <li>辽宁(6)</li>
+                    <li>天津(2)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="headline container-fluid">
+
+        </div>
+        <div class="gonglve_wrap clearfix">
+
+            <div class="cont-main _j_feed_list">
+
+                <div class="gl-post">
+                    <div data-cs-t="gonglve_feed" class="_j_feed_data">
+                        <div class="bar clearfix" style="margin-top: 10px;margin-bottom: 23px;">
+                            <span class="type"> <strong>推荐攻略</strong></span>
+                        </div>
+
+                        <div class="feed-item _j_feed_item" data-fid="108002" data-type="1">
+
+                            <hr>
+                            <div class="title">自驾北疆12天
+                                <span class="stat"><span class="num">6</span> 蜂蜂顶<i class="icon-hand"></i></span>
+                            </div>
+
+                            <dl class="art clearfix">
+                                <dt>
+                                    <img src="./images/food/food11.jpg"
+                                         style="width: 220px;">
+                                </dt>
+                                <dt>
+                                        <img src="./images/food/food11.jpg"
+                                             style="width: 220px;">
+                                    </dt>
+                                <dt>
+                                            <img src="./images/food/food11.jpg"
+                                                 style="width: 220px;">
+                                        </dt>
+                                <dd>
+                                    <div class="info">
+                                        前言：曾有人说：不到新疆不知中国之大，不到新疆不知中国之美。来到新疆你才知道什么叫神的自留地，上帝的后花园，什么叫一步一景。每个人眼中的新疆都是不一样的，文字和照片都不能代表她的美。可能是新疆太大，景色太美，短短十二天的旅行就象过了很久...
+                                    </div>
+                                    <div class="ext-r"><span class="author">
+                                            <span class="nums">作者： <img src="images/headPic/head2.jpg" width="35px" height="35px"></span>
+                                        <img src="./images/food/收藏_line.png" width="20px" height="20px">收藏</span>
+                                        <img src="./images/food/点赞_line.png" width="20px" height="20px">点赞
+                                        <img src="./images/food/browsing-history.png" width="20px" height="20px">浏览量
+
+                                    </div>
+                                </dd>
+                            </dl>
+                            </a>
+                        </div>
+
+                        <div class="feed-item _j_feed_item" data-fid="108002" data-type="1">
+
+                            <hr>
+                            <div class="title">自驾北疆12天
+                                <span class="stat"><span class="num">6</span> 蜂蜂顶<i class="icon-hand"></i></span>
+                            </div>
+
+                            <dl class="art clearfix">
+                                <dt>
+                                        <img src="./images/food/food11.jpg"
+                                             style="width: 220px;">
+                                    </dt>
+                                <dt>
+                                            <img src="./images/food/food11.jpg"
+                                                 style="width: 220px;">
+                                        </dt>
+                                <dt>
+                                                <img src="./images/food/food11.jpg"
+                                                     style="width: 220px;">
+                                            </dt>
+                                <dd>
+                                    <div class="info">
+                                        前言：曾有人说：不到新疆不知中国之大，不到新疆不知中国之美。来到新疆你才知道什么叫神的自留地，上帝的后花园，什么叫一步一景。每个人眼中的新疆都是不一样的，文字和照片都不能代表她的美。可能是新疆太大，景色太美，短短十二天的旅行就象过了很久...
+                                    </div>
+                                    <div class="ext-r"><span class="author">
+                                                <span class="nums">作者： <img src="images/headPic/head2.jpg" width="35px" height="35px"></span>
+                                        <img src="./images/food/收藏_line.png" width="20px" height="20px">收藏</span>
+                                        <img src="./images/food/点赞_line.png" width="20px" height="20px">点赞
+                                        <img src="./images/food/browsing-history.png" width="20px" height="20px">浏览量
+
+                                    </div>
+                                </dd>
+                            </dl>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 300px">
+                <span class="type-div"><strong> 热门排行</strong></span>
+                <hr>
+                <div class="top">
+                    <ul>
+                        <li class="gl_list">
+                            <a href="/gonglve/mdd-10765.html"><img src="images/food/songhe.png" width="180px" height="200px"> </a>
+
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <a href="/gonglve/mdd-11042.html" title="京都" target="_blank">京都</a>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <a href="/gonglve/mdd-10035.html" title="成都" target="_blank">成都</a>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <a href="/gonglve/mdd-10208.html" title="重庆" target="_blank">重庆</a>
+                        </li>
+                        <li>
+                            <span class="num">5</span>
+                            <a href="/gonglve/mdd-10195.html" title="西安" target="_blank">西安</a>
+                        </li>
+                        <li>
+                            <span class="num">6</span>
+                            <a href="/gonglve/mdd-10222.html" title="东京" target="_blank">东京</a>
+                        </li>
+                        <li>
+                            <span class="num">7</span>
+                            <a href="/gonglve/mdd-10183.html" title="日本" target="_blank">日本</a>
+                        </li>
+                        <li>
+                            <span class="num">8</span>
+                            <a href="/gonglve/mdd-10156.html" title="杭州" target="_blank">杭州</a>
+                        </li>
+                        <li>
+                            <span class="num">9</span>
+                            <a href="/gonglve/mdd-10684.html" title="南京" target="_blank">南京</a>
+                        </li>
+                        <li>
+                            <span class="num">10</span>
+                            <a href="/gonglve/mdd-10065.html" title="北京" target="_blank">北京</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div id="foot"></div>
+</body>
+
+</html>

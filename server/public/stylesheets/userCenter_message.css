@@ -1,0 +1,70 @@
+#message{
+    margin: 5px;
+}
+#msgNav{
+    border-bottom: 1px solid rgba(100, 100, 100, 0.5);
+    width: 90%;
+    height: 40px;
+    line-height: 0;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+#msgNav li{
+    float: left;
+    font-size: 20px;
+    margin: 15px;
+    color: #666;
+}
+#msgNav li:hover{
+    color:rgb(255, 123, 0);
+}
+#message ul{
+    margin-left: 50px;
+}
+#message ul>li{
+    width: 800px;
+    border: 1px solid #eee;
+    box-shadow: 1px 2px 5px rgba(100, 100, 100, 0.5);
+    margin: 5px;
+}
+.header{
+    height: 30px;
+    line-height: 30px;
+    background-color: #cec;
+    text-align: left;
+}
+.article{
+    height: 40px;
+    width: 90%;
+    margin-left: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid;
+}
+.footer{
+    height: 30px;
+    line-height: 30px;
+    background-color: #efc;
+}
+.myComment{
+    width: 800px;
+    display: none;
+}
+#message .myComment>ul>li{
+    width: 700px;
+    height: 50px;
+    line-height: 25px;
+    display: flex;
+    background-color: #eee;
+}
+#reply .myComment>ul>li:first-child{
+    margin-left: -20px;
+}
+.myComment ul>li>img{
+    height: 44px;
+    width: 44px;
+    margin-right: 20px;
+    border: 3px solid #eec
+}
+

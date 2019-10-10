@@ -1,0 +1,42 @@
+.nav{
+    width: 100%;
+    height: 60px;
+    background-color: #00b894;
+}
+.nav span{
+    color: white;
+    padding-left: 50px;
+    line-height: 60px;
+    font-size: 30px;
+}
+.nav a{
+    float: right;
+    line-height: 60px;
+    padding-right: 20px;
+    font-size:20px;
+    color: white;
+}
+
+#left{  
+
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+    margin: 50px auto;
+}
+#content{
+    float: left;
+    margin-top: 50px;
+    margin-right:40px;
+    width: 100%;
+    border: 1px solid #aaaaaa;
+    box-shadow: 6px 5px 5px #807e7e;
+    padding:50px 50px;
+    background-color: white;
+    margin: 0 auto;
+}
+#content img{ 
+    width:500px;
+    height: 400px;
+}
+
