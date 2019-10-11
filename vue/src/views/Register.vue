@@ -89,33 +89,12 @@ export default {
       isUsernameOk: false,
       isPasswordOk: false,
       isCpasswordOk: false,
-      isTelephoneOK: false
+      isTelephoneOK: false,
+      isMessageOk:false,
+      code:null
     };
   },
   methods: {
-    // submitForm(formName) {
-    //   //通过ref定位到form表单
-    //     this.$refs[formName].validate((valid) => {
-    //       if (valid) {
-    //         alert('submit!');
-    //         this.$axios.post('http://localhost:3000/users/register',this.registerUser)
-    //         .then(res => {
-    //           console.log('注册成功！',res)
-    //           this.$router.push('/login') //路由转向登录组件
-    //         })
-    //         .catch(err =>{
-    //           console.log(err)
-    //         })
-    //       } else {
-    //         console.log('error submit!!');
-    //         return false;
-    //       }
-    //     });
-    //   },
-    //   resetForm(formName) {
-    //     //实现重置表单元素数据
-    //     this.$refs[formName].resetFields();
-    //   },
     username_tip(flag) {
       var username = document.getElementById("username");
       if (flag == "focus") {
@@ -292,8 +271,34 @@ export default {
       }
     },
     mess_tip(flag) {
+      var mess=document.getElementById('messagecheck')
       if (flag == "focus") {
+        var span = mess.nextElementSibling.nextElementSibling;
+        span.className = "tipMsg";
+        span.innerHTML = "请输入验证码";
       } else {
+        var code=mess.value.trim()
+        if (code == "") {
+          var span = mess.nextElementSibling.nextElementSibling;
+          span.className = "error";
+          span.innerHTML = "不能为空";
+          this.value = "";
+          this.isMessageOk = false;
+          return;
+        }
+        if(code!= this.code){
+          var span = mess.nextElementSibling.nextElementSibling;
+          span.className = "error";
+          span.innerHTML = "验证码不正确请重新输入";
+          this.value = "";
+          this.isMessageOk = false;
+          return;
+        }else{
+          var span = mess.nextElementSibling.nextElementSibling;
+          span.className = "success";
+          span.innerHTML = "√";
+          this.isMessageOk = true;
+        }
       }
     },
     check() {
@@ -308,10 +313,14 @@ export default {
                 message: res.data.msg,
                 type: "success"
               });
-              var time = 120;
+              this.code=res.data.data
+              var time = new Date();
+              time.setMinutes(time.getMinutes()+2)
+              var now_time=new Date()
+              var timmer=120
               var timer = window.setInterval(function() {
-                check.value = time-- + "秒后重新获取";
-                if (time == -2) {
+                check.value = timmer-- + "秒后重新获取";
+                if (new Date() == time) {
                   check.value = "获取验证码";
                   check.disabled = false;
                   console.log(check.disabled);
@@ -341,7 +350,23 @@ export default {
         this.isTelephoneOK = false;
       }
     },
-    register() {}
+    register() {
+      if(this.isUsernameOk&&this.isPasswordOk&&this.isCpasswordOk&&this.isTelephoneOK&&this.isMessageOk){
+        this.$axios.post('http://localhost:3000/regist/regist',this.registerUser).then(res=>{
+          console.log(res)
+          if(res.data.data){
+            this.$message({
+                message: res.data.msg,
+                type: "success"
+              });
+          }else{
+            this.$message.error(res.data.msg);
+          }
+        }).catch(err=>{
+            console.log(err)
+        })
+      }
+    }
   }
 };
 </script>
