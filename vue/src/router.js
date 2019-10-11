@@ -21,7 +21,7 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      redirect:'/index' //路由跳转
+      redirect:'/index/home' //路由跳转
     },
     {
       path: '/index',
