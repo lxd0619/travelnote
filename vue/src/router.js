@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Aim from './views/Aim.vue'
-import Deicious from './views/Deicious.vue'
+import Delicious from './views/Delicious.vue'
 import Editor from './views/Editor.vue'
 import Home from './views/Home.vue'
 import Index from './views/Index.vue'
@@ -21,7 +21,7 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      redirect:'/index' //路由跳转
+      redirect:'/index/home' //路由跳转
     },
     {
       path: '/index',
@@ -34,9 +34,9 @@ let router = new Router({
           component:Aim 
         },
         {
-          path: 'deicious',
-          name: 'deicious',
-          component: Deicious
+          path: 'delicious',
+          name: 'delicious',
+          component: Delicious
         },
         {
           path: 'editor',
@@ -97,7 +97,7 @@ let router = new Router({
 router.beforeEach((to,from,next) => {
   //除了login和register，其他的路由访问必须先登录
   let tokenIsExists = localStorage.getItem('mytoken') ? true : false //检查本地存储中是否有token
-  if(to.path == '/login' || to.path == '/register'){
+  if(to.path != '/index/editor' || to.path != '/index/usercenter'|| to.path != '/index/manage'){
     next()    //允许访问路由
   }else{
     if(tokenIsExists){
