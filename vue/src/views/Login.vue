@@ -6,19 +6,37 @@
       <h1>登录</h1>
       <form action="#">
         <div class="inputBox">
-          <input type="text" required v-model="loginUser.tel" />
+          <input
+            type="text"
+            required
+            v-model="loginUser.tel"
+            id="tel"
+            @focus="tel_tip('focus')"
+            @blur="tel_tip('blur')"
+          />
           <label for>电话号</label>
           <span></span>
         </div>
         <div class="inputBox">
-          <input type="password" required v-model="loginUser.password" />
+          <input
+            type="password"
+            required
+            v-model="loginUser.password"
+            id="password"
+            @focus="pwd_tip('focus')"
+            @blur="pwd_tip('blur')"
+          />
           <label for>密码</label>
+          <span></span>
         </div>
         <input type="button" value="登录" @click="login()" />
-        <input type="checkbox" id="checkbox" />
-        <label for="checkbox">记住密码</label>
+        <!-- `checked` 为 true 或 false -->
+        <el-checkbox v-model="checked" id="reb">记住密码</el-checkbox>
+
+        <!-- <input type="checkbox" id="checkbox" />
+        <label for="checkbox">记住密码</label>-->
         <a href="#" class="forget">忘记密码？</a>
-        <a href="/regist" class="regist">没有账号?去注册→</a>
+        <a href="/register" class="regist">没有账号?去注册→</a>
       </form>
     </div>
   </div>
@@ -33,24 +51,72 @@ export default {
       loginUser: {
         tel: "",
         password: ""
-      }
+      },
+      checked: false
     };
+  },
+  created() {
+    if (localStorage.getItem("password")) {
+      this.checked = true;
+      this.loginUser.tel=localStorage.getItem("tel");
+      this.loginUser.password=localStorage.getItem("password")
+    }
   },
   methods: {
     login() {
       this.$axios
         .post("http://localhost:3000/login/login", this.loginUser)
         .then(res => {
-          console.log("登录成功！", res);
-          console.log(res.data.token);
-          console.log("token对象：", jwt_decode(res.data.token));
-          localStorage.setItem("mytoken", res.data.token); //1.把token保存到本地存储
-          this.$router.push("/index/home"); //路由转向登录组件
+          if (res.data.data) {
+            console.log(this.loginUser.password);
+            if (this.checked) {
+              localStorage.setItem("tel", this.loginUser.tel);
+              localStorage.setItem("password", this.loginUser.password);
+            }
+            localStorage.setItem("mytoken", res.data.token); //1.把token保存到本地存储
+            this.$message({
+              message: "登录成功，即将进入精彩时刻！",
+              type: "success"
+            });
+            let _this = this;
+            var mytime = setTimeout(function() {
+              _this.$router.push("/index/home"); //路由转向登录组件
+            }, 3000);
+          } else {
+            this.$message.error(res.data.msg);
+            console.log(res.data.msg);
+          }
         })
         .catch(err => {
           console.log(err);
         });
     },
+    tel_tip(flag) {
+      var tel = document.getElementById("tel");
+      var span = tel.nextElementSibling.nextElementSibling;
+      if (flag == "focus") {
+        span.className = "tipMsg";
+        span.innerHTML = "请输入手机号";
+      } else {
+        if (tel.value == "") {
+          span.className = "error";
+          span.innerHTML = "手机号不能为空";
+        }
+      }
+    },
+    pwd_tip(flag) {
+      var pwd = document.getElementById("password");
+      var span = pwd.nextElementSibling.nextElementSibling;
+      if (flag == "focus") {
+        span.className = "tipMsg";
+        span.innerHTML = "请输入密码";
+      } else {
+        if (pwd.value == "") {
+          span.className = "error";
+          span.innerHTML = "密码不能为空";
+        }
+      }
+    }
   }
 };
 </script>
@@ -137,6 +203,11 @@ h1 {
   cursor: pointer;
   border-radius: 5px;
 }
+.el-checkbox {
+  margin-left: 10px;
+  margin-bottom: 0px;
+  padding-top: 10px;
+}
 .forget {
   position: absolute;
   bottom: 60px;
@@ -156,5 +227,8 @@ label {
 }
 .tipMsg {
   color: #aaa;
+}
+.error {
+  color: #f00;
 }
 </style>
