@@ -4,9 +4,9 @@ var path = require('path')
 
 var userController = {
     /**根据Id查询用户信息*/
-    getUserById: function (req, res) {
+    getUserInfo: function (req, res) {
         var userTel = req.user.userTel
-        userDAO.getUserById(userTel, function (err, results) {
+        userDAO.getUserInfo(userTel, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '用户信息查询失败' })
             } else {
