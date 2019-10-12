@@ -37,7 +37,7 @@
         </a>
       </div>
     </div>
-
+  
     <div
       class="container scrollspy-example mt-5"
       data-spy="scroll"
@@ -126,6 +126,7 @@
               >热门路线</a>
             </div>
           </nav>
+
           <div class="tab-content mt-2" id="nav-tabContent">
             <!-- 热门景点攻略 -->
             <div
@@ -421,7 +422,16 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      article:[],
+      strategyType: 'scenerystrategy',
+      currentUser: {}
+    };
+  },
   created() {
+  },
+  mounted() {
     $(function() {
       $("#head").load("head.html");
       $("#foot").load("foot.html");
@@ -451,13 +461,6 @@ export default {
         .css({ width: "25px", height: "25px" })
         .addClass("rounded-circle");
 
-      // $('.nav-item').css('color','#ff9d00!important')
-      // $('.nav-item').mouseover(function(){
-      //     $(this).css('color','#ff9d00!important')
-      // })
-      // $('.nav-item').mouseout(function(){
-      //     $(this).css('color','#000')
-      // })
       $("#middle .card").mouseover(function() {
         $(this)
           .children()
@@ -474,138 +477,7 @@ export default {
           .find("a")
           .css({ color: "#000" });
       });
-
-      //地图加载
-      day01();
-
-      var map = new AMap.Map("map01", {
-        zoom: 13, //级别
-        center: [120.6597518921, 31.3135349296], //中心点坐标
-        viewMode: "3D" //使用3D视图
-      });
-      // 折线的节点坐标数组，每个元素为 AMap.LngLat 对象
-      var path = [
-        new AMap.LngLat(120.629029, 31.324159),
-        new AMap.LngLat(120.627628, 31.323143),
-        new AMap.LngLat(120.6337237358, 31.3139015701),
-        new AMap.LngLat(120.7009506226, 31.303121742)
-      ];
-      // 创建点标记
-      var marker1 = new AMap.Marker({
-        position: [120.629029, 31.324159],
-        size: new AMap.Size(40, 50) // 图标尺寸
-      });
-      var marker2 = new AMap.Marker({
-        position: [120.627628, 31.323143]
-      });
-      var marker3 = new AMap.Marker({
-        position: [120.6337237358, 31.3139015701]
-      });
-      var marker4 = new AMap.Marker({
-        position: [120.7009506226, 31.303121742]
-      });
-      // 多个点实例组成的数组
-      var markerList = [marker1, marker2, marker3, marker4];
-      map.add(markerList);
-
-      // 创建折线实例
-      var polyline = new AMap.Polyline({
-        path: path,
-        borderWeight: 2, // 线条宽度，默认为 1
-        strokeColor: "rgb(255, 123, 0)", // 线条颜色
-        lineJoin: "round" // 折线拐点连接处样式
-      });
-      // 将折线添加至地图实例
-      map.add(polyline);
     });
-
-    function day01() {
-      var map = new AMap.Map("map02", {
-        zoom: 13, //级别
-        center: [120.6597518921, 31.3135349296], //中心点坐标
-        viewMode: "3D" //使用3D视图
-      });
-
-      // 创建点标记
-      var marker1 = new AMap.Marker({
-        position: [120.629029, 31.324159],
-        size: new AMap.Size(40, 50) // 图标尺寸
-      });
-      var marker2 = new AMap.Marker({
-        position: [120.627628, 31.323143]
-      });
-      var marker3 = new AMap.Marker({
-        position: [120.6337237358, 31.3139015701]
-      });
-      var marker4 = new AMap.Marker({
-        position: [120.7009506226, 31.303121742]
-      });
-      // 多个点实例组成的数组
-      var markerList = [marker1, marker2, marker3, marker4];
-      map.add(markerList);
-
-      // 折线的节点坐标数组，每个元素为 AMap.LngLat 对象
-      var path = [
-        new AMap.LngLat(120.629029, 31.324159),
-        new AMap.LngLat(120.627628, 31.323143),
-        new AMap.LngLat(120.6337237358, 31.3139015701),
-        new AMap.LngLat(120.7009506226, 31.303121742)
-      ];
-
-      // 创建折线实例
-      var polyline = new AMap.Polyline({
-        path: path,
-        borderWeight: 2, // 线条宽度，默认为 1
-        strokeColor: "rgb(255, 123, 0)", // 线条颜色
-        lineJoin: "round" // 折线拐点连接处样式
-      });
-
-      // 将折线添加至地图实例
-      map.add(polyline);
-    }
-
-    function day02() {
-      var map = new AMap.Map("map02", {
-        zoom: 13, //级别
-        center: [120.5854225146, 31.3225538729], //中心点坐标
-        viewMode: "3D" //使用3D视图
-      });
-      // 创建点标记
-      var marker1 = new AMap.Marker({
-        position: [120.56829, 31.31021],
-        size: new AMap.Size(40, 50) // 图标尺寸
-      });
-      var marker2 = new AMap.Marker({
-        position: [120.58061, 31.33537]
-      });
-      var marker3 = new AMap.Marker({
-        position: [120.6021165848, 31.3170912827]
-      });
-      var marker4 = new AMap.Marker({
-        position: [120.6011, 31.3181]
-      });
-      // 多个点实例组成的数组
-      var markerList2 = [marker1, marker2, marker3, marker4];
-      map.add(markerList2);
-
-      // 折线的节点坐标数组，每个元素为 AMap.LngLat 对象
-      var path2 = [
-        new AMap.LngLat(120.56829, 31.31021),
-        new AMap.LngLat(120.58061, 31.33537),
-        new AMap.LngLat(120.6021165848, 31.3170912827),
-        new AMap.LngLat(120.6011, 31.3181)
-      ];
-
-      // 创建折线实例
-      var polyline2 = new AMap.Polyline({
-        path: path2,
-        borderWeight: 2, // 线条宽度，默认为 1
-        strokeColor: "rgb(255, 123, 0)", // 线条颜色
-        lineJoin: "round" // 折线拐点连接处样式
-      });
-      // 将折线添加至地图实例
-      map.add(polyline2);
-    }
   }
 };
 </script>

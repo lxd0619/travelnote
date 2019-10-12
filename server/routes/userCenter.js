@@ -5,8 +5,8 @@ var passport=require('passport')
 
 ////users.js
 /**根据Id查询用户信息*/
-router.get('/getUserById',passport.authenticate('jwt',{session:false}), function (req, res, next) {
-    userController.getUserById(req, res)
+router.get('/getUserInfo',passport.authenticate('jwt',{session:false}), function (req, res, next) {
+    userController.getUserInfo(req, res)
 })
 /**用户修改个人信息 */
 router.post('/uperdataUser',passport.authenticate('jwt',{session:false}), function (req, res, next) {
