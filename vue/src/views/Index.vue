@@ -46,8 +46,7 @@
                   role="search"
                   action="/Search/SearchList"
                   method="get"
-                  target="_blank"
-                >
+                  target="_blank">
                   <input
                     id="search"
                     style="width: 120px"
