@@ -1,10 +1,10 @@
 <template>
   <div>
     <div id="bg"></div>
-    <a href="index.html">去首页</a>
+    <a href="/index/home">去首页</a>
     <div id="content">
       <h1>注册</h1>
-      <form action="login.html" id="reg" method="GET">
+      <!-- <form action id="reg" method="GET"> -->
         <div class="inputBox">
           <input
             type="text"
@@ -69,12 +69,13 @@
 
         <input type="button" value="注册" id="submit" @click="register()" />
         <a href="/login">已账号？去登录→</a>
-      </form>
+      <!-- </form> -->
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: "register",
   data: function() {
@@ -89,33 +90,12 @@ export default {
       isUsernameOk: false,
       isPasswordOk: false,
       isCpasswordOk: false,
-      isTelephoneOK: false
+      isTelephoneOK: false,
+      isMessageOk: false,
+      code: null
     };
   },
   methods: {
-    // submitForm(formName) {
-    //   //通过ref定位到form表单
-    //     this.$refs[formName].validate((valid) => {
-    //       if (valid) {
-    //         alert('submit!');
-    //         this.$axios.post('http://localhost:3000/users/register',this.registerUser)
-    //         .then(res => {
-    //           console.log('注册成功！',res)
-    //           this.$router.push('/login') //路由转向登录组件
-    //         })
-    //         .catch(err =>{
-    //           console.log(err)
-    //         })
-    //       } else {
-    //         console.log('error submit!!');
-    //         return false;
-    //       }
-    //     });
-    //   },
-    //   resetForm(formName) {
-    //     //实现重置表单元素数据
-    //     this.$refs[formName].resetFields();
-    //   },
     username_tip(flag) {
       var username = document.getElementById("username");
       if (flag == "focus") {
@@ -292,8 +272,34 @@ export default {
       }
     },
     mess_tip(flag) {
+      var mess = document.getElementById("messagecheck");
       if (flag == "focus") {
+        var span = mess.nextElementSibling.nextElementSibling;
+        span.className = "tipMsg";
+        span.innerHTML = "请输入验证码";
       } else {
+        var code = mess.value.trim();
+        if (code == "") {
+          var span = mess.nextElementSibling.nextElementSibling;
+          span.className = "error";
+          span.innerHTML = "不能为空";
+          this.value = "";
+          this.isMessageOk = false;
+          return;
+        }
+        if (code != this.code) {
+          var span = mess.nextElementSibling.nextElementSibling;
+          span.className = "error";
+          span.innerHTML = "验证码不正确请重新输入";
+          this.value = "";
+          this.isMessageOk = false;
+          return;
+        } else {
+          var span = mess.nextElementSibling.nextElementSibling;
+          span.className = "success";
+          span.innerHTML = "√";
+          this.isMessageOk = true;
+        }
       }
     },
     check() {
@@ -308,10 +314,15 @@ export default {
                 message: res.data.msg,
                 type: "success"
               });
-              var time = 120;
+              this.code = res.data.data;
+              var time = new Date();
+              time.setMinutes(time.getMinutes() + 2);
+              var now_time = new Date();
+              var timmer = 120;
               var timer = window.setInterval(function() {
-                check.value = time-- + "秒后重新获取";
-                if (time == -2) {
+                check.value = timmer-- + "秒后重新获取";
+                if (timmer == -2) {
+                  timmer = 0;
                   check.value = "获取验证码";
                   check.disabled = false;
                   console.log(check.disabled);
@@ -341,7 +352,33 @@ export default {
         this.isTelephoneOK = false;
       }
     },
-    register() {}
+    register() {
+      if (this.isUsernameOk &&this.isPasswordOk &&this.isCpasswordOk &&this.isTelephoneOK &&this.isMessageOk) {
+        console.log(1);
+        this.$axios
+          .post("http://localhost:3000/regist/regist/", this.registerUser)
+          .then(res => {
+            console.log('返回的数据：'+res); 
+            if (res.data.data) {
+              this.$message({
+                message: res.data.msg,
+                type: "success"
+              });
+            let _this = this;
+            var mytime = setTimeout(function() {
+              _this.$router.push("/login"); 
+            }, 3000);
+            } else {
+              this.$message.error('错误信息：'+res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else {
+        this.$message.error("注册失败,请填写有效信息");
+      }
+    }
   }
 };
 </script>
