@@ -13,20 +13,24 @@ var registController = {
             else {
                 console.log(results.length)
                 if (results.length == 0 || results == null) {
+                    var code=''
+                    for(var i=0;i<7;i++){
+                        code+=Math.floor(Math.random()*10);
+                    }
                     var queryData = querystring.stringify({
                         "mobile": tel,  // 接受短信的用户手机号码
-                        "tpl_id": "184607",  // 您申请的短信模板ID，根据实际情况修改
-                        "tpl_value": "#code#=1235231",  // 您设置的模板变量，根据实际情况修改
-                        "key": "dcf034f34def71e502b9436f580c548f",  // 应用APPKEY(应用详细页查询)
+                        "tpl_id": "184667",  // 您申请的短信模板ID，根据实际情况修改
+                        "tpl_value": "#code#="+code,  // 您设置的模板变量，根据实际情况修改
+                        "key": "e68c457462268bbd58c58e7cc89f1755",  // 应用APPKEY(应用详细页查询)
                     });
                     var queryUrl = 'http://v.juhe.cn/sms/send?' + queryData;
                     request(queryUrl,queryData, function (error, response, body) {
-                        var code=querystring.parse(queryData).tpl_value.split('=')
+                        var code1=querystring.parse(queryData).tpl_value.split('=')
                         if (!error && response.statusCode == 200) {
                             console.log(body) // 打印接口返回内容
                             var jsonObj = JSON.parse(body); // 解析接口返回的JSON内容
                             console.log(jsonObj)
-                            res.json({ code: 200, data:code[1], msg: '信息已发送' })
+                            res.json({ code: 200, data:code1[1], msg: '信息已发送' })
                         } else {
                             console.log('请求异常');
                         }
@@ -38,7 +42,7 @@ var registController = {
         })
     },
     regist: function (req, res) {
-        var userName = req.body.userName.trim()
+        var userName = req.body.username.trim()
         var password = req.body.password.trim()
         var tel = req.body.tel.trim()
         var registerTime = new Date()
@@ -47,6 +51,7 @@ var registController = {
             res.json({ code: 500, data: 0, msg: '用户名 密码 电话不能为空！' })
         } else {
             registerDAO.telCheck(tel, function (err, results) {
+                console.log(111111)
                 if (err) {
                     res.json({ code: 500, data: 0, msg: '号码查询失败' })
                 } else {
@@ -63,6 +68,8 @@ var registController = {
                                         if (results.affectedRows == 0) {
                                             res.status(200).json({ data: 0, msg: '注册失败' })
                                         } else {
+                                            console.log(res);
+                                            
                                             res.status(200).json({ data: 1, msg: '注册成功' })
                                         }
                                     }
@@ -73,12 +80,8 @@ var registController = {
                         res.json({code:200,data:0,msg:'该号码已注册'})
                     }
                 }
-
             })
-        
         }
-
-
     }
 }
 module.exports = registController

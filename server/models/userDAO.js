@@ -2,8 +2,8 @@ var DAO = require('./DAO')
 //针对用户数据操作的模块对象
 var userDAO = {
     /**根据Id查询用户信息*/
-    getUserById: function (userTel, callback) {
-        DAO('select userName,sex,headPic,email,address,registerTime from users where tel = ?', userTel, function (err, results) {
+    getUserInfo: function (userTel, callback) {
+        DAO('select userName,sex,tel,headPic,email,address,registerTime from users where tel = ?', userTel, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {

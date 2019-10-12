@@ -13,8 +13,8 @@ import Register from './views/Register.vue'
 import Search from './views/Search.vue'
 import UserCenter from './views/UserCenter.vue'
 import View from './views/View.vue'
-import Detail from './views/Detail.vue'
-import Food_huabei from './views/food_huabei.vue'
+import Forget_pwd from './views/Forget_pwd.vue'
+import Food_huabei from './views/Food_huabei.vue'
 
 Vue.use(Router)
 let router = new Router({
@@ -22,7 +22,7 @@ let router = new Router({
         base: process.env.BASE_URL,
         routes: [{
                 path: '/',
-                redirect: '/index' //路由跳转
+                redirect: '/index/home' //路由跳转
             },
             {
                 path: '/index',
@@ -74,13 +74,14 @@ let router = new Router({
                         component: View
                     },
                     {
-                        path: 'detail',
-                        name: 'detail',
-                        component: Detail
+                        path: 'food_huabei',
+                        name: 'food_huabei',
+                        component: Food_huabei
+
+
                     }
                 ]
             },
-
             {
                 path: '/login',
                 name: 'login',
@@ -92,9 +93,9 @@ let router = new Router({
                 component: Register
             },
             {
-                path: '/food_huabei',
-                name: 'food_huabei',
-                component: Food_huabei
+                path: '/forget_pwd',
+                name: Forget_pwd,
+                component: Forget_pwd
             },
             {
                 path: '/*', //路由匹配不成功时

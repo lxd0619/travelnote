@@ -106,7 +106,10 @@
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
-                >个人中心</a>
+                >
+                  <!-- 导航栏用户头像 -->
+                  <img src class="rounded-circle" id="navHeadPic" alt />
+                </a>
                 <div class="dropdown-menu text-center" aria-labelledby="userDropdown">
                   <a class="dropdown-item" href="/index/userCenter" @click.prevent="goUserCenter">
                     <i class="fa fa-user-o mr-2" aria-hidden="true"></i>个人中心
@@ -115,7 +118,7 @@
                     <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>撰写攻略
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/index" @click.prevent="goHome">
+                  <a class="dropdown-item" href="/index" @click.prevent="goHome" @click="logout">
                     <i class="fa fa-sign-out mr-2" aria-hidden="true"></i>退出登录
                   </a>
                 </div>
@@ -133,7 +136,8 @@ export default {
   data() {
     return {
       students: [],
-      currentUser: {}
+      currentUser: {},
+      img_src: require("../assets/headPic/head1.jpg")
     };
   },
   //组件创建完成后执行的操作
@@ -141,21 +145,20 @@ export default {
     $(function() {
       $(".navbar ul li:last-child").hide();
       $("#message").hide();
-      if (localStorage.getItem("user")) {
-        var username = localStorage.getItem("user");
+      if (localStorage.getItem("mytoken")) {
         $("#login").hide();
         $("#register").hide();
-        $(".navbar ul li:last-child>a").html(
-          '<i class="rounded-circle" id="navHeadPic"></i>'
-        );
         $(".navbar ul li:last-child").show();
         $("#message").show();
       }
       $(".navbar ul li a:last-child").click(function() {
-        var user = localStorage.getItem("user");
-        if (user != "") {
-          localStorage.setItem("user", "");
+        if (localStorage.mytoken != "") {
+          localStorage.removeItem('mytoken')
         }
+        $("#login").show();
+        $("#register").show();
+        $(".navbar ul li:last-child").hide();
+        $("#message").hide();
       });
 
       $("#search").click(function() {
@@ -164,11 +167,6 @@ export default {
       $("#search").blur(function() {
         $("#search").animate({ width: "120px" }, 1000);
       });
-
-      console.log(window.location.pathname);
-      if (window.location.pathname != "/public/index.html") {
-        $(".navbar").css("background-color", "#f00!import");
-      }
     });
   },
   methods: {
@@ -201,6 +199,11 @@ export default {
     },
     goView() {
       this.$router.push("/index/view");
+    },
+    logout(){
+      // if (localStorage.mytoken != "") {
+      //     localStorage.removeItem('mytoken')
+      //   }
     }
   }
 };
@@ -219,7 +222,7 @@ export default {
 #userDropdown {
   padding: 0;
 }
-#search{
+#search {
   font-size: 15px;
 }
 </style>
