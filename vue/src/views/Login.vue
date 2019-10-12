@@ -35,7 +35,7 @@
 
         <!-- <input type="checkbox" id="checkbox" />
         <label for="checkbox">记住密码</label>-->
-        <a href="#" class="forget">忘记密码？</a>
+        <a href="/forget_pwd" class="forget">忘记密码？</a>
         <a href="/register" class="regist">没有账号?去注册→</a>
       </form>
     </div>
