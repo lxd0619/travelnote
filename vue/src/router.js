@@ -13,6 +13,7 @@ import Register from './views/Register.vue'
 import Search from './views/Search.vue'
 import UserCenter from './views/UserCenter.vue'
 import View from './views/View.vue'
+import Forget_pwd from './views/Forget_pwd.vue'
 
 Vue.use(Router)
 let router = new Router({
@@ -75,7 +76,6 @@ let router = new Router({
         }
       ]
     },
-    
     {
       path: '/login',
       name: 'login',
@@ -85,6 +85,11 @@ let router = new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path:'/forget_pwd',
+      name:Forget_pwd,
+      component:Forget_pwd
     },
     {
       path: '/*',   //路由匹配不成功时
