@@ -12,7 +12,7 @@ var userDAO = {
         })
     },
     /**用户修改个人信息 */
-    uperdataUser: function (user, callback) {
+    updateUser: function (user, callback) {
         DAO('update users set userName = ?,sex =?,email=?,address=?,registerTime =? where tel = ?',
             [user.userName, user.sex, user.email, user.address, user.registerTime, user.userTel]
             , function (err, results) {

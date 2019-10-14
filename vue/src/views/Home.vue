@@ -135,13 +135,17 @@
               role="tabpanel"
               aria-labelledby="nav-hotScenery-tab"
             >
-              <div class="card-deck">
-                <ul>
+              <div class="card-deck flex-column">
+                <!-- <ul>
                   <li v-for="article in articles" :key="article.strategyId">
                     <p>{{article.title}}</p>
-                    {{article.ssInfo}}
+                    <p>{{article.ssInfo}}</p>
+                    {{article.cover}}
+                    <img :src="require('../assets/scenerySpot/'+article.cover)"/>
                   </li>
-                </ul>
+                </ul>-->
+
+                <!-- 热门景点攻略 -->
                 <div
                   class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
                   v-for="article in articles"
@@ -149,98 +153,25 @@
                 >
                   <img
                     class="card-img-top"
-                    src="../assets/scenerySpot/贡嘎.jpeg"
+                    :src="require('@/assets/scenerySpot/'+article.cover)"
                     alt="Card image cap"
+                    style="width: 14em;height: 12em;"
                   />
                   <div class="card-body">
                     <h5 class="card-title">
                       <a href="#" class="card-link">{{article.title}}</a>
                     </h5>
-                    <p class="card-text">{{article.ssInfo}}</p>
+                    <p
+                      class="card-text overflow-hidden"
+                      style="height: 4em;text-overflow:ellipsis;"
+                    >{{article.ssInfo}}</p>
                     <p class="text-muted">
-                      <i class="fa fa-map-marker" aria-hidden="true">贡嘎</i>by
+                      <i class="fa fa-map-marker mr-2" aria-hidden="true">贡嘎</i>by
                       <i>
                         <img src alt />
                       </i>
-                      <i class="fa fa-eye" aria-hidden="true">{{article.ssCollectionNum}}</i>
-                      <i class="fa fa-thumbs-o-up" aria-hidden="true">{{article.ssLikeNum}}</i>
-                    </p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img
-                    class="card-img-top"
-                    src="../assets/scenerySpot/贡嘎.jpeg"
-                    alt="Card image cap"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a href="#" class="card-link">以山之名 | 朝圣贡嘎，追梦逐风</a>
-                    </h5>
-                    <p
-                      class="card-text"
-                    >每一个喜欢户外的人，都有属于自己的户外生涯。徒步并不一定是惊险离奇的冒险，而是生活之中的乐趣。我希望记录下这些故事，...</p>
-                    <p class="text-muted">
-                      <i class="fa fa-map-marker" aria-hidden="true">贡嘎</i>
-                      by
-                      <i>
-                        <img src="../assets/headPic/head1.jpg" alt />
-                      </i>
-                      <i class="fa fa-eye" aria-hidden="true">113173/652</i>
-                      <i class="fa fa-thumbs-o-up" aria-hidden="true">5250</i>
-                    </p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img
-                    class="card-img-top"
-                    src="../assets/scenerySpot/开普勒步道.jpeg"
-                    alt="Card image cap"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a href="#" class="card-link">
-                        新西兰九大步道南岛篇，开普勒步道（KEPLER
-                        TRAC
-                      </a>
-                    </h5>
-                    <p class="card-text">
-                      2017.3.6. 晴天， 蒂阿瑙 24度，女王镇24度， 基督城 24度， 奥克兰 23度。
-                      早晨6：00用毛巾包住头灯收拾好行装，悄然离开客...
-                    </p>
-                    <p class="text-muted">
-                      <i class="fa fa-map-marker" aria-hidden="true">蒂阿瑙</i>
-                      by
-                      <i>
-                        <img src="../assets/headPic/head2.jpg" alt />
-                      </i>
-                      <i class="fa fa-eye" aria-hidden="true">2507/14</i>
-                      <i class="fa fa-thumbs-o-up" aria-hidden="true">91</i>
-                    </p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img
-                    class="card-img-top"
-                    src="../assets/scenerySpot/shanTang.jpeg"
-                    alt="Card image cap"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a href="#" class="card-link">利川清江古河床徒步旅程分享</a>
-                    </h5>
-                    <p class="card-text">
-                      前言 2016年4月我和太太在国内 湖北 陕西 20多天的旅程中安排了3条徒步线： 1) 恩施
-                      鹿院坪徒步2天，从新田村入大庙村出 2) ...
-                    </p>
-                    <p class="text-muted">
-                      <i class="fa fa-map-marker" aria-hidden="true">利川</i>
-                      by
-                      <i>
-                        <img src="../assets/headPic/head3.jpg" alt />
-                      </i>
-                      <i class="fa fa-eye" aria-hidden="true">5967/12</i>
-                      <i class="fa fa-thumbs-o-up" aria-hidden="true">114</i>
+                      <i class="fa fa-eye mr-2" aria-hidden="true">{{article.ssCollectionNum}}</i>
+                      <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.ssLikeNum}}</i>
                     </p>
                   </div>
                 </div>
@@ -252,9 +183,40 @@
               id="nav-hotFoods"
               role="tabpanel"
               aria-labelledby="nav-hotFoods-tab"
+              @click="hotFoods()"
             >
               <h4 id="list-item-3">热门美食攻略推荐</h4>
-              <div class="card-deck">
+              <div class="card-deck flex-column">
+                <div
+                  class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
+                  v-for="article in articles"
+                  :key="article.strategyId"
+                >
+                  <img
+                    class="card-img-top"
+                    :src="require('@/assets/scenerySpot/'+article.cover)"
+                    alt="Card image cap"
+                    style="width: 14em;height: 12em;"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a href="#" class="card-link">{{article.title}}</a>
+                    </h5>
+                    <p
+                      class="card-text overflow-hidden"
+                      style="height: 4em;text-overflow:ellipsis;"
+                    >{{article.ssInfo}}</p>
+                    <p class="text-muted">
+                      <i class="fa fa-map-marker mr-2" aria-hidden="true">贡嘎</i>by
+                      <i>
+                        <img src alt />
+                      </i>
+                      <i class="fa fa-eye mr-2" aria-hidden="true">{{article.ssCollectionNum}}</i>
+                      <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.ssLikeNum}}</i>
+                    </p>
+                  </div>
+                </div>
+
                 <div class="card">
                   <img class="card-img-top" src="../assets/food/乐山.jpeg" alt="Card image cap" />
                   <div class="card-body">
@@ -456,12 +418,13 @@ export default {
   data() {
     return {
       articles: {
-        strategyType: "scenerystrategy"
+        strategyType: ""
       }
     };
   },
   created() {
-    // 获取用户信息
+    // 获取热门景点攻略
+    this.articles.strategyType = "foodstrategy";
     this.$axios
       .post("http://localhost:3000/operation/hotstrategy", this.articles)
       .then(res => {
@@ -470,6 +433,9 @@ export default {
       })
       .catch(err => {
         console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
       });
 
     $(function() {
@@ -480,10 +446,6 @@ export default {
         $("#outer a").css({ "background-color": "rgba(300,300,300,0.1)" });
       });
       //整体修改card组件样式
-      $("#middle .card-deck").addClass("flex-column");
-      $("#nav-hotScenery .card").addClass(
-        "d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-      );
       $("#nav-hotFoods .card").addClass(
         "d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
       );
@@ -515,6 +477,25 @@ export default {
           .css({ color: "#000" });
       });
     });
+  },
+  methods: {
+    hotFoods() {
+      this.articles.strategyType = "foodstrategy";
+      // 获取热门美食攻略
+      console.log(this.articles.strategyType)
+      this.$axios
+        .post("http://localhost:3000/operation/hotstrategy", this.articles)
+        .then(res => {
+          console.log("查询结果" + res.data.data);
+          this.articles = res.data.data;
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        })
+        .finally(function() {
+          // always executed
+        });
+    }
   }
 };
 </script>
