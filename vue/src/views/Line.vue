@@ -543,7 +543,7 @@
                     <div class="dropdown-item">冬日热旅</div>
                   </div>
                 </li>
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                   <a
                     class="nav-link dropdown-toggle"
                     href="#"
@@ -555,7 +555,7 @@
                     <a class="dropdown-item" href="#">Link 2</a>
                     <a class="dropdown-item" href="#">Link 3</a>
                   </div>
-                </li>
+                </li> -->
               </ul>
             </div>
           </nav>
