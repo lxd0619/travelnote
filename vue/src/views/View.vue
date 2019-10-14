@@ -18,7 +18,7 @@
                 </ul>
             </div>
             <div class="box-3">
-                <span class="prev"> < </span>
+                <span class="prev"> &gt; </span>
                 <span class="next"> > </span>
             </div>
         </div>
@@ -43,7 +43,7 @@
                             <div> <img src="../assets/food/收藏_line.png" width="15px" height="15px"><span>收藏</span></div>
 
                             <div><img src="../assets/food/点赞_line.png" width="15px" height="15px"><span>点赞</span></div>
-                            <div><img src="../assets/food/browsing-history.png" width="20px" height="15px"><span>浏览量</span></div>
+                         
 
                         </div>
                     </div>
@@ -57,11 +57,10 @@
                             <p class="title">最美杭州自由行必备打卡地</p>
                         </a>
                         <div class="ext-r row" style="justify-content:space-around;">
-                            <div> <img src="../assets/food/收藏_line.png" width="15px" height="15px"><span>收藏</span></div>
+                            <div> <img src="../assets/food/收藏_line.png" width="15px" height="15px"><span></span></div>
 
-                            <div><img src="../assets/food/点赞_line.png" width="15px" height="15px"><span>点赞</span></div>
-                            <div><img src="../assets/food/browsing-history.png" width="20px" height="15px"><span>浏览量</span></div>
-
+                            <div><img src="../assets/food/点赞_line.png" width="15px" height="15px"><span></span></div>
+                        
                         </div>
                     </div>
                 </div>
@@ -74,11 +73,10 @@
                             <p class="title">最美杭州自由行必备打卡地</p>
                         </a>
                         <div class="ext-r row" style="justify-content:space-around;">
-                            <div><img src="../assets/food/收藏_line.png" width="15px" height="15px"><span>收藏</span></div>
+                            <div><img src="../assets/food/收藏_line.png" width="15px" height="15px"><span></span></div>
 
-                            <div><img src="../assets/food/点赞_line.png" width="15px" height="15px"><span>点赞</span></div>
-                            <div><img src="../assets/food/browsing-history.png" width="20px" height="15px"><span>浏览量</span></div>
-
+                            <div><img src="../assets/food/点赞_line.png" width="15px" height="15px"><span></span></div>
+                          
                         </div>
                     </div>
                 </div>
@@ -91,10 +89,10 @@
                             <p class="title">最美杭州自由行必备打卡地</p>
                         </a>
                         <div class="ext-r row" style="justify-content:space-evenly; padding: 0px 10px;">
-                            <div><span>收藏(102)</span></div>
+                            <div><span>(102)</span></div>
 
                             <div><img src="../assets/food/点赞_line.png" width="15px" height="15px"><span>(102)</span></div>
-                            <div><img src="../assets/food/browsing-history.png" width="20px" height="15px"><span>浏览量(102)</span></div>
+                          
 
                         </div>
                     </div>
@@ -117,7 +115,7 @@
                             <div> <img src="../assets/food/收藏_line.png" width="15px" height="15px"><span>收藏</span></div>
 
                             <div><img src="../assets/food/点赞_line.png" width="15px" height="15px"><span>点赞</span></div>
-                            <div><img src="../assets/food/browsing-history.png" width="20px" height="15px"><span>浏览量</span></div>
+                           
 
                         </div>
                     </div>
@@ -151,8 +149,7 @@
                             <div> <img src="../assets/food/收藏_line.png" width="15px" height="15px"><span>收藏</span></div>
 
                             <div><img src="../assets/food/点赞_line.png" width="15px" height="15px"><span>点赞</span></div>
-                            <div><img src="../assets/food/browsing-history.png" width="20px" height="15px"><span>浏览量</span></div>
-
+                   
                         </div>
                     </div>
                 </div>
@@ -168,8 +165,7 @@
                             <div> <img src="../assets/food/收藏_line.png" width="15px" height="15px"><span>收藏</span></div>
 
                             <div><img src="../assets/food/点赞_line.png" width="15px" height="15px"><span>点赞</span></div>
-                            <div><img src="../assets/food/browsing-history.png" width="20px" height="15px"><span>浏览量</span></div>
-
+                        
                         </div>
                     </div>
                 </div>
@@ -184,7 +180,7 @@
 
                 <a href="#" target="_blank">
                     <div class="tit">
-                        <h3><em>01</em> 古典建筑徜徉之旅</h3><span>这里荟萃了上千座中西合璧、 风格各异的中外建筑，如海天堂构、黄荣远堂等</span></div>
+                        <h3><em>01</em>biaoti</h3><span>关键概括</span></div>
                     <div class="tripb_pic"><em></em><img src="../assets/view/leftPic1.jpg" height="220px" width="250px"></div>
                 </a>
             </div>
@@ -195,7 +191,7 @@
                     <li>
                         <a href="#" target="_blank"><img src="../assets/view/leftPic2.jpg">
                             <div class="txt">
-                                <h3><em>02</em> 海上看厦门</h3><span>中山路沿线是厦门商业的发源地，是厦门市最繁华的商圈之一，在旧城街区仍然保留着较完整的近代历史风貌。</span></div>
+                                <h3><em>02</em> 标题</h3><span>关键词概括。</span></div>
                         </a>
                     </li>
 
@@ -203,7 +199,7 @@
                     <li>
                         <a href="#" target="_blank"><img src="../assets/view/leftPic3.jpg">
                             <div class="txt">
-                                <h3><em>03</em> 魅力时尚之旅</h3><span>厦门五缘湾湿地公园是厦门最大的公园,也是最大的湿地生态园区,被称为是厦门的城市绿肺</span></div>
+                                <h3><em>03</em> 标题</h3><span>关键词概括</span></div>
                         </a>
                     </li>
 
@@ -211,7 +207,7 @@
                     <li>
                         <a href="#" target="_blank"><img src="../assets/view/leftPic4.jpg">
                             <div class="txt">
-                                <h3><em>04</em> 文创艺术品鉴之旅</h3><span>厦门市博物馆是我国东南地区的一座重要的地方综合性博物馆，致力于我国东南地区特别是闽台两岸珍贵文化遗产的收藏、保护、研究与展示</span></div>
+                                <h3><em>04</em> 标题</h3><span>关键词概括</span></div>
                         </a>
                     </li>
                 </ul>
@@ -222,7 +218,7 @@
                     <li>
                         <a href="#" target="_blank"><img src="../assets/view/leftPic2.jpg">
                             <div class="txt">
-                                <h3><em>05</em> 海上看厦门</h3><span>中山路沿线是厦门商业的发源地，是厦门市最繁华的商圈之一，在旧城街区仍然保留着较完整的近代历史风貌。</span></div>
+                                <h3><em>05</em> 标题</h3><span>关键词概括</span></div>
                         </a>
                     </li>
 
@@ -230,7 +226,7 @@
                     <li>
                         <a href="#" target="_blank"><img src="../assets/view/leftPic3.jpg">
                             <div class="txt">
-                                <h3><em>06</em> 魅力时尚之旅</h3><span>厦门五缘湾湿地公园是厦门最大的公园,也是最大的湿地生态园区,被称为是厦门的城市绿肺</span></div>
+                                <h3><em>06</em>标题</h3><span>关键词概括</span></div>
                         </a>
                     </li>
 
@@ -238,7 +234,7 @@
                     <li>
                         <a href="#" target="_blank"><img src="../assets/view/leftPic4.jpg">
                             <div class="txt">
-                                <h3><em>07</em> 文创艺术品鉴之旅</h3><span>厦门市博物馆是我国东南地区的一座重要的地方综合性博物馆，致力于我国东南地区特别是闽台两岸珍贵文化遗产的收藏、保护、研究与展示</span></div>
+                                <h3><em>07</em> 标题</h3><span>关键词概括</span></div>
                         </a>
                     </li>
                 </ul>
@@ -256,8 +252,8 @@
                 <h1 class="tit-line mb5">游记攻略</h1>
                 <div class="tit_sub">独行或同游，聪明的人与你在一起</div>
             </div>
-            <!-- <div class="tit_more"> <a class="nav-link" href="/index/Detail" target="_blank" >MORE&gt;&gt;</a></div> -->
-            <router-link to="/index/Detail">123</router-link>
+           
+             <div class="tit_more"><router-link to="/index/Detail">MORE>></router-link></div>
             <router-view></router-view>
             <div class="contain strategy">
                 <ul style="display: flex;flex-direction: row;justify-content:space-between">
@@ -265,43 +261,43 @@
                         <a href="#" target="_blank"><img src="../assets/view/leftPic3.jpg">
                             <div class="strategy_msk"></div>
                             <div class="strategy_txt tit">
-                                <div class="strategy_tit">最美鹭岛渔舟看晚旅客版</div>
+                                <div class="strategy_tit">title</div>
                             </div>
                             <div class="strategy_txt pos">
-                                <div class="strategy_pos">厦门</div>
+                                <div class="strategy_pos">cityname</div>
                             </div>
                         </a>
                     </li>
                     <li>
-                        <a href="http://www.visitxm.com/news/1540281519474.html" target="_blank"><img src="../assets/view/leftPic7.jpg">
+                        <a href="" target="_blank"><img src="../assets/view/leftPic7.jpg">
                             <div class="strategy_msk"></div>
                             <div class="strategy_txt tit">
-                                <div class="strategy_tit">中山路纯吃游</div>
+                                <div class="strategy_tit">title</div>
                             </div>
                             <div class="strategy_txt pos">
-                                <div class="strategy_pos">厦门</div>
+                                <div class="strategy_pos">cityname</div>
                             </div>
                         </a>
                     </li>
                     <li>
-                        <a href="http://xm.visitxm.com/news/1560914658683.html" target="_blank"><img src="../assets/view/leftPic6.jpg">
+                        <a href="" target="_blank"><img src="../assets/view/leftPic6.jpg">
                             <div class="strategy_msk"></div>
                             <div class="strategy_txt tit">
-                                <div class="strategy_tit">客家文化城</div>
+                                <div class="strategy_tit">title</div>
                             </div>
                             <div class="strategy_txt pos">
-                                <div class="strategy_pos">周边</div>
+                                <div class="strategy_pos">cityname</div>
                             </div>
                         </a>
                     </li>
                     <li class="last">
-                        <a href="http://xm.visitxm.com/news/1560914806326.html" target="_blank"><img src="../assets/view/leftPic5.jpg">
+                        <a href="" target="_blank"><img src="../assets/view/leftPic5.jpg">
                             <div class="strategy_msk"></div>
                             <div class="strategy_txt tit">
-                                <div class="strategy_tit">自驾漳州火山岛游记</div>
+                                <div class="strategy_tit">title</div>
                             </div>
                             <div class="strategy_txt pos">
-                                <div class="strategy_pos">漳州</div>
+                                <div class="strategy_pos">cityname</div>
                             </div>
                         </a>
                     </li>
@@ -317,6 +313,9 @@
 </template>
 <script>
 export default {
+    created:{
+        
+    }
     
 }
 </script>
