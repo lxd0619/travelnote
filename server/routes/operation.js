@@ -23,10 +23,15 @@ router.put('/reply',passport.authenticate('jwt',{session:false}),function(req,re
 router.post('/report',passport.authenticate('jwt',{session:false}),function(req,res,next){
     operationController.Report(req,res)
 })
+/*普通攻略查询 */
+router.post('/normalstrategy',function(req,res,next){
+    operationController.normalStrategy(req,res)
+})
 /*热门攻略 */
 router.post('/hotstrategy',function(req,res,next){
     operationController.hotStrategy(req,res)
 })
+
 /*攻略详情+本攻略全部评论+本攻略全部回复 */
 router.post('/strategydetail',function(req,res,next){
     operationController.strategyDetail(req,res)

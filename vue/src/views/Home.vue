@@ -37,7 +37,7 @@
         </a>
       </div>
     </div>
-  
+
     <div
       class="container scrollspy-example mt-5"
       data-spy="scroll"
@@ -136,6 +136,37 @@
               aria-labelledby="nav-hotScenery-tab"
             >
               <div class="card-deck">
+                <ul>
+                  <li v-for="article in articles" :key="article.strategyId">
+                    <p>{{article.title}}</p>
+                    {{article.ssInfo}}
+                  </li>
+                </ul>
+                <div
+                  class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
+                  v-for="article in articles"
+                  :key="article.strategyId"
+                >
+                  <img
+                    class="card-img-top"
+                    src="../assets/scenerySpot/贡嘎.jpeg"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a href="#" class="card-link">{{article.title}}</a>
+                    </h5>
+                    <p class="card-text">{{article.ssInfo}}</p>
+                    <p class="text-muted">
+                      <i class="fa fa-map-marker" aria-hidden="true">贡嘎</i>by
+                      <i>
+                        <img src alt />
+                      </i>
+                      <i class="fa fa-eye" aria-hidden="true">{{article.ssCollectionNum}}</i>
+                      <i class="fa fa-thumbs-o-up" aria-hidden="true">{{article.ssLikeNum}}</i>
+                    </p>
+                  </div>
+                </div>
                 <div class="card">
                   <img
                     class="card-img-top"
@@ -424,24 +455,30 @@
 export default {
   data() {
     return {
-      article:[],
-      strategyType: 'scenerystrategy',
-      currentUser: {}
+      articles: {
+        strategyType: "scenerystrategy"
+      }
     };
   },
   created() {
-  },
-  mounted() {
+    // 获取用户信息
+    this.$axios
+      .post("http://localhost:3000/operation/hotstrategy", this.articles)
+      .then(res => {
+        console.log("查询结果" + res.data.data);
+        this.articles = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
+
     $(function() {
-      $("#head").load("head.html");
-      $("#foot").load("foot.html");
       $("#outer a").mouseover(function() {
         $("#outer a").css({ "background-color": "rgba(50,50,50,0.1)" });
       });
       $("#outer a").mouseout(function() {
         $("#outer a").css({ "background-color": "rgba(300,300,300,0.1)" });
       });
-      $("#weather").load("weather.html");
       //整体修改card组件样式
       $("#middle .card-deck").addClass("flex-column");
       $("#nav-hotScenery .card").addClass(
