@@ -326,6 +326,25 @@
 </template>
 <script>
 export default {
+     data() {
+    return {
+      articles: {},
+      strategyType: "scenerystrategy"
+    };
+  },
+  created() {
+    console.log(this.strategyType)
+    this.$axios
+      .post("http://localhost:3000/operation/hotStrategy", {strategyType:this.strategyType})
+      .then(res => {
+        console.log(res)
+        console.log("查询结果" + res.data.data);
+        this.articles = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
+  },
     mounted(){
           $(function() {
             $('[data-toggle~="tooltip"]').tooltip() /*[data-toggle~="tooltip"] 选择 data-toggle 属性包含单词 "tooltip" 的所有元素*/
