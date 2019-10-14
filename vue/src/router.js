@@ -116,7 +116,7 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
     //除了login和register，其他的路由访问必须先登录
     let tokenIsExists = localStorage.getItem('mytoken') ? true : false //检查本地存储中是否有token
-    if (to.path != '/index/editor' || to.path != '/index/usercenter' || to.path != '/index/manage') {
+    if (to.path == '/index/home' || to.path == '/index/aim' || to.path == '/index/delicious'|| to.path == '/index/line'|| to.path == '/index/search'|| to.path == '/index/view'|| to.path == '/login'|| to.path == '/index/register'|| to.path == '/index/forget_pwd') {
         next() //允许访问路由
     } else {
         if (tokenIsExists) {
