@@ -1,6 +1,7 @@
 var userDAO = require('../models/userDAO')
 var formidable = require('formidable')
 var path = require('path')
+var bcrypt = require('bcrypt')
 
 var userController = {
     /**根据Id查询用户信息*/
@@ -19,10 +20,10 @@ var userController = {
         })
     },
     /**用户修改个人信息 */
-    uperdataUser: function (req, res) {
+    updateUser: function (req, res) {
         var date = new Date()
         var user = { userName: req.body.userName, sex: req.body.sex, email: req.body.email, address: req.body.address, registerTime: date, userTel: req.user.userTel }
-        userDAO.uperdataUser(user, function (err, results) {
+        userDAO.updateUser(user, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '用户信息修改失败' })
             } else {
@@ -323,6 +324,6 @@ var userController = {
                 }
             }
         })
-    }
+    },
 }
 module.exports = userController

@@ -9,8 +9,8 @@ router.get('/getUserInfo',passport.authenticate('jwt',{session:false}), function
     userController.getUserInfo(req, res)
 })
 /**用户修改个人信息 */
-router.post('/uperdataUser',passport.authenticate('jwt',{session:false}), function (req, res, next) {
-    userController.uperdataUser(req, res)
+router.post('/updateUser',passport.authenticate('jwt',{session:false}), function (req, res, next) {
+    userController.updateUser(req, res)
 })
 /**修改用户手机号 */
 router.post('/updataTel',passport.authenticate('jwt',{session:false}), function (req, res, next) {
@@ -67,5 +67,6 @@ router.post('/replys', passport.authenticate('jwt',{session:false}),function (re
 router.post('/sysMessage', passport.authenticate('jwt',{session:false}),function (req, res, next) {
     userController.sysMessage(req, res)
 })
+
 
 module.exports = router;
