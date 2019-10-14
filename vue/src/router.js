@@ -106,6 +106,7 @@ router.beforeEach((to,from,next) => {
     next()    //允许访问路由
   }else{
     if(tokenIsExists){
+
       next()  //已经登录并取得token，允许访问路由
     }else{
       next('/login')  //路由跳转到登录组件
