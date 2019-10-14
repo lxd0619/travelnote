@@ -8,63 +8,69 @@
       <nav>
         <div class="menu">
           <ul>
-            <li>
-              <a id="auditing">待审核文章</a>
+            <li class="li">
+              <a id="auditing" @click="auditing()">待审核文章</a>
             </li>
-            <li>
-              <a id="accusation">被举报文章</a>
+            <li class="li">
+              <a id="accusation" @click="accusation()">被举报文章</a>
             </li>
-            <li>
-              <a id="ban">被禁文章</a>
+            <li class="li">
+              <a id="ban" @click="ban()">被禁文章</a>
             </li>
-            <li>
-              <a id="normal">正常文章</a>
+            <li class="li">
+              <a id="normal" @click="normal">正常文章</a>
             </li>
-            <li>
-              <a id="user">用户管理</a>
+            <li class="li">
+              <a id="user" @click="user">用户管理</a>
             </li>
-            <li>
-              <a href="login.html">退出</a>
+            <li class="li">
+              <a @click="out()">退出</a>
             </li>
           </ul>
           <div id="lump"></div>
         </div>
       </nav>
-      <div id="right"></div>
+      <div id="right">
+        <manageAuditing v-if="flag1"></manageAuditing>
+        <manageAccusation v-if="flag2"></manageAccusation>
+        <manageBan v-if="flag3"></manageBan>
+        <manageNormal v-if="flag4"></manageNormal>
+        <manageUser v-if="flag5"></manageUser>
+      </div>
     </div>
     <footer></footer>
   </div>
 </template>
 <script>
+import manageAuditing from "../components/manage_auditing";
+import manageAccusation from "../components/manage_accusation";
+import manageBan from "../components/manage_ban";
+import manageNormal from "../components/manage_normal";
+import manageUser from "../components/manage_user.vue";
+
 export default {
   name: "manage",
   data() {
-    return {};
+    return {
+      flag1: true,
+      flag2: false,
+      flag3: false,
+      flag4: false,
+      flag5: false
+    };
   },
-  create() {
-    var currentposition = 0
-    $('#right').load('manage_auditing.html')
-    $('#auditing').click(function(){
-        $('#right').load('manage_auditing.html')
-    })
-    $('#accusation').click(function(){
-        $('#right').load('manage_accusation.html')
-    })
-     $('#normal').click(function(){
-         $('#right').load('manage_normal.html')
-    })
-    $('#ban').click(function(){
-         $('#right').load('manage_ban.html')
-     })
-    $('#user').click(function(){
-        $('#right').load('manage_user.html')
-    })
+  components: {
+    manageAuditing,
+    manageAccusation,
+    manageBan,
+    manageNormal,
+    manageUser
   },
   mounted() {
-    var lis = document.getElementsByTagName("li");
+    var currentposition = 0;
+    var lis = document.getElementsByClassName("li");
     for (let i = 0; i < lis.length; i++) {
       lis[i].onmouseover = function() {
-        console.log(this.childNodes);
         this.childNodes[0].style.color = "#c5f0a4";
       };
       lis[i].onmouseout = function() {
@@ -76,7 +82,54 @@ export default {
       };
     }
   },
-  methods: {}
+  methods: {
+    auditing() {
+      this.flag1 = true;
+      this.flag2 = false;
+      this.flag3 = false;
+      this.flag4 = false;
+      this.flag5 = false;
+    },
+    accusation() {
+      this.flag1 = false;
+      this.flag2 = true;
+      this.flag3 = false;
+      this.flag4 = false;
+      this.flag5 = false;
+    },
+    normal() {
+      this.flag1 = false;
+      this.flag2 = false;
+      this.flag3 = true;
+      this.flag4 = false;
+      this.flag5 = false;
+    },
+    ban() {
+      this.flag1 = false;
+      this.flag2 = false;
+      this.flag3 = false;
+      this.flag4 = true;
+      this.flag5 = false;
+    },
+    user() {
+      this.flag1 = false;
+      this.flag2 = false;
+      this.flag3 = false;
+      this.flag4 = false;
+      this.flag5 = true;
+    },
+    out() {
+      localStorage.removeItem("mytoken");
+      let  _this = this;
+       this.$message({
+              message: "退出成功",
+              type: "success"
+            });
+      var mytime = setTimeout(function() {
+        _this.$router.push("/login"); //路由转向登录组件
+      }, 3000);
+    }
+  }
 };
 </script>
 <style scoped>
@@ -136,10 +189,10 @@ header a {
 }
 
 .menu ul {
-  height: 690px;
+  height: 650px;
   width: 200px;
   background-color: #226b80;
-  padding:0;
+  padding: 0;
 }
 
 .menu li {

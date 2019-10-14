@@ -10,9 +10,9 @@ var manageController = {
             var ssStatus = req.body.ssStatus
             var sql = ''
             switch (tableName) {
-                case 'foodstrategy': sql = 'select * from foodstrategy where fsStatus=?'; break;
-                case 'scenerystrategy': sql = 'select * from scenerystrategy where ssStatus=?'; break;
-                case 'personalrow': sql = 'select * from personalrow where prStatus=?'; break;
+                case 'foodstrategy': sql = 'select foodstrategy.*,users.userName from foodstrategy,users where fsStatus=? and foodstrategy.userId=users.userId'; break;
+                case 'scenerystrategy': sql = 'select scenerystrategy.*,users.userName from scenerystrategy,users where ssStatus=? and scenerystrategy.userId=users.userId'; break;
+                case 'personalrow': sql = 'select personalrow.*,users.userName from personalrow,users where prStatus=? and personalrow.userId=users.userId'; break;
             }
             manageDAO.List(sql, ssStatus, function (err, results) {
                 if (err) {
