@@ -137,9 +137,16 @@
             >
               <div class="card-deck">
                 <ul>
-                  <li v-for="article in articles" :key="article.strategyId"><p>{{article.title}}</p>{{article.ssInfo}}</li>
+                  <li v-for="article in articles" :key="article.strategyId">
+                    <p>{{article.title}}</p>
+                    {{article.ssInfo}}
+                  </li>
                 </ul>
-                <div class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded" v-for="article in articles" :key="article.strategyId">
+                <div
+                  class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
+                  v-for="article in articles"
+                  :key="article.strategyId"
+                >
                   <img
                     class="card-img-top"
                     src="../assets/scenerySpot/贡嘎.jpeg"
@@ -149,12 +156,12 @@
                     <h5 class="card-title">
                       <a href="#" class="card-link">{{article.title}}</a>
                     </h5>
-                    <p
-                      class="card-text"
-                    >{{article.ssInfo}}</p>
+                    <p class="card-text">{{article.ssInfo}}</p>
                     <p class="text-muted">
                       <i class="fa fa-map-marker" aria-hidden="true">贡嘎</i>by
-                      <i><img src="" alt /></i>
+                      <i>
+                        <img src alt />
+                      </i>
                       <i class="fa fa-eye" aria-hidden="true">{{article.ssCollectionNum}}</i>
                       <i class="fa fa-thumbs-o-up" aria-hidden="true">{{article.ssLikeNum}}</i>
                     </p>
@@ -464,64 +471,14 @@ export default {
       .catch(err => {
         console.log("错误信息" + err);
       });
-      $(function() {
-      $("#head").load("head.html");
-      $("#foot").load("foot.html");
-      $("#outer a").mouseover(function() {
-        $("#outer a").css({ "background-color": "rgba(50,50,50,0.1)" });
-      });
-      $("#outer a").mouseout(function() {
-        $("#outer a").css({ "background-color": "rgba(300,300,300,0.1)" });
-      });
-      $("#weather").load("weather.html");
-      //整体修改card组件样式
-      $("#middle .card-deck").addClass("flex-column");
-      $("#nav-hotScenery .card").addClass(
-        "d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-      );
-      $("#nav-hotFoods .card").addClass(
-        "d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-      );
-      $("#nav-hotlines .card").addClass("mb-2 shadow-sm p-3 bg-white rounded");
-      $("#middle .card-link").css("color", "#000");
-      $("#middle .card-text").css("color", "#333");
-      $("#middle .card-body i").addClass("mr-2");
-      $("#middle .fa-thumbs-o-up")
-        .css("color", "#ff9d00")
-        .addClass("float-right");
-      $("#middle .card-body>p>i>img")
-        .css({ width: "25px", height: "25px" })
-        .addClass("rounded-circle");
 
-      $("#middle .card").mouseover(function() {
-        $(this)
-          .children()
-          .css({ color: "#ff9d00" });
-        $(this)
-          .find("a")
-          .css({ color: "#ff9d00" });
-      });
-      $("#middle .card").mouseout(function() {
-        $(this)
-          .children()
-          .css({ color: "#000" });
-        $(this)
-          .find("a")
-          .css({ color: "#000" });
-      });
-    });
-  },
-  mounted() {
     $(function() {
-      $("#head").load("head.html");
-      $("#foot").load("foot.html");
       $("#outer a").mouseover(function() {
         $("#outer a").css({ "background-color": "rgba(50,50,50,0.1)" });
       });
       $("#outer a").mouseout(function() {
         $("#outer a").css({ "background-color": "rgba(300,300,300,0.1)" });
       });
-      $("#weather").load("weather.html");
       //整体修改card组件样式
       $("#middle .card-deck").addClass("flex-column");
       $("#nav-hotScenery .card").addClass(

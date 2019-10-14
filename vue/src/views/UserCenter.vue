@@ -151,9 +151,9 @@
                         >个人资料完整度75%</div>
                       </div>
                       <!-- 表单 -->
-                      <form class="mt-4">
+                      <!-- <form class="mt-4" :model="userInfo" status-icon ref="userInfo"> -->
                         <!-- 用户名 -->
-                        <div class="form-row">
+                        <!-- <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="inputUserName">用户名</label>
                             <input
@@ -164,9 +164,9 @@
                               v-model="userInfo[0].userName"
                             />
                           </div>
-                        </div>
+                        </div> -->
                         <!-- 性别 -->
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                           <label>性别</label>
                           <br />
                           <div class="form-check form-check-inline">
@@ -200,9 +200,9 @@
                             />
                             <label class="form-check-label" for="inlineRadio3">女</label>
                           </div>
-                        </div>
+                        </div> -->
                         <!-- email -->
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                           <label for="exampleInputEmail1">Email</label>
                           <input
                             type="email"
@@ -216,9 +216,9 @@
                             id="emailHelp"
                             class="form-text text-muted"
                           >We'll never share your email with anyone else.</small>
-                        </div>
+                        </div> -->
                         <!-- 手机号 -->
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                           <label for="inputUserTel" class="col-sm-4 col-form-label">手机号</label>
                           <div class="col-sm-8">
                             <input
@@ -229,9 +229,9 @@
                               readonly
                             />
                           </div>
-                        </div>
+                        </div> -->
                         <!-- 所在城市 -->
-                        <div class="form-row">
+                        <!-- <div class="form-row">
                           <div class="form-group col-md-4">
                             <label for="inputProvince">省</label>
                             <select id="inputProvince" class="form-control">
@@ -253,9 +253,9 @@
                               <option>...</option>
                             </select>
                           </div>
-                        </div>
+                        </div> -->
                         <!-- 用户注册时间 -->
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                           <label class="col-sm-5 col-form-label">注册时间</label>
                           <div class="col-sm-7">
                             <input
@@ -266,31 +266,26 @@
                               readonly
                             />
                           </div>
-                        </div>
-                        <button
+                        </div> -->
+                        <!-- <button
                           type="button"
                           class="btn btn-outline-primary"
-                          @click="submitForm('userInfoFrom')"
+                          @click="submitForm('userInfo')"
                         >保存</button>
-                      </form>
+                      </form> -->
                     </div>
 
-                    <el-form
-                      :model="userInfo"
-                      status-icon
-                      ref="ruleForm"
-                      label-width="100px"
-                    >
-                    <el-form-item label="姓名" prop="userName" ref="userName">
-                        <el-input v-model="userInfo[0].userName"></el-input>
+                    <el-form :model="userInfo" status-icon ref="userInfo" label-width="100px">
+                      <el-form-item label="姓名" prop="userName" ref="userName">
+                        <el-input v-model="userInfo.userName"></el-input>
                       </el-form-item>
                       <el-form-item label="手机号" prop="tel" ref="tel">
-                        <el-input v-model="userInfo[0].tel"></el-input>
+                        <el-input v-model="userInfo.tel"></el-input>
                       </el-form-item>
 
                       <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                        <el-button @click="resetForm('ruleForm')">重置</el-button>
+                        <el-button type="primary" @click="submitForm('userInfo')">提交</el-button>
+                        <el-button @click="resetForm('userInfo')">重置</el-button>
                       </el-form-item>
                     </el-form>
 
@@ -587,25 +582,22 @@ export default {
       .catch(err => {
         console.log("错误信息" + err);
       });
-  },
-  mounted() {
+
     $(function() {
       $('[data-toggle="popover"]').popover({
         container: "body"
       });
     });
   },
+  mounted() {},
   methods: {
-    goHome() {
-      this.$router.push("/index/home");
-    },
     //修改用户信息
-    submitForm(formName) {
+    submitForm(userInfo) {
       //通过ref定位到form表单
-      this.$refs[formName].validate(valid => {
+      this.$refs[userInfo].validate(valid => {
         if (valid) {
           alert("submit!");
-          console.log(this.userInfo)
+          console.log(this.userInfo);
           this.$axios
             .post(
               "http://localhost:3000/userCenter/uperdataUser",
