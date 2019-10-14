@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Aim from './views/Aim.vue'
+import AimLine from './views/AimLine.vue'
 import Delicious from './views/Delicious.vue'
 import Editor from './views/Editor.vue'
 import Home from './views/Home.vue'
 import Index from './views/Index.vue'
 import Line from './views/Line.vue'
+import LineStrategy from './views/LineStrategy.vue'
 import Login from './views/Login.vue'
 import Manage from './views/Manage.vue'
 import NotFound from './views/Not404.vue'
@@ -37,6 +39,11 @@ let router = new Router({
                         component: Aim
                     },
                     {
+                        path: 'aimline',
+                        name: 'aimline',
+                        component: AimLine
+                    },
+                    {
                         path: 'delicious',
                         name: 'delicious',
                         component: Delicious
@@ -55,6 +62,11 @@ let router = new Router({
                         path: 'line',
                         name: 'line',
                         component: Line
+                    },
+                    {
+                        path: 'linestrategy',
+                        name: 'linestrategy',
+                        component: LineStrategy
                     },
                     {
                         path: 'manage',

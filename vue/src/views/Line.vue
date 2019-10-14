@@ -10,7 +10,8 @@
           <br />
           <div id="line-row">
             <div class="item-list clearfix row" style="justify-content: space-around">
-              <div class="item-coat J_item box-shadow">
+
+              <div class="item-coat J_item box-shadow" @click="go()">
                 <div class="item">
                   <img src="../assets/line/two1.png" width="280px" height="200px" alt />
                   <div class="totalPart">
@@ -732,6 +733,19 @@
 </template>
 
 <script>
+export default{
+  name:'Line',
+  data:function(){
+    return{
+
+    }
+  },
+  methods:{
+    go(){
+      window.open('/index/linestrategy')
+    }
+  }
+}
 </script>
 
 <style scoped>

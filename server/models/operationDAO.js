@@ -117,6 +117,15 @@ var operationDAO={
             }
         })
     },
+    normalStrategy: function (sql,callback) {
+        DAO(sql, function (err, results) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, results)
+            }
+        })
+    },
     hotStrategy: function (sql,callback) {
         DAO(sql, function (err, results) {
             if (err) {
