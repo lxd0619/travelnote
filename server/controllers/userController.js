@@ -1,6 +1,7 @@
 var userDAO = require('../models/userDAO')
 var formidable = require('formidable')
 var path = require('path')
+var bcrypt = require('bcrypt')
 
 var userController = {
     /**根据Id查询用户信息*/
@@ -323,6 +324,6 @@ var userController = {
                 }
             }
         })
-    }
+    },
 }
 module.exports = userController

@@ -122,4 +122,19 @@ router.beforeEach((to, from, next) => {
         }
     }
 })
+//设置路由守卫
+router.beforeEach((to,from,next) => {
+  //除了login和register，其他的路由访问必须先登录
+  let tokenIsExists = localStorage.getItem('mytoken') ? true : false //检查本地存储中是否有token
+  if(to.path != '/index/editor' || to.path != '/index/usercenter'|| to.path != '/index/manage'){
+    next()    //允许访问路由
+  }else{
+    if(tokenIsExists){
+
+      next()  //已经登录并取得token，允许访问路由
+    }else{
+      next('/login')  //路由跳转到登录组件
+    }
+  }
+})
 export default router
