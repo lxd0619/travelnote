@@ -14,7 +14,10 @@ import Search from './views/Search.vue'
 import UserCenter from './views/UserCenter.vue'
 import View from './views/View.vue'
 import Forget_pwd from './views/Forget_pwd.vue'
-import Food_huabei from './views/Food_huabei.vue'
+
+
+import Detail from './views/Detail.vue'
+import Detailcity from './views/Detailcity'
 
 Vue.use(Router)
 let router = new Router({
@@ -73,13 +76,18 @@ let router = new Router({
                         name: 'view',
                         component: View
                     },
+
+
                     {
-                        path: 'food_huabei',
-                        name: 'food_huabei',
-                        component: Food_huabei
-
-
-                    }
+                        path: 'detail',
+                        name: 'detail',
+                        component: Detail
+                    },
+                    {
+                        path: 'detailcity',
+                        name: 'detailcity',
+                        component: Detailcity
+                    },
                 ]
             },
             {
