@@ -102,7 +102,7 @@
                                     <p>上海</p>
                                     <span>吃喝玩乐在魔都</span>
                                 </div>
-                                </a>
+                                
                             </li>
 
                             <li>
@@ -112,7 +112,7 @@
                                     <p>北京</p>
                                     <span>皇城脚下的气魄</span>
                                 </div>
-                                </a>
+                             
                             </li>
 
                             <li>
@@ -132,7 +132,7 @@
                                     <p>厦门</p>
                                     <span>海滨的文艺小城</span>
                                 </div>
-                                </a>
+                             
                             </li>
 
                             <li>
@@ -152,7 +152,7 @@
                                     <p>昆明</p>
                                     <span>春城无处不飞花</span>
                                 </div>
-                                </a>
+                             
                             </li>
 
                             <li>
@@ -161,7 +161,7 @@
                                     <p>西安</p>
                                     <span>长安城的前世今生</span>
                                 </div>
-                                </a>
+                               
                             </li>
 
                             <li>
@@ -182,9 +182,6 @@
         </div>
        
       
-        <div class="headline container-fluid">
-
-        </div>
         <div class="gonglve_wrap clearfix">
 
             <div class="cont-main _j_feed_list">
@@ -228,7 +225,8 @@
                                     </div>
                                 </dd>
                             </dl>
-                            </a>
+                          
+                          
                         </div>
 
                         <div class="feed-item _j_feed_item" data-fid="108002" data-type="1">
@@ -865,7 +863,7 @@ dfn {
 }
 
 .cont-main .type {
-    float: left;
+
     display: inline-block;
     line-height: 20px;
     font-size: 12px;
