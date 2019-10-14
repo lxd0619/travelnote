@@ -14,6 +14,7 @@
 
     <ul>
       <li>{{userInfo}}</li>
+      <li>{{userInfo.userName}}</li>
       <!-- <li>{{userInfo[0].userName}}</li> -->
     </ul>
 
@@ -60,17 +61,6 @@
                 aria-controls="collection"
                 aria-selected="false"
               >我的收藏</a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                id="message-tab"
-                data-toggle="tab"
-                href="#contact"
-                role="tab"
-                aria-controls="contact"
-                aria-selected="false"
-              >我的消息</a>
             </li>
           </ul>
           <!-- 内容 -->
@@ -175,7 +165,8 @@
                               type="radio"
                               name="inlineRadioOptions"
                               id="inlineRadio1"
-                              value="option1"
+                              value="保密"
+                              v-model="userInfo[0].sex"
                               checked
                             />
                             <label class="form-check-label" for="inlineRadio1">保密</label>
@@ -186,7 +177,8 @@
                               type="radio"
                               name="inlineRadioOptions"
                               id="inlineRadio2"
-                              value="option2"
+                              value="男"
+                              v-model="userInfo[0].sex"
                             />
                             <label class="form-check-label" for="inlineRadio2">男</label>
                           </div>
@@ -196,7 +188,8 @@
                               type="radio"
                               name="inlineRadioOptions"
                               id="inlineRadio3"
-                              value="option3"
+                              value="女"
+                              v-model="userInfo[0].sex"
                             />
                             <label class="form-check-label" for="inlineRadio3">女</label>
                           </div>
@@ -270,29 +263,10 @@
                         <button
                           type="button"
                           class="btn btn-outline-primary"
-                          @click="submitForm('userInfoFrom')"
+                          @click="submitForm()"
                         >保存</button>
                       </form>
                     </div>
-
-                    <el-form
-                      :model="userInfo"
-                      status-icon
-                      ref="ruleForm"
-                      label-width="100px"
-                    >
-                    <el-form-item label="姓名" prop="userName" ref="userName">
-                        <el-input v-model="userInfo[0].userName"></el-input>
-                      </el-form-item>
-                      <el-form-item label="手机号" prop="tel" ref="tel">
-                        <el-input v-model="userInfo[0].tel"></el-input>
-                      </el-form-item>
-
-                      <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                        <el-button @click="resetForm('ruleForm')">重置</el-button>
-                      </el-form-item>
-                    </el-form>
 
                     <!-- 修改头像 -->
                     <div
@@ -327,7 +301,7 @@
                           <input
                             type="text"
                             class="form-control-plaintext"
-                            value="17645190289"
+                            v-model="userInfo[0].tel"
                             readonly
                           />
                           <div class="input-group mb-3">
@@ -399,7 +373,7 @@
                       <div class="form-group row">
                         <label for="inputUserTel" class="col-sm-3 col-form-label">手机号</label>
                         <div class="col-sm-9 d-flex flex-column">
-                          <input type="text" class="form-control" value="17645190289" />
+                          <input type="text" class="form-control" v-model="userInfo[0].tel" />
                           <div class="input-group mb-3 mt-3">
                             <input
                               type="text"
@@ -421,38 +395,15 @@
             </div>
             <!-- 我的攻略 -->
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="article-tab">
+              <ul>
+                <li v-for="article in articles" :key="article.index">{{article}}</li>
+              </ul>
               <div class="card-deck">
-                <div class="card">
-                  <img
-                    class="card-img-top"
-                    src="../assets/scenerySpot/开普勒步道.jpeg"
-                    alt="Card image cap"
-                  />
+                <div class="card" v-for="article in articles" :key="article.index">
+                  <img class="card-img-top" src alt="Card image cap" />
                   <div class="card-body">
-                    <h5 class="card-title">苏州博物馆</h5>
-                    <p class="card-text">·传统的苏州园林风格，高低错落，深灰色屋面与白墙相衬，整个博物馆宛若一座小园林。</p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img
-                    class="card-img-top"
-                    src="../assets/scenerySpot/贡嘎.jpeg"
-                    alt="Card image cap"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">同里古镇</h5>
-                    <p class="card-text">·江南六同里古镇是大古镇之一，始建于宋代，至今已有1000多年历史。</p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img
-                    class="card-img-top"
-                    src="../assets/scenerySpot/利川.jpeg"
-                    alt="Card image cap"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">七里山塘</h5>
-                    <p class="card-text">东连“红尘中一、二等富贵风流之地”阊门，西接“吴中第一名胜”虎丘，长约七里。</p>
+                    <h5 class="card-title">{{article.title}}</h5>
+                    <p class="card-text">{{article.ssInfo}}}</p>
                   </div>
                 </div>
               </div>
@@ -488,31 +439,16 @@
               aria-labelledby="collection-tab"
             >
               <div class="card-deck">
-                <div class="card">
-                  <img class="card-img-top" src="../assets/food/东京美食.jpeg" alt="Card image cap" />
-                  <div class="card-body">
-                    <h5 class="card-title">松鹤楼</h5>
-                    <p class="card-text">·松鹤楼是老字号的苏州菜馆，创建于清乾隆二十二年(1757年)。</p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img class="card-img-top" src="../assets/food/乐山.jpeg" alt="Card image cap" />
-                  <div class="card-body">
-                    <h5 class="card-title">得月楼</h5>
-                    <p class="card-text">
-                      ·得月楼是苏州菜传统老店，老电影《小小得月楼》就是以此为背景创造的。
-                      <br />
-                    </p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img class="card-img-top" src="../assets/food/延吉.jpeg" alt="Card image cap" />
-                  <div class="card-body">
-                    <h5 class="card-title">哑巴生煎</h5>
-                    <p class="card-text">
-                      ·被称作全苏州最好吃的生煎，主营甜口生煎。
-                      <br />
-                    </p>
+                <ul>
+                  <li v-for="collection in collections" :key="collection.index">{{collection}}</li>
+                </ul>
+                <div class="card-deck">
+                  <div class="card" v-for="collection in collections" :key="collection.index">
+                    <img class="card-img-top" src alt="Card image cap" />
+                    <div class="card-body">
+                      <h5 class="card-title">{{collection.title}}</h5>
+                      <p class="card-text">{{collection.ssInfo}}}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -540,13 +476,6 @@
                 </ul>
               </nav>
             </div>
-            <!-- 我的消息 -->
-            <div
-              class="tab-pane fade"
-              id="contact"
-              role="tabpanel"
-              aria-labelledby="message-tab"
-            >...</div>
           </div>
         </div>
         <div class="col-md-1">
@@ -565,15 +494,19 @@
 export default {
   data() {
     return {
-      userInfo: {
-        userName: "",
-        sex: "",
-        tel: "",
-        headPic: "",
-        email: "",
-        address: "",
-        registerTime: ""
-      }
+      userInfo: [
+        {
+          userName: "",
+          sex: "",
+          tel: "",
+          headPic: "",
+          email: "",
+          address: "",
+          registerTime: ""
+        }
+      ],
+      articles: [],
+      collections: []
     };
   },
   created() {
@@ -586,9 +519,36 @@ export default {
       })
       .catch(err => {
         console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
       });
-  },
-  mounted() {
+    // 查询用户攻略
+    this.$axios
+      .post("http://localhost:3000/userCenter/userArticle")
+      .then(res => {
+        console.log("用户攻略查询结果" + res.data.data);
+        this.articles = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
+      });
+    // 查询用户收藏
+    this.$axios
+      .post("http://localhost:3000/userCenter/collectArticle")
+      .then(res => {
+        console.log("收藏查询结果" + res.data.data);
+        this.collections = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
+      });
     $(function() {
       $('[data-toggle="popover"]').popover({
         container: "body"
@@ -596,32 +556,20 @@ export default {
     });
   },
   methods: {
-    goHome() {
-      this.$router.push("/index/home");
-    },
     //修改用户信息
     submitForm(formName) {
-      //通过ref定位到form表单
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
-          console.log(this.userInfo)
-          this.$axios
-            .post(
-              "http://localhost:3000/userCenter/uperdataUser",
-              this.userInfo
-            )
-            .then(res => {
-              console.log("更新成功".res);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+      this.$axios
+        .post("http://localhost:3000/userCenter/updateUser", this.userInfo[0])
+        .then(res => {
+          console.log("更新成功".res);
+          alert("修改成功！");
+        })
+        .catch(err => {
+          console.log("error:" + err);
+        })
+        .finally(function() {
+          // always executed
+        });
     }
   }
 };
