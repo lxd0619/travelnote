@@ -14,7 +14,7 @@ import Search from './views/Search.vue'
 import UserCenter from './views/UserCenter.vue'
 import View from './views/View.vue'
 import Forget_pwd from './views/Forget_pwd.vue'
-import Food_huabei from './views/Food_huabei.vue'
+import Food_huabei from './views/food_huabei.vue'
 
 Vue.use(Router)
 let router = new Router({
@@ -72,13 +72,6 @@ let router = new Router({
                         path: 'view',
                         name: 'view',
                         component: View
-                    },
-                    {
-                        path: 'food_huabei',
-                        name: 'food_huabei',
-                        component: Food_huabei
-
-
                     }
                 ]
             },
@@ -108,7 +101,7 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
     //除了login和register，其他的路由访问必须先登录
     let tokenIsExists = localStorage.getItem('mytoken') ? true : false //检查本地存储中是否有token
-    if (to.path != '/index/editor' || to.path != '/index/usercenter' || to.path != '/index/manage') {
+    if (to.path == '/index/home' || to.path == '/index/aim' || to.path == '/index/delicious'|| to.path == '/index/line'|| to.path == '/index/search'|| to.path == '/index/view'|| to.path == '/login'|| to.path == '/index/register'|| to.path == '/index/forget_pwd') {
         next() //允许访问路由
     } else {
         if (tokenIsExists) {
