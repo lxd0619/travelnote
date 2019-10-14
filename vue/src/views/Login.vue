@@ -41,9 +41,7 @@
     </div>
   </div>
 </template>
-
 <script>
-import jwt_decode from "jwt-decode";
 export default {
   name: "login",
   data: function() {
