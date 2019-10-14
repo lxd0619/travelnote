@@ -85,14 +85,15 @@ export default {
         tel: "",
         password: "",
         password2: "",
-        messagecheck: ""
+        messagecheck: "",
+        type:'register'
       },
       isUsernameOk: false,
       isPasswordOk: false,
       isCpasswordOk: false,
       isTelephoneOK: false,
       isMessageOk: false,
-      code: null
+      code: null,
     };
   },
   methods: {
@@ -304,6 +305,7 @@ export default {
     },
     check() {
       if (this.registerUser.tel) {
+        var check=document.getElementById('check')
         console.log(this.registerUser.tel);
         this.$axios
           .post("http://localhost:3000/regist/getVode", this.registerUser)
@@ -366,7 +368,8 @@ export default {
               });
             let _this = this;
             var mytime = setTimeout(function() {
-              _this.$router.push("/login"); 
+            //  window.location="/login"; 
+            this.$axios.push('/login')
             }, 3000);
             } else {
               this.$message.error('错误信息：'+res.data.msg);
