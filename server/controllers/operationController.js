@@ -255,7 +255,7 @@ var operationController = {
                 sql = ' select * from foodstrategy order by fslikenum desc,fscollectionnum desc';
                 break;
             case 'personalrow':
-                sql = '  select distinct * from users join personalrow on users.userId=personalrow.userId where (prStatus=0 or prStatus=1) order by personalrow.prLikeNum desc limit 3';
+                sql = '  select distinct * from users join personalrow on users.userId=personalrow.userId where (prStatus=0 or prStatus=1) order by personalrow.prLikeNum desc limit 8';
                 break;
         }
         operationDAO.hotStrategy(sql, function(err, results) {
