@@ -38,186 +38,41 @@
       <div class="sheadsecond">景点攻略</div>
         1231
       <ul>
-        <li v-for="article in articles" :key="article.index">攻略：{{article}}</li>
+        <li v-for="article in articles" :key="article.index">攻略：{{article.ssInfo}}</li>
       </ul>
 
       <div class="item-list clearfix row" style="justify-content: space-around">
-        <div class="item-coat J_item">
+        <div class="item-coat J_item"  v-for="article in articles" :key="article.index">
           <div class="item">
             <img src="../assets/view/leftPic5.jpg" width="280px" height="200px" alt />
             <div class="totalPart">
               <a href="#" target="_blank" class="detail">
-                <p class="title">最美杭州自由行必备打卡地</p>
+                <p class="title" >{{article.title}}</p>
               </a>
               <div class="ext-r row" style="justify-content:space-around;">
                 <div>
                   <img src="../assets/food/收藏_line.png" width="15px" height="15px" />
-                  <span>收藏</span>
+                  <span>({{article.ssCollectionNum}})</span>
                 </div>
 
                 <div>
                   <img src="../assets/food/点赞_line.png" width="15px" height="15px" />
-                  <span>点赞</span>
+                  <span>({{article.ssLikeNum}})</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="item-coat J_item">
-          <div class="item">
-            <img src="../assets/view/leftPic5.jpg" width="280px" height="200px" alt />
-            <div class="totalPart">
-              <a href="#" target="_blank" class="detail">
-                <p class="title">最美杭州自由行必备打卡地</p>
-              </a>
-              <div class="ext-r row" style="justify-content:space-around;">
-                <div>
-                  <img src="../assets/food/收藏_line.png" width="15px" height="15px" />
-                  <span></span>
-                </div>
-
-                <div>
-                  <img src="../assets/food/点赞_line.png" width="15px" height="15px" />
-                  <span></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item-coat J_item">
-          <div class="item">
-            <img src="../assets/view/leftPic5.jpg" width="280px" height="200px" alt />
-            <div class="totalPart">
-              <a href="#" target="_blank" class="detail">
-                <p class="title">最美杭州自由行必备打卡地</p>
-              </a>
-              <div class="ext-r row" style="justify-content:space-around;">
-                <div>
-                  <img src="../assets/food/收藏_line.png" width="15px" height="15px" />
-                  <span></span>
-                </div>
-
-                <div>
-                  <img src="../assets/food/点赞_line.png" width="15px" height="15px" />
-                  <span></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item-coat J_item">
-          <div class="item">
-            <img src="../assets/view/leftPic5.jpg" width="280px" height="200px" alt />
-            <div class="totalPart">
-              <a href="#" target="_blank" class="detail">
-                <p class="title">最美杭州自由行必备打卡地</p>
-              </a>
-              <div class="ext-r row" style="justify-content:space-evenly; padding: 0px 10px;">
-                <div>
-                  <span>(102)</span>
-                </div>
-
-                <div>
-                  <img src="../assets/food/点赞_line.png" width="15px" height="15px" />
-                  <span>(102)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       
+       
+        
+            
+      
+      
       </div>
       <hr />
 
-      <div class="item-list clearfix row" style="justify-content: space-around">
-        <div class="item-coat J_item">
-          <div class="item">
-            <img src="../assets/view/leftPic5.jpg" width="280px" height="200px" alt />
-            <div class="totalPart">
-              <a href="#" target="_blank" class="detail">
-                <p class="title">最美杭州自由行必备打卡地</p>
-              </a>
-              <div class="ext-r row" style="justify-content:space-around;">
-                <div>
-                  <img src="../assets/food/收藏_line.png" width="15px" height="15px" />
-                  <span>收藏</span>
-                </div>
 
-                <div>
-                  <img src="../assets/food/点赞_line.png" width="15px" height="15px" />
-                  <span>点赞</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item-coat J_item">
-          <div class="item">
-            <img src="../assets/view/leftPic5.jpg" width="280px" height="200px" alt />
-            <div class="totalPart">
-              <a href="#" target="_blank" class="detail">
-                <p class="title">最美杭州自由行必备打卡地</p>
-              </a>
-              <div class="ext-r row" style="justify-content:space-around;">
-                <div>
-                  <img src="../assets/food/收藏_line.png" width="15px" height="15px" />
-                  <span>收藏</span>
-                </div>
-
-                <div>
-                  <img src="../assets/food/点赞_line.png" width="15px" height="15px" />
-                  <span>点赞</span>
-                </div>
-                <div>
-                  <img src="../assets/food/browsing-history.png" width="20px" height="15px" />
-                  <span>浏览量</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item-coat J_item">
-          <div class="item">
-            <img src="../assets/view/leftPic5.jpg" width="280px" height="200px" alt />
-            <div class="totalPart">
-              <a href="#" target="_blank" class="detail">
-                <p class="title">最美杭州自由行必备打卡地</p>
-              </a>
-              <div class="ext-r row" style="justify-content:space-around;">
-                <div>
-                  <img src="../assets/food/收藏_line.png" width="15px" height="15px" />
-                  <span>收藏</span>
-                </div>
-
-                <div>
-                  <img src="../assets/food/点赞_line.png" width="15px" height="15px" />
-                  <span>点赞</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item-coat J_item">
-          <div class="item">
-            <img src="../assets/view/leftPic5.jpg" width="280px" height="200px" alt />
-            <div class="totalPart">
-              <a href="#" target="_blank" class="detail">
-                <p class="title">最美杭州自由行必备打卡地</p>
-              </a>
-              <div class="ext-r row" style="justify-content:space-around;">
-                <div>
-                  <img src="../assets/food/收藏_line.png" width="15px" height="15px" />
-                  <span>收藏</span>
-                </div>
-
-                <div>
-                  <img src="../assets/food/点赞_line.png" width="15px" height="15px" />
-                  <span>点赞</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div class="sTrip">
         <h2>榜单热搜</h2>
@@ -226,9 +81,8 @@
           <a href="#" target="_blank">
             <div class="tit">
               <h3>
-                <em>01</em>biaoti
-              </h3>
-              <span>关键概括</span>
+                <em>01</em>{{hotarticles[0].title}}</h3>
+              <span> {{ hotarticles[0].ssInfo}}</span>
             </div>
             <div class="tripb_pic">
               <em></em>
@@ -388,16 +242,28 @@ export default {
   data() {
     return {
       articles: {},
+      hotarticles:{},
       strategyType: "scenerystrategy"
     };
   },
   created() {
     console.log(this.strategyType)
     this.$axios
-      .get("http://localhost:3000/operation/hotStrategy", this.strategyType)
+      .post("http://localhost:3000/operation/hotStrategy", {strategyType:this.strategyType})
       .then(res => {
+        console.log(res)
         console.log("查询结果" + res.data.data);
         this.articles = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
+       this.$axios
+      .post("http://localhost:3000/operation/hotStrategy", {strategyType:this.strategyType})
+      .then(res => {
+        console.log(res)
+        console.log("查询结果" + res.data.data);
+        this.hotarticles = res.data.data;
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -544,9 +410,11 @@ dd {
 }
 
 .item p {
-  text-align: center;
   margin-top: 10px;
   font-family: 楷体;
+  width: 200px;
+  overflow: hidden;
+  height: 25px;
 }
 
 .ext-r {
