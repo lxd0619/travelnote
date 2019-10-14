@@ -213,6 +213,34 @@ var operationController = {
             }
         })
     },
+    normalStrategy: function(req, res) {
+        var normalStrategyInfo = {
+            strategyType: req.body.strategyType
+        }
+        var sql = ''
+        switch (normalStrategyInfo.strategyType) {
+            case 'scenerystrategy':
+                sql = ' select * from scenerystrategy where (ssStatus=0 or ssStatus=1) order by ssTime desc ';
+                break;
+            case 'foodstrategy':
+                sql = ' select * from foodstrategy where (fsStatus=0 or fsStatus=1) order by fsTime desc ';
+                break;
+            case 'personalrow':
+                sql = '  select  * from  personalrow  where (prStatus=0 or prStatus=1) order by prTime desc ';
+                break;
+        }
+        operationDAO.normalStrategy(sql, function(err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '普通攻略查询错误！' })
+            } else {
+                if (results == null || results.length == 0) {
+                    res.json({ code: 200, data: 0, msg: '普通攻略查询失败,未找到攻略数据!' })
+                } else {
+                    res.json({ code: 200, data: results, msg: normalStrategyInfo.strategyType + '普通攻略查询成功！' })
+                }
+            }
+        })
+    },
     hotStrategy: function(req, res) {
         var hotStrategyInfo = {
             strategyType: req.body.strategyType,

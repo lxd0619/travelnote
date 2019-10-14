@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Aim from './views/Aim.vue'
+import AimLine from './views/AimLine.vue'
 import Delicious from './views/Delicious.vue'
 import Editor from './views/Editor.vue'
 import Home from './views/Home.vue'
 import Index from './views/Index.vue'
 import Line from './views/Line.vue'
+import LineStrategy from './views/LineStrategy.vue'
 import Login from './views/Login.vue'
 import Manage from './views/Manage.vue'
 import NotFound from './views/Not404.vue'
@@ -14,10 +16,6 @@ import Search from './views/Search.vue'
 import UserCenter from './views/UserCenter.vue'
 import View from './views/View.vue'
 import Forget_pwd from './views/Forget_pwd.vue'
-
-
-import Detail from './views/Detail.vue'
-import Detailcity from './views/Detailcity'
 
 Vue.use(Router)
 let router = new Router({
@@ -35,6 +33,11 @@ let router = new Router({
                         path: 'aim',
                         name: 'aim',
                         component: Aim
+                    },
+                    {
+                        path: 'aimline',
+                        name: 'aimline',
+                        component: AimLine
                     },
                     {
                         path: 'delicious',
@@ -57,6 +60,11 @@ let router = new Router({
                         component: Line
                     },
                     {
+                        path: 'linestrategy',
+                        name: 'linestrategy',
+                        component: LineStrategy
+                    },
+                    {
                         path: 'manage',
                         name: 'manage',
                         component: Manage
@@ -75,18 +83,6 @@ let router = new Router({
                         path: 'view',
                         name: 'view',
                         component: View
-                    },
-
-
-                    {
-                        path: 'detail',
-                        name: 'detail',
-                        component: Detail
-                    },
-                    {
-                        path: 'detailcity',
-                        name: 'detailcity',
-                        component: Detailcity
                     },
                 ]
             },
@@ -116,7 +112,7 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
     //除了login和register，其他的路由访问必须先登录
     let tokenIsExists = localStorage.getItem('mytoken') ? true : false //检查本地存储中是否有token
-    if (to.path == '/index/home' || to.path == '/index/aim' || to.path == '/index/delicious'|| to.path == '/index/line'|| to.path == '/index/search'|| to.path == '/index/view'|| to.path == '/login'|| to.path == '/index/register'|| to.path == '/index/forget_pwd') {
+    if (to.path == '/index/home' || to.path == '/index/Aim' || to.path == '/index/delicious' || to.path == '/index/line'|| to.path == '/index/search'|| to.path == '/index/view' || to.path == '/login'|| to.path == '/register'|| to.path == '/forget_pwd') {
         next() //允许访问路由
     } else {
         if (tokenIsExists) {

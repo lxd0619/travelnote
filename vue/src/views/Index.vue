@@ -46,7 +46,8 @@
                   role="search"
                   action="/Search/SearchList"
                   method="get"
-                  target="_blank">
+                  target="_blank"
+                >
                   <input
                     id="search"
                     style="width: 120px"
@@ -74,6 +75,7 @@
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
+                   v-if="isShow === true"
                 >
                   <i class="fa fa-bell-o mr-2" aria-hidden="true"></i>消息中心
                 </a>
@@ -92,10 +94,10 @@
 
               <div class="dropdown-divider"></div>
               <li class="nav-item" id="login">
-                <a class="nav-link" href="/login" @click.prevent="goLogin">登录</a>
+                <a class="nav-link" href="/login" @click.prevent="goLogin" v-if="isShow === false">登录</a>
               </li>
               <li class="nav-item" id="register">
-                <a class="nav-link" href="/register" @click.prevent="goRegister">注册</a>
+                <a class="nav-link" href="/register" @click.prevent="goRegister" v-if="isShow === false">注册</a>
               </li>
               <li class="nav-item dropdown ml-2">
                 <a
@@ -106,11 +108,12 @@
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
+                  v-if="isShow === true"
                 >
                   <!-- 导航栏用户头像 -->
                   <img src class="rounded-circle" id="navHeadPic" alt />
                 </a>
-                <div class="dropdown-menu text-center" aria-labelledby="userDropdown">
+                <div class="dropdown-menu text-center" aria-labelledby="userDropdown" v-if="isShow === true">
                   <a class="dropdown-item" href="/index/userCenter" @click.prevent="goUserCenter">
                     <i class="fa fa-user-o mr-2" aria-hidden="true"></i>个人中心
                   </a>
@@ -118,7 +121,7 @@
                     <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>撰写攻略
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/index" @click.prevent="goHome" @click="logout">
+                  <a class="dropdown-item" href="/index/home" @click.prevent="goHome" @click="logout">
                     <i class="fa fa-sign-out mr-2" aria-hidden="true"></i>退出登录
                   </a>
                 </div>
@@ -137,30 +140,17 @@ export default {
     return {
       students: [],
       currentUser: {},
-      img_src: require("../assets/headPic/head1.jpg")
+      img_src: require("../assets/headPic/head1.jpg"),
+      isShow: false
     };
   },
   //组件创建完成后执行的操作
   created() {
+    if (localStorage.mytoken) {
+      this.isShow = true
+    }
+    // 导航栏拉伸效果
     $(function() {
-      $(".navbar ul li:last-child").hide();
-      $("#message").hide();
-      if (localStorage.getItem("mytoken")) {
-        $("#login").hide();
-        $("#register").hide();
-        $(".navbar ul li:last-child").show();
-        $("#message").show();
-      }
-      $(".navbar ul li a:last-child").click(function() {
-        if (localStorage.mytoken != "") {
-          localStorage.removeItem('mytoken')
-        }
-        $("#login").show();
-        $("#register").show();
-        $(".navbar ul li:last-child").hide();
-        $("#message").hide();
-      });
-
       $("#search").click(function() {
         $("#search").animate({ width: "220px" }, 1000);
       });
@@ -200,10 +190,11 @@ export default {
     goView() {
       this.$router.push("/index/view");
     },
-    logout(){
-      // if (localStorage.mytoken != "") {
-      //     localStorage.removeItem('mytoken')
-      //   }
+    logout() {
+      if (localStorage.mytoken) {
+          localStorage.removeItem('mytoken')
+          this.isShow = false
+        }
     }
   }
 };

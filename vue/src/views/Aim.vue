@@ -25,7 +25,7 @@
                 <dl>
                   <dt>北京景点</dt>
                   <dd>
-                    <a href="#" target="_blank">故宫</a>
+                    <span @click="go()">故宫</span>
                     <a href="#" target="_blank">颐和园</a>
                     <a href="#" target="_blank">八达岭长城</a>
                     <a href="#" target="_blank">天安门广场</a>
@@ -2170,6 +2170,9 @@ export default {
     },
     handleClick2(tab, event) {
       console.log(tab, event);
+    },
+    go(){
+      window.open('/index/aimline')
     }
   }
 };
