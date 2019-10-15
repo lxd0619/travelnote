@@ -7,7 +7,7 @@ opts.secretOrKey = 'privateKey';
 function myPassport(passport){
     passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
           //jwt_payload保存的是token生成时的对象
-          console.log(jwt_payload)
+        //   console.log(jwt_payload)
           //通过验证后执行下一步
           done(null,jwt_payload)
     }));

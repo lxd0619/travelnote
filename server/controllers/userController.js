@@ -39,6 +39,7 @@ var userController = {
     updataTel: function (req, res) {
         var newTel = req.body.newTel
         var userTel = req.user.userTel
+        console.log('userTel:'+userTel)
         if (newTel.length == 11) {
             userDAO.updataTel(newTel, userTel, function (err, results) {
                 if (err) {
@@ -69,6 +70,7 @@ var userController = {
             //1.获取当前用户编号
             var userTel = req.user.userTel
             //1.获取当前用户的图片名称
+            console.log(files)
             var headPic = path.parse(files.myHead.path).base
             var userHead = { headPic: headPic, userTel: userTel }
             userDAO.headPic(userHead, function (err, results) {
@@ -107,7 +109,7 @@ var userController = {
             "data": []
         }
         var form = new formidable.IncomingForm()      //创建上传表单对象
-        form.uploadDir = path.join(__dirname, '../public/uploadHeadPic')           //设置上传文件的路径
+        form.uploadDir = path.join(__dirname, '../public/uploadArticlePic')           //设置上传文件的路径
         form.keepExtensions = true                      //设置保留上传文件的扩展名
         //当每个文件上传时都会触发的事件方法，用于多文件上传
         form.on('file', function (err, file) {
@@ -324,6 +326,6 @@ var userController = {
                 }
             }
         })
-    },
+    }
 }
 module.exports = userController
