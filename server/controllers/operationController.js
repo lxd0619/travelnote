@@ -220,13 +220,13 @@ var operationController = {
         var sql = ''
         switch (normalStrategyInfo.strategyType) {
             case 'scenerystrategy':
-                sql = ' select * from scenerystrategy where (ssStatus=0 or ssStatus=1) order by ssTime desc ';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,scenerystrategy.* from users join scenerystrategy on users.userId=scenerystrategy.userId where (ssStatus=0 or ssStatus=1) order by ssTime desc';
                 break;
             case 'foodstrategy':
-                sql = ' select * from foodstrategy where (fsStatus=0 or fsStatus=1) order by fsTime desc ';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,foodstrategy.* from users join foodstrategy on users.userId=foodstrategy.userId where (fsStatus=0 or fsStatus=1) order by fsTime desc ';
                 break;
             case 'personalrow':
-                sql = '  select  * from  personalrow  where (prStatus=0 or prStatus=1) order by prTime desc ';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,personalrow.* from users join personalrow on users.userId=personalrow.userId where (prStatus=0 or prStatus=1) order by prTime desc  ';
                 break;
         }
         operationDAO.normalStrategy(sql, function(err, results) {
@@ -245,17 +245,16 @@ var operationController = {
         var hotStrategyInfo = {
             strategyType: req.body.strategyType,
         }
-        console.log(req.body.strategyType)
         var sql = ''
         switch (hotStrategyInfo.strategyType) {
             case 'scenerystrategy':
-                sql = ' select * from scenerystrategy where ssStatus=0 order by ssLikeNum desc,ssCollectionNum desc';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,scenerystrategy.* from users join scenerystrategy on users.userId=scenerystrategy.userId where (ssStatus=0 or ssStatus=1) order by ssLikeNum desc,ssCollectionNum desc';
                 break;
             case 'foodstrategy':
-                sql = ' select * from foodstrategy order by fslikenum desc,fscollectionnum desc';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,foodstrategy.* from users join foodstrategy on users.userId=foodstrategy.userId where (fsStatus=0 or fsStatus=1) order by fslikenum desc,fscollectionnum desc ';
                 break;
             case 'personalrow':
-                sql = '  select distinct * from users join personalrow on users.userId=personalrow.userId where (prStatus=0 or prStatus=1) order by personalrow.prLikeNum desc limit 8';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,personalrow.* from users join personalrow on users.userId=personalrow.userId where (prStatus=0 or prStatus=1) order by personalrow.prLikeNum desc ';
                 break;
         }
         operationDAO.hotStrategy(sql, function(err, results) {
