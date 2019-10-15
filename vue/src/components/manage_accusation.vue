@@ -88,16 +88,10 @@ export default {
       this.currentPage = currentPage;
     },
     strategydetail(strategyType, strategyId) {
-      console.log(strategyType, strategyId);
-      var strategy = { strategyType, strategyId };
+     var strategy = { strategyType, strategyId };
       var strategyInfo=JSON.stringify(strategy)
       sessionStorage.setItem("strategy", strategyInfo);
       this.$router.push('/article')
-      // this.$axios
-      //   .post("http://localhost:3000/operation/strategydetail", strategy)
-      //   .then(res => {
-      //     console.log(res);
-      //   });
     }
   }
 };

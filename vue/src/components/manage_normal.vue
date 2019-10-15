@@ -40,7 +40,7 @@
         v-for="li in list.slice((currentPage-1)*10,(currentPage)*10)"
         :key="li.strategyId"
       >
-        <a href>
+        <a @click="strategydetail(li.type,li.strategyId)">
           <img id="img" src="require('' +li.cover)" style="width: 200px ;height: 200px;" />
           <p>{{li.title}}</p>
           <span>作者：{{li.userName}}</span>
@@ -96,6 +96,12 @@ export default {
     },
     current_change: function(currentPage) {
       this.currentPage = currentPage;
+    },
+    strategydetail(strategyType, strategyId) {
+     var strategy = { strategyType, strategyId };
+      var strategyInfo=JSON.stringify(strategy)
+      sessionStorage.setItem("strategy", strategyInfo);
+      this.$router.push('/article')
     }
   }
 };

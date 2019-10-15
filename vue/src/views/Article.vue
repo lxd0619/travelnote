@@ -8,9 +8,11 @@
       <div id="left">
         <div id="content" v-for="info in strategyInfo" :key="info.strategyId">
           <h1>{{info.title}}</h1>
+          <p>作者：{{info.userName}}</p>
+          <P>时间:{{info.ssTime}}</P>
           <p>{{info.ssInfo}}</p>
         </div>
-        <div id="button">
+        <div id="button" v-if="flage">
           <el-button type="success" icon="el-icon-check" @click="OK()"></el-button>
           <el-button type="danger" icon="el-icon-close"></el-button>
         </div>
@@ -45,7 +47,8 @@ export default {
       strategyInfo: [],
       ok_ssStatus: null,
       fail_ssStatus: null,
-      msg: ""
+      msg: "",
+      flage: false
     };
   },
   created() {
@@ -55,21 +58,27 @@ export default {
       .post("http://localhost:3000/operation/strategydetail", strategy)
       .then(res => {
         console.log(res);
-        this.strategyInfo = res.data.data;
-        if (this.strategyInfo[0].ssStatus == -1) {
-          //攻略未审核
-          this.ok_ssStatus = 0; //攻略通过审核，为正常攻略
-          this.fail_ssStatus = -2;
-          this.msg = "是否确认通过"; //攻略驳回状态
-        } else if (this.strategyInfo[0].ssStatus == 1) {
-          //攻略被举报
-          this.ok_ssStatus = 0; //恢复正常文章
-          this.fail_ssStatus = 2; //封贴
-          this.msg = "是否恢复成正常文章";
-        } else if (this.strategyInfo[0].ssStatus == 2) {
-          //被封的攻略
-          this.ok_ssStatus = 0; //恢复成正常攻略
-          this.msg = "是否恢复成正常文章";
+        if (res.data.data) {
+          this.strategyInfo = res.data.data;
+          console.log(this.strategyInfo);
+          if (this.strategyInfo[0].ssStatus == -1) {
+            //攻略未审核
+            this.flage = true;
+            this.ok_ssStatus = 0; //攻略通过审核，为正常攻略
+            this.fail_ssStatus = -2;
+            this.msg = "是否确认通过"; //攻略驳回状态
+          } else if (this.strategyInfo[0].ssStatus == 1) {
+            //攻略被举报
+            this.flage = true;
+            this.ok_ssStatus = 0; //恢复正常文章
+            this.fail_ssStatus = 2; //封贴
+            this.msg = "是否恢复成正常文章";
+          } else if (this.strategyInfo[0].ssStatus == 2) {
+            //被封的攻略
+            this.flage = true;
+            this.ok_ssStatus = 0; //恢复成正常攻略
+            this.msg = "是否恢复成正常文章";
+          }
         }
       });
   },
@@ -78,17 +87,18 @@ export default {
       var tableName = this.strategyInfo[0].type;
       var strategyId = this.strategyInfo[0].strategyId;
       var ssStatus = this.ok_ssStatus;
-      var Info = {tableName,ssStatus,strategyId};
-      console.log(Info)
+      var Info = { tableName, ssStatus, strategyId };
+      console.log(this.strategyInfo[0].ssStatus, Info);
       if (confirm(this.msg)) {
         // location.href = "manage.html";
         this.$axios
           .post("http://localhost:3000/manage/Status", Info)
           .then(res => {
-              if(res.data.data){
-                  alert("审核通过");
-              }
-              
+            if (res.data.data) {
+              alert("审核通过");
+              this.$router.push("/manage");
+            }
+
             console.log(res);
           });
       }
