@@ -2,11 +2,11 @@
   <div>
     <div class="container-fluid" style="background-color: #fafafa;">
       <div class="container">
-        <a href="#">目的地</a>
+        <a href="#">景点攻略</a>
         <span>></span>
-        <a href="#">上海</a>
+        <a href="#">江南水乡</a>
         <span>></span>
-        <span>上海个性路线</span>
+        <span>我心目中最原味的江南水乡</span>
         <div id="title">
           <h2>江南水乡</h2>
           <div id="h2-right">
@@ -19,57 +19,31 @@
                 <img src="../assets/linestrategy/zan.png" width="15px" height="15px" />
                 <span>点赞</span>
               </div>
-              <div>
-                <img src="../assets/linestrategy/browsing-history.png" width="20px" height="15px" />
-                <span>浏览量</span>
-              </div>
             </div>
           </div>
         </div>
-         
       </div>
     </div>
 
     <div class="container">
       <div class="con-top">
         <div class="con-top-left">
-          <h5>路线概览</h5>
+          <h5>景点概览</h5>
           <div class="route">
-            <a href="#" target="_blank">上海</a>
+            <a href="#" target="_blank">南浔古镇</a>
             <span>→</span>
-            <a href="#" target="_blank">苏州</a>
+            <a href="#" target="_blank">同里古镇</a>
             <span>→</span>
-            <a href="#" target="_blank">乌镇</a>
-            <span>→</span>
-            <a href="#" target="_blank">杭州</a>
+            <a href="#" target="_blank">浙江乌镇</a>
           </div>
           <h5>Tips</h5>
-          <p>该行程有点费脚力，一定要带双平底鞋以备不时之需 。乌镇的外部交通要提前关注一下，选择适合自己的时间段乘坐。</p>
-          <h5>总结</h5>
-          <p>此次行程即可看到非常现代化的大都市，又可游览具有江南特色的园林城市，此外，还可以在乌镇留宿赏夜景，行程总体比较轻松。</p>
-        </div>
-        <div class="con-top-right">
-          <div class id="map01" style="width: 400px;height: 300px;"></div>
+          <p>坐在江那头的亭阁里了。忽然又觉，江南是乌漆格子里半躲半藏的姑娘。冉冉檀香透过窗，眼前的江南，宛如一幅浓墨浅彩的水墨画。圆石桌上，一杯热茶冒着热气，与烟雨混在一起，看不分明了。是那“姑娘”饮过的吗？思君君不知，一帘幽怨寒。滴滴红粉泪，溅落在水墨画卷上，是江南的温柔。云鬓花颜，泪光潋滟，此恨绵绵，都在江南。</p>
         </div>
       </div>
 
       <div class="con-main">
-        <hr />
         <div class="accordion" id="accordionExample">
           <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5 class="mb-0">
-                <button
-                  class="btn btn-link"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >D1-上海</button>
-              </h5>
-            </div>
-
             <div
               id="collapseOne"
               class="collapse show"
@@ -78,521 +52,136 @@
             >
               <div class="card-body">
                 <br />
-                <h5>上海</h5>
+                <h5>南浔古镇</h5>
                 <div class="main-show">
                   <hr />
-                  <p>上午抵达上海后，先到酒店办理入住。稍作休息后，前往汇集了上海各种特色小吃的城隍庙品尝美食，然后到达江南古典园林豫园游玩。下午去上海最著名的商业街区逛一逛百货大楼和老字号商店，傍晚去外滩欣赏万国建筑博览群和因《情深深雨蒙蒙》出名的外白渡桥。</p>
-                  <div>
-                    <span>上海城隍庙旅游区(2小时)</span>
-                    <span>→</span>
-                    <span>绿波廊(豫园路店)(1小时)</span>
-                    <span>→</span>
-                    <span>豫园(1小时)</span>
-                    <span>→</span>
-                    <span>南京路步行街(3小时)</span>
-                    <span>→</span>
-                    <span>小杨生煎(黄河路)(1小时)</span>
-                    <span>→</span>
-                    <span>外滩(1小时)</span>
-                  </div>
+                  <p>
+                    南浔古镇，地处浙江湖州市，太湖的南岸，与江苏的苏州吴江区相接壤。
+                    全长约33公里的京杭大运河支流“頔塘”，穿过南浔古镇，东与苏州平望运河段相连，最终进入上海黄浦江，而向北，则可以抵达湖州市
+                  </p>
 
                   <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
+                    <img src="../assets/stategyDetail/jn.jpg" alt />
                     <div class="d-txt">
-                      <p>上海城隍庙旅游区</p>
+                      <p></p>
                     </div>
                   </div>
                   <div class="show-img">
-                    <img src="../assets/linestrategy/d02.jpeg" alt />
+                    <img src="../assets/stategyDetail/jn1.jpg" alt />
                     <div class="d-txt">
-                      <p>绿波廊(豫园路店)</p>
+                      <p></p>
                     </div>
                   </div>
                   <div class="show-img">
-                    <img src="../assets/linestrategy/d03.jpeg" alt />
+                    <img src="../assets/stategyDetail/jn5.jpg" alt />
                     <div class="d-txt">
-                      <p>豫园</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d04.jpeg" alt />
-                    <div class="d-txt">
-                      <p>南京路步行街</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>小杨生煎(黄河路)</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d06.jpeg" alt />
-                    <div class="d-txt">
-                      <p>外滩</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="traffic">
-                  <h5>交通</h5>
-                  <hr />
-                  <p>
-                    如何到达上海：
-                    <br />到达上海的交通方式很多，例如：飞机、火车、大巴等，无论从哪个城市出发都很方便到达上海。
-                    <br />上海市内交通：
-                    <br />上海市内建议地铁或者公交出行，方便快捷且便宜。从豫园到南京路步行街，需乘坐地铁约20分钟，地铁10号线（新江湾城方向）豫园上车，南京东路站下车即可。
-                  </p>
-                </div>
-                <br />
-                <div class="foods">
-                  <div class="main-show">
-                    <h5>餐饮</h5>
-                    <hr />
-                    <p>上海特色美食：生煎、汤包、小笼包、红烧肉、白斩鸡等。中午推荐在城隍庙小吃街吃饭，晚上可以在南京路和外滩附近任选其一，那里有很多美食可选。</p>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food1.jpeg" alt />
-                      <span class="img-span">绿波廊(豫园路店)</span>
-                      <div class="d-txt">
-                        <p class="p-left">隍庙里的老字号，上海的招牌之一，主打本帮口味地道</p>
-                      </div>
-                    </div>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food2.jpeg" alt />
-                      <span class="img-span">上海老饭店</span>
-                      <div class="d-txt">
-                        <p class="p-left">隍庙里的老字号，上海的招牌之一，主打本帮口味地道</p>
-                      </div>
-                    </div>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food3.jpeg" alt />
-                      <span class="img-span">绿波廊(豫园路店)</span>
-                      <div class="d-txt">
-                        <p class="p-left">隍庙里的老字号，上海的招牌之一，主打本帮口味地道</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="rooms">
-                  <div class="main-show">
-                    <h5>住宿</h5>
-                    <hr />
-                    <p>推荐入住人民广场/南京路步行街附近，那里交通便捷，周边购物美食云集，为上海最繁华地段。</p>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/room1.jpeg" alt />
-                      <span class="img-span">人民广场周边</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h5 class="mb-0">
-                <button
-                  class="btn btn-link collapsed"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseTwo"
-                  aria-expanded="false"
-                  aria-controls="collapseTwo"
-                >D2-苏州</button>
-              </h5>
-            </div>
-            <div
-              id="collapseTwo"
-              class="collapse"
-              aria-labelledby="headingTwo"
-              data-parent="#accordionExample"
-            >
-              <div class="card-body">
-                <br />
-                <h5>苏州</h5>
-                <div class="main-show">
-                  <hr />
-                  <p>上午先游览因《枫桥夜泊》而闻名遐迩的寒山寺，然后到达“吴中第一名胜”的虎丘。景点附近吃完午饭，下午开始游玩七里山塘，在这里可以赏景品尝美食或者去山塘昆曲馆听评弹、昆曲。另外，山塘的夜景也非常的漂亮。需注意的是评弹：14:00-16:00;昆曲：19:30-22:00。</p>
-                  <div>
-                    <span>寒山寺(1小时)</span>
-                    <span>→</span>
-                    <span>虎丘山风景区(2小时)</span>
-                    <span>→</span>
-                    <span>七里山塘(2小时)</span>
-                    <span>→</span>
-                    <span>得月楼(老楼店)</span>
-                    <span>→</span>
-                    <span>山塘昆曲馆(2小时)</span>
-                  </div>
-
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>寒山寺</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>虎丘山风景区</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>七里山塘</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>得月楼</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>山塘昆曲馆</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="traffic">
-                  <h5>交通</h5>
-                  <hr />
-                  <p>
-                    苏州的景点比较集中，交通也比较完善，多数景点乘坐公共交通即可到达。
-                    <br />寒山寺到虎丘，从来凤桥站乘坐816路到虎丘路站下车，步行210米到达。虎丘到七里山塘，从虎丘首末站乘坐游1路南线到广济桥站下车，步行830米到达。
-                  </p>
-                </div>
-                <br />
-                <div class="foods">
-                  <div class="main-show">
-                    <h5>餐饮</h5>
-                    <hr />
-                    <p>
-                      苏州有很多名菜，例如碧螺虾仁、笋腌鲜、母油鸡、青鱼甩水等，还有小吃，蜜汁豆腐干、松子糖、玫瑰瓜子等。
-                      <br />午餐可以选择虎丘附近的山塘街，可以一边游玩一边品尝美食。晚饭选择在观前街附近，有众多的老字号苏帮菜馆。
-                    </p>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food1.jpeg" alt />
-                      <span class="img-span">杜三珍(石门总店)</span>
-                      <div class="d-txt">
-                        <p class="p-left">苏州老字号卤味店，人非常多推荐招牌酱鸭叉烧，三珍酱肉。</p>
-                      </div>
-                    </div>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food2.jpeg" alt />
-                      <span class="img-span">羊肉老店</span>
-                      <div class="d-txt">
-                        <p class="p-left">老字号</p>
-                      </div>
-                    </div>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food3.jpeg" alt />
-                      <span class="img-span">得月楼</span>
-                      <div class="d-txt">
-                        <p class="p-left">老字号</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="rooms">
-                  <div class="main-show">
-                    <h5>住宿</h5>
-                    <hr />
-                    <p>推荐入住人民广场/南京路步行街附近，那里交通便捷，周边购物美食云集，为上海最繁华地段。</p>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/room1.jpeg" alt />
-                      <span class="img-span">人民广场周边</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h5 class="mb-0">
-                <button
-                  class="btn btn-link collapsed"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseThree"
-                  aria-expanded="false"
-                  aria-controls="collapseThree"
-                >D3-乌镇</button>
-              </h5>
-            </div>
-            <div
-              id="collapseThree"
-              class="collapse"
-              aria-labelledby="headingThree"
-              data-parent="#accordionExample"
-            >
-              <div class="card-body">
-                <br />
-                <h5>乌镇</h5>
-                <div class="main-show">
-                  <hr />
-                  <p>上午先游览因《枫桥夜泊》而闻名遐迩的寒山寺，然后到达“吴中第一名胜”的虎丘。景点附近吃完午饭，下午开始游玩七里山塘，在这里可以赏景品尝美食或者去山塘昆曲馆听评弹、昆曲。另外，山塘的夜景也非常的漂亮。需注意的是评弹：14:00-16:00;昆曲：19:30-22:00。</p>
-                  <div>
-                    <span>寒山寺(1小时)</span>
-                    <span>→</span>
-                    <span>虎丘山风景区(2小时)</span>
-                    <span>→</span>
-                    <span>七里山塘(2小时)</span>
-                    <span>→</span>
-                    <span>得月楼(老楼店)</span>
-                    <span>→</span>
-                    <span>山塘昆曲馆(2小时)</span>
-                  </div>
-
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>寒山寺</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>虎丘山风景区</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>七里山塘</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>得月楼</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>山塘昆曲馆</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="traffic">
-                  <h5>交通</h5>
-                  <hr />
-                  <p>
-                    苏州的景点比较集中，交通也比较完善，多数景点乘坐公共交通即可到达。
-                    <br />寒山寺到虎丘，从来凤桥站乘坐816路到虎丘路站下车，步行210米到达。虎丘到七里山塘，从虎丘首末站乘坐游1路南线到广济桥站下车，步行830米到达。
-                  </p>
-                </div>
-                <br />
-                <div class="foods">
-                  <div class="main-show">
-                    <h5>餐饮</h5>
-                    <hr />
-                    <p>
-                      苏州有很多名菜，例如碧螺虾仁、笋腌鲜、母油鸡、青鱼甩水等，还有小吃，蜜汁豆腐干、松子糖、玫瑰瓜子等。
-                      <br />午餐可以选择虎丘附近的山塘街，可以一边游玩一边品尝美食。晚饭选择在观前街附近，有众多的老字号苏帮菜馆。
-                    </p>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food1.jpeg" alt />
-                      <span class="img-span">杜三珍(石门总店)</span>
-                      <div class="d-txt">
-                        <p class="p-left">苏州老字号卤味店，人非常多推荐招牌酱鸭叉烧，三珍酱肉。</p>
-                      </div>
-                    </div>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food2.jpeg" alt />
-                      <span class="img-span">羊肉老店</span>
-                      <div class="d-txt">
-                        <p class="p-left">老字号</p>
-                      </div>
-                    </div>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food3.jpeg" alt />
-                      <span class="img-span">得月楼</span>
-                      <div class="d-txt">
-                        <p class="p-left">老字号</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="rooms">
-                  <div class="main-show">
-                    <h5>住宿</h5>
-                    <hr />
-                    <p>推荐入住人民广场/南京路步行街附近，那里交通便捷，周边购物美食云集，为上海最繁华地段。</p>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/room1.jpeg" alt />
-                      <span class="img-span">人民广场周边</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingFour">
-              <h5 class="mb-0">
-                <button
-                  class="btn btn-link collapsed"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseFour"
-                  aria-expanded="false"
-                  aria-controls="collapseFour"
-                >D4-杭州</button>
-              </h5>
-            </div>
-            <div
-              id="collapseFour"
-              class="collapse"
-              aria-labelledby="headingFour"
-              data-parent="#accordionExample"
-            >
-              <div class="card-body">
-                <br />
-                <h5>杭州</h5>
-                <div class="main-show">
-                  <hr />
-                  <p>上午先游览因《枫桥夜泊》而闻名遐迩的寒山寺，然后到达“吴中第一名胜”的虎丘。景点附近吃完午饭，下午开始游玩七里山塘，在这里可以赏景品尝美食或者去山塘昆曲馆听评弹、昆曲。另外，山塘的夜景也非常的漂亮。需注意的是评弹：14:00-16:00;昆曲：19:30-22:00。</p>
-                  <div>
-                    <span>寒山寺(1小时)</span>
-                    <span>→</span>
-                    <span>虎丘山风景区(2小时)</span>
-                    <span>→</span>
-                    <span>七里山塘(2小时)</span>
-                    <span>→</span>
-                    <span>得月楼(老楼店)</span>
-                    <span>→</span>
-                    <span>山塘昆曲馆(2小时)</span>
-                  </div>
-
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>寒山寺</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>虎丘山风景区</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>七里山塘</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>得月楼</p>
-                    </div>
-                  </div>
-                  <div class="show-img">
-                    <img src="../assets/linestrategy/d01.jpeg" alt />
-                    <div class="d-txt">
-                      <p>山塘昆曲馆</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="traffic">
-                  <h5>交通</h5>
-                  <hr />
-                  <p>
-                    苏州的景点比较集中，交通也比较完善，多数景点乘坐公共交通即可到达。
-                    <br />寒山寺到虎丘，从来凤桥站乘坐816路到虎丘路站下车，步行210米到达。虎丘到七里山塘，从虎丘首末站乘坐游1路南线到广济桥站下车，步行830米到达。
-                  </p>
-                </div>
-                <br />
-                <div class="foods">
-                  <div class="main-show">
-                    <h5>餐饮</h5>
-                    <hr />
-                    <p>
-                      苏州有很多名菜，例如碧螺虾仁、笋腌鲜、母油鸡、青鱼甩水等，还有小吃，蜜汁豆腐干、松子糖、玫瑰瓜子等。
-                      <br />午餐可以选择虎丘附近的山塘街，可以一边游玩一边品尝美食。晚饭选择在观前街附近，有众多的老字号苏帮菜馆。
-                    </p>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food1.jpeg" alt />
-                      <span class="img-span">杜三珍(石门总店)</span>
-                      <div class="d-txt">
-                        <p class="p-left">苏州老字号卤味店，人非常多推荐招牌酱鸭叉烧，三珍酱肉。</p>
-                      </div>
-                    </div>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food2.jpeg" alt />
-                      <span class="img-span">羊肉老店</span>
-                      <div class="d-txt">
-                        <p class="p-left">老字号</p>
-                      </div>
-                    </div>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/food3.jpeg" alt />
-                      <span class="img-span">得月楼</span>
-                      <div class="d-txt">
-                        <p class="p-left">老字号</p>
-                      </div>
+                      <p></p>
                     </div>
                   </div>
                 </div>
-                <div class="rooms">
-                  <div class="main-show">
-                    <h5>住宿</h5>
-                    <hr />
-                    <p>推荐入住人民广场/南京路步行街附近，那里交通便捷，周边购物美食云集，为上海最繁华地段。</p>
-                    <div class="show-img">
-                      <img src="../assets/linestrategy/room1.jpeg" alt />
-                      <span class="img-span">人民广场周边</span>
-                    </div>
-                  </div>
-                </div>
+                <br />
               </div>
             </div>
           </div>
         </div>
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            <div
+              id="collapseOne"
+              class="collapse show"
+              aria-labelledby="headingOne"
+              data-parent="#accordionExample"
+            >
+              <div class="card-body">
+                <br />
+                <h5>浙江乌镇</h5>
+                <div class="main-show">
+                  <hr />
+                  <p>
+                    说起与 乌镇 的缘分，还始于刘若英与黄磊出演的《似水年华》，古朴秀丽的 乌镇 、小桥流水、千年书院、原始的染坊再加上浪漫的故事，令我有了一个 江南 水乡的梦，有了对 乌镇 的憧憬，没想到许多年后的今天终于来到了向往已久的 乌镇 ！这次的游记没有过多的攻略，基本就是随心随性的闲逛，随手记录一下看风景的心情和拍到的美景。
+                    <br />关于交通：
+                    乌镇 位于 浙江 省 嘉兴 市 桐乡 北部。
+                    1、飞机：坐到 上海 或者 杭州 ，然后转乘高铁或者汽车。
+                    2、汽车： 浙江 各地一般都有到 乌镇 的汽车。如果没有，可以坐到 桐乡 或者 嘉兴 ，再转至 乌镇 。
+                    3、火车：高铁坐到 桐乡 ，出高铁站有公交站点，坐282到终点，公交车最早6:10分，最晚21:40末班车。
+                    <br />乌镇 景点门票：
+                    1、 乌镇 分为东栅和西栅。东栅比较古朴，西栅比较商业化，个人更喜欢东栅，生活气息更加浓一些，比较淳朴。
+                    2、东栅门票120，西栅门票150，联票200元。可以提前在网上买，到景区买也很方便，价格是一样的(非景区内住宿游客当日有效;在景区留宿游客两日内有效，需凭景区内住宿凭证办理多次出入证明方能生效，建议住在景区更方便些。
+                  </p>
+
+                  <div class="show-img">
+                    <img src="../assets/stategyDetail/乌镇1.jpg" alt />
+                    <div class="d-txt">
+                      <p></p>
+                    </div>
+                  </div>
+                  <div class="show-img">
+                    <img src="../assets/stategyDetail/乌镇2.jpg" alt />
+                    <div class="d-txt">
+                      <p></p>
+                    </div>
+                  </div>
+                  <div class="show-img">
+                    <img src="../assets/stategyDetail/乌镇3.jpg" alt />
+                    <div class="d-txt">
+                      <p></p>
+                    </div>
+                  </div>
+                </div>
+                <br />
+              </div>
+
+           
+        </div>
+           
+              <div class="card-body">
+                <br />
+                <h5>同里古镇</h5>
+                <div class="main-show">
+                  <hr />
+                  <p>
+                    同里 古镇属于 江苏 省 苏州 市吴江区，宋代建镇。镇区内始建于明清两代的花园、寺观、宅第和名人故居众多，“川”字形的15条小河把古镇区分隔成七个小岛，而49座古桥又将其连成一体，以“小桥、流水、人家”著称。2010年被国家旅游局评定为国家5A级旅游景区。
+                    苏州 古典园林素有“园林之城”之称，并享有“ 江南 园林甲天下， 苏州 园林甲 江南 ”的美誉。 苏州 园林四季或繁花似锦，或碧树浓荫，或银装素裹，展现出万千美态。形成“小桥、流水、人家”的独特风貌。
+                    自2016年、2018年，分别二次来到 苏州 ，分别游览了虎丘山风景名胜区、留园、拙政园、忠王府、 苏州 博物馆、 周庄 、 木渎 古镇、东方之门(金鸡湖、金鸡湖音乐喷泉)、李公堤、文化博览中心、 中国 历史文化名街（ 平江 路）、 狮子 林、七里山塘等景点，但意犹未尽。此次是第三次来到 苏州 ，去往 同里 古镇、盘门景区、沧浪亭、网师园等地
+                  </p>
+                  <p>
+                    门票
+                    普通票:100人民币；老年票：半价50元/人；
+                    古镇门票有效期为2天，持门票可出入景区；门票内包括以下8个景点可免费参观、游览。（其中退思园、 嘉荫 堂、崇本堂、珍珠塔、耕乐堂、松石梧园、 太湖 水利展示馆、罗星洲（乘船）上岛）；进入上述游览景点可用门票打卡即可。
+                  </p>
+                  <p>交通： 苏州 火车站乘地铁四号线，终点 同里 站下车换乘725路公交车， 同里 站(甘泉东路) 上车， 同里 古镇石牌楼下车；步行 108米 (约2分钟)至 同里 古镇游客服务中心；</p>
+                  <div class="show-img">
+                    <img src="../assets/stategyDetail/苏州.jpg" alt />
+                    <div class="d-txt">
+                      <p></p>
+                    </div>
+                  </div>
+                  <div class="show-img">
+                    <img src="../assets/stategyDetail/苏州1.jpg" alt />
+                    <div class="d-txt">
+                      <p></p>
+                    </div>
+                  </div>
+                  <div class="show-img">
+                    <img src="../assets/stategyDetail/苏州2.jpg" alt />
+                    <div class="d-txt">
+                      <p></p>
+                    </div>
+                  </div>
+                </div>
+                <br/>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: "linestrategy",
-  data() {
-    return {
-      articles: {},
-      hotarticles: {},
-      strategyType: "personalrow"
-    };
-  },
-  created() {
-    console.log(this.strategyType);
-    this.$axios
-      .post("http://localhost:3000/operation/hotStrategy", {
-        strategyType: this.strategyType
-      })
-      .then(res => {
-        console.log(res);
-        console.log("查询结果" + res.data.data);
-        this.articles = res.data.data;
-      })
-      .catch(err => {
-        console.log("错误信息" + err);
-      });
-    this.$axios
-      .post("http://localhost:3000/operation/hotStrategy", {
-        strategyType: this.strategyType
-      })
-      .then(res => {
-        console.log(res);
-        console.log("查询结果" + res.data.data);
-        this.hotarticles = res.data.data;
-      })
-      .catch(err => {
-        console.log("错误信息" + err);
-      });
+  name: "jn",
+  data: function() {
+    return {};
   }
 };
 </script>
@@ -603,14 +192,32 @@ export default {
 }
 .container {
   margin: 0 auto;
+  margin-top: 40px;
 }
 .container-fluid .container a {
   color: #888;
   font-size: 12px;
 }
-
+.card-body h5 {
+  padding-left: 10px;
+  margin-bottom: 15px;
+}
+.main-show p {
+  padding-left: 10px;
+  margin-top: 15px;
+}
 .container-fluid .container a:hover {
   color: #ff9d00;
+}
+.con-top-left {
+  margin-left: 10px;
+}
+.con-top-left p {
+  margin-left: 15px;
+  margin-top: 10px;
+}
+.con-top-left .route {
+  margin: 15px 10px 10px;
 }
 
 #title {
@@ -621,6 +228,7 @@ export default {
 #title h2 {
   display: inline-block;
   width: 60%;
+  font-family: 楷体;
 }
 
 #title > div {
@@ -657,6 +265,7 @@ export default {
 
 .con-main {
   clear: both;
+  margin-top: 40px;
 }
 
 .con-main .main-show {
