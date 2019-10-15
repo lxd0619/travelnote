@@ -29,6 +29,7 @@
         <div class="con-top-left">
           <h5>景点概览</h5>
           <h5>总结</h5>
+         
           <p>西安，仅一个“安”字就道出了这个城市带给我们的感觉。也难怪当年的白居易即使在西安搬了几十次家，都要留在西安的缘故了，就像一首诗中就说过：“摇摆长街笑流云，我本长安羁旅人，世人谓我爱长安”。那到底西安有哪些迷人之处，让古往今来的名人墨客争相留在西安。</p>
         </div>
       </div>
@@ -124,15 +125,58 @@
           </div>
         </div>    
       </div>
+       <div class="l-comment">
+        <div class="clearfix com-form">
+            <div class="fm-tare user-log">
+                <textarea v-model="commontext" class="_j_comment_content" placeholder="说点什么吧..."></textarea>
+                <button type="button" class="gotoLogin" data-gtype="1" @click="common">评论</button>
+            </div>
+        </div>
+        <div class="com-box ">
+            <h2>评论（<span class="_comment_num">20</span>）</h2>
+            <ul id="comments" data-page="1" data-id="0">
+                <li class="clearfix comment_item item_1203904" data-id="1203904" data-replied="0">
+                    <div class="img"><img src="https://p1-q.mafengwo.net/s10/M00/77/C5/wKgBZ1oiiAeASaJoAAB6DH0UYHQ72.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></div>
+                    <div class="info">
+                        <h3>爱旅游的单身</h3>
+                        <h4>2019-08-13 14:41:40</h4>
+                        <div class="com-cont">长谷寺门票是400</div>
+                        <div class="rep-del op_item_1203904 hide" style="display: none;">
+                            <i></i>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
     </div>
-  </div>
+    </div>
+ 
   </div>
 </template>
 <script>
 export default {
   name: "Xa",
   data: function() {
-    return {};
+    return {
+      commontext:''
+    };
+  },
+  methods:{
+      common:function(){
+        this.$axios
+      .post("http://localhost:3000/operation/discuss",this.commontext, {
+        strategyType: this.strategyType
+      })
+      .then(res => {
+        console.log(res);
+        this.articles = res.data.data;
+      })
+      .catch(error => {
+        console.log("错误信息" + error);
+      });   
+      }
   }
 };
 </script>
@@ -270,4 +314,111 @@ export default {
   text-align: left;
   height: 40px;
 }
+/* 评论区style */
+
+   .l-comment {
+            margin-top: 85px;
+        }
+        
+        .com-form .fm-tare textarea {
+            height: 200px;
+            width: 1000px;
+            padding: 14px;
+            border: 1px solid #e5e5e5;
+            resize: none;
+            outline: 0;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .com-form .user-log textarea {
+            border: 1px solid #ffa200;
+        }
+        
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            color: inherit;
+            font: inherit;
+            margin: 0;
+        }
+        
+        .com-box ul li {
+            border-bottom: 1px solid #e5e5e5;
+            padding: 30px 0;
+        }
+        
+        .com-box h2 {
+            font-size: 24px;
+            color: #333;
+            font-weight: normal;
+            line-height: 24px;
+            margin: 36px 0;
+        }
+        
+        .com-box h2 {
+            font-size: 24px;
+            color: #333;
+            font-weight: normal;
+            line-height: 24px;
+            margin: 36px 0;
+        }
+        
+        .com-box {
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        .com-form .fm-tare button {
+            width: 114px;
+            height: 40px;
+            background: #ffa200;
+            border: 0;
+            outline: 0;
+            cursor: pointer;
+            display: block;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            padding: 0;
+            line-height: 30px;
+            margin-left: 850px;
+        }
+        
+        li {
+            list-style: none;
+        }
+        
+        .com-box li .img {
+            overflow: hidden;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            float: left;
+        }
+        
+        .com-box .info h3 {
+            font-size: 18px;
+            color: #333;
+            font-weight: normal;
+            line-height: 28px;
+        }
+        
+        .com-box .info h4 {
+            font-size: 12px;
+            color: #999;
+            font-weight: normal;
+            line-height: 14px;
+        }
+        
+        .com-box .info .com-cont {
+            font-size: 14px;
+            color: #666;
+            line-height: 28px;
+            margin-top: 8px;
+        }
 </style>
