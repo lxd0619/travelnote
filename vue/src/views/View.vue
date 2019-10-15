@@ -2,6 +2,7 @@
   <div>
     <div id="head"></div>
     <div class="contain">
+
       <div id="circleContent" class="carousel slide carousel-fade" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#circleContent" data-slide-to="0" class="active"></li>
@@ -30,6 +31,7 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
+
 
       <div class="ViewProduce">View Produce</div>
       <div class="sheadsecond">景点攻略</div>
