@@ -2,8 +2,37 @@
   <div>
     <div id="head"></div>
     <div class="contain">
-    
-      
+
+      <div id="circleContent" class="carousel slide carousel-fade" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#circleContent" data-slide-to="0" class="active"></li>
+          <li data-target="#circleContent" data-slide-to="1"></li>
+          <li data-target="#circleContent" data-slide-to="2"></li>
+          <li data-target="#circleContent" data-slide-to="3"></li>
+          <li data-target="#circleContent" data-slide-to="4"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="../assets/view/景色背景图片.jpg" />
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="../assets/view/景色背景图片2.jpg" />
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="../assets/view/景色图片3.jpg" />
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#circleContent" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#circleContent" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+
+
       <div class="ViewProduce">View Produce</div>
       <div class="sheadsecond">景点攻略</div>
       <div class="specialFood">
@@ -66,54 +95,54 @@
         <router-view></router-view>
         <div class="contain strategy">
           <ul style="display: flex;flex-direction: row;justify-content:space-between">
-            <li>
-              <a href="#" target="_blank">
-                <img src="../assets/view/leftPic3.jpg" />
-                <div class="strategy_msk"></div>
-                <div class="strategy_txt tit">
-                  <div class="strategy_tit">title</div>
-                </div>
-                <div class="strategy_txt pos">
-                  <div class="strategy_pos">cityname</div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href target="_blank">
-                <img src="../assets/view/leftPic7.jpg" />
-                <div class="strategy_msk"></div>
-                <div class="strategy_txt tit">
-                  <div class="strategy_tit">title</div>
-                </div>
-                <div class="strategy_txt pos">
-                  <div class="strategy_pos">cityname</div>
-                </div>
-              </a>
-            </li>
+            <router-link to="/index/Jn">
+              <li>
+                <a href="#" target="_blank">
+                  <img src="../assets/view/leftPic3.jpg" />
+                  <div class="strategy_msk"></div>
+                  <div class="strategy_txt tit">
+                    <div class="strategy_tit">江南水乡</div>
+                  </div>
+
+                  <div class="strategy_txt pos">
+                    <div class="strategy_pos">古镇之美</div>
+                  </div>
+                </a>
+              </li>
+            </router-link>
+            <router-view></router-view>
+             <router-link to="/index/Nm">
             <li>
               <a href target="_blank">
-                <img src="../assets/view/leftPic1.jpg" />
+                <img src="../assets/stategyDetail/内蒙古1.jpg" />
                 <div class="strategy_msk"></div>
                 <div class="strategy_txt tit">
-                  <div class="strategy_tit">title</div>
+                  <div class="strategy_tit">草原上的内蒙</div>
                 </div>
                 <div class="strategy_txt pos">
-                  <div class="strategy_pos">cityname</div>
+                  <div class="strategy_pos">内蒙古</div>
                 </div>
               </a>
             </li>
-            <li class="last">
+             </router-link>
+              <router-view></router-view>
+               <router-link to="/index/Xa">
+            <li>
               <a href target="_blank">
-                <img src="../assets/view/leftPic5.jpg" />
+                <img src="../assets/stategyDetail/西安.jpg" />
                 <div class="strategy_msk"></div>
                 <div class="strategy_txt tit">
-                  <div class="strategy_tit">title</div>
+                  <div class="strategy_tit">历史古都</div>
                 </div>
                 <div class="strategy_txt pos">
-                  <div class="strategy_pos">cityname</div>
+                  <div class="strategy_pos">西安</div>
                 </div>
               </a>
             </li>
+             </router-link>
+               <router-view></router-view>
+           
+           
           </ul>
         </div>
       </div>
@@ -278,7 +307,7 @@ export default {
   width: 220px;
   overflow: hidden;
 }
-.txt h3{
+.txt h3 {
   overflow: hidden;
 }
 .tripb .tit h3 em {
