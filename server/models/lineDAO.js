@@ -39,33 +39,7 @@ var lineDAO = {
             }
         })
     },
-    // LineDetail: function (lineInfo, callback) {
-    //     DAO('select strategyId,prInfo from personalrow where (prStatus=0 or prStatus=1) and strategyId=?', [lineInfo.strategyId], function (err, results) {
-    //         if (err) {
-    //             callback(err, null)
-    //         } else {
-    //             callback(null, results)
-    //         }
-    //     })
-    // },
-    // selectDiscuss: function (DiscussInfo,callback) {
-    //     DAO('select users.userId,users.headPic,comments.commentContent from users,comments where comments.strategyId = ? and comments.strategyType = ? and comments.userId=users.userId',[DiscussInfo.strategyId,DiscussInfo.strategyType], function (err, results) {
-    //         if (err) {
-    //             callback(err, null)
-    //         } else {
-    //             callback(null, results)
-    //         }
-    //     })
-    // },
-    // selectReply: function (replyInfo,callback) {
-    //     DAO('select users.userName,users.headPic,replys.replyContent from users,replys where replys.commentId=? and users.userId=replys.userId ', [replyInfo.commentId], function (err, results) {
-    //         if (err) {
-    //             callback(err, null)
-    //         } else {
-    //             callback(null, results)
-    //         }
-    //     })
-    // },
+  
 }
 
 module.exports = lineDAO

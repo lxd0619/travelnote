@@ -227,27 +227,36 @@
           <br />
           <div id="line-row">
             <div class="item-list clearfix row" style="justify-content: space-around">
-              <div class="item-coat J_item box-shadow" @click="go(article.type,article.strategyId)" v-for="article in articles" :key="article.strategyId">
+              <div
+                class="item-coat J_item box-shadow"
+                @click="go(strategy.strategyType,strategy.strategyId)"
+                v-for="strategy in articles.slice(0,8)"
+                :key="strategy.strategyId"
+              >
                 <div class="item">
-                  <img :src="require('../assets/line/'+article.cover)" width="280px" height="200px" alt />
+                  <img
+                    :src="require('../assets/line/'+strategy.cover)"
+                    width="280px"
+                    height="200px"
+                    alt
+                  />
                   <div class="totalPart">
                     <a href="#" target="_blank" class="detail">
-                      <p class="title">{{article.title}}</p>
+                      <p class="title">{{strategy.title}}</p>
                     </a>
                     <div class="ext-r row" style="justify-content:space-around;">
                       <div>
                         <img src="../assets/line/shou.png" width="15px" height="15px" />
-                        <span>({{article.prCollectionNum}})</span>
+                        <span>({{strategy.prCollectionNum}})</span>
                       </div>
                       <div>
                         <img src="../assets/line/zan.png" width="15px" height="15px" />
-                        <span>({{article.prLikeNum}})</span>
+                        <span>({{strategy.prLikeNum}})</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-          
             </div>
           </div>
         </div>
@@ -277,270 +286,569 @@
 
       <div id="con-line">
         <div id="con-line-nav">
-          <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-            <span class="navbar-brand">路线分类</span>
-
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNavDropdown"
-              aria-controls="navbarNavDropdown"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- 导航 -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <div class="nav-link" href="#">
-                    综合排序
-                    <span class="sr-only">(current)</span>
-                  </div>
-                </li>
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown1"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >人群划分</a>
-                  <div class="dropdown-menu" id="people" aria-labelledby="navbarDropdown1">
-                    <div class="dropdown-item">活力行</div>
-                    <div class="dropdown-item">夕阳游</div>
-                    <div class="dropdown-item">亲子游</div>
-                    <div class="dropdown-item">情侣游</div>
-                    <div class="dropdown-item">蜜月游</div>
-                    <div class="dropdown-item">伙伴游</div>
-                  </div>
-                </li>
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown2"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >时间长度</a>
-                  <div class="dropdown-menu" id="time" aria-labelledby="navbarDropdown2">
-                    <div class="dropdown-item">一日游</div>
-                    <div class="dropdown-item">两日游</div>
-                    <div class="dropdown-item">三日游</div>
-                    <div class="dropdown-item">四日游</div>
-                    <div class="dropdown-item">五日游</div>
-                    <div class="dropdown-item">七日游</div>
-                    <div class="dropdown-item">多日游</div>
-                  </div>
-                </li>
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown3"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >季节</a>
-                  <div class="dropdown-menu" id="season" aria-labelledby="navbarDropdown3">
-                    <div class="dropdown-item">浪漫春日</div>
-                    <div class="dropdown-item">活力之夏</div>
-                    <div class="dropdown-item">金秋时节</div>
-                    <div class="dropdown-item">冬日热旅</div>
-                  </div>
-                </li>
-                <!-- <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbardrop"
-                    data-toggle="dropdown"
-                  >Dropdown link</a>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Link 1</a>
-                    <a class="dropdown-item" href="#">Link 2</a>
-                    <a class="dropdown-item" href="#">Link 3</a>
-                  </div>
-                </li>-->
-              </ul>
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a
+                class="nav-item nav-link active"
+                id="nav-default-tab"
+                data-toggle="tab"
+                href="#nav-default"
+                role="tab"
+                aria-controls="nav-default"
+                aria-selected="true"
+              >综合排序</a>
+              <a
+                class="nav-item nav-link"
+                id="nav-people-tab"
+                data-toggle="tab"
+                href="#nav-people"
+                role="tab"
+                aria-controls="nav-people"
+                aria-selected="false"
+              >人群划分</a>
+              <a
+                class="nav-item nav-link"
+                id="nav-time-tab"
+                data-toggle="tab"
+                href="#nav-time"
+                role="tab"
+                aria-controls="nav-time"
+                aria-selected="false"
+              >时间长度</a>
+              <a
+                class="nav-item nav-link"
+                id="nav-season-tab"
+                data-toggle="tab"
+                href="#nav-season"
+                role="tab"
+                aria-controls="nav-season"
+                aria-selected="false"
+              >季节</a>
             </div>
           </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="nav-default"
+              role="tabpanel"
+              aria-labelledby="nav-default-tab"
+            >
+              <div class="main_news">
+                <ul>
+                  <li  v-for="strategy in articles" :key="strategy.strategyId">
+                    <a href="#" target="_blank">
+                      <img  :src="require('../assets/line/'+strategy.cover)" />
+                      <div class="txt">
+                        <h3>{{strategy.title}}</h3>
+                        <span>{{strategy.prInfo}}</span>
+                      </div>
+                      <div class="info">
+                        <span class="sp1">
+                          <img src="../assets/line/line1.jpg" alt />
+                          <span class="name">htc</span>
+                        </span>
+                        <span>
+                          <img src="../assets/line/shou.png" width="20px" height="20px" />
+                          <span>({{strategy.prCollectionNum}})</span>
+                        </span>
+                        <span>
+                          <img src="../assets/line/zan.png" width="20px" height="20px" />
+                          <span>({{strategy.prLikeNum}})</span>
+                        </span>
+
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              class="tab-pane fade"
+              id="nav-people"
+              role="tabpanel"
+              aria-labelledby="nav-people-tab"
+            >
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <a
+                    class="nav-item nav-link active"
+                    id="nav-people1-tab"
+                    data-toggle="tab"
+                    href="#nav-people1"
+                    role="tab"
+                    aria-controls="nav-people1"
+                    aria-selected="true"
+                  >活力行</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-people2-tab"
+                    data-toggle="tab"
+                    href="#nav-people2"
+                    role="tab"
+                    aria-controls="nav-people2"
+                    aria-selected="false"
+                  >夕阳游</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-people3-tab"
+                    data-toggle="tab"
+                    href="#nav-people3"
+                    role="tab"
+                    aria-controls="nav-people3"
+                    aria-selected="false"
+                  >亲子游</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-people4-tab"
+                    data-toggle="tab"
+                    href="#nav-people4"
+                    role="tab"
+                    aria-controls="nav-people4"
+                    aria-selected="false"
+                  >情侣游</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-people5-tab"
+                    data-toggle="tab"
+                    href="#nav-people5"
+                    role="tab"
+                    aria-controls="nav-people5"
+                    aria-selected="false"
+                  >蜜月行</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-people6-tab"
+                    data-toggle="tab"
+                    href="#nav-people6"
+                    role="tab"
+                    aria-controls="nav-people6"
+                    aria-selected="false"
+                  >伙伴游</a>
+                </div>
+              </nav>
+              <div class="tab-content" id="nav-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="nav-people1"
+                  role="tabpanel"
+                  aria-labelledby="nav-people1-tab"
+                >
+                  <div class="main_news">
+                    <ul>
+                      <li>
+                        <a href="#" target="_blank">
+                          <img src="../assets/line/two1.png" />
+                          <div class="txt">
+                            <h3>海上看厦门</h3>
+                            <span>中山路沿线是厦门商业的发源地，是厦门市最繁华的商圈之一，在旧城街区仍然保留着较完整的近代历史风貌。</span>
+                          </div>
+                          <div class="info">
+                            <span class="sp1">
+                              <img src="../assets/line/line1.jpg" alt />
+                              <span class="name">htc</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/shou.png" width="20px" height="20px" />
+                              <span>收藏</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/zan.png" width="20px" height="20px" />
+                              <span>点赞</span>
+                            </span>
+                            <span>
+                              <img
+                                src="../assets/line/browsing-history.png"
+                                width="20px"
+                                height="20px"
+                              />
+                              <span>浏览量</span>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" target="_blank">
+                          <img src="../assets/line/two2.png" />
+                          <div class="txt">
+                            <h3>魅力时尚之旅</h3>
+                            <span>厦门五缘湾湿地公园是厦门最大的公园,也是最大的湿地生态园区,被称为是厦门的城市绿肺</span>
+                          </div>
+                          <div class="info">
+                            <span class="sp1">
+                              <img src="../assets/line/line1.jpg" alt />
+                              <span class="name">htc</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/shou.png" width="20px" height="20px" />
+                              <span>收藏</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/zan.png" width="20px" height="20px" />
+                              <span>点赞</span>
+                            </span>
+                            <span>
+                              <img
+                                src="../assets/line/browsing-history.png"
+                                width="20px"
+                                height="20px"
+                              />
+                              <span>浏览量</span>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" target="_blank">
+                          <img src="../assets/line/two3.png" />
+                          <div class="txt">
+                            <h3>文创艺术品鉴之旅</h3>
+                            <span>厦门市博物馆是我国东南地区的一座重要的地方综合性博物馆，致力于我国东南地区特别是闽台两岸珍贵文化遗产的收藏、保护、研究与展示</span>
+                          </div>
+                          <div class="info">
+                            <span class="sp1">
+                              <img src="../assets/line/line1.jpg" alt />
+                              <span class="name">htc</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/shou.png" width="20px" height="20px" />
+                              <span>收藏</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/zan.png" width="20px" height="20px" />
+                              <span>点赞</span>
+                            </span>
+                            <span>
+                              <img
+                                src="../assets/line/browsing-history.png"
+                                width="20px"
+                                height="20px"
+                              />
+                              <span>浏览量</span>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" target="_blank">
+                          <img src="../assets/line/two4.png" />
+                          <div class="txt">
+                            <h3>海上看厦门</h3>
+                            <span>中山路沿线是厦门商业的发源地，是厦门市最繁华的商圈之一，在旧城街区仍然保留着较完整的近代历史风貌。</span>
+                          </div>
+                          <div class="info">
+                            <span class="sp1">
+                              <img src="../assets/line/line1.jpg" alt />
+                              <span class="name">htc</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/shou.png" width="20px" height="20px" />
+                              <span>收藏</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/zan.png" width="20px" height="20px" />
+                              <span>点赞</span>
+                            </span>
+                            <span>
+                              <img
+                                src="../assets/line/browsing-history.png"
+                                width="20px"
+                                height="20px"
+                              />
+                              <span>浏览量</span>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" target="_blank">
+                          <img src="../assets/line/two5.png" />
+                          <div class="txt">
+                            <h3>魅力时尚之旅</h3>
+                            <span>厦门五缘湾湿地公园是厦门最大的公园,也是最大的湿地生态园区,被称为是厦门的城市绿肺</span>
+                          </div>
+                          <div class="info">
+                            <span class="sp1">
+                              <img src="../assets/line/line1.jpg" alt />
+                              <span class="name">htc</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/shou.png" width="20px" height="20px" />
+                              <span>收藏</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/zan.png" width="20px" height="20px" />
+                              <span>点赞</span>
+                            </span>
+                            <span>
+                              <img
+                                src="../assets/line/browsing-history.png"
+                                width="20px"
+                                height="20px"
+                              />
+                              <span>浏览量</span>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" target="_blank">
+                          <img src="../assets/line/two6.png" />
+                          <div class="txt">
+                            <h3>文创艺术品鉴之旅</h3>
+                            <span>厦门市博物馆是我国东南地区的一座重要的地方综合性博物馆，致力于我国东南地区特别是闽台两岸珍贵文化遗产的收藏、保护、研究与展示</span>
+                          </div>
+                          <div class="info">
+                            <span class="sp1">
+                              <img src="../assets/line/line1.jpg" alt />
+                              <span class="name">htc</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/shou.png" width="20px" height="20px" />
+                              <span>收藏</span>
+                            </span>
+                            <span>
+                              <img src="../assets/line/zan.png" width="20px" height="20px" />
+                              <span>点赞</span>
+                            </span>
+                            <span>
+                              <img
+                                src="../assets/line/browsing-history.png"
+                                width="20px"
+                                height="20px"
+                              />
+                              <span>浏览量</span>
+                            </span>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-people2"
+                  role="tabpanel"
+                  aria-labelledby="nav-people2-tab"
+                >夕阳游</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-people3"
+                  role="tabpanel"
+                  aria-labelledby="nav-people3-tab"
+                >亲子游</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-people4"
+                  role="tabpanel"
+                  aria-labelledby="nav-people4-tab"
+                >情侣游</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-people5"
+                  role="tabpanel"
+                  aria-labelledby="nav-people5-tab"
+                >蜜月行</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-people6"
+                  role="tabpanel"
+                  aria-labelledby="nav-people6-tab"
+                >伙伴游</div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-time" role="tabpanel" aria-labelledby="nav-time-tab">
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <a
+                    class="nav-item nav-link active"
+                    id="nav-time1-tab"
+                    data-toggle="tab"
+                    href="#nav-time1"
+                    role="tab"
+                    aria-controls="nav-time1"
+                    aria-selected="true"
+                  >一日游</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-time2-tab"
+                    data-toggle="tab"
+                    href="#nav-time2"
+                    role="tab"
+                    aria-controls="nav-time2"
+                    aria-selected="false"
+                  >二日游</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-time3-tab"
+                    data-toggle="tab"
+                    href="#nav-time3"
+                    role="tab"
+                    aria-controls="nav-time3"
+                    aria-selected="false"
+                  >三日游</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-time4-tab"
+                    data-toggle="tab"
+                    href="#nav-time4"
+                    role="tab"
+                    aria-controls="nav-time4"
+                    aria-selected="false"
+                  >四日游</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-time5-tab"
+                    data-toggle="tab"
+                    href="#nav-time5"
+                    role="tab"
+                    aria-controls="nav-time5"
+                    aria-selected="false"
+                  >五日游</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-time6-tab"
+                    data-toggle="tab"
+                    href="#nav-time6"
+                    role="tab"
+                    aria-controls="nav-time6"
+                    aria-selected="false"
+                  >七日游</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-time7-tab"
+                    data-toggle="tab"
+                    href="#nav-time7"
+                    role="tab"
+                    aria-controls="nav-time7"
+                    aria-selected="false"
+                  >多日游</a>
+                </div>
+              </nav>
+              <div class="tab-content" id="nav-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="nav-time1"
+                  role="tabpanel"
+                  aria-labelledby="nav-time1-tab"
+                >一日游</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-time2"
+                  role="tabpanel"
+                  aria-labelledby="nav-time2-tab"
+                >二日游</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-time3"
+                  role="tabpanel"
+                  aria-labelledby="nav-time3-tab"
+                >三日游</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-time4"
+                  role="tabpanel"
+                  aria-labelledby="nav-time4-tab"
+                >四日游</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-time5"
+                  role="tabpanel"
+                  aria-labelledby="nav-time5-tab"
+                >五日游</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-time6"
+                  role="tabpanel"
+                  aria-labelledby="nav-time6-tab"
+                >七日游</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-time7"
+                  role="tabpanel"
+                  aria-labelledby="nav-time7-tab"
+                >多日游</div>
+              </div>
+            </div>
+
+            <div
+              class="tab-pane fade"
+              id="nav-season"
+              role="tabpanel"
+              aria-labelledby="nav-season-tab"
+            >
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <a
+                    class="nav-item nav-link active"
+                    id="nav-season1-tab"
+                    data-toggle="tab"
+                    href="#nav-season1"
+                    role="tab"
+                    aria-controls="nav-season1"
+                    aria-selected="true"
+                  >浪漫春日</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-season2-tab"
+                    data-toggle="tab"
+                    href="#nav-season2"
+                    role="tab"
+                    aria-controls="nav-season2"
+                    aria-selected="false"
+                  >活力盛夏</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-season3-tab"
+                    data-toggle="tab"
+                    href="#nav-season3"
+                    role="tab"
+                    aria-controls="nav-season3"
+                    aria-selected="false"
+                  >金秋时节</a>
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-season4-tab"
+                    data-toggle="tab"
+                    href="#nav-season4"
+                    role="tab"
+                    aria-controls="nav-season4"
+                    aria-selected="false"
+                  >冬日热旅</a>
+                </div>
+              </nav>
+              <div class="tab-content" id="nav-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="nav-season1"
+                  role="tabpanel"
+                  aria-labelledby="nav-season1-tab"
+                >浪漫春日</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-season2"
+                  role="tabpanel"
+                  aria-labelledby="nav-season2-tab"
+                >活力盛夏</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-season3"
+                  role="tabpanel"
+                  aria-labelledby="nav-season3-tab"
+                >金秋时节</div>
+                <div
+                  class="tab-pane fade"
+                  id="nav-season4"
+                  role="tabpanel"
+                  aria-labelledby="nav-season4-tab"
+                >冬日热旅</div>
+              </div>
+            </div>
+          </div>
         </div>
+
         <br />
-        <div class="main_news">
-          <ul>
-            <li>
-              <a href="#" target="_blank">
-                <img src="../assets/line/two1.png" />
-                <div class="txt">
-                  <h3>海上看厦门</h3>
-                  <span>中山路沿线是厦门商业的发源地，是厦门市最繁华的商圈之一，在旧城街区仍然保留着较完整的近代历史风貌。</span>
-                </div>
-                <div class="info">
-                  <span class="sp1">
-                    <img src="../assets/line/line1.jpg" alt />
-                    <span class="name">htc</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/shou.png" width="20px" height="20px" />
-                    <span>收藏</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/zan.png" width="20px" height="20px" />
-                    <span>点赞</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/browsing-history.png" width="20px" height="20px" />
-                    <span>浏览量</span>
-                  </span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#" target="_blank">
-                <img src="../assets/line/two2.png" />
-                <div class="txt">
-                  <h3>魅力时尚之旅</h3>
-                  <span>厦门五缘湾湿地公园是厦门最大的公园,也是最大的湿地生态园区,被称为是厦门的城市绿肺</span>
-                </div>
-                <div class="info">
-                  <span class="sp1">
-                    <img src="../assets/line/line1.jpg" alt />
-                    <span class="name">htc</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/shou.png" width="20px" height="20px" />
-                    <span>收藏</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/zan.png" width="20px" height="20px" />
-                    <span>点赞</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/browsing-history.png" width="20px" height="20px" />
-                    <span>浏览量</span>
-                  </span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#" target="_blank">
-                <img src="../assets/line/two3.png" />
-                <div class="txt">
-                  <h3>文创艺术品鉴之旅</h3>
-                  <span>厦门市博物馆是我国东南地区的一座重要的地方综合性博物馆，致力于我国东南地区特别是闽台两岸珍贵文化遗产的收藏、保护、研究与展示</span>
-                </div>
-                <div class="info">
-                  <span class="sp1">
-                    <img src="../assets/line/line1.jpg" alt />
-                    <span class="name">htc</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/shou.png" width="20px" height="20px" />
-                    <span>收藏</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/zan.png" width="20px" height="20px" />
-                    <span>点赞</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/browsing-history.png" width="20px" height="20px" />
-                    <span>浏览量</span>
-                  </span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#" target="_blank">
-                <img src="../assets/line/two4.png" />
-                <div class="txt">
-                  <h3>海上看厦门</h3>
-                  <span>中山路沿线是厦门商业的发源地，是厦门市最繁华的商圈之一，在旧城街区仍然保留着较完整的近代历史风貌。</span>
-                </div>
-                <div class="info">
-                  <span class="sp1">
-                    <img src="../assets/line/line1.jpg" alt />
-                    <span class="name">htc</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/shou.png" width="20px" height="20px" />
-                    <span>收藏</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/zan.png" width="20px" height="20px" />
-                    <span>点赞</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/browsing-history.png" width="20px" height="20px" />
-                    <span>浏览量</span>
-                  </span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#" target="_blank">
-                <img src="../assets/line/two5.png" />
-                <div class="txt">
-                  <h3>魅力时尚之旅</h3>
-                  <span>厦门五缘湾湿地公园是厦门最大的公园,也是最大的湿地生态园区,被称为是厦门的城市绿肺</span>
-                </div>
-                <div class="info">
-                  <span class="sp1">
-                    <img src="../assets/line/line1.jpg" alt />
-                    <span class="name">htc</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/shou.png" width="20px" height="20px" />
-                    <span>收藏</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/zan.png" width="20px" height="20px" />
-                    <span>点赞</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/browsing-history.png" width="20px" height="20px" />
-                    <span>浏览量</span>
-                  </span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#" target="_blank">
-                <img src="../assets/line/two6.png" />
-                <div class="txt">
-                  <h3>文创艺术品鉴之旅</h3>
-                  <span>厦门市博物馆是我国东南地区的一座重要的地方综合性博物馆，致力于我国东南地区特别是闽台两岸珍贵文化遗产的收藏、保护、研究与展示</span>
-                </div>
-                <div class="info">
-                  <span class="sp1">
-                    <img src="../assets/line/line1.jpg" alt />
-                    <span class="name">htc</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/shou.png" width="20px" height="20px" />
-                    <span>收藏</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/zan.png" width="20px" height="20px" />
-                    <span>点赞</span>
-                  </span>
-                  <span>
-                    <img src="../assets/line/browsing-history.png" width="20px" height="20px" />
-                    <span>浏览量</span>
-                  </span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
   </div>
@@ -551,14 +859,16 @@ export default {
   // name: "Line",
   data() {
     return {
-      articles: { strategyType: "personalrow" }
-      // hotarticles: {}
+      articles:[],
+      // strategyClassify:{},
+      // personalrecommendstrategy: [],
+      strategyType: "personalrow"
     };
   },
   created() {
-    console.log(this.strategyType);
+    console.log(this.articles.strategyType);
     this.$axios
-      .post("http://localhost:3000/operation/hotstrategy", this.articles)
+      .post("http://localhost:3000/operation/hotstrategy", {strategyType:this.strategyType})
       .then(res => {
         console.log("查询结果" + res.data.data);
         this.articles = res.data.data;
@@ -566,25 +876,11 @@ export default {
       .catch(err => {
         console.log("错误信息" + err);
       });
-    // this.$axios
-    //   .post("http://localhost:3000/operation/hotStrategy", {
-    //     strategyType: this.strategyType
-    //   })
-    //   .then(res => {
-    //     console.log(res);
-    //     console.log("查询结果" + res.data.data);
-    //     this.hotarticles = res.data.data;
-    //   })
-    //   .catch(err => {
-    //     console.log("错误信息" + err);
-    //   });
+
   },
   methods: {
-    go(type,id) {
+    go(type, id) {
       window.open("/index/linestrategy");
-      // console.log(type)
-      // console.log(id)
-      //type,id
     }
   }
 };
@@ -663,6 +959,8 @@ export default {
 
 .main_news ul {
   list-style: none;
+  padding: 0;
+  padding-top: 20px;
 }
 .main_news ul li {
   padding-bottom: 10px;
