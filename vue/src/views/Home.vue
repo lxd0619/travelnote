@@ -136,24 +136,15 @@
               aria-labelledby="nav-hotScenery-tab"
             >
               <div class="card-deck flex-column">
-                <!-- <ul>
-                  <li v-for="article in articles" :key="article.strategyId">
-                    <p>{{article.title}}</p>
-                    <p>{{article.ssInfo}}</p>
-                    {{article.cover}}
-                    <img :src="require('../assets/scenerySpot/'+article.cover)"/>
-                  </li>
-                </ul>-->
-
                 <!-- 热门景点攻略 -->
                 <div
                   class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-                  v-for="article in articles"
+                  v-for="article in ssarticles"
                   :key="article.strategyId"
                 >
                   <img
                     class="card-img-top"
-                    :src="require('@/assets/scenerySpot/'+article.cover)"
+                    :src="getImgUrl(article.cover,'scenerySpot')"
                     alt="Card image cap"
                     style="width: 14em;height: 12em;"
                   />
@@ -189,12 +180,12 @@
               <div class="card-deck flex-column">
                 <div
                   class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-                  v-for="article in articles"
+                  v-for="article in fsarticles"
                   :key="article.strategyId"
                 >
                   <img
                     class="card-img-top"
-                    :src="require('@/assets/scenerySpot/'+article.cover)"
+                    :src="getImgUrl(article.cover,'food')"
                     alt="Card image cap"
                     style="width: 14em;height: 12em;"
                   />
@@ -211,66 +202,8 @@
                       <i>
                         <img src alt />
                       </i>
-                      <i class="fa fa-eye mr-2" aria-hidden="true">{{article.ssCollectionNum}}</i>
-                      <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.ssLikeNum}}</i>
-                    </p>
-                  </div>
-                </div>
-
-                <div class="card">
-                  <img class="card-img-top" src="../assets/food/乐山.jpeg" alt="Card image cap" />
-                  <div class="card-body">
-                    <h5 class="card-title">【乐山】两天十几顿，吃下这座城（吃货小攻略）</h5>
-                    <p class="card-text">
-                      【写在前面】 其实期末考试季还没结束 上个月考试安排下来的时候 和几名朋友就约好 趁着最后两场考试之间几天的间隙 去
-                      乐山...
-                    </p>
-                    <p class="text-muted">
-                      <i class="fa fa-map-marker" aria-hidden="true">乐山</i>
-                      by
-                      <i>
-                        <img src="../assets/headPic/head2.jpg" alt />Danger
-                      </i>
-                      <i class="fa fa-eye" aria-hidden="true">50045/89</i>
-                      <i class="fa fa-thumbs-o-up" aria-hidden="true">2579</i>
-                    </p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img class="card-img-top" src="../assets/food/东京美食.jpeg" alt="Card image cap" />
-                  <div class="card-body">
-                    <h5 class="card-title">日本东京深度游 那些不能错过的东京美食！</h5>
-                    <p class="card-text">
-                      最近出炉的 大阪 深度游，如果有 大阪 东京 一起去的或者对 大阪 有兴趣的都可以看看噢，同样有大量美食推荐的呀~~~~~~
-                      链接...
-                    </p>
-                    <p class="text-muted">
-                      <i class="fa fa-map-marker" aria-hidden="true">东京</i>
-                      by
-                      <i>
-                        <img src="../assets/headPic/head3.jpg" alt /> G_BnG
-                      </i>
-                      <i class="fa fa-eye" aria-hidden="true">92785/206</i>
-                      <i class="fa fa-thumbs-o-up" aria-hidden="true">7939</i>
-                    </p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img class="card-img-top" src="../assets/food/延吉.jpeg" alt="Card image cap" />
-                  <div class="card-body">
-                    <h5 class="card-title">2017.04.02 延吉 | 吃货的灵魂美食之旅（自驾游+深</h5>
-                    <p class="card-text">
-                      欢迎浏览我的其它游记（点击以下网址） 寻找 长白山 天池，震撼人心的美！想唱国歌！！（自驾游精选美照）
-                      http://www.mafeng...
-                    </p>
-                    <p class="text-muted">
-                      <i class="fa fa-map-marker" aria-hidden="true">延吉</i>
-                      by
-                      <i>
-                        <img src="../assets/headPic/head1.jpg" alt /> 欧阳KK
-                      </i>
-                      <i class="fa fa-eye" aria-hidden="true">40812/57</i>
-                      <i class="fa fa-thumbs-o-up" aria-hidden="true">2445</i>
+                      <i class="fa fa-eye mr-2" aria-hidden="true">{{article.fsCollectionNum}}</i>
+                      <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.fsLikeNum}}</i>
                     </p>
                   </div>
                 </div>
@@ -284,46 +217,39 @@
               aria-labelledby="nav-hotlines-tab"
             >
               <h4 id="list-item-4">热门个性路线推荐</h4>
-              <div class="card">
-                <div class="card-header bg-white">
-                  <span>苏州经典一日游</span>
-                  <time class="ml-3">最佳季节：3月-5月</time>
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-4">
-                      <p>
-                        路线概览
-                        <br />D1拙政园(2小时) → 苏州博物馆(2小时) → 平江路(1小时) → 金鸡湖景区(2小时)
-                      </p>
-                    </div>
-                    <div class="col-8 card-body" id="map01" style="height: 20rem;"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header bg-white">
-                  <span>苏州经典二日游</span>
-                  <time class="ml-3">最佳季节：3月-5月</time>
-                  <button class="btn" onclick="day01()">day01</button>
-                  <button class="btn" onclick="day02()">day02</button>
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-4">
-                      <p>
-                        路线概览
-                        <br />D1拙政园(2小时) → 苏州博物馆(2小时) → 平江路(1小时) → 金鸡湖景区(2小时)
-                        <br />D2寒山寺(1小时) → 虎丘山风景区(3小时) → 七里山塘(2小时) → 山塘昆曲馆(2小时)
-                      </p>
-                    </div>
-                    <div class="col-8 card-body" id="map02" style="height: 20rem;"></div>
+              <div class="card-deck flex-column">
+                <div
+                  class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
+                  v-for="article in prarticles"
+                  :key="article.strategyId"
+                >
+                  <img
+                    class="card-img-top"
+                    :src="getImgUrl(article.cover,'line')"
+                    alt="Card image cap"
+                    style="width: 14em;height: 12em;"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a href="#" class="card-link">{{article.title}}</a>
+                    </h5>
+                    <p
+                      class="card-text overflow-hidden"
+                      style="height: 4em;text-overflow:ellipsis;"
+                    >{{article.ssInfo}}</p>
+                    <p class="text-muted">
+                      <i class="fa fa-map-marker mr-2" aria-hidden="true">贡嘎</i>by
+                      <i>
+                        <img src alt />
+                      </i>
+                      <i class="fa fa-eye mr-2" aria-hidden="true">{{article.fsCollectionNum}}</i>
+                      <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.fsLikeNum}}</i>
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
           <!-- 分页 -->
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
@@ -417,19 +343,51 @@
 export default {
   data() {
     return {
-      articles: {
+      ssarticles: {
+        strategyType: ""
+      },
+      fsarticles: {
+        strategyType: ""
+      },
+      prarticles: {
         strategyType: ""
       }
     };
   },
   created() {
-    // 获取热门景点攻略
-    this.articles.strategyType = "foodstrategy";
+    // 获取热门景点攻略  scenerystrategy
+    this.ssarticles.strategyType = "scenerystrategy";
     this.$axios
-      .post("http://localhost:3000/operation/hotstrategy", this.articles)
+      .post("http://localhost:3000/operation/hotstrategy", this.ssarticles)
       .then(res => {
         console.log("查询结果" + res.data.data);
-        this.articles = res.data.data;
+        this.ssarticles = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
+      });
+    this.fsarticles.strategyType = "foodstrategy";
+    this.$axios
+      .post("http://localhost:3000/operation/hotstrategy", this.fsarticles)
+      .then(res => {
+        console.log("查询结果" + res.data.data);
+        this.fsarticles = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
+      });
+    this.prarticles.strategyType = "personalrow";
+    this.$axios
+      .post("http://localhost:3000/operation/hotstrategy", this.prarticles)
+      .then(res => {
+        console.log("查询结果" + res.data.data);
+        this.prarticles = res.data.data;
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -479,22 +437,12 @@ export default {
     });
   },
   methods: {
-    hotFoods() {
-      this.articles.strategyType = "foodstrategy";
-      // 获取热门美食攻略
-      console.log(this.articles.strategyType)
-      this.$axios
-        .post("http://localhost:3000/operation/hotstrategy", this.articles)
-        .then(res => {
-          console.log("查询结果" + res.data.data);
-          this.articles = res.data.data;
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
-        })
-        .finally(function() {
-          // always executed
-        });
+    //获取图片地址
+    getImgUrl(img, src) {
+      console.log(img,'---',src)
+      // return require("@/assets/scenerySpot/" + img);
+      return require("@/assets/" + src + "/" + img);
+      // return require("http://localhost:3000/" + src + "/" + img);
     }
   }
 };

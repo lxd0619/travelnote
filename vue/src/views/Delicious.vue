@@ -2,71 +2,66 @@
   <div>
     <div class="contain">
       <div id="head"></div>
-      <div class="navfont">美食攻略</div>
+      <h2 >美食攻略</h2>
       <div class="total">
         <section id="timeline">
           <div class="totalcontainer">
             <div class="mine-item">
               <div class="figcaption">
-                <div class="bg" style="background-image: url('../assets/food/food3.jpg');"></div>
+                <div class="bg bg1"></div>
                 <div class="name">
-                  <p>Groot</p>
+                  <p>记忆</p>
                 </div>
                 <div class="content">
-                  <h1>Avengers Hero---GROOT</h1>
-                  <p>Groot is a fictional superhero appearing in American comic books published by Marvel Comics. Created by Stan Lee, Larry Lieber and Jack Kirby, the character first appeared in Tales to Astonish #13 (November 1960).</p>
+                  <p>品尝到一份别致的美食，会让你久久不能忘记。一份精致的美食，如一份可爱的礼物一样，当你拿到手的时候，除了珍惜，就是赞叹。</p>
                 </div>
               </div>
             </div>
 
             <div class="mine-item">
               <div class="figcaption">
-                <div class="bg" style="background-image: url('../assets/food/food12.jpg');"></div>
+                <div class="bg bg2"></div>
                 <div class="name">
-                  <p>Vision</p>
+                  <p>味道</p>
                 </div>
                 <div class="content">
-                  <h1>Avengers Hero---VISION</h1>
-                  <p>Vision was an android who possessed a synthetic vibranium body created by Ultron and Helen Cho, along with the powerful space gem known as the Mind Stone.</p>
+                
+                  <p>果汁新鲜，酸甜，当你倦怠不堪时，刺激你的味蕾和感觉神经，让你新鲜难以忘怀，在心中留下了特别的味道</p>
                 </div>
               </div>
             </div>
             <div class="mine-item">
               <div class="figcaption">
-                <div class="bg" style="background-image:url('../assets/food/food1.jpg');"></div>
+                <div class="bg bg3"></div>
                 <div class="name">
-                  <p>Black Widow</p>
+                  <p>传承</p>
                 </div>
                 <div class="content">
-                  <h1>Avengers Hero---BLACK WIDOW</h1>
-                  <p>Black Widow, was one of the most talented spies and assassins in the entire world and a founding member of the Avengers. Originally an agent of the Soviet agency for foreign intelligence, the KGB.</p>
+                  <p>寻常的衣食住行中，传统日复一日地延续</p>
                 </div>
               </div>
             </div>
             <div class="mine-item">
               <div class="figcaption">
-                <div class="bg" style="background-image: url('../assets/food/food11.jpg');"></div>
+                <div class="bg bg4"></div>
                 <div class="name">
-                  <p>Iron Man</p>
+                  <p>相逢</p>
                 </div>
                 <div class="content">
-                  <h1>Avengers Hero---IRON MAN</h1>
                   <p>
-                    Iron Man is a fictional superhero appearing in American comic books published by Marvel Comics. The character was co-created by writer and editor Stan Lee, developed by scripter Larry Lieber, and designed by artists Don
-                    Heck and Jack Kirby.
+                    人们用五味杂陈形容人生，因为懂得，味道是每个心中固守的乡愁
                   </p>
                 </div>
               </div>
             </div>
             <div class="mine-item">
               <div class="figcaption">
-                <div class="bg" style="background-image: url('../assets/food/food13.jpg');"></div>
+                <div class="bg bg5"></div>
                 <div class="name">
-                  <p>Spider Man</p>
+                  <p>流年</p>
                 </div>
                 <div class="content">
-                  <h1>Avengers</h1>
-                  <p>看！居中</p>
+                  <p>当你的掌纹静静地滑过这些旧物的骨架，时光酿造的陈酒便会悄然擦过舌尖的味蕾</p>
                 </div>
               </div>
             </div>
@@ -76,8 +71,11 @@
       <div class="headline container-fluid">
         <h2>特色美食</h2>
       </div>
-      <div class="specialFood" >
-        <div class="stragyespecail" v-for="fsarticle in fsarticles1" :key="fsarticle.index" >
+      <div class="specialFood">
+        <div
+          class="stragyespecail"
+          v-for="fsarticle in fsarticles.slice(0,8)"
+          :key="fsarticle.index">
           <img src="../assets/bg.jpg" width="219px" height="200px" />
           <div class="intro_box">
             <h3>{{fsarticle.title}}</h3>
@@ -86,9 +84,7 @@
             <span>收藏({{fsarticle.fsCollecti}})</span>
           </div>
         </div>
-      
-        </div>
-      
+      </div>
 
       <div class="gonglve_wrap clearfix">
         <div class="cont-main _j_feed_list">
@@ -100,9 +96,13 @@
                 </span>
               </div>
 
-              <div class="feed-item _j_feed_item"  v-for="rearticlespart1 in rearticlespart" :key="rearticlespart1" >
+              <div
+                class="feed-item _j_feed_item"
+                v-for="recommend in rearticles.slice(0,3)"
+                :key="recommend.index"
+              >
                 <hr />
-                <div class="title">{{rearticlespart1.title}}</div>
+                <div class="title">{{recommend.title}}</div>
 
                 <dl class="art clearfix">
                   <dt>
@@ -115,21 +115,23 @@
                     <img src="../assets/food/food11.jpg" style="width: 220px;" />
                   </dt>
                   <dd>
-                    <div class="info overflow">{{rearticlespart1.fsInfo}}</div>
+                    <div class="info overflow">{{recommend.fsInfo}}</div>
                     <div class="ext-r">
                       <span class="author">
                         <span class="nums">
                           作者：
                           <img src="../assets/headPic/head2.jpg" width="35px" height="35px" />
                         </span>
-                        <img src="../assets/food/收藏_line.png" width="20px" height="20px" />收藏({{rearticlespart1.fsCollectionNum}})
+                        <img src="../assets/food/收藏_line.png" width="20px" height="20px" />
+                        收藏({{recommend.fsCollectionNum}})
                       </span>
-                      <img src="../assets/food/点赞_line.png" width="20px" height="20px" />点赞({{rearticlespart1.fsLikeNum}})
-                   
+                      <img src="../assets/food/点赞_line.png" width="20px" height="20px" />
+
+                      点赞({{recommend.fsLikeNum}})
                     </div>
                   </dd>
                 </dl>
-              </div>        
+              </div>
             </div>
           </div>
         </div>
@@ -139,50 +141,23 @@
             <strong>热门排行</strong>
           </span>
 
-          <div class="top">
+          <div class="top" >
             <ul>
               <li class="gl_list">
                 <a href="#">
                   <img src="assets/food/songhe.png" width="180px" height="200px" />
                 </a>
               </li>
-              <li>
-                <span class="num">2</span>
-                <a href="#" title="京都" >{{rearticles[1].cityName}}</a>
-              </li>
-              <li>
-                <span class="num">3</span>
-                <a href="#" title="成都">{{rearticles[2].cityName}}</a>
-              </li>
-              <li>
-                <span class="num">4</span>
-                <a href="#" title="重庆">{{rearticles[3].cityName}}</a>
-              </li>
-              <li>
-                <span class="num">5</span>
-                <a href="#" title="西安" >{{rearticles[4].cityName}}</a>
-              </li>
-              <li>
-                <span class="num">6</span>
-                <a href="#" title="东京" >{{rearticles[5].cityName}}</a>
-              </li>
-              <li>
-                <span class="num">7</span>
-                <a href="#" title="日本" >{{rearticles[6].cityName}}</a>
-              </li>
-              <li>
-                <span class="num">8</span>
-                <a href="#" title="杭州">{{rearticles[7].cityName}}</a>
-              </li>
-              <li>
-                <span class="num">9</span>
-                <a href="#" title="南京" >{{rearticles[8].cityName}}</a>
-              </li>
-              <li>
-                <span class="num">10</span>
-                <a href="#" title="北京">{{rearticles[9].cityName}}</a>
-              </li>
             </ul>
+            <ul v-for="li in rearticles" :key="li.index">
+              <li>
+              <span class="num">02</span>
+              <a href="#" title="京都">{{li.cityName}}</a>
+            </li>
+            </ul>
+            
+
+           
           </div>
         </div>
       </div>
@@ -195,11 +170,8 @@ export default {
   data() {
     return {
       fsarticles: [],
-      fsarticles1: [],
-       rearticles:[],
-      rearticlespart:[],
-      strategyType: "foodstrategy",
-     
+      rearticles: [],
+      strategyType: "foodstrategy"
     };
   },
 
@@ -214,37 +186,22 @@ export default {
         console.log(res);
         console.log("查询结果" + res.data.data);
         this.fsarticles = res.data.data;
-
-        for(let i =0;i< this.fsarticles.length;i++){
-            if(i<=10){
-                this.fsarticles1.push(this.fsarticles[i])
-            }
-        }
       })
       .catch(err => {
         console.log("错误信息" + err);
       });
-        this.$axios
+    this.$axios
       .post("http://localhost:3000/operation/hotStrategy", {
         strategyType: this.strategyType
       })
       .then(res => {
         console.log(res);
-        console.log("查询结果" + res.data.data);
-        this. rearticles= res.data.data;
-      
-        for(let i =0;i< this.rearticles.length;i++){
-            if(i<=2){
-                this.rearticlespart.push(this.rearticles[i])
-            }
-        }
+        console.log(1, res.data.data);
+        this.rearticles = res.data.data;
       })
       .catch(err => {
         console.log("错误信息" + err);
       });
-  
-      
-     
   }
 };
 </script>
@@ -287,6 +244,7 @@ export default {
 
 .mine-item:hover {
   width: 32.5% !important;
+  
 }
 
 .mine-item {
@@ -313,7 +271,7 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgb(252, 241, 226);
+  background: rgb(233, 220, 200);
   opacity: 0.8;
   /*不透明度。0透明1不透明*/
   /* transition: opacity 0.5s ease; */
@@ -359,13 +317,6 @@ export default {
   opacity: 0;
 }
 
-.content h1 {
-  text-transform: uppercase;
-  color: deepskyblue;
-  font-size: 1.44rem;
-  font-weight: normal;
-}
-
 .name {
   position: absolute;
   top: 50%;
@@ -389,7 +340,7 @@ export default {
   filter: grayscale(0);
 }
 
-.bg {
+.bg{
   transform: translate3d(0, 0, 0);
   position: absolute;
   width: 100%;
@@ -401,27 +352,20 @@ export default {
   transition: filter 0.5s ease;
   filter: graycale(50%);
 }
-
-.bottom {
-  margin-top: 20px;
-  border: 1px solid rgb(240, 237, 237);
-  background-color: rgb(248, 245, 245);
+ .bg1{
+   background-image:url(../assets/food/2.jpg)}
+ .bg2{
+   background-image:url(../assets/food/3.jpg)}
+  .bg3{
+   background-image:url(../assets/food/timg.jpg)}
+ .bg4{
+   background-image:url(../assets/food/food11.jpg)}
+  .bg5{
+   background-image:url(../assets/food/food6.jpg)}
+h2{
+  text-align: center;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-.shareShow {
-  background-color: pink;
-  display: inline-block;
-  width: 300px;
-  height: 300px;
-}
-
-.recommend {
-  display: inline-block;
-  margin-left: 10px;
-  position: absolute;
-}
-
-
 .tab_title ul {
   float: left;
   margin: 10px 0 0 50px;
@@ -593,8 +537,6 @@ dd {
   color: #666;
 }
 
-
-
 .feed-item .ext-r {
   float: right;
   color: #999;
@@ -668,7 +610,8 @@ dd {
 
 .top a {
   color: #333;
-  font-size: 14px;
+  font-size: 20px;
+  margin-top: 10px;
 }
 
 .type-div {
@@ -699,7 +642,7 @@ li {
   margin-top: 5px;
 }
 .stragyespecail h3 {
-  font-family:initial;
+  font-family: initial;
   font-size: 18px;
   color: #666;
   width: 220px;
@@ -714,5 +657,10 @@ li {
   height: 10px;
   font-family: 宋体;
 }
-.overflow{width:500px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;} 
+.overflow {
+  width: 500px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 </style>

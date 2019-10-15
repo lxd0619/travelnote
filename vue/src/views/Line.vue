@@ -10,12 +10,17 @@
           <br />
           <div id="line-row">
             <div class="item-list clearfix row" style="justify-content: space-around">
-              <div class="item-coat J_item box-shadow">
+              <div
+                class="item-coat J_item box-shadow"
+                @click="go(strategy.strategyType,strategy.strategyId)"
+                v-for="strategy in platformRecommendstrategy"
+                :key="strategy.strategyId"
+              >
                 <div class="item">
-                  <img src="../assets/line/two1.png" width="280px" height="200px" alt />
+                  <img  :src="require('../assets/line/'+strategy.cover)" width="280px" height="200px" alt />
                   <div class="totalPart">
                     <a href="#" target="_blank" class="detail">
-                      <p class="title">最美杭州自由行必备打卡地</p>
+                      <p class="title">{{strategy.title}}</p>
                     </a>
                     <div class="ext-r row" style="justify-content:space-around;">
                       <div>
@@ -35,189 +40,9 @@
                   </div>
                 </div>
               </div>
-              <div class="item-coat J_item box-shadow">
-                <div class="item">
-                  <img src="../assets/line/two1.png" width="280px" height="200px" alt />
-                  <div class="totalPart">
-                    <a href="#" target="_blank" class="detail">
-                      <p class="title">最美杭州自由行必备打卡地</p>
-                    </a>
-                    <div class="ext-r row" style="justify-content:space-around;">
-                      <div>
-                        <img src="../assets/line/shou.png" width="15px" height="15px" />
-                        <span>收藏</span>
-                      </div>
-
-                      <div>
-                        <img src="../assets/line/zan.png" width="15px" height="15px" />
-                        <span>点赞</span>
-                      </div>
-                      <div>
-                        <img src="../assets/line/browsing-history.png" width="20px" height="15px" />
-                        <span>浏览量</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item-coat J_item box-shadow">
-                <div class="item">
-                  <img src="../assets/line/two1.png" width="280px" height="200px" alt />
-                  <div class="totalPart">
-                    <a href="#" target="_blank" class="detail">
-                      <p class="title">最美杭州自由行必备打卡地</p>
-                    </a>
-                    <div class="ext-r row" style="justify-content:space-around;">
-                      <div>
-                        <img src="../assets/line/shou.png" width="15px" height="15px" />
-                        <span>收藏</span>
-                      </div>
-
-                      <div>
-                        <img src="../assets/line/zan.png" width="15px" height="15px" />
-                        <span>点赞</span>
-                      </div>
-                      <div>
-                        <img src="../assets/line/browsing-history.png" width="20px" height="15px" />
-                        <span>浏览量</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item-coat J_item box-shadow">
-                <div class="item">
-                  <img src="../assets/line/two1.png" width="280px" height="200px" alt />
-                  <div class="totalPart">
-                    <a href="#" target="_blank" class="detail">
-                      <p class="title">最美杭州自由行必备打卡地</p>
-                    </a>
-                    <div class="ext-r row" style="justify-content:space-around;">
-                      <div>
-                        <img src="../assets/line/shou.png" width="15px" height="15px" />
-                        <span>收藏</span>
-                      </div>
-
-                      <div>
-                        <img src="../assets/line/zan.png" width="15px" height="15px" />
-                        <span>点赞</span>
-                      </div>
-                      <div>
-                        <img src="../assets/line/browsing-history.png" width="20px" height="15px" />
-                        <span>浏览量</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          
             </div>
           </div>
-          <hr />
-          <div id="line-row">
-            <div class="item-list clearfix row" style="justify-content: space-around">
-              <div class="item-coat J_item box-shadow">
-                <div class="item">
-                  <img src="../assets/line/two2.png" width="280px" height="200px" alt />
-                  <div class="totalPart">
-                    <a href="#" target="_blank" class="detail">
-                      <p class="title">最美杭州自由行必备打卡地</p>
-                    </a>
-                    <div class="ext-r row" style="justify-content:space-around;">
-                      <div>
-                        <img src="../assets/line/shou.png" width="15px" height="15px" />
-                        <span>收藏</span>
-                      </div>
-
-                      <div>
-                        <img src="../assets/line/zan.png" width="15px" height="15px" />
-                        <span>点赞</span>
-                      </div>
-                      <div>
-                        <img src="../assets/line/browsing-history.png" width="20px" height="15px" />
-                        <span>浏览量</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item-coat J_item box-shadow">
-                <div class="item">
-                  <img src="../assets/line/two2.png" width="280px" height="200px" alt />
-                  <div class="totalPart">
-                    <a href="#" target="_blank" class="detail">
-                      <p class="title">最美杭州自由行必备打卡地</p>
-                    </a>
-                    <div class="ext-r row" style="justify-content:space-around;">
-                      <div>
-                        <img src="../assets/line/shou.png" width="15px" height="15px" />
-                        <span>收藏</span>
-                      </div>
-
-                      <div>
-                        <img src="../assets/line/zan.png" width="15px" height="15px" />
-                        <span>点赞</span>
-                      </div>
-                      <div>
-                        <img src="../assets/line/browsing-history.png" width="20px" height="15px" />
-                        <span>浏览量</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item-coat J_item box-shadow">
-                <div class="item">
-                  <img src="../assets/line/two2.png" width="280px" height="200px" alt />
-                  <div class="totalPart">
-                    <a href="#" target="_blank" class="detail">
-                      <p class="title">最美杭州自由行必备打卡地</p>
-                    </a>
-                    <div class="ext-r row" style="justify-content:space-around;">
-                      <div>
-                        <img src="../assets/line/shou.png" width="15px" height="15px" />
-                        <span>收藏</span>
-                      </div>
-
-                      <div>
-                        <img src="../assets/line/zan.png" width="15px" height="15px" />
-                        <span>点赞</span>
-                      </div>
-                      <div>
-                        <img src="../assets/line/browsing-history.png" width="20px" height="15px" />
-                        <span>浏览量</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item-coat J_item box-shadow">
-                <div class="item">
-                  <img src="../assets/line/two2.png" width="280px" height="200px" alt />
-                  <div class="totalPart">
-                    <a href="#" target="_blank" class="detail">
-                      <p class="title">最美杭州自由行必备打卡地</p>
-                    </a>
-                    <div class="ext-r row" style="justify-content:space-around;">
-                      <div>
-                        <img src="../assets/line/shou.png" width="15px" height="15px" />
-                        <span>收藏</span>
-                      </div>
-
-                      <div>
-                        <img src="../assets/line/zan.png" width="15px" height="15px" />
-                        <span>点赞</span>
-                      </div>
-                      <div>
-                        <img src="../assets/line/browsing-history.png" width="20px" height="15px" />
-                        <span>浏览量</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr />
         </div>
       </div>
 
@@ -335,9 +160,9 @@
             >
               <div class="main_news">
                 <ul>
-                  <li  v-for="strategy in articles" :key="strategy.strategyId">
+                  <li v-for="strategy in articles" :key="strategy.strategyId">
                     <a href="#" target="_blank">
-                      <img  :src="require('../assets/line/'+strategy.cover)" />
+                      <img :src="require('../assets/line/'+strategy.cover)" />
                       <div class="txt">
                         <h3>{{strategy.title}}</h3>
                         <span>{{strategy.prInfo}}</span>
@@ -355,7 +180,6 @@
                           <img src="../assets/line/zan.png" width="20px" height="20px" />
                           <span>({{strategy.prLikeNum}})</span>
                         </span>
-
                       </div>
                     </a>
                   </li>
@@ -859,16 +683,30 @@ export default {
   // name: "Line",
   data() {
     return {
-      articles:[],
+      platformRecommendstrategy: [],
+      articles: [],
       // strategyClassify:{},
       // personalrecommendstrategy: [],
       strategyType: "personalrow"
     };
   },
   created() {
+    // console.log(this.articles.strategyType);
+    this.$axios
+      .get("http://localhost:3000/line/terraceline")
+      .then(res => {
+        console.log("平台推荐查询结果" + res.data.data);
+        this.platformRecommendstrategy = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
+
     console.log(this.articles.strategyType);
     this.$axios
-      .post("http://localhost:3000/operation/hotstrategy", {strategyType:this.strategyType})
+      .post("http://localhost:3000/operation/hotstrategy", {
+        strategyType: this.strategyType
+      })
       .then(res => {
         console.log("查询结果" + res.data.data);
         this.articles = res.data.data;
@@ -876,7 +714,6 @@ export default {
       .catch(err => {
         console.log("错误信息" + err);
       });
-
   },
   methods: {
     go(type, id) {

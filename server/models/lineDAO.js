@@ -1,17 +1,8 @@
 var DAO = require('./DAO')
 
 var lineDAO = {
-    // hotLine: function (callback) {
-    //     DAO('select distinct * from users join personalrow on users.userId=personalrow.userId where (prStatus=0 or prStatus=1) order by personalrow.prLikeNum desc limit 3', null, function (err, results) {
-    //         if (err) {
-    //             callback(err, null)
-    //         } else {
-    //             callback(null, results)
-    //         }
-    //     })
-    // },
     terraceLine: function (callback) {
-        DAO('select distinct * from personalrow where userId=1 and (prStatus=0 or prStatus=1) order by prTime desc limit 2', null, function (err, results) {
+        DAO('select distinct * from personalrow where userId=1 and (prStatus=0 or prStatus=1) order by prTime desc', null, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {

@@ -22,7 +22,6 @@ var loginController = {
                             if (resPwd) {
                                 //记录登录成功后的token  expiresIn设置token有效时间
                                 jwt.sign({ userTel: user.userTel, userId: results[0].userId, role: results[0].role }, 'privateKey', { expiresIn: 60 * 60 }, function (err, token) {
-                                    console.log(token);
                                     //注意token的固定格式“Bearer ”前缀
                                     res.status(200).json({data:1, msg: '登录成功', token: 'Bearer ' + token })
                                 });

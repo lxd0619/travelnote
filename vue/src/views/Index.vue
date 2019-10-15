@@ -75,7 +75,7 @@
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
-                   v-if="isShow === true"
+                  v-if="isShow === true"
                 >
                   <i class="fa fa-bell-o mr-2" aria-hidden="true"></i>消息中心
                 </a>
@@ -94,10 +94,20 @@
 
               <div class="dropdown-divider"></div>
               <li class="nav-item" id="login">
-                <a class="nav-link" href="/login" @click.prevent="goLogin" v-if="isShow === false">登录</a>
+                <a
+                  class="nav-link"
+                  href="/login"
+                  @click.prevent="goLogin"
+                  v-if="isShow === false"
+                >登录</a>
               </li>
               <li class="nav-item" id="register">
-                <a class="nav-link" href="/register" @click.prevent="goRegister" v-if="isShow === false">注册</a>
+                <a
+                  class="nav-link"
+                  href="/register"
+                  @click.prevent="goRegister"
+                  v-if="isShow === false"
+                >注册</a>
               </li>
               <li class="nav-item dropdown ml-2">
                 <a
@@ -113,7 +123,11 @@
                   <!-- 导航栏用户头像 -->
                   <img src class="rounded-circle" id="navHeadPic" alt />
                 </a>
-                <div class="dropdown-menu text-center" aria-labelledby="userDropdown" v-if="isShow === true">
+                <div
+                  class="dropdown-menu text-center"
+                  aria-labelledby="userDropdown"
+                  v-if="isShow === true"
+                >
                   <a class="dropdown-item" href="/index/userCenter" @click.prevent="goUserCenter">
                     <i class="fa fa-user-o mr-2" aria-hidden="true"></i>个人中心
                   </a>
@@ -121,7 +135,12 @@
                     <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>撰写攻略
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/index/home" @click.prevent="goHome" @click="logout">
+                  <a
+                    class="dropdown-item"
+                    href="/index/home"
+                    @click.prevent="goHome"
+                    @click="logout"
+                  >
                     <i class="fa fa-sign-out mr-2" aria-hidden="true"></i>退出登录
                   </a>
                 </div>
@@ -138,16 +157,25 @@
 export default {
   data() {
     return {
-      students: [],
-      currentUser: {},
       img_src: require("../assets/headPic/head1.jpg"),
-      isShow: false
+      isShow: false,
+      userInfo: [
+        {
+          userName: "",
+          sex: "",
+          tel: "",
+          headPic: "",
+          email: "",
+          address: "",
+          registerTime: ""
+        }
+      ]
     };
   },
   //组件创建完成后执行的操作
   created() {
     if (localStorage.mytoken) {
-      this.isShow = true
+      this.isShow = true;
     }
     // 导航栏拉伸效果
     $(function() {
@@ -158,6 +186,20 @@ export default {
         $("#search").animate({ width: "120px" }, 1000);
       });
     });
+
+    // 获取用户信息
+    this.$axios
+      .get("http://localhost:3000/userCenter/getUserInfo")
+      .then(res => {
+        console.log("查询结果" + res.data.data);
+        this.userInfo = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
+      });
   },
   methods: {
     goAim() {
@@ -192,9 +234,9 @@ export default {
     },
     logout() {
       if (localStorage.mytoken) {
-          localStorage.removeItem('mytoken')
-          this.isShow = false
-        }
+        localStorage.removeItem("mytoken");
+        this.isShow = false;
+      }
     }
   }
 };
@@ -204,7 +246,7 @@ export default {
   width: 40px;
   height: 40px;
   display: inline-block;
-  background-image: url(../assets/headPic/head1.jpg);
+  /* background-image: url(../assets/headPic/head1.jpg); */
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
