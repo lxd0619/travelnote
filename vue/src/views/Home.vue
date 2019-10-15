@@ -225,7 +225,7 @@
                 >
                   <img
                     class="card-img-top"
-                    :src="getImgUrl(article.cover,'food')"
+                    :src="getImgUrl(article.cover,'line')"
                     alt="Card image cap"
                     style="width: 14em;height: 12em;"
                   />
@@ -351,7 +351,7 @@ export default {
       },
       prarticles: {
         strategyType: ""
-      },
+      }
     };
   },
   created() {
@@ -369,8 +369,8 @@ export default {
       .finally(function() {
         // always executed
       });
-      this.fsarticles.strategyType = "foodstrategy";
-      this.$axios
+    this.fsarticles.strategyType = "foodstrategy";
+    this.$axios
       .post("http://localhost:3000/operation/hotstrategy", this.fsarticles)
       .then(res => {
         console.log("查询结果" + res.data.data);
@@ -382,8 +382,8 @@ export default {
       .finally(function() {
         // always executed
       });
-      this.prarticles.strategyType = "personalrow";
-      this.$axios
+    this.prarticles.strategyType = "personalrow";
+    this.$axios
       .post("http://localhost:3000/operation/hotstrategy", this.prarticles)
       .then(res => {
         console.log("查询结果" + res.data.data);
@@ -439,7 +439,10 @@ export default {
   methods: {
     //获取图片地址
     getImgUrl(img, src) {
-      // return require("@/assets/" + src + "/" + img);
+      console.log(img,'---',src)
+      // return require("@/assets/scenerySpot/" + img);
+      return require("@/assets/" + src + "/" + img);
+      // return require("http://localhost:3000/" + src + "/" + img);
     }
   }
 };
