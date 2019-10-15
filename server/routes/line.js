@@ -9,11 +9,11 @@ var passport=require('passport');
 //     lineController.hotLine(req,res)
 // })
 /**平台推荐路线查询 */
-router.get('/terraceLine',function(req,res,next){
+router.get('/terraceline',function(req,res,next){
     lineController.terraceLine(req,res)
 })
 /**几日游路线筛选 *//**人群路线筛选 *//**季节路线筛选 */
-router.post('/lineClassify',function(req,res,next){
+router.post('/lineclassify',function(req,res,next){
     lineController.LineClassify(req,res)
 })
 

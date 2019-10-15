@@ -277,13 +277,13 @@ var operationController = {
         var sql = ''
         switch (strategyInfo.strategyType) {
             case 'scenerystrategy':
-                sql = 'select * from scenerystrategy left join comments on scenerystrategy.strategyId = comments.strategyId  and comments.strategyType="scenerystrategy" left join replys on comments.commentId = replys.commentId where scenerystrategy.strategyId = ? ';
+                sql = ' select users.userId, users.userName,users.headPic ,scenerystrategy.*,comments.*,replys.* from scenerystrategy left join users on users.userId=scenerystrategy.userId left join comments on scenerystrategy.strategyId = comments.strategyId  and comments.strategyType="scenerystrategy" left join replys on comments.commentId = replys.commentId where scenerystrategy.strategyId = ?';
                 break;
             case 'foodstrategy':
-                sql = ' select * from foodstrategy left join comments on foodstrategy.strategyId = comments.strategyId  and comments.strategyType="foodstrategy" left join replys on comments.commentId = replys.commentId where foodstrategy.strategyId = ?';
+                sql = ' select users.userId, users.userName,users.headPic ,foodstrategy.*,comments.*,replys.* from foodstrategy left join users on users.userId=foodstrategy.userId left join comments on foodstrategy.strategyId = comments.strategyId  and comments.strategyType="foodstrategy" left join replys on comments.commentId = replys.commentId where foodstrategy.strategyId = ?';
                 break;
             case 'personalrow':
-                sql = ' select * from personalrow left join comments on personalrow.strategyId = comments.strategyId  and comments.strategyType="personalrow" left join replys on comments.commentId = replys.commentId where personalrow.strategyId = ?';
+                sql = ' select users.userId, users.userName,users.headPic ,personalrow.*,comments.*,replys.* from personalrow left join users on users.userId=personalrow.userId left join comments on personalrow.strategyId = comments.strategyId  and comments.strategyType="personalrow" left join replys on comments.commentId = replys.commentId where personalrow.strategyId = ?';
                 break;
         }
         operationDAO.strategyDetail(sql, strategyInfo, function(err, results) {
