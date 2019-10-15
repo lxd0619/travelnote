@@ -45,11 +45,11 @@ var userDAO = {
     },
     /**个人攻略列表列表 */
     userArticle: function (userTel, callback) {
-        DAO('select type,title,ssInfo,ssLikeNum,ssCollectionNum,ssTime,ssStatus,userName,headPic from scenerystrategy join users on scenerystrategy.userId = users.userId where users.tel = ?'
+        DAO('select type,title,ssInfo,ssLikeNum,ssCollectionNum,ssTime,ssStatus,userName,cover from scenerystrategy join users on scenerystrategy.userId = users.userId where users.tel = ?'
         +' UNION '+
-        'select type,title,fsInfo,fsLikeNum,fsCollectionNum,fsTime,fsStatus,userName,headPic from foodstrategy join users on foodstrategy.userId = users.userId where users.tel = ?'
+        'select type,title,fsInfo,fsLikeNum,fsCollectionNum,fsTime,fsStatus,userName,cover from foodstrategy join users on foodstrategy.userId = users.userId where users.tel = ?'
         +' UNION '+
-        'select type,title,prInfo,prLikeNum,prCollectionNum,prTime,prStatus,userName,headPic from personalrow join users on personalrow.userId = users.userId where users.tel = ?',[userTel,userTel,userTel], function (err, results) {
+        'select type,title,prInfo,prLikeNum,prCollectionNum,prTime,prStatus,userName,cover from personalrow join users on personalrow.userId = users.userId where users.tel = ?',[userTel,userTel,userTel], function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
