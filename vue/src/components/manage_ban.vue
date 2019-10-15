@@ -1,124 +1,141 @@
 <template>
-     <div>
-        <div id="content">
-            <div id="bottom_img">
-                <ul>
-                    <li><a href="ban.html"><img id="imga" src="images/food/food9.jpg" style="width: 200px ;height: 200px;">
-                        <p>陕西肉夹馍</p><span>作者：逃之夭夭</span></a>
-                    </li>
-                </ul>
-            </div>
-            <div id="bottom_img">
-                <ul>
-                    <li><a href="ban.html"><img id="imga" src="images/food/food9.jpg" style="width: 200px ;height: 200px;">
-                        <p>陕西肉夹馍</p><span>作者：逃之夭夭</span></a>
-                    </li>
-                </ul>
-            </div>
-            <div id="bottom_img">
-                <ul>
-                    <li><a href="ban.html"><img id="imga" src="images/food/food9.jpg" style="width: 200px ;height: 200px;">
-                        <p>陕西肉夹馍</p><span>作者：逃之夭夭</span></a>
-                    </li>
-                </ul>
-            </div>
-            <div id="bottom_img">
-                <ul>
-                    <li><a href="ban.html"><img id="imga" src="images/food/food9.jpg" style="width: 200px ;height: 200px;">
-                        <p>陕西肉夹馍</p><span>作者：逃之夭夭</span></a>
-                    </li>
-                </ul>
-            </div>
-            <div id="bottom_img">
-                <ul>
-                    <li><a href="ban.html"><img id="imga" src="images/food/food9.jpg" style="width: 200px ;height: 200px;">
-                        <p>陕西肉夹馍</p><span>作者：逃之夭夭</span></a>
-                    </li>
-                </ul>
-            </div>
-            <div id="bottom_img">
-                <ul>
-                    <li><a href="ban.html"><img id="imga" src="images/food/food9.jpg" style="width: 200px ;height: 200px;">
-                        <p>陕西肉夹馍</p><span>作者：逃之夭夭</span></a>
-                    </li>
-                </ul>
-            </div>
-            <div id="bottom_img">
-                <ul>
-                    <li><a href="ban.html"><img id="imga" src="images/food/food9.jpg" style="width: 200px ;height: 200px;">
-                        <p>陕西肉夹馍</p><span>作者：逃之夭夭</span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <ul id="pagesList">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-        </ul>    
+  <div>
+    <nav>
+      <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+        <a
+          class="nav-item nav-link active text-dark"
+          id="nav-hotScenery-tab"
+          data-toggle="tab"
+          href="#nav-hotScenery"
+          role="tab"
+          aria-controls="nav-hotScenery"
+          aria-selected="true"
+          @click="List('scenerystrategy')"
+        >景点攻略</a>
+        <a
+          class="nav-item nav-link text-dark"
+          id="nav-hotFoods-tab"
+          data-toggle="tab"
+          href="#nav-hotFoods"
+          role="tab"
+          aria-controls="nav-hotFoods"
+          aria-selected="false"
+          @click="List('foodstrategy')"
+        >美食攻略</a>
+        <a
+          class="nav-item nav-link text-dark"
+          id="nav-hotlines-tab"
+          data-toggle="tab"
+          href="#nav-hotlines"
+          role="tab"
+          aria-controls="nav-hotlines"
+          aria-selected="false"
+          @click="List('personalrow')"
+        >个性路线</a>
+      </div>
+    </nav>
+    <div id="content">
+      <div
+        id="bottom_img"
+        v-for="li in list.slice((currentPage-1)*10,(currentPage)*10)"
+        :key="li.strategyId"
+      >
+        <a href>
+          <img id="img" src="require('' +li.cover)" style="width: 200px ;height: 200px;" />
+          <p>{{li.title}}</p>
+          <span>作者：{{li.userName}}</span>
+        </a>
+      </div>
     </div>
+    <div class="block">
+      <el-pagination
+        :page-size="10"
+        :pager-count="11"
+        layout="prev, pager, next"
+        :total="allpages"
+        @current-change="current_change"
+      ></el-pagination>
+    </div>
+  </div>
 </template>
 <script>
 export default {
-    name:'manage_ban'
-}
+  name: "manage_ban",
+  data() {
+    return {
+      list:[],
+      allpages: null,
+      currentPage: 1
+    };
+  },
+  created() {
+    this.List("scenerystrategy")
+
+  },
+  methods: {
+    List(tableName) {
+      var tableName = tableName;
+      var ssStatus = 2;
+      var data = { tableName, ssStatus };
+      this.currentPage = 1;
+      this.$axios.post("http://localhost:3000/manage/List", data).then(res => {
+        console.log(res);
+        this.list = res.data.data;
+        this.allpages = res.data.data.length;
+        console.log(this.allpages);
+      });
+    },
+    current_change: function(currentPage) {
+      this.currentPage = currentPage;
+    }
+  }
+};
 </script>
 <style scoped>
-
-body{
-    overflow-x: hidden;
+body {
+  overflow-x: hidden;
 }
-#bottom_img ul {
-    /* width: 1380px; */
-    height: 800px；
+#content {
+  position: relative;
+  width: 1200px;
+  height: 605px;
 }
-p{
-    margin:0;
-}
-#content{
-    width:1200px;
-}
-
-#bottom_img ul li{
-    float: left;
-    background-color: white;
-    width: 200px;
-    height: 266px;
-    margin: 10px 20px;
-    text-align: center;
-    line-height: 30px;
-    overflow: hidden;
-}
-#bottom_img>ul>li>span{
-    font-size: 13px;
-    position: relative;
-    top: 30px;
-    left: -50px;
-    margin-left: 45px;
-}
-a{
-    text-decoration: none;
+#bottom_img {
+  /* width: 1380px; */
+  height: 200px;
+  float: left;
+  background-color: white;
+  width: 200px;
+  height: 270px;
+  margin: 10px 20px;
+  text-align: center;
+  line-height: 30px;
 }
 ul {
-    list-style: none;
+  list-style: none;
 }
-#pagesList {
-    position: absolute;
-    left: 50%;
-    bottom: -50px;
-    margin-left: -140px;
+p {
+  padding: 0 5px;
+  display: block;
+  width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0;
 }
-
-#pagesList li {
-    padding:5px ;
-    float: left;
-    width: 15px;
-    height: 15px;
-    border: 1px solid #ccc;
-    margin: 10px;
-    text-align: center;
-    line-height: 15px;
-    background-color: #fff;
-    cursor: pointer;
+a {
+  text-decoration: none;
+}
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  background-color: #00b894;
+  color: white;
+  transition: 0.3s all;
+}
+.block {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 </style>

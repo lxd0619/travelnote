@@ -37,11 +37,11 @@
     <div id="content">
       <div
         id="bottom_img"
-        v-for="li in list.slice((currentPage-1)*5,(currentPage)*5)"
+        v-for="li in list.slice((currentPage-1)*10,(currentPage)*10)"
         :key="li.strategyId"
       >
-        <a href>
-          <img id="img" src="require(' ' +li.cover)" style="width: 200px ;height: 200px;" />
+        <a @click="strategydetail(li.type,li.strategyId)">
+          <img id="img" src="require('' +li.cover)" style="width: 200px ;height: 200px;" />
           <p>{{li.title}}</p>
           <span>作者：{{li.userName}}</span>
         </a>
@@ -49,7 +49,7 @@
     </div>
     <div class="block">
       <el-pagination
-        :page-size="5"
+        :page-size="10"
         :pager-count="11"
         layout="prev, pager, next"
         :total="allpages"
@@ -63,17 +63,20 @@ export default {
   name: "manage_accusation",
   data() {
     return {
-      list: "",
+      list: [],
       allpages: null,
       currentPage: 1
     };
+  },
+  created() {
+    this.List("scenerystrategy")
   },
   methods: {
     List(tableName) {
       var tableName = tableName;
       var ssStatus = 1;
       var data = { tableName, ssStatus };
-      this.currentPage=1
+      this.currentPage = 1;
       this.$axios.post("http://localhost:3000/manage/List", data).then(res => {
         console.log(res);
         this.list = res.data.data;
@@ -83,6 +86,18 @@ export default {
     },
     current_change: function(currentPage) {
       this.currentPage = currentPage;
+    },
+    strategydetail(strategyType, strategyId) {
+      console.log(strategyType, strategyId);
+      var strategy = { strategyType, strategyId };
+      var strategyInfo=JSON.stringify(strategy)
+      sessionStorage.setItem("strategy", strategyInfo);
+      this.$router.push('/article')
+      // this.$axios
+      //   .post("http://localhost:3000/operation/strategydetail", strategy)
+      //   .then(res => {
+      //     console.log(res);
+      //   });
     }
   }
 };

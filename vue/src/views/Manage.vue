@@ -18,10 +18,10 @@
               <a id="ban" @click="ban()">被禁文章</a>
             </li>
             <li class="li">
-              <a id="normal" @click="normal">正常文章</a>
+              <a id="normal" @click="normal()">正常文章</a>
             </li>
             <li class="li">
-              <a id="user" @click="user">用户管理</a>
+              <a id="user" @click="user()">用户管理</a>
             </li>
             <li class="li">
               <a @click="out()">退出</a>
@@ -97,14 +97,14 @@ export default {
       this.flag4 = false;
       this.flag5 = false;
     },
-    normal() {
+     ban() {
       this.flag1 = false;
       this.flag2 = false;
       this.flag3 = true;
       this.flag4 = false;
       this.flag5 = false;
     },
-    ban() {
+    normal() {
       this.flag1 = false;
       this.flag2 = false;
       this.flag3 = false;

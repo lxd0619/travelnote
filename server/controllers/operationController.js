@@ -275,6 +275,7 @@ var operationController = {
             strategyType: req.body.strategyType,
             strategyId: req.body.strategyId
         }
+        console.log(strategyInfo)
         var sql = ''
         switch (strategyInfo.strategyType) {
             case 'scenerystrategy':

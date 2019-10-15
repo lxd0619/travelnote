@@ -16,6 +16,7 @@ import Search from './views/Search.vue'
 import UserCenter from './views/UserCenter.vue'
 import View from './views/View.vue'
 import Forget_pwd from './views/Forget_pwd.vue'
+import Article from './views/Article.vue'
 import jwt_decode from "jwt-decode";
 Vue.use(Router)
 let router = new Router({
@@ -103,6 +104,11 @@ let router = new Router({
         component: Forget_pwd
     },
     {
+        path:'/article',
+        name:Article,
+        component:Article
+    },
+    {
         path: '/*', //路由匹配不成功时
         name: 'notfound',
         component: NotFound
@@ -117,7 +123,7 @@ router.beforeEach((to, from, next) => {
         next() //允许访问路由
     } else {
         if (tokenIsExists) {
-            if (to.path == '/manage') {
+            if (to.path == '/manage'||to.path=='/Article') {
                 console.log(jwt_decode(localStorage.getItem('mytoken')).role);
                 var role = jwt_decode(localStorage.getItem('mytoken')).role
                 console.log(123)
