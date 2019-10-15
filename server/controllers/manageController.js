@@ -34,6 +34,7 @@ var manageController = {
         if (req.user.role == 0) {
             res.json({ code: 500, data: 0, message: '没有权限' })
         } else {
+            console.log(req.body)
             var tableName = req.body.tableName
             var ssStatus = req.body.ssStatus
             var strategyId = req.body.strategyId

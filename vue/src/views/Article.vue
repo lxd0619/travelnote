@@ -11,8 +11,8 @@
           <p>{{info.ssInfo}}</p>
         </div>
         <div id="button">
-            <el-button type="success" icon="el-icon-check" @click="OK()"></el-button>
-            <el-button type="danger" icon="el-icon-close" > </el-button>
+          <el-button type="success" icon="el-icon-check" @click="OK()"></el-button>
+          <el-button type="danger" icon="el-icon-close"></el-button>
         </div>
       </div>
     </div>
@@ -42,7 +42,10 @@ export default {
   name: "Article",
   data() {
     return {
-      strategyInfo: []
+      strategyInfo: [],
+      ok_ssStatus: null,
+      fail_ssStatus: null,
+      msg: ""
     };
   },
   created() {
@@ -53,71 +56,99 @@ export default {
       .then(res => {
         console.log(res);
         this.strategyInfo = res.data.data;
+        if (this.strategyInfo[0].ssStatus == -1) {
+          //攻略未审核
+          this.ok_ssStatus = 0; //攻略通过审核，为正常攻略
+          this.fail_ssStatus = -2;
+          this.msg = "是否确认通过"; //攻略驳回状态
+        } else if (this.strategyInfo[0].ssStatus == 1) {
+          //攻略被举报
+          this.ok_ssStatus = 0; //恢复正常文章
+          this.fail_ssStatus = 2; //封贴
+          this.msg = "是否恢复成正常文章";
+        } else if (this.strategyInfo[0].ssStatus == 2) {
+          //被封的攻略
+          this.ok_ssStatus = 0; //恢复成正常攻略
+          this.msg = "是否恢复成正常文章";
+        }
       });
   },
-  methods:{
-      OK(){
-          
+  methods: {
+    OK() {
+      var tableName = this.strategyInfo[0].type;
+      var strategyId = this.strategyInfo[0].strategyId;
+      var ssStatus = this.ok_ssStatus;
+      var Info = {tableName,ssStatus,strategyId};
+      console.log(Info)
+      if (confirm(this.msg)) {
+        // location.href = "manage.html";
+        this.$axios
+          .post("http://localhost:3000/manage/Status", Info)
+          .then(res => {
+              if(res.data.data){
+                  alert("审核通过");
+              }
+              
+            console.log(res);
+          });
       }
+    }
   }
 };
 </script>
 <style scoped>
-
-    .nav{
-    width: 100%;
-    height: 60px;
-    background-color: #00b894;
+.nav {
+  width: 100%;
+  height: 60px;
+  background-color: #00b894;
 }
-.nav span{
-    color: white;
-    padding-left: 50px;
-    line-height: 60px;
-    font-size: 30px;
+.nav span {
+  color: white;
+  padding-left: 50px;
+  line-height: 60px;
+  font-size: 30px;
 }
-.nav a{
-    position: absolute;
-    right: 10px;
-    line-height: 60px;
-    padding-right: 20px;
-    font-size:20px;
-    color: white;
-}
-
-#left{
-    float: left;
-    position: relative;
-    width:75%;
-}
-#content{
-    float: right;
-    margin-top: 50px;
-    margin-right:40px;
-    width: 85%;
-    border: 1px solid #aaaaaa;
-    box-shadow: 6px 5px 5px #807e7e;
-    padding:50px 50px;
-    background-color: white;
-}
-#content img{ 
-    width:500px;
-    height: 400px;
-}
-#button{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 40px;
-}
-#button button{
-    margin-top: 10px;
-    box-shadow: 4px 5px 5px #807e7e;
-    float: left;
-    outline-style: none;
-}
-.el-button+.el-button{
-    margin: 0;
+.nav a {
+  position: absolute;
+  right: 10px;
+  line-height: 60px;
+  padding-right: 20px;
+  font-size: 20px;
+  color: white;
 }
 
-
+#left {
+  float: left;
+  position: relative;
+  width: 75%;
+}
+#content {
+  float: right;
+  margin-top: 50px;
+  margin-right: 40px;
+  width: 85%;
+  border: 1px solid #aaaaaa;
+  box-shadow: 6px 5px 5px #807e7e;
+  padding: 50px 50px;
+  background-color: white;
+}
+#content img {
+  width: 500px;
+  height: 400px;
+}
+#button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+}
+#button button {
+  margin-top: 10px;
+  box-shadow: 4px 5px 5px #807e7e;
+  float: left;
+  outline-style: none;
+}
+.el-button + .el-button {
+  margin: 0;
+}
 </style>
