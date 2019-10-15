@@ -16,7 +16,9 @@ import Search from './views/Search.vue'
 import UserCenter from './views/UserCenter.vue'
 import View from './views/View.vue'
 import Forget_pwd from './views/Forget_pwd.vue'
-
+import Jn from './views/Jn.vue'
+import Nm from './views/Nm.vue'
+import Xa from './views/Xa.vue'
 Vue.use(Router)
 let router = new Router({
         mode: 'history',
@@ -84,6 +86,22 @@ let router = new Router({
                         name: 'view',
                         component: View
                     },
+                    {
+                        path: 'jn',
+                        name: 'jn',
+                        component: Jn
+                    },
+                    {
+                        path: 'nm',
+                        name: 'nm',
+                        component: Nm
+                    },
+                    {
+                        path: 'xa',
+                        name: 'xa',
+                        component: Xa
+                    },
+
                 ]
             },
             {
