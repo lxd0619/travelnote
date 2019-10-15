@@ -36,40 +36,18 @@
       </div>
       <div class="ViewProduce">View Produce</div>
       <div class="sheadsecond">景点攻略</div>
-        1231
-      <ul>
-        <li v-for="article in articles" :key="article.index">攻略：{{article.ssInfo}}</li>
-      </ul>
-
-      <div class="item-list clearfix row" style="justify-content: space-around">
-        <div class="item-coat J_item"  v-for="article in articles" :key="article.index">
-          <div class="item">
-            <img src="../assets/view/leftPic5.jpg" width="280px" height="200px" alt />
-            <div class="totalPart">
-              <a href="#" target="_blank" class="detail">
-                <p class="title" >{{article.title}}</p>
-              </a>
-              <div class="ext-r row" style="justify-content:space-around;">
-                <div>
-                  <img src="../assets/food/收藏_line.png" width="15px" height="15px" />
-                  <span>({{article.ssCollectionNum}})</span>
-                </div>
-
-                <div>
-                  <img src="../assets/food/点赞_line.png" width="15px" height="15px" />
-                  <span>({{article.ssLikeNum}})</span>
-                </div>
-              </div>
-            </div>
+   <div class="specialFood" >
+        <div class="stragyespecail" v-for="article in articles" :key="article.index" >
+          <img src="../assets/bg.jpg" width="260px" height="240px" />
+          <div class="intro_box">
+            <h3>{{article.title}}</h3>
+            <p>{{article.fsInfo}}</p>
+            <span>点赞({{article.fsLikeNum}})</span>
+            <span>收藏({{article.fsCollecti}})</span>
           </div>
         </div>
-       
-       
-        
-            
       
-      
-      </div>
+        </div>
       <hr />
 
 
@@ -98,9 +76,9 @@
                 <img src="../assets/view/leftPic2.jpg" />
                 <div class="txt">
                   <h3>
-                    <em>02</em> 标题
+                    <em>02</em>{{hotarticles[0].title}}
                   </h3>
-                  <span>关键词概括。</span>
+                  <span>{{hotarticles[0].title}}</span>
                 </div>
               </a>
             </li>
@@ -249,7 +227,7 @@ export default {
   created() {
     console.log(this.strategyType)
     this.$axios
-      .post("http://localhost:3000/operation/hotStrategy", {strategyType:this.strategyType})
+      .post("http://localhost:3000/operation/normalStrategy", {strategyType:this.strategyType})
       .then(res => {
         console.log(res)
         console.log("查询结果" + res.data.data);
@@ -425,9 +403,7 @@ dd {
   font-family: 楷体;
 }
 
-.totalPart {
-  border: 1px solid rgb(224, 224, 224);
-}
+
 
 .sTrip {
   float: left;
@@ -450,14 +426,8 @@ dd {
   margin-bottom: 50px;
 }
 
-.clear {
-  clear: both;
-  display: block;
-  overflow: hidden;
-  visibility: hidden;
-  width: 0;
-  height: 0;
-}
+
+
 
 .tripb {
   float: left;
@@ -680,5 +650,41 @@ h1 {
   bottom: 0px;
   font-size: 14px;
   color: rgb(151, 151, 151);
+}
+li {
+  list-style: none;
+}
+
+.stragyespecail {
+    
+  display: inline-block;
+  width: 260px;
+  margin-left: 18px;
+  border: 1px solid rgb(138, 137, 137);
+  margin-bottom: 30px;
+}
+.stragyespecail p {
+  font-size: 15px;
+  text-align: center;
+  color: #666;
+  height: 25px;
+  overflow: hidden;
+  font-family: 宋体;
+  margin-top: 5px;
+}
+.stragyespecail h3 {
+  font-family:initial;
+  font-size: 18px;
+  color: #666;
+  width: 260px;
+  height: 20px;
+  overflow: hidden;
+  text-align: center;
+}
+.stragyespecail span {
+  padding-left: 25px;
+  width: 260px;
+  overflow: hidden;
+height: 10px;
 }
 </style>
