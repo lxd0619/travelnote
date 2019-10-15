@@ -70,8 +70,7 @@ var userController = {
             //1.获取当前用户编号
             var userTel = req.user.userTel
             //1.获取当前用户的图片名称
-            console.log(files)
-            var headPic = path.parse(files.myHead.path).base
+            var headPic = files.img.name
             var userHead = { headPic: headPic, userTel: userTel }
             userDAO.headPic(userHead, function (err, results) {
                 if (err) {
@@ -137,17 +136,17 @@ var userController = {
             }
             //fields是常温的表单字段数组，files是上传的文件列表
             var cover = path.parse(files.cover.path).base
-            var tableName = fields.tableName
-            var type = fields.type
-            var title = fields.title
+            var tableName = req.body.tableName
+            var type = req.body.type
+            var title = req.body.title
             var article = fields.article
             var userTel = req.user.userTel
             var insertTime = new Date()
-            var sceneryId = fields.sceneryId
-            var cityName = fields.cityName
-            var dayNum = fields.dayNum
-            var season = fields.season
-            var crowdType = fields.crowdType
+            var sceneryId = req.body.sceneryId
+            var cityName = req.body.cityName
+            var dayNum = req.body.dayNum
+            var season = req.body.season
+            var crowdType = req.body.crowdType
             var sqlstr = ''
             switch (tableName) {
                 case 'scenerystrategy': sqlstr = "insert into scenerystrategy (type,title,cover,ssInfo,sceneryId,userId,ssTime) values (?,?,?,?,?,(select userId from users where tel = ?),?)"; var ins = [type, title, cover, article, sceneryId, userTel, insertTime]; break;
@@ -155,6 +154,7 @@ var userController = {
                 case 'personalrow': sqlstr = 'insert into personalrow (type,title,cover,dayNum,season,crowdType,prInfo,userId,prTime) values (?,?,?,?,?,?,?,(select userId from users where tel = ?),?)'; var ins = [type, title, cover, dayNum, season, crowdType, article, userTel, insertTime]; break;
                 default: console.log('没有该类型的表');
             }
+            console.log('ins:'+ins)
             userDAO.commitArticle(sqlstr, ins, function (err, results) {
                 if (err) {
                     res.json({ code: 500, data: 0, msg: '攻略上传失败' })

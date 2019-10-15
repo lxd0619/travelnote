@@ -170,14 +170,13 @@
             </div>
             <!-- 热门美食攻略 -->
             <div
-              class="tab-pane fade"
+              class="tab-pane fade show"
               id="nav-hotFoods"
               role="tabpanel"
               aria-labelledby="nav-hotFoods-tab"
-              @click="hotFoods()"
             >
-              <h4 id="list-item-3">热门美食攻略推荐</h4>
               <div class="card-deck flex-column">
+                <!-- 热门美食攻略 -->
                 <div
                   class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
                   v-for="article in fsarticles"
@@ -195,8 +194,8 @@
                     </h5>
                     <p
                       class="card-text overflow-hidden"
-                      style="height: 4em;text-overflow:ellipsis;"
-                    >{{article.ssInfo}}</p>
+                      style="height: 4em;width:10em;text-overflow:ellipsis;"
+                    >{{article.fsInfo}}</p>
                     <p class="text-muted">
                       <i class="fa fa-map-marker mr-2" aria-hidden="true">贡嘎</i>by
                       <i>
@@ -223,12 +222,12 @@
                   v-for="article in prarticles"
                   :key="article.strategyId"
                 >
-                  <img
+                  <!-- <img
                     class="card-img-top"
                     :src="getImgUrl(article.cover,'line')"
                     alt="Card image cap"
                     style="width: 14em;height: 12em;"
-                  />
+                  />-->
                   <div class="card-body">
                     <h5 class="card-title">
                       <a href="#" class="card-link">{{article.title}}</a>
@@ -236,14 +235,14 @@
                     <p
                       class="card-text overflow-hidden"
                       style="height: 4em;text-overflow:ellipsis;"
-                    >{{article.ssInfo}}</p>
+                    >{{article.prInfo}}</p>
                     <p class="text-muted">
                       <i class="fa fa-map-marker mr-2" aria-hidden="true">贡嘎</i>by
                       <i>
                         <img src alt />
                       </i>
-                      <i class="fa fa-eye mr-2" aria-hidden="true">{{article.fsCollectionNum}}</i>
-                      <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.fsLikeNum}}</i>
+                      <i class="fa fa-eye mr-2" aria-hidden="true">{{article.prCollectionNum}}</i>
+                      <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.prLikeNum}}</i>
                     </p>
                   </div>
                 </div>
@@ -439,10 +438,7 @@ export default {
   methods: {
     //获取图片地址
     getImgUrl(img, src) {
-      console.log(img,'---',src)
-      // return require("@/assets/scenerySpot/" + img);
       return require("@/assets/" + src + "/" + img);
-      // return require("http://localhost:3000/" + src + "/" + img);
     }
   }
 };

@@ -55,9 +55,7 @@ export default {
       $("#headPic").click(function() {
         $('input[type="file"]').trigger("click");
       });
-      $("#updHeadBtn").click(function() {
-        $('input[type="file"]').trigger("click");
-      });
+
       // $('input[type="file"]').change(function() {
       //   var fread = new FileReader();
       //   fread.onload = function(e) {
@@ -95,7 +93,7 @@ export default {
   width: 10rem;
   height: 10rem;
   border-radius: 75px;
-  background: rgba(0, 0, 0, 0.5) url('../assets/headPic/head1.jpg') 50% no-repeat;
+  background: rgba(0, 0, 0, 0.5) url('../assets/camera.png') 50% no-repeat;
   cursor: pointer;
 }
 

@@ -20,13 +20,13 @@
           </div>
 
           <div class="form-group">
-            <input
+            <!-- <input
               type="text"
               class="form-control form-control-lg"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="填写游记标题"
-            />
+            />-->
           </div>
         </form>
       </div>
@@ -36,6 +36,15 @@
         <div class="col-md-11">
           <!-- 富文本框 -->
           <div id="editor" class="mb-3"></div>
+
+          <div class="clearfix">
+            <!-- 标题 -->
+            <input type="text" class="title" placeholder="请输入标题" />
+            <!-- 富文本编辑框 -->
+            <div id="websiteEditorElem" style="height:300px;background: #ffffff;"></div>
+            <!-- 提交按钮 -->
+            <!-- <el-button type="primary" @click="submit" class="submit">点击上传</el-button> -->
+          </div>
 
           <!-- 触发模态框按钮 -->
           <button
@@ -96,23 +105,29 @@
   </div>
 </template>
 <script>
+import E from "wangeditor";
 export default {
-  data: {
-      
+  // name: "text",
+  data() {
+    return {
+      phoneEditor: "",
+      name: "",
+      artInfo: {
+        tableName: "scenerystrategy",
+        type: "景点攻略",
+        title: "title",
+        article: "adf",
+        sceneryId: "2",
+        cityName: "东京",
+        dayNum: "3",
+        season: "冬季",
+        crowdType: "人群"
+      }
+    };
   },
   created() {
     var editor = null;
     $(function() {
-      var E = window.wangEditor;
-      editor = new E("#editor");
-      //使用web服务器接收图片
-      //原理：
-      //1.把图片上传到服务器指定的目录中
-      //2.把图片在服务器上的路径返回
-      //3.在wangeditor编辑器中插入图片（吧按返回的图片路径设置到img标签的src中）
-      //4.上传到服务器
-      editor.customConfig.uploadImgServer = "/userCenter/uploadArticle"; //upload是服务器接口
-      editor.create();
       //更换封面
       $("#addCover").click(function() {
         $('input[type="file"]').trigger("click");
@@ -128,31 +143,45 @@ export default {
         fread.readAsDataURL(this.files[0]);
       });
     });
-    //上传富文本框
-    function upload() {
-      $.post(
-        "/userCenter/commitArticle",
-        { data: editor.txt.html() },
-        function() {
-          alert("上传成功！");
-        }
-      );
-    }
   },
   methods: {
+    // 设置保存发送后台数据事件
     upload() {
-      this.$axios
-        .post("http://localhost:3000/userCenter/commitArticle", )
+      var data = new FormData();
+      // this.artInfo.article = data
+      data.append("cotent", this.phoneEditor.txt.html());
+      this.$axios({
+        methods: "post",
+        url: "http://localhost:3000/userCenter/commitArticle",
+        data: this.artInfo,
+        headers: {
+          Authorization: window.localStorage["mytoken"]
+        }
+      })
         .then(res => {
-          console.log("上传成功！".res);
+          if (res.status === 200) {
+            console.log("success!");
+          }
         })
-        .catch(err => {
-          console.log("error:" + err);
-        })
-        .finally(function() {
-          // always executed
+        .catch(res => {
+          console.log(res);
         });
     }
+  },
+  mounted() {
+    // wangeditor
+    this.phoneEditor = new E("#websiteEditorElem");
+    // this.phoneEditor.onchange = function () {
+    //   this.formData.phone = this.$txt.html()
+    // }
+    // 上传图片到服务器，base64形式
+    this.phoneEditor.customConfig.uploadImgShowBase64 = true;
+    // 隐藏网络图片
+    this.phoneEditor.customConfig.showLinkImg = false;
+    // 创建一个富文本编辑器
+    this.phoneEditor.create();
+    // 富文本内容
+    this.phoneEditor.txt.html();
   }
 };
 </script>
