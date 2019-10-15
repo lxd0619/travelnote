@@ -2,7 +2,34 @@
   <div>
     <div id="head"></div>
     <div class="contain">
-    
+    <div id="circleContent" class="carousel slide carousel-fade" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#circleContent" data-slide-to="0" class="active"></li>
+          <li data-target="#circleContent" data-slide-to="1"></li>
+          <li data-target="#circleContent" data-slide-to="2"></li>
+          <li data-target="#circleContent" data-slide-to="3"></li>
+          <li data-target="#circleContent" data-slide-to="4"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="../assets/view/景色背景图片.jpg" />
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="../assets/view/景色背景图片2.jpg" />
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="../assets/view/景色图片3.jpg" />
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#circleContent" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#circleContent" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
       
       <div class="ViewProduce">View Produce</div>
       <div class="sheadsecond">景点攻略</div>
