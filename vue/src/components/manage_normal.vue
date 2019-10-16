@@ -70,16 +70,6 @@ export default {
   },
   created() {
     this.List("scenerystrategy")
-    // var tableName = "scenerystrategy";
-    // var ssStatus = 0;
-    // var data = { tableName, ssStatus };
-    // this.currentPage = 1;
-    // this.$axios.post("http://localhost:3000/manage/List", data).then(res => {
-    //   console.log(res);
-    //   this.list = res.data.data;
-    //   this.allpages = res.data.data.length;
-    //   console.log(this.allpages);
-    // });
   },
   methods: {
     List(tableName) {
