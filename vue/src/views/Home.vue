@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="container">
+    <!-- <div class="container"> -->
       <!-- 轮播图 -->
       <div id="circleContent" class="carousel slide carousel-fade" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -36,7 +36,7 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-    </div>
+    <!-- </div> -->
 
     <div
       class="container scrollspy-example mt-5"
@@ -144,7 +144,7 @@
                 >
                   <img
                     class="card-img-top"
-                    :src="getImgUrl(article.cover,'scenerySpot')"
+                    :src="getPic(article.cover)"
                     alt="Card image cap"
                     style="width: 14em;height: 12em;"
                   />
@@ -184,7 +184,7 @@
                 >
                   <img
                     class="card-img-top"
-                    :src="getImgUrl(article.cover,'food')"
+                    :src="getPic(article.cover)"
                     alt="Card image cap"
                     style="width: 14em;height: 12em;"
                   />
@@ -224,7 +224,7 @@
                 >
                   <img
                     class="card-img-top"
-                    :src="getImgUrl(article.cover,'line')"
+                    :src="getPic(article.cover)"
                     alt="Card image cap"
                     style="width: 14em;height: 12em;"
                   />
@@ -436,16 +436,17 @@ export default {
     });
   },
   methods: {
-    //获取图片地址
-    getImgUrl(img, src) {
-      return require("@/assets/" + src + "/" + img);
+    getPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
     }
   }
 };
 </script>
 <style scoped>
 .carousel-item {
-  height: 25em;
+  height: 40em;
 }
 
 .card img {

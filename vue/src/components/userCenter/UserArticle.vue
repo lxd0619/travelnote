@@ -6,7 +6,7 @@
         v-for="article in articles"
         :key="article.index"
       >
-        <img class="card-img-top" src="require('../../assets/scenerySpot/'+article.cover+')" alt="article image"/>
+        <img class="card-img-top" :src="getPic(article.cover)" alt="article image" />
         <span>article:{{article.cover}}</span>
         <div class="card-body">
           <h5 class="card-title">{{article.title}}</h5>
@@ -61,6 +61,13 @@ export default {
       .finally(function() {
         // always executed
       });
+  },
+  methods: {
+    getPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    }
   }
 };
 </script>

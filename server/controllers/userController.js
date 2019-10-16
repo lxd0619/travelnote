@@ -70,7 +70,7 @@ var userController = {
             //1.获取当前用户编号
             var userTel = req.user.userTel
             //1.获取当前用户的图片名称
-            var headPic = files.img.name
+            var headPic = path.parse(files.img.path).base
             var userHead = { headPic: headPic, userTel: userTel }
             userDAO.headPic(userHead, function (err, results) {
                 if (err) {
@@ -113,7 +113,7 @@ var userController = {
         //当每个文件上传时都会触发的事件方法，用于多文件上传
         form.on('file', function (err, file) {
             console.log(file)
-            results.data.push('http://localhost:3000/userCenter/uploadArticle/' + path.parse(file.path).base)
+            results.data.push('http://localhost:3000/userCenter/coverPic/' + path.parse(file.path).base)
         })
         form.parse(req, function (err, fields, files) {
             if (err) {
@@ -130,7 +130,7 @@ var userController = {
         console.log(123)
         console.log('req'+req)
         var form = new formidable.IncomingForm()      //创建上传表单对象
-        form.uploadDir = path.join(__dirname, '../public/coverPic')           //设置上传文件的路径
+        form.uploadDir = path.join(__dirname, '../public/uploadArticle')           //设置上传文件的路径
         form.keepExtensions = true                      //设置保留上传文件的扩展名
         form.parse(req, function (err, fields, files) {
             if (err) {

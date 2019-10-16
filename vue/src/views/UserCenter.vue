@@ -17,7 +17,8 @@
         <!-- 左侧边栏 -->
         <div class="col-md-3 d-flex flex-column align-items-center">
           <!-- 圆形头像 -->
-          <div class="rounded-circle" id="headPic"></div>
+          <div class="rounded-circle" id="headPic" :style="{'backgroundImage':'url(' + getPic(userInfo[0].headPic) + ')'}">
+          </div>
         </div>
         <!-- 中间部分 -->
         <div class="col-md-8" id="content">
@@ -44,10 +45,31 @@ export default {
   },
   data() {
     return {
-      imageUrl: "",
+      userInfo: [
+        {
+          headPic: "",
+        }
+      ],
     };
   },
   created() {
+    // 获取用户信息
+    this.$axios
+      .get("http://localhost:3000/userCenter/getUserInfo")
+      .then(res => {
+        console.log("查询结果" + res.data.data);
+        this.userInfo = res.data.data;
+        this.userInfo[0].registerTime = this.userInfo[0].registerTime.slice(
+          0,
+          this.userInfo[0].registerTime.indexOf("T")
+        );
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
+      });
     $(function() {
       $('[data-toggle="popover"]').popover({
         container: "body"
@@ -68,11 +90,18 @@ export default {
       // });
     });
   },
+  methods:{
+    getPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
+    }
+  }
 };
 </script>
 <style scoped>
 .rounded-circle {
-  background-image: url("../assets/headPic/head1.jpg");
+  /* background-image: url("../assets/headPic/head1.jpg"); */
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -83,6 +112,11 @@ export default {
 }
 
 #headPic {
+  height: 10rem;
+  width: 10rem;
+}
+
+#headPic img{
   height: 10rem;
   width: 10rem;
 }
