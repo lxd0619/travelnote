@@ -41,7 +41,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import jwt_decode from "jwt-decode";
 export default {
@@ -74,13 +73,19 @@ export default {
               localStorage.setItem("password", this.loginUser.password);
             }
             localStorage.setItem("mytoken", res.data.token); //1.把token保存到本地存储
+            var role = jwt_decode(localStorage.getItem('mytoken')).role
             this.$message({
               message: "登录成功，即将进入精彩时刻！",
               type: "success"
             });
             let _this = this;
             var mytime = setTimeout(function() {
-              _this.$router.push("/index/home"); //路由转向登录组件
+              if(role=='normal'){
+                _this.$router.push("/index/home"); //路由转向登录组件
+              }else{
+                _this.$router.push("/manage"); //路由转向登录组件
+              }
+              
             }, 3000);
           } else {
             this.$message.error(res.data.msg);

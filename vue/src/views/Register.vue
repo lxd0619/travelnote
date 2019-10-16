@@ -368,8 +368,7 @@ export default {
               });
             let _this = this;
             var mytime = setTimeout(function() {
-            //  window.location="/login"; 
-            this.$axios.push('/login')
+            _this.$router.push('/login')
             }, 3000);
             } else {
               this.$message.error('错误信息：'+res.data.msg);

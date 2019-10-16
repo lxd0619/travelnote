@@ -21,112 +21,117 @@ import Nm from './views/Nm.vue'
 import Xa from './views/Xa.vue'
 Vue.use(Router)
 let router = new Router({
-        mode: 'history',
-        base: process.env.BASE_URL,
-        routes: [{
-                path: '/',
-                redirect: '/index/home' //路由跳转
-            },
-            {
-                path: '/index',
-                name: 'index',
-                component: Index,
-                children: [{
-                        path: 'aim',
-                        name: 'aim',
-                        component: Aim
-                    },
-                    {
-                        path: 'aimline',
-                        name: 'aimline',
-                        component: AimLine
-                    },
-                    {
-                        path: 'delicious',
-                        name: 'delicious',
-                        component: Delicious
-                    },
-                    {
-                        path: 'editor',
-                        name: 'editor',
-                        component: Editor
-                    },
-                    {
-                        path: 'home',
-                        name: 'home',
-                        component: Home
-                    },
-                    {
-                        path: 'line',
-                        name: 'line',
-                        component: Line
-                    },
-                    {
-                        path: 'linestrategy',
-                        name: 'linestrategy',
-                        component: LineStrategy
-                    },
-                    {
-                        path: 'manage',
-                        name: 'manage',
-                        component: Manage
-                    },
-                    {
-                        path: 'search',
-                        name: 'search',
-                        component: Search
-                    },
-                    {
-                        path: 'userCenter',
-                        name: 'userCenter',
-                        component: UserCenter
-                    },
-                    {
-                        path: 'view',
-                        name: 'view',
-                        component: View
-                    },
-                    {
-                        path: 'jn',
-                        name: 'jn',
-                        component: Jn
-                    },
-                    {
-                        path: 'nm',
-                        name: 'nm',
-                        component: Nm
-                    },
-                    {
-                        path: 'xa',
-                        name: 'xa',
-                        component: Xa
-                    },
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [{
+        path: '/',
+        redirect: '/index/home' //路由跳转
+    },
+    {
+        path: '/index',
+        name: 'index',
+        component: Index,
+        children: [{
+            path: 'aim',
+            name: 'aim',
+            component: Aim
+        },
+        {
+            path: 'aimline',
+            name: 'aimline',
+            component: AimLine
+        },
+        {
+            path: 'delicious',
+            name: 'delicious',
+            component: Delicious
+        },
+        {
+            path: 'editor',
+            name: 'editor',
+            component: Editor
+        },
+        {
+            path: 'home',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: 'line',
+            name: 'line',
+            component: Line
+        },
+        {
+            path: 'linestrategy',
+            name: 'linestrategy',
+            component: LineStrategy
+        },
+        {
+            path: 'search',
+            name: 'search',
+            component: Search
+        },
+        {
+            path: 'userCenter',
+            name: 'userCenter',
+            component: UserCenter
+        },
+        {
+            path: 'view',
+            name: 'view',
+            component: View
+        },
+        {
+            path: 'jn',
+            name: 'jn',
+            component: Jn
+        },
+        {
+            path: 'nm',
+            name: 'nm',
+            component: Nm
+        },
+        {
+            path: 'xa',
+            name: 'xa',
+            component: Xa
+        },
 
-                ]
-            },
-            {
-                path: '/login',
-                name: 'login',
-                component: Login
-            },
-            {
-                path: '/register',
-                name: 'register',
-                component: Register
-            },
-            {
-                path: '/forget_pwd',
-                name: Forget_pwd,
-                component: Forget_pwd
-            },
-            {
-                path: '/*', //路由匹配不成功时
-                name: 'notfound',
-                component: NotFound
-            }
         ]
-    })
-    //设置路由守卫
+    },
+    {
+        path: '/manage',
+        name: 'manage',
+        component: Manage
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: Login
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: Register
+    },
+    {
+        path: '/forget_pwd',
+        name: Forget_pwd,
+        component: Forget_pwd
+    },
+    {
+        path: '/article',
+        name: Article,
+        component: Article
+    },
+    {
+        path: '/*', //路由匹配不成功时
+        name: 'notfound',
+        component: NotFound
+    }
+    ]
+})
+//设置路由守卫
 router.beforeEach((to, from, next) => {
     //除了login和register，其他的路由访问必须先登录
     let tokenIsExists = localStorage.getItem('mytoken') ? true : false //检查本地存储中是否有token
@@ -134,7 +139,19 @@ router.beforeEach((to, from, next) => {
         next() //允许访问路由
     } else {
         if (tokenIsExists) {
-            next() //已经登录并取得token，允许访问路由
+            if (to.path == '/manage' || to.path == '/Article') {
+                console.log(jwt_decode(localStorage.getItem('mytoken')).role);
+                var role = jwt_decode(localStorage.getItem('mytoken')).role
+                console.log(123)
+                if (role == 'manage') {
+                    next()
+                } else {
+                    next('/*')
+                }
+            } else {
+                next() //已经登录并取得token，允许访问路由
+            }
+            next()
         } else {
             next('/login') //路由跳转到登录组件
         }
