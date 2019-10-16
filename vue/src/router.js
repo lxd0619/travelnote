@@ -17,7 +17,7 @@ import UserCenter from './views/UserCenter.vue'
 import View from './views/View.vue'
 import Forget_pwd from './views/Forget_pwd.vue'
 import Jn from './views/JN.vue'
-import Nm from './views/Nm.vue'
+import Nm from './views/NM.vue'
 import Xa from './views/Xa.vue'
 Vue.use(Router)
 let router = new Router({
