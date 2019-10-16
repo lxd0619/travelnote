@@ -20,7 +20,7 @@
               <dl class="termini_name">
                 <dt>华北地区</dt>
                 <dd data-events="click">
-                  <a href="#" target="_blank">北京市</a>
+                  <a href="#" target="_blank" @click="go('北京')">北京市</a>
                 </dd>
                 <dd data-events="click">
                   <a href="#" target="_blank">河北省</a>
@@ -403,9 +403,17 @@
 export default {
   name: "viewdetail",
   data: function() {
-    return {};
+    return {
+     
+    };
   },
- 
+ methods:{
+   go(city){
+     var city_name=JSON.stringify(city)
+     sessionStorage.setItem('city_name',city_name)
+     this.$router.push('/index/detailcity')
+   }
+ }
  
 }
 

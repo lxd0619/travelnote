@@ -8,12 +8,15 @@
             <a href="#" target="_blank"></a>
           </span>
           <h2 class="clearfix">
-            <a class="pr10" href="#" target="_blank">citiname的攻略</a>
+            <a class="pr10" href="#" target="_blank">{{city_name}}的攻略</a>
           </h2>
         </div>
       </div>
 
       <div class="domestic">
+           
+          <h3>{{messages.title}}</h3>
+       
         <ul class="tab_theme">
           <li>
             <img alt="#" style="background: none; " />
@@ -29,7 +32,7 @@
           </li>
         </ul>
         <div class="scale_tour">
-          <p>亲近自然 春游庐山</p>
+          <p>{{messages.title}}</p>
         </div>
           <span class="more">
           <a href="# ">
@@ -38,106 +41,7 @@
         </span>
       </div>
         <hr />
-        <div class="domestic">
-        <ul class="tab_theme">
-          <li>
-            <img alt="#" style="background: none; " />
-          </li>
-          <li>
-            <img alt="# " style="background: none; " />
-          </li>
-          <li>
-            <img alt="# " src style="background:none;" />
-          </li>
-          <li>
-            <img alt="庐山 " style="background: none; " />
-          </li>
-        </ul>
-        <div class="scale_tour">
-          <p>亲近自然 春游庐山</p>
-        </div>
-          <span class="more">
-          <a href="# ">
-            <em>了解详情&gt;&gt;</em>
-          </a>
-        </span>
-      </div>
-        <hr />
-          <div class="domestic">
-        <ul class="tab_theme">
-          <li>
-            <img alt="#" style="background: none; " />
-          </li>
-          <li>
-            <img alt="# " style="background: none; " />
-          </li>
-          <li>
-            <img alt="# " src style="background:none;" />
-          </li>
-          <li>
-            <img alt="庐山 " style="background: none; " />
-          </li>
-        </ul>
-        <div class="scale_tour">
-          <p>亲近自然 春游庐山</p>
-        </div>
-          <span class="more">
-          <a href="# ">
-            <em>了解详情&gt;&gt;</em>
-          </a>
-        </span>
-      </div>
-        <hr />
-          <div class="domestic">
-        <ul class="tab_theme">
-          <li>
-            <img alt="#" style="background: none; " />
-          </li>
-          <li>
-            <img alt="# " style="background: none; " />
-          </li>
-          <li>
-            <img alt="# " src style="background:none;" />
-          </li>
-          <li>
-            <img alt="庐山 " style="background: none; " />
-          </li>
-        </ul>
-        <div class="scale_tour">
-          <p>亲近自然 春游庐山</p>
-        </div>
-          <span class="more">
-          <a href="# ">
-            <em>了解详情&gt;&gt;</em>
-          </a>
-        </span>
-      </div>
-        <hr />
-          <div class="domestic">
-        <ul class="tab_theme">
-          <li>
-            <img alt="#" style="background: none; " />
-          </li>
-          <li>
-            <img alt="# " style="background: none; " />
-          </li>
-          <li>
-            <img alt="# " src style="background:none;" />
-          </li>
-          <li>
-            <img alt="庐山 " style="background: none; " />
-          </li>
-        </ul>
-        <div class="scale_tour">
-          <p>亲近自然 春游庐山</p>
-        </div>
-          <span class="more">
-          <a href="# ">
-            <em>了解详情&gt;&gt;</em>
-          </a>
-        </span>
-      </div>
-        <hr />
+        
 
       
       <div id="foot"></div>
@@ -148,7 +52,26 @@
 export default {
   name: "detailcity",
   data: function() {
-    return {};
+    return {
+        messages:[],
+        city_name:null,
+    };
+  },
+  created(){
+      var city_name=JSON.parse(sessionStorage.getItem('city_name'))
+      console.log(city_name)
+     this.$axios
+      .post("http://localhost:3000/scenic/viewstrategyClassify",{
+        cityName: city_name
+      })
+      .then(res => {
+      
+        this.messages = res.data.data;
+        // console.log("data:"+JSON.stringify(res.data.data))
+      })
+      .catch(err => {
+        console.log( err);
+      });
   }
 };
 </script>
