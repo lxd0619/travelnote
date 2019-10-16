@@ -18,6 +18,9 @@ import View from './views/View.vue'
 import Forget_pwd from './views/Forget_pwd.vue'
 import Article from './views/Article.vue'
 import jwt_decode from "jwt-decode";
+import Jn from './views/Jn.vue'
+import Nm from './views/Nm.vue'
+import Xa from './views/Xa.vue'
 Vue.use(Router)
 let router = new Router({
     mode: 'history',
@@ -65,7 +68,6 @@ let router = new Router({
             name: 'linestrategy',
             component: LineStrategy
         },
-
         {
             path: 'search',
             name: 'search',
@@ -81,6 +83,22 @@ let router = new Router({
             name: 'view',
             component: View
         },
+        {
+            path: 'jn',
+            name: 'jn',
+            component: Jn
+        },
+        {
+            path: 'nm',
+            name: 'nm',
+            component: Nm
+        },
+        {
+            path: 'xa',
+            name: 'xa',
+            component: Xa
+        },
+
         ]
     },
     {
@@ -104,9 +122,9 @@ let router = new Router({
         component: Forget_pwd
     },
     {
-        path:'/article',
-        name:Article,
-        component:Article
+        path: '/article',
+        name: Article,
+        component: Article
     },
     {
         path: '/*', //路由匹配不成功时
@@ -123,7 +141,7 @@ router.beforeEach((to, from, next) => {
         next() //允许访问路由
     } else {
         if (tokenIsExists) {
-            if (to.path == '/manage'||to.path=='/Article') {
+            if (to.path == '/manage' || to.path == '/Article') {
                 console.log(jwt_decode(localStorage.getItem('mytoken')).role);
                 var role = jwt_decode(localStorage.getItem('mytoken')).role
                 console.log(123)
