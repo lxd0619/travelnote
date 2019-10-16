@@ -74,9 +74,7 @@ export default {
       $('[data-toggle="popover"]').popover({
         container: "body"
       });
-      $("#headPic").click(function() {
-        $('input[type="file"]').trigger("click");
-      });
+     
 
       // $('input[type="file"]').change(function() {
       //   var fread = new FileReader();
