@@ -144,7 +144,7 @@
                 >
                   <img
                     class="card-img-top"
-                    :src="getPic(article.cover)"
+                    :src="getCoverPic(article.cover)"
                     alt="Card image cap"
                     style="width: 14em;height: 12em;"
                   />
@@ -184,7 +184,7 @@
                 >
                   <img
                     class="card-img-top"
-                    :src="getPic(article.cover)"
+                    :src="getCoverPic(article.cover)"
                     alt="Card image cap"
                     style="width: 14em;height: 12em;"
                   />
@@ -224,7 +224,7 @@
                 >
                   <img
                     class="card-img-top"
-                    :src="getPic(article.cover)"
+                    :src="getCoverPic(article.cover)"
                     alt="Card image cap"
                     style="width: 14em;height: 12em;"
                   />
@@ -436,7 +436,7 @@ export default {
     });
   },
   methods: {
-    getPic(pic) {
+    getCoverPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;

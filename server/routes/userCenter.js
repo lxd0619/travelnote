@@ -51,9 +51,13 @@ router.post('/collectArticle',passport.authenticate('jwt',{session:false}), func
 router.post('/addFriends',passport.authenticate('jwt',{session:false}), function (req, res, next) {
     userController.addFriends(req, res)
 })
-/**关注、粉丝列表查询 */
-router.post('/friends',passport.authenticate('jwt',{session:false}), function (req, res, next) {
-    userController.friends(req, res)
+/**粉丝列表查询 */
+router.post('/fans',passport.authenticate('jwt',{session:false}), function (req, res, next) {
+    userController.fans(req, res)
+})
+/**关注列表查询 */
+router.post('/attentions',passport.authenticate('jwt',{session:false}), function (req, res, next) {
+    userController.attentions(req, res)
 })
 /**查询用户评论 */
 router.post('/comments',passport.authenticate('jwt',{session:false}), function (req, res, next) {
