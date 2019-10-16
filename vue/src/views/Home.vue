@@ -222,12 +222,12 @@
                   v-for="article in prarticles"
                   :key="article.strategyId"
                 >
-                  <!-- <img
+                  <img
                     class="card-img-top"
                     :src="getImgUrl(article.cover,'line')"
                     alt="Card image cap"
                     style="width: 14em;height: 12em;"
-                  />-->
+                  />
                   <div class="card-body">
                     <h5 class="card-title">
                       <a href="#" class="card-link">{{article.title}}</a>

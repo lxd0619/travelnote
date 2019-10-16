@@ -127,6 +127,8 @@ var userController = {
     },
     /**上传攻略到数据库 */
     commitArticle: function (req, res) {
+        console.log(123)
+        console.log('req'+req)
         var form = new formidable.IncomingForm()      //创建上传表单对象
         form.uploadDir = path.join(__dirname, '../public/coverPic')           //设置上传文件的路径
         form.keepExtensions = true                      //设置保留上传文件的扩展名
@@ -135,6 +137,7 @@ var userController = {
                 console.log('文件上传错误！')
             }
             //fields是常温的表单字段数组，files是上传的文件列表
+            console.log('req:' + req)
             var cover = path.parse(files.cover.path).base
             var tableName = req.body.tableName
             var type = req.body.type
