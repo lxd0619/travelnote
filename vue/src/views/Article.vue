@@ -6,7 +6,7 @@
         <a href="/manage">返回</a>
       </div>
       <div id="left">
-        <div id="content" v-for="info in strategyInfo" :key="info.strategyId">
+        <div id="content" v-for="info in strategyInfo.slice(0,1)" :key="info.strategyId">
           <h1>{{info.title}}</h1>
           <p>作者：{{info.userName}}</p>
           <P>时间:{{info.ssTime}}</P>
@@ -14,7 +14,13 @@
         </div>
         <div id="button" v-if="flage">
           <el-button type="success" icon="el-icon-check" @click="OK()"></el-button>
-          <el-button type="danger" icon="el-icon-close"></el-button>
+          <el-button
+            type="danger"
+            icon="el-icon-close"
+            data-toggle="modal"
+            data-target="#myModal"
+            v-if="show"
+          ></el-button>
         </div>
       </div>
     </div>
@@ -22,17 +28,24 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">{{msg2}}</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">请输入驳回理由</h4>
           </div>
           <div class="modal-body">
-            <textarea name id="backtext" cols="78" rows="10" style="resize: none"></textarea>
+            <textarea
+              name
+              id="backtext"
+              cols="78"
+              rows="10"
+              style="resize: none;width:100%"
+              v-model="sysMsgContent"
+            ></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" id="sure">确定</button>
+            <button type="button" class="btn btn-primary" id="sure" @click="push()">确定</button>
           </div>
         </div>
       </div>
@@ -47,8 +60,11 @@ export default {
       strategyInfo: [],
       ok_ssStatus: null,
       fail_ssStatus: null,
-      msg: "",
-      flage: false
+      msg1: "",
+      msg2: "",
+      flage: false,
+      sysMsgContent: null,
+      show: true
     };
   },
   created() {
@@ -66,18 +82,23 @@ export default {
             this.flage = true;
             this.ok_ssStatus = 0; //攻略通过审核，为正常攻略
             this.fail_ssStatus = -2;
-            this.msg = "是否确认通过"; //攻略驳回状态
+            this.msg1 = "是否确认通过"; //攻略驳回状态
+            this.msg2 = "请输入驳回原因";
+            this.show = true;
           } else if (this.strategyInfo[0].ssStatus == 1) {
             //攻略被举报
             this.flage = true;
             this.ok_ssStatus = 0; //恢复正常文章
             this.fail_ssStatus = 2; //封贴
-            this.msg = "是否恢复成正常文章";
+            this.msg1 = "是否恢复成正常文章";
+            this.msg2 = "请输入封贴原因";
+            this.show = true;
           } else if (this.strategyInfo[0].ssStatus == 2) {
             //被封的攻略
             this.flage = true;
             this.ok_ssStatus = 0; //恢复成正常攻略
-            this.msg = "是否恢复成正常文章";
+            this.msg1 = "是否恢复成正常文章";
+            this.show = false;
           }
         }
       });
@@ -89,18 +110,67 @@ export default {
       var ssStatus = this.ok_ssStatus;
       var Info = { tableName, ssStatus, strategyId };
       console.log(this.strategyInfo[0].ssStatus, Info);
-      if (confirm(this.msg)) {
+      if (confirm(this.msg1)) {
         // location.href = "manage.html";
         this.$axios
           .post("http://localhost:3000/manage/Status", Info)
           .then(res => {
             if (res.data.data) {
-              alert("审核通过");
+              this.$message({
+                message: "审核通过",
+                type: "success"
+              });
               this.$router.push("/manage");
             }
-
             console.log(res);
           });
+      }
+    },
+    push() {
+      if (this.sysMsgContent == null) {
+        this.$message.error(this.msg2);
+      } else {
+        var tableName = this.strategyInfo[0].type;
+        var strategyId = this.strategyInfo[0].strategyId;
+        var ssStatus = this.fail_ssStatus;
+        var Info = { tableName, ssStatus, strategyId };
+        var userId = this.strategyInfo[0].userId;
+        var sysMsgContent = this.sysMsgContent + this.strategyInfo[0].title;
+        console.log(sysMsgContent);
+        var message = { sysMsgContent, userId };
+        console.log(sysMsgContent);
+        this.$axios
+          .post("http://localhost:3000/manage/sendMessage", message)
+          .then(res => {
+            console.log(res);
+            if (res.data.data) {
+              this.$message({
+                message: "信息发送成功",
+                type: "success"
+              });
+              this.$axios
+                .post("http://localhost:3000/manage/Status", Info)
+                .then(res => {
+                  if (res.data.data) {
+                    this.$message({
+                      message: "成功",
+                      type: "success"
+                    });
+                    let _this = this;
+                    let mytime = setTimeout(function() {
+                      _this.$router.push("/manage");
+                    }, 2000);
+                  } else {
+                    this.$message.error("失败");
+                  }
+                  console.log(res);
+                });
+            } else {
+              this.$message.error("信息发送失败");
+            }
+          });
+
+        $("#myModal").modal("hide");
       }
     }
   }
@@ -160,5 +230,12 @@ export default {
 }
 .el-button + .el-button {
   margin: 0;
+}
+.modal-dialog {
+  max-width: 700px;
+}
+.modal {
+  top: 50%;
+  transform: translate(0, -40%);
 }
 </style>
