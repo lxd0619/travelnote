@@ -15,7 +15,7 @@
       <div class="domestic" v-for="message in messages" :key="message.index">
         <h3>{{message.title}}</h3>
 
-        <ul class="tab_theme" >
+        <ul class="tab_theme" @click="go()">
           <li>
             <img alt="#" style="background: none; " />
           </li>
@@ -56,7 +56,7 @@ export default {
     var city_name = JSON.parse(sessionStorage.getItem("city_name"));
     console.log(city_name);
     this.$axios
-      .post("http://localhost:3000/scenic/viewstrategyClassify", {
+      .post("http://localhost:3000/delicious/deliciousClassify", {
         cityName: city_name
       })
       .then(res => {

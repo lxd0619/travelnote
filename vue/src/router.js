@@ -22,6 +22,8 @@ import Nm from './views/NM.vue'
 import Xa from './views/Xa.vue'
 import ViewDetail from './views/ViewDetail.vue'
 import DetailCity from './views/DetailCity.vue'
+import FoodCity from './views/FoodCity.vue'
+import FoodDetail from './views/FoodDetail.vue'
 
 import jwt_decode from "jwt-decode";
 Vue.use(Router)
@@ -95,6 +97,16 @@ let router = new Router({
                         path: 'detailcity',
                         name: 'decailcity',
                         component: DetailCity
+                    },
+                    {
+                        path: 'foodcity',
+                        name: 'foodcity',
+                        component: FoodCity
+                    },
+                    {
+                        path: 'foodDetail',
+                        name: 'foodDetail',
+                        component: FoodDetail
                     },
 
                     {
