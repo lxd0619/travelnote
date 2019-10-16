@@ -274,16 +274,17 @@ var operationController = {
             strategyType: req.body.strategyType,
             strategyId: req.body.strategyId
         }
+        console.log(strategyInfo)
         var sql = ''
         switch (strategyInfo.strategyType) {
             case 'scenerystrategy':
-                sql = ' select users.userId, users.userName,users.headPic ,scenerystrategy.*,comments.*,replys.* from scenerystrategy left join users on users.userId=scenerystrategy.userId left join comments on scenerystrategy.strategyId = comments.strategyId  and comments.strategyType="scenerystrategy" left join replys on comments.commentId = replys.commentId where scenerystrategy.strategyId = ?';
+                sql = ' select users.userName,users.headPic,scenerystrategy.*,comments.commentId 评论Id,comments.commentContent,comments.commentTime,replys.replyId,replys.replyContent,replys.userId 回复评论Id,replys.replyTime from scenerystrategy left join users on users.userId=scenerystrategy.userId left join comments on scenerystrategy.strategyId = comments.strategyId  and comments.strategyType="scenerystrategy" left join replys on comments.commentId = replys.commentId where scenerystrategy.strategyId = ?';
                 break;
             case 'foodstrategy':
-                sql = ' select users.userId, users.userName,users.headPic ,foodstrategy.*,comments.*,replys.* from foodstrategy left join users on users.userId=foodstrategy.userId left join comments on foodstrategy.strategyId = comments.strategyId  and comments.strategyType="foodstrategy" left join replys on comments.commentId = replys.commentId where foodstrategy.strategyId = ?';
+                sql = ' select users.userName,users.headPic,foodstrategy.strategyId,foodstrategy.type,foodstrategy.title,foodstrategy.cover,foodstrategy.fsInfo ssInfo, foodstrategy.fsLikeNum,foodstrategy.fsCollectionNum,foodstrategy.cityName,foodstrategy.userId,foodstrategy.fsTime ssTime,foodstrategy.fsStatus ssStatus,comments.commentId 评论Id,comments.commentContent,comments.commentTime,replys.replyId,replys.replyContent,replys.userId 回复评论Id,replys.replyTime from foodstrategy left join users on users.userId=foodstrategy.userId left join comments on foodstrategy.strategyId = comments.strategyId  and comments.strategyType="foodstrategy" left join replys on comments.commentId = replys.commentId where foodstrategy.strategyId =?';
                 break;
             case 'personalrow':
-                sql = ' select users.userId, users.userName,users.headPic ,personalrow.*,comments.*,replys.* from personalrow left join users on users.userId=personalrow.userId left join comments on personalrow.strategyId = comments.strategyId  and comments.strategyType="personalrow" left join replys on comments.commentId = replys.commentId where personalrow.strategyId = ?';
+                sql = ' select users.userName,users.headPic,personalrow.strategyId,personalrow.type,personalrow.title,personalrow.cover,personalrow.prInfo ssInfo, personalrow.prLikeNum,personalrow.prCollectionNum,personalrow.city,personalrow.userId,personalrow.prTime ssTime,personalrow.prStatus ssStatus,comments.commentId 评论Id,comments.commentContent,comments.commentTime,replys.replyId,replys.replyContent,replys.userId 回复评论Id,replys.replyTime from personalrow left join users on users.userId=personalrow.userId left join comments on personalrow.strategyId = comments.strategyId  and comments.strategyType="personalrow" left join replys on comments.commentId = replys.commentId where personalrow.strategyId =?';
                 break;
         }
         operationDAO.strategyDetail(sql, strategyInfo, function(err, results) {
