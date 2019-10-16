@@ -101,9 +101,8 @@
             </div>
           </div>
         </div>    
-      </div>
-    </div>
-         <div class="l-comment">
+      </div>       
+        <div class="l-comment">
         <div class="clearfix com-form">
             <div class="fm-tare user-log">
                 <textarea class="_j_comment_content">说点什么吧...</textarea>
@@ -129,6 +128,8 @@
 
         </div>
     </div>
+    </div>
+
   </div>
 </template>
 <script>
