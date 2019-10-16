@@ -128,9 +128,9 @@ export default {
   },
   methods: {
     getPic(pic) {
-      //给图片名加上服务器端访问路径
-      let path = "http://localhost:3000/uploadHeadPic/" + pic;
-      return path;
+      // //给图片名加上服务器端访问路径
+      // let path = "http://localhost:3000/uploadHeadPic/" + pic;
+      // return path;
     }
   }
 };
