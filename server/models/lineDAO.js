@@ -12,7 +12,7 @@ var lineDAO = {
     },
     LineClassify: function (lineInfo, callback) {
         console.log(lineInfo)
-        var sql = 'select * from personalrow where (prStatus=0 or prStatus=1) and'
+        var sql = ' select users.userId, users.userName,users.headPic,personalrow.* from personalrow  left join users on users.userId=personalrow.userId  where (prStatus=0 or prStatus=1) and '
         switch (lineInfo.lineClass) {
             case 'dayNum': sql += ' dayNum='; break;
             case 'season': sql += ' season='; break;
