@@ -27,6 +27,15 @@ var operationDAO={
             }
         })
     },
+    UpdatePrLike: function (sql,likeInfo,callback) {
+        DAO(sql,[likeInfo.strategyId], function (err, results) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, results)
+            }
+        })
+    },
     TestCollect: function (sql,collectInfo,callback) {
         DAO(sql,[collectInfo.strategyId,collectInfo.strategyType,collectInfo.userId], function (err, results1) {
             if (err) {
@@ -45,15 +54,6 @@ var operationDAO={
             }
         })
     },
-    AddPrCollect: function (sql,collectInfo,callback) {
-        DAO(sql,[collectInfo.strategyId], function (err, results) {
-            if (err) {
-                callback(err, null)
-            } else {
-                callback(null, results)
-            }
-        })
-    },
     DelCollect: function (sql,collectInfo,callback) {
         DAO(sql,[collectInfo.strategyId,collectInfo.strategyType,collectInfo.userId], function (err, results) {
             if (err) {
@@ -63,7 +63,7 @@ var operationDAO={
             }
         })
     },
-    CutPrCollect: function (sql,collectInfo,callback) {
+    UpdatePrCollect: function (sql,collectInfo,callback) {
         DAO(sql,[collectInfo.strategyId], function (err, results) {
             if (err) {
                 callback(err, null)

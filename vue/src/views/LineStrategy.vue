@@ -12,11 +12,11 @@
             <h2>{{stra.title}}</h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-                <div class="img-span" @click="addCollectionNum(stra.userId)">
+                <div class="img-span" @click="updateCollectionNum(stra.userId)">
                   <img src="../assets/linestrategy/shou.png" width="15px" height="15px" />
                   <span>({{stra.prCollectionNum}})</span>
                 </div>
-                <div class="img-span">
+                <div class="img-span" @click="updateLikeNum(stra.userId)">
                   <img src="../assets/linestrategy/zan.png" width="15px" height="15px" />
                   <span>({{stra.prLikeNum}})</span>
                 </div>
@@ -61,7 +61,7 @@
                     data-target="#collapseOne"
                     aria-expanded="true"
                     aria-controls="collapseOne"
-                  >D1-上海</button>
+                  >D1</button>
                 </h5>
               </div>
 
@@ -191,7 +191,7 @@
                     data-target="#collapseTwo"
                     aria-expanded="false"
                     aria-controls="collapseTwo"
-                  >D2-苏州</button>
+                  >D2</button>
                 </h5>
               </div>
               <div
@@ -313,7 +313,7 @@
                     data-target="#collapseThree"
                     aria-expanded="false"
                     aria-controls="collapseThree"
-                  >D3-乌镇</button>
+                  >D3</button>
                 </h5>
               </div>
               <div
@@ -435,7 +435,7 @@
                     data-target="#collapseFour"
                     aria-expanded="false"
                     aria-controls="collapseFour"
-                  >D4-杭州</button>
+                  >D4</button>
                 </h5>
               </div>
               <div
@@ -549,6 +549,40 @@
             </div>
           </div>
         </div>
+
+        <div class="con-comments">
+          <div class="l-comment">
+            <div class="clearfix com-form">
+              <div class="fm-tare user-log">
+                <textarea class="_j_comment_content">说点什么吧...</textarea>
+                <button type="button" class="gotoLogin" data-gtype="1">评论</button>
+              </div>
+            </div>
+            <div class="com-box">
+              <h2>
+                评论（
+                <span class="_comment_num">20</span>）
+              </h2>
+              <ul id="comments" data-page="1" data-id="0">
+                <li class="clearfix comment_item item_1203904" data-id="1203904" data-replied="0">
+                  <div class="img">
+                    <img
+                      src="https://p1-q.mafengwo.net/s10/M00/77/C5/wKgBZ1oiiAeASaJoAAB6DH0UYHQ72.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
+                    />
+                  </div>
+                  <div class="info">
+                    <h3>爱旅游的单身</h3>
+                    <h4>2019-08-13 14:41:40</h4>
+                    <div class="com-cont">长谷寺门票是400</div>
+                    <div class="rep-del op_item_1203904 hide" style="display: none;">
+                      <i></i>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -570,33 +604,24 @@ export default {
     var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
     this.info = info;
     console.log(this.info); //内容
+    //加载攻略数据
     this.$axios
       .post("http://localhost:3000/operation/strategydetail", {
         strategyType: this.info.type,
         strategyId: this.info.id
       })
       .then(res => {
-        console.log(res);
+        console.log(1,res);
         this.strategy = res.data.data;
       })
       .catch(err => {
         console.log("错误信息" + err);
       });
-
-    // this.$axios
-    //   .post("http://localhost:3000/operation/hotStrategy", {
-    //     strategyType: this.strategyType
-    //   })
-    //   .then(res => {
-    //     // console.log(res);//"查询结果"
-    //     this.hotarticles = res.data.data;
-    //   })
-    //   .catch(err => {
-    //     console.log("错误信息" + err);
-    //   });
   },
   methods: {
-    addCollectionNum(userId) {
+    //更新收藏数
+    updateCollectionNum(userId) {
+      var judge;
       this.$axios
         .post("http://localhost:3000/operation/collect", {
           strategyId: this.info.id,
@@ -605,7 +630,51 @@ export default {
         })
         .then(res => {
           console.log(res);
-          // this.strategy = res.data.data;
+          judge = parseInt(res.data.data);
+          if (judge == 1) {
+            this.strategy[0].prCollectionNum = parseInt(this.strategy[0].prCollectionNum) + 1;
+            console.log(this.strategy.prCollectionNum);
+          } else if (judge == -1) {
+            this.strategy[0].prCollectionNum = parseInt(this.strategy[0].prCollectionNum) - 1;
+            console.log(this.strategy.prCollectionNum);
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+    //更新点赞数
+    updateLikeNum(userId) {
+      var judge;
+      this.$axios
+        .post("http://localhost:3000/operation/like", {
+          strategyId: this.info.id,
+          strategyType: this.info.type,
+          userId: userId
+        })
+        .then(res => {
+         console.log(res);
+          judge = parseInt(res.data.data);
+          if (judge == 1) {
+            this.strategy[0].prLikeNum = parseInt(this.strategy[0].prLikeNum) + 1;
+            console.log(this.strategy.prLikeNum);
+          } else if (judge == -1) {
+            this.strategy[0].prLikeNum = parseInt(this.strategy[0].prLikeNum) - 1;
+            console.log(this.strategy.prLikeNum);
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+
+      this.$axios
+        .post("http://localhost:3000/operation/strategydetail", {
+          strategyType: this.info.type,
+          strategyId: this.info.id
+        })
+        .then(res => {
+          console.log(res);
+          this.strategy = res.data.data;
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -731,5 +800,112 @@ export default {
 .con-main .main-show .show-img .d-txt .p-left {
   text-align: left;
   height: 40px;
+}
+
+/* 评论栏 */
+.l-comment {
+  margin-top: 85px;
+}
+
+.com-form .fm-tare textarea {
+  height: 200px;
+  width: 1000px;
+  padding: 14px;
+  border: 1px solid #e5e5e5;
+  resize: none;
+  outline: 0;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+.com-form .user-log textarea {
+  border: 1px solid #ffa200;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.com-box ul li {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 30px 0;
+}
+
+.com-box h2 {
+  font-size: 24px;
+  color: #333;
+  font-weight: normal;
+  line-height: 24px;
+  margin: 36px 0;
+}
+
+.com-box h2 {
+  font-size: 24px;
+  color: #333;
+  font-weight: normal;
+  line-height: 24px;
+  margin: 36px 0;
+}
+
+.com-box {
+  border-top: 1px solid #e5e5e5;
+}
+
+.com-form .fm-tare button {
+  width: 114px;
+  height: 40px;
+  background: #ffa200;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  display: block;
+  margin: 20px 0;
+  border-radius: 5px;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 0;
+  line-height: 30px;
+  margin-left: 850px;
+}
+
+li {
+  list-style: none;
+}
+
+.com-box li .img {
+  overflow: hidden;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  float: left;
+}
+
+.com-box .info h3 {
+  font-size: 18px;
+  color: #333;
+  font-weight: normal;
+  line-height: 28px;
+}
+
+.com-box .info h4 {
+  font-size: 12px;
+  color: #999;
+  font-weight: normal;
+  line-height: 14px;
+}
+
+.com-box .info .com-cont {
+  font-size: 14px;
+  color: #666;
+  line-height: 28px;
+  margin-top: 8px;
 }
 </style>
