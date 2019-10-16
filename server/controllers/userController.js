@@ -39,7 +39,7 @@ var userController = {
     updataTel: function (req, res) {
         var newTel = req.body.newTel
         var userTel = req.user.userTel
-        console.log('userTel:'+userTel)
+        console.log('userTel:' + userTel)
         if (newTel.length == 11) {
             userDAO.updataTel(newTel, userTel, function (err, results) {
                 if (err) {
@@ -59,7 +59,7 @@ var userController = {
     /**上传头像 */
     headPic: function (req, res) {
         var form = new formidable.IncomingForm()      //创建上传表单对象
-        form.uploadDir = path.join(__dirname, '../public/uploadHeadPic')           //设置上传文件的路径
+        form.uploadDir = path.join(__dirname, '../public/uploadHeadPic')            //设置上传文件的路径
         form.keepExtensions = true                      //设置保留上传文件的扩展名
         form.parse(req, function (err, fields, files) {
             if (err) {
@@ -127,37 +127,39 @@ var userController = {
     },
     /**上传攻略到数据库 */
     commitArticle: function (req, res) {
-        console.log(123)
-        console.log('req'+req)
         var form = new formidable.IncomingForm()      //创建上传表单对象
-        form.uploadDir = path.join(__dirname, '../public/uploadArticle')           //设置上传文件的路径
+        form.uploadDir = path.join(__dirname, '../public/coverPic')           //设置上传文件的路径
         form.keepExtensions = true                      //设置保留上传文件的扩展名
         form.parse(req, function (err, fields, files) {
             if (err) {
                 console.log('文件上传错误！')
             }
             //fields是常温的表单字段数组，files是上传的文件列表
-            console.log('req:' + req)
-            var cover = path.parse(files.cover.path).base
-            var tableName = req.body.tableName
-            var type = req.body.type
-            var title = req.body.title
+
+            console.log(files)
+            // var cover = path.parse(files.cover.path).base
+            var cover = "cover"
+
+            // var tableName = req.body.tableName
+            var type = fields.type
+            var title = fields.title
             var article = fields.article
             var userTel = req.user.userTel
             var insertTime = new Date()
-            var sceneryId = req.body.sceneryId
-            var cityName = req.body.cityName
-            var dayNum = req.body.dayNum
-            var season = req.body.season
-            var crowdType = req.body.crowdType
+            // var sceneryId = fields.sceneryId
+            var cityName = fields.cityName
+            var dayNum = fields.dayNum
+            var season = fields.season
+            var crowdType = fields.crowdType
             var sqlstr = ''
-            switch (tableName) {
-                case 'scenerystrategy': sqlstr = "insert into scenerystrategy (type,title,cover,ssInfo,sceneryId,userId,ssTime) values (?,?,?,?,?,(select userId from users where tel = ?),?)"; var ins = [type, title, cover, article, sceneryId, userTel, insertTime]; break;
-                case 'foodstrategy': sqlstr = 'insert into foodstrategy (type,title,cover,fsInfo,cityName,userId,fsTime) values (?,?,?,?,?,(select userId from users where tel = ?),?)'; var ins = [type, title, cover, article, cityName, userTel, insertTime]; break;
-                case 'personalrow': sqlstr = 'insert into personalrow (type,title,cover,dayNum,season,crowdType,prInfo,userId,prTime) values (?,?,?,?,?,?,?,(select userId from users where tel = ?),?)'; var ins = [type, title, cover, dayNum, season, crowdType, article, userTel, insertTime]; break;
+
+            switch (type) {
+                case '景点攻略': sqlstr = "insert into scenerystrategy (type,title,cover,ssInfo,cityName,userId,ssTime) values (?,?,?,?,?,(select userId from users where tel = ?),?)"; var ins = [type, title, cover, article, cityName, userTel, insertTime]; break;
+                case '美食攻略': sqlstr = 'insert into foodstrategy (type,title,cover,fsInfo,cityName,userId,fsTime) values (?,?,?,?,?,(select userId from users where tel = ?),?)'; var ins = [type, title, cover, article, cityName, userTel, insertTime]; break;
+                case '个性路线': sqlstr = 'insert into personalrow (type,title,cover,dayNum,season,crowdType,prInfo,userId,prTime) values (?,?,?,?,?,?,?,(select userId from users where tel = ?),?)'; var ins = [type, title, cover, dayNum, season, crowdType, article, userTel, insertTime]; break;
                 default: console.log('没有该类型的表');
             }
-            console.log('ins:'+ins)
+            console.log('ins:' + ins)
             userDAO.commitArticle(sqlstr, ins, function (err, results) {
                 if (err) {
                     res.json({ code: 500, data: 0, msg: '攻略上传失败' })
@@ -269,18 +271,32 @@ var userController = {
             }
         })
     },
-    /**关注列表查询 */
     /**粉丝列表查询 */
-    friends: function (req, res) {
-        var userTel = req.user.userTel
-        userDAO.friends(userTel, function (err, results) {
+    fans: function (req, res) {
+        var userId = req.user.userId
+        userDAO.fans(userId, function (err, results) {
             if (err) {
-                res.json({ code: 500, data: 0, msg: '关联用户查询失败' })
+                res.json({ code: 500, data: 0, msg: '粉丝查询失败' })
             } else {
                 if (results == null || results.length == 0) {
-                    res.json({ code: 200, data: 0, msg: '关联用户查询失败' })
+                    res.json({ code: 200, data: 0, msg: '粉丝查询失败' })
                 } else {
-                    res.json({ code: 200, data: results, msg: '关联用户查询成功' })
+                    res.json({ code: 200, data: results, msg: '粉丝查询成功' })
+                }
+            }
+        })
+    },
+    /**关注列表查询 */
+    attentions: function (req, res) {
+        var userId = req.user.userId
+        userDAO.attentions(userId, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '关注查询失败' })
+            } else {
+                if (results == null || results.length == 0) {
+                    res.json({ code: 200, data: 0, msg: '关注查询失败' })
+                } else {
+                    res.json({ code: 200, data: results, msg: '关注查询成功' })
                 }
             }
         })

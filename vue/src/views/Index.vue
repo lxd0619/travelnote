@@ -122,7 +122,7 @@
                 >
                   <!-- 导航栏用户头像 -->
                   <img
-                    :src="getPic(userInfo[0].headPic)"
+                    :src="getHeadPic(userInfo[0].headPic)"
                     class="rounded-circle"
                     id="navHeadPic"
                     alt
@@ -156,6 +156,12 @@
       </div>
     </nav>
     <router-view></router-view>
+    <nav class="nav flex-column align-items-center bg-secondary text-white">
+        <h6 class="mt-3">友情链接</h6>
+        <a class="nav-link" href="https://www.mafengwo.cn">马蜂窝</a>
+        <div class="dropdown-divider w-75"></div>
+        <p class="nav-title">Copyright&nbsp;&copy;2019&nbsp;TravelNote</p>
+    </nav>
   </div>
 </template>
 <script>
@@ -202,6 +208,12 @@ export default {
       });
   },
   methods: {
+    getHeadPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/uploadHeadPic/" + pic;
+      console.log(path);
+      return path;
+    },
     goAim() {
       this.$router.push("/index/Aim");
     },
@@ -237,12 +249,6 @@ export default {
         localStorage.removeItem("mytoken");
         this.isShow = false;
       }
-    },
-    getPic(pic) {
-      //给图片名加上服务器端访问路径
-      let path = "http://localhost:3000/uploadHeadPic/" + pic;
-      console.log(path);
-      return path;
     }
   }
 };
