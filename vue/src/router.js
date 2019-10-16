@@ -20,121 +20,135 @@ import Article from './views/Article.vue'
 import Jn from './views/JN.vue'
 import Nm from './views/NM.vue'
 import Xa from './views/Xa.vue'
+import ViewDetail from './views/ViewDetail.vue'
+import DetailCity from './views/DetailCity.vue'
 
 import jwt_decode from "jwt-decode";
 Vue.use(Router)
 let router = new Router({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes: [{
-        path: '/',
-        redirect: '/index/home' //路由跳转
-    },
-    {
-        path: '/index',
-        name: 'index',
-        component: Index,
-        children: [{
-            path: 'aim',
-            name: 'aim',
-            component: Aim
-        },
-        {
-            path: 'aimline',
-            name: 'aimline',
-            component: AimLine
-        },
-        {
-            path: 'delicious',
-            name: 'delicious',
-            component: Delicious
-        },
-        {
-            path: 'editor',
-            name: 'editor',
-            component: Editor
-        },
-        {
-            path: 'home',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: 'line',
-            name: 'line',
-            component: Line
-        },
-        {
-            path: 'linestrategy',
-            name: 'linestrategy',
-            component: LineStrategy
-        },
-        {
-            path: 'search',
-            name: 'search',
-            component: Search
-        },
-        {
-            path: 'userCenter',
-            name: 'userCenter',
-            component: UserCenter
-        },
-        {
-            path: 'view',
-            name: 'view',
-            component: View
-        },
-        {
-            path: 'jn',
-            name: 'jn',
-            component: Jn
-        },
-        {
-            path: 'nm',
-            name: 'nm',
-            component: Nm
-        },
-        {
-            path: 'xa',
-            name: 'xa',
-            component: Xa
-        },
+        mode: 'history',
+        base: process.env.BASE_URL,
+        routes: [{
+                path: '/',
+                redirect: '/index/home' //路由跳转
+            },
+            {
+                path: '/index',
+                name: 'index',
+                component: Index,
+                children: [{
+                        path: 'aim',
+                        name: 'aim',
+                        component: Aim
+                    },
+                    {
+                        path: 'aimline',
+                        name: 'aimline',
+                        component: AimLine
+                    },
+                    {
+                        path: 'delicious',
+                        name: 'delicious',
+                        component: Delicious
+                    },
+                    {
+                        path: 'editor',
+                        name: 'editor',
+                        component: Editor
+                    },
+                    {
+                        path: 'home',
+                        name: 'home',
+                        component: Home
+                    },
+                    {
+                        path: 'line',
+                        name: 'line',
+                        component: Line
+                    },
+                    {
+                        path: 'linestrategy',
+                        name: 'linestrategy',
+                        component: LineStrategy
+                    },
+                    {
+                        path: 'search',
+                        name: 'search',
+                        component: Search
+                    },
+                    {
+                        path: 'userCenter',
+                        name: 'userCenter',
+                        component: UserCenter
+                    },
+                    {
+                        path: 'view',
+                        name: 'view',
+                        component: View
+                    },
+                    {
+                        path: 'viewdetail',
+                        name: 'viewdetail',
+                        component: ViewDetail
+                    },
+                    {
+                        path: 'detailcity',
+                        name: 'decailcity',
+                        component: DetailCity
+                    },
+
+                    {
+                        path: 'jn',
+                        name: 'jn',
+                        component: Jn
+                    },
+                    {
+                        path: 'nm',
+                        name: 'nm',
+                        component: Nm
+                    },
+                    {
+                        path: 'xa',
+                        name: 'xa',
+                        component: Xa
+                    },
+
+                ]
+            },
+            {
+                path: '/manage',
+                name: 'manage',
+                component: Manage
+            },
+            {
+                path: '/login',
+                name: 'login',
+                component: Login
+            },
+            {
+                path: '/register',
+                name: 'register',
+                component: Register
+            },
+            {
+                path: '/forget_pwd',
+                name: Forget_pwd,
+                component: Forget_pwd
+            },
+            {
+                path: '/article',
+                name: Article,
+                component: Article
+            },
+            {
+                path: '/*', //路由匹配不成功时
+                name: 'notfound',
+                component: NotFound
+            }
 
         ]
-    },
-    {
-        path: '/manage',
-        name: 'manage',
-        component: Manage
-    },
-    {
-        path: '/login',
-        name: 'login',
-        component: Login
-    },
-    {
-        path: '/register',
-        name: 'register',
-        component: Register
-    },
-    {
-        path: '/forget_pwd',
-        name: Forget_pwd,
-        component: Forget_pwd
-    },
-    {
-        path: '/article',
-        name: Article,
-        component: Article
-    },
-    {
-        path: '/*', //路由匹配不成功时
-        name: 'notfound',
-        component: NotFound
-    }
-    ]
-})
-//设置路由守卫
+    })
+    //设置路由守卫
 router.beforeEach((to, from, next) => {
     //除了login和register，其他的路由访问必须先登录
     let tokenIsExists = localStorage.getItem('mytoken') ? true : false //检查本地存储中是否有token
