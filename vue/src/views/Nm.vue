@@ -134,7 +134,7 @@
 </template>
 <script>
 export default {
-  name: "Nm",
+  name: "nm",
   data: function() {
     return {};
   }

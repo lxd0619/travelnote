@@ -401,7 +401,7 @@
 </template>
 <script>
 export default {
-  name: "viewdetail",
+  name: "fooddetail",
   data: function() {
     return {
      
@@ -411,7 +411,7 @@ export default {
    go(city){
      var city_name=JSON.stringify(city)
      sessionStorage.setItem('city_name',city_name)
-     this.$router.push('/index/detailcity')
+     this.$router.push('/index/foodcity')
    }
  }
  

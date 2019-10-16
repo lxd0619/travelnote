@@ -59,6 +59,7 @@ export default {
       flag5: false
     };
   },
+ 
   components: {
     manageAuditing,
     manageAccusation,
@@ -193,6 +194,7 @@ header a {
   width: 200px;
   background-color: #226b80;
   padding: 0;
+  margin: 0;
 }
 
 .menu li {

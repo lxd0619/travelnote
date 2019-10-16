@@ -93,7 +93,9 @@
               <div class="bar clearfix" style="margin-top: 10px;margin-bottom: 23px;">
                 <span class="type">
                   <strong>推荐攻略</strong>
+                  <router-link to="/index/FoodDetail"><span>更多>></span> </router-link>
                 </span>
+                  <router-view></router-view>
               </div>
 
               <div
@@ -214,7 +216,10 @@ export default {
 #centerNav > ul > li {
   width: 20%;
 }
-
+.type span{
+  margin-left: 700px;
+  font-size: 20px;
+}
 .left {
   height: 300px;
   background-color: bisque;
