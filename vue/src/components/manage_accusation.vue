@@ -34,27 +34,32 @@
         >个性路线</a>
       </div>
     </nav>
-    <div id="content">
-      <div
-        id="bottom_img"
-        v-for="li in list.slice((currentPage-1)*10,(currentPage)*10)"
-        :key="li.strategyId"
-      >
-        <a @click="strategydetail(li.type,li.strategyId)">
-          <img id="img" src="require('' +li.cover)" style="width: 200px ;height: 200px;" />
-          <p>{{li.title}}</p>
-          <span>作者：{{li.userName}}</span>
-        </a>
+    <div v-if="show1">
+      <div id="content">
+        <div
+          id="bottom_img"
+          v-for="li in list.slice((currentPage-1)*10,(currentPage)*10)"
+          :key="li.strategyId"
+        >
+          <a @click="strategydetail(li.type,li.strategyId)">
+            <img id="img" :src="getPic(li.cover)" style="width: 200px ;height: 200px;" />
+            <p>{{li.title}}</p>
+            <span>作者：{{li.userName}}</span>
+          </a>
+        </div>
+      </div>
+      <div class="block">
+        <el-pagination
+          :page-size="10"
+          :pager-count="11"
+          layout="prev, pager, next"
+          :total="allpages"
+          @current-change="current_change"
+        ></el-pagination>
       </div>
     </div>
-    <div class="block">
-      <el-pagination
-        :page-size="10"
-        :pager-count="11"
-        layout="prev, pager, next"
-        :total="allpages"
-        @current-change="current_change"
-      ></el-pagination>
+    <div v-else id="content">
+      <h1>暂无被举报的攻略</h1>
     </div>
   </div>
 </template>
@@ -65,11 +70,12 @@ export default {
     return {
       list: [],
       allpages: null,
-      currentPage: 1
+      currentPage: 1,
+      show1:false,
     };
   },
   created() {
-    this.List("scenerystrategy")
+    this.List("scenerystrategy");
   },
   methods: {
     List(tableName) {
@@ -79,19 +85,28 @@ export default {
       this.currentPage = 1;
       this.$axios.post("http://localhost:3000/manage/List", data).then(res => {
         console.log(res);
-        this.list = res.data.data;
-        this.allpages = res.data.data.length;
-        console.log(this.allpages);
+        if (res.data.data) {
+          this.show1=true
+          this.list = res.data.data;
+          this.allpages = res.data.data.length;
+          console.log(this.allpages);
+        }else{
+          this.show1=false
+        }
       });
+    },
+    getPic(pic) {
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
     },
     current_change: function(currentPage) {
       this.currentPage = currentPage;
     },
     strategydetail(strategyType, strategyId) {
-     var strategy = { strategyType, strategyId };
-      var strategyInfo=JSON.stringify(strategy)
+      var strategy = { strategyType, strategyId };
+      var strategyInfo = JSON.stringify(strategy);
       sessionStorage.setItem("strategy", strategyInfo);
-      this.$router.push('/article')
+      this.$router.push("/article");
     }
   }
 };
@@ -104,6 +119,14 @@ body {
   position: relative;
   width: 1200px;
   height: 605px;
+  text-align: center;
+}
+h1{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:#ccc;
 }
 #bottom_img {
   /* width: 1380px; */

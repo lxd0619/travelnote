@@ -198,12 +198,12 @@ export default {
 }
 
 #left {
-  float: left;
-  position: relative;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
   width: 75%;
 }
 #content {
-  float: right;
   margin-top: 50px;
   margin-right: 40px;
   width: 85%;
@@ -219,7 +219,7 @@ export default {
 #button {
   position: absolute;
   bottom: 0;
-  right: 0;
+  left: 85%;
   width: 40px;
 }
 #button button {
