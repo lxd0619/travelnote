@@ -108,10 +108,19 @@ var userDAO = {
             }
         })
     },
-    /**关注列表查询 */
     /**粉丝列表查询 */
-    friends: function (userTel, callback) {
-        DAO('select * from relationship where userId = (select userId from users where tel = ?)', userTel, function (err, results) {
+    fans: function (userId, callback) {
+        DAO('select relationUserId from relationship where userId = ?', userId, function (err, results) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, results)
+            }
+        })
+    },
+    /**关注列表查询 */
+    attentions: function (userId, callback) {
+        DAO('select userId from relationship where relationUserId = ?', userId, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {

@@ -15,6 +15,10 @@ router.post('/collect',passport.authenticate('jwt',{session:false}),function(req
 router.put('/discuss',passport.authenticate('jwt',{session:false}),function(req,res,next){
     operationController.Discuss(req,res)
 })
+// 插入评论
+router.put('/insertdiscuss',passport.authenticate('jwt',{session:false}),function(req,res,next){
+    operationController.InsertDiscuss(req,res)
+})
 // 回复和取消回复
 router.put('/reply',passport.authenticate('jwt',{session:false}),function(req,res,next){
     operationController.Reply(req,res)

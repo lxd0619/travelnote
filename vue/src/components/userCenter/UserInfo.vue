@@ -191,7 +191,7 @@
                   ></div>
                 </div>
                 <div> 
-                  
+
                 </div>
                 <div id="upload">
                   <!--elementui的上传图片的upload组件-->
@@ -338,7 +338,6 @@ export default {
           registerTime: ""
         }
       ],
-      company_id: "10001",
       fileList: [],
       form: {
         // name: "" //绑定表单元素的属性
@@ -392,7 +391,7 @@ export default {
       // var names = _this.form.name;
       this.$refs.upload.submit();
       //将非表单元素的数据也添加到参数对象中；
-      this.param.append("company_id", _this.company_id);
+      // this.param.append("company_id", _this.company_id);
       //设置提交请求头，适用于上传文件
       let config = {
         headers: {
