@@ -1208,6 +1208,7 @@ export default {
   // name: "Line",
   data() {
     return {
+      info:[],
       platformRecommendstrategy: [],
 
       personalrecommendstrategy: [],
@@ -1217,7 +1218,6 @@ export default {
       lineClass: "",
       lineType: "",
       people: []
-      // strategyClassify:{},
     };
   },
   created() {
@@ -1225,7 +1225,7 @@ export default {
     this.$axios
       .get("http://localhost:3000/line/terraceline")
       .then(res => {
-        // console.log("平台推荐查询结果" + res.data.data);
+        // console.log(res);//"平台推荐查询结果"
         this.platformRecommendstrategy = res.data.data;
       })
       .catch(err => {
@@ -1238,7 +1238,7 @@ export default {
         strategyType: this.strategyType
       })
       .then(res => {
-        console.log("个人推荐查询结果" + res);
+        // console.log(res);//"个人推荐查询结果" 
         this.personalrecommendstrategy = res.data.data;
       })
       .catch(err => {
@@ -1246,23 +1246,22 @@ export default {
       });
   },
   methods: {
+    //页面跳转并传送攻略类型和id
     go(type, id) {
-       localStorage.setItem("type", type, "strategyId", id);
+      var strategy={type,id}
+      var info=JSON.stringify(strategy)
+      sessionStorage.setItem('info',info)
       window.open("/index/linestrategy");
-      console.log(type);
-      console.log(id);
     },
     //人群路线划分
     lineClassify() {
-      // console.log(this.lineClass);
-      // console.log(this.lineType);
       this.$axios
         .post("http://localhost:3000/line/lineClassify", {
           lineClass: this.lineClass,
           lineType: this.lineType
         })
         .then(res => {
-          console.log("查询结果" + res.data.data);
+          // console.log(res);//"查询结果" 
           this.people = res.data.data;
         })
         .catch(err => {
