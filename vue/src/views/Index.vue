@@ -121,8 +121,7 @@
                   v-if="isShow === true"
                 >
                   <!-- 导航栏用户头像 -->
-                  <img src="../assets/headPic/head1.jpg" class="rounded-circle" id="navHeadPic" alt />
-                  <p>{{userInfo[0].headPic}}</p>
+                  <img :src="getPic(userInfo[0].headPic)" class="rounded-circle" id="navHeadPic" alt />
                 </a>
                 <div
                   class="dropdown-menu text-center"
@@ -163,12 +162,7 @@ export default {
       userInfo: [
         {
           userName: "",
-          sex: "",
-          tel: "",
-          headPic: "",
-          email: "",
-          address: "",
-          registerTime: ""
+          headPic: ""
         }
       ]
     };
@@ -238,6 +232,12 @@ export default {
         localStorage.removeItem("mytoken");
         this.isShow = false;
       }
+    },
+    getPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/uploadHeadPic/" + pic;
+      console.log(path);
+      return path;
     }
   }
 };

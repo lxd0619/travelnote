@@ -182,54 +182,40 @@
             role="tabpanel"
             aria-labelledby="v-pills-headPic-tab"
           >
-            <!-- <div id="updHead" class="ml-5 bg-secondary">
-              <div
-                class="rounded-circle h-100 w-100 bg-white"
-                style="background-image: url('../../assets/headPic/head1.jpg');"
-              ></div>
-            </div>
-            <form class="mt-4 ml-4">
-              <button type="button" id="updHeadBtn" class="btn btn-outline-primary">选择头像</button>
-              <small class="form-text text-muted">上传头像图片只能是 JPG 格式!，图片大小2M以内</small>
-            </form>
-            <div class="form-group invisible">
-              <label for="exampleFormControlFile1">上传文件</label>
-              <input type="file" class="form-control-file" id="uploadHead" @change="uploadHead()" />
-            </div> -->
+            <div class="d-flex flex-column">
+              <div class="row">
+                <div id="updHead" class="ml-5 bg-secondary">
+                  <div
+                    class="rounded-circle h-100 w-100 bg-white"
+                    :style="{'backgroundImage':'url(' + getPic(userInfo[0].headPic) + ')'}"
+                  ></div>
+                </div>
+                <div> 
+                  
+                </div>
+                <div id="upload">
+                  <!--elementui的上传图片的upload组件-->
+                  <el-upload
+                    class="upload-demo"
+                    ref="upload"
+                    list-type="picture-card"
+                    action="localhost:3000/userCenter/headPic"
+                    :before-upload="beforeupload"
+                    :auto-upload="false"
+                    :multiple="false"
+                    :show-file-list="true"
+                  >
+                    <i class="el-icon-plus"></i>
+                  </el-upload>
 
-            <div id="upload">
-              <!--elementui的上传图片的upload组件-->
-              <el-upload
-                class="upload-demo"
-                ref="upload"
-                list-type="picture-card"
-                action="localhost:3000/userCenter/headPic"
-                :before-upload="beforeupload"
-                :auto-upload="false"
-                :multiple="false"
-              >
-                <i class="el-icon-plus"></i>
-              </el-upload>
-
-              <el-upload
-                class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :show-file-list="false"
-                :before-upload="beforeupload"
-              >
-                <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              </el-upload>
-
-              <el-form ref="form" :model="form" label-width="80px">
-                <!-- <el-form-item label="活动名称">
-                  <el-input v-model="form.name" name="names" style="width:360px;"></el-input>
-                </el-form-item>-->
-                <el-form-item>
-                  <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                  <el-button>取消</el-button>
-                </el-form-item>
-              </el-form>
+                  <el-form ref="form" :model="form" label-width="80px">
+                    <el-form-item>
+                      <el-button type="primary" @click="onSubmit">确认提交</el-button>
+                      <el-button>取消</el-button>
+                    </el-form-item>
+                  </el-form>
+                </div>
+              </div>
             </div>
           </div>
           <!-- 修改密码 -->
@@ -355,7 +341,7 @@ export default {
       company_id: "10001",
       fileList: [],
       form: {
-        name: "" //绑定表单元素的属性
+        // name: "" //绑定表单元素的属性
       },
       param: "" // 表单最后提交的参数对象
     };
@@ -403,12 +389,10 @@ export default {
     //修改用户头像
     onSubmit() {
       let _this = this;
-      var names = _this.form.name;
+      // var names = _this.form.name;
       this.$refs.upload.submit();
       //将非表单元素的数据也添加到参数对象中；
       this.param.append("company_id", _this.company_id);
-      //将表单元素的数据也添加到参数对象中；
-      this.param.append("caption", names);
       //设置提交请求头，适用于上传文件
       let config = {
         headers: {
@@ -433,10 +417,12 @@ export default {
       this.fileList.push(file); // 把需要上传的文件保存到数组中
       console.log("这是图片文件" + JSON.stringify(this.fileList));
       // 遍历数组，把所有文件都保存到参数对象中
-      // for (let i = 0; i < this.fileList.length; i++) {
-      //   this.param.append(`img_${i}`, this.fileList[i]);
-      // }
-      this.param.append(`img`, this.fileList[0]);
+      for (let i = 0; i < this.fileList.length; i++) {
+        // this.param.append(`img_${i}`, this.fileList[i]);
+        this.param.append(`img`, this.fileList[this.fileList.length - 1]);
+      }
+      console.log(this.fileList.length);
+      // this.param.append(`img`, this.fileList[0]);
       return false;
     },
     //修改电话号
@@ -468,6 +454,11 @@ export default {
         .finally(function() {
           // always executed
         });
+    },
+    getPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
     }
   }
 };
