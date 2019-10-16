@@ -666,19 +666,6 @@ export default {
         .catch(err => {
           console.log("错误信息" + err);
         });
-
-      this.$axios
-        .post("http://localhost:3000/operation/strategydetail", {
-          strategyType: this.info.type,
-          strategyId: this.info.id
-        })
-        .then(res => {
-          console.log(res);
-          this.strategy = res.data.data;
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
-        });
     }
   }
 };

@@ -83,7 +83,7 @@ var operationController = {
             } else {
                 console.log('results1:' + results1)
                 if (results1 == null || results1.length == 0) {
-                    console.log('有数据')
+                    console.log('没有数据')
                     sql = "insert into collections(strategyId,strategyType,userId)values(?,?,?)" //添加
                     operationDAO.AddCollect(sql, collectInfo, function (err, results) {
                         if (err) {
@@ -190,6 +190,53 @@ var operationController = {
             }
         })
     },
+    // InsertDiscuss: function (req, res) {
+    //     var sql = ''
+    //     var commentTime = new Date()
+    //     var DiscussInfo = {
+
+    //         commentContent: req.body.commentContent,
+    //         userId: req.body.userId,
+    //         strategyType: req.body.strategyType,
+    //         strategyId: req.body.strategyId,
+    //         commentTime: commentTime,
+    //     }
+    //     operationDAO.TestDiscuss(sql, DiscussInfo, function (err, results1) {
+    //         if (err) {
+    //             res.json({ code: 500, data: 0, msg: '搜索攻略评论错误！' })
+    //         } else {
+    //             if (results1 == null || results1.length == 0) {
+    //                 console.log('有数据')
+    //                 sql = "insert into comments(commentContent,strategyId,userId,commentTime,strategyType) values(?,?,?,?,?)" //添加
+    //                 operationDAO.AddDiscuss(sql, DiscussInfo, function (err, results) {
+    //                     if (err) {
+    //                         res.json({ code: 500, data: 0, msg: '添加攻略评论错误！' })
+    //                     } else {
+    //                         if (results.affectedRows == 0) {
+    //                             res.json({ code: 200, data: 0, msg: '添加攻略评论错误,影响行数为0！' })
+    //                         } else {
+    //                             res.json({ code: 200, data: 1, msg: '添加攻略评论成功！' })
+    //                         }
+    //                     }
+    //                 })
+    //             } else {
+    //                 sql = "delete from comments where commentId=? and strategyId=? and strategyType=? and userId=?" //删除
+    //                 operationDAO.DelDiscuss(sql, DiscussInfo, function (err, results) {
+    //                     if (err) {
+    //                         console.log(err)
+    //                         res.json({ code: 500, data: 0, msg: '删除攻略评论错误！' })
+    //                     } else {
+    //                         if (results.affectedRows == 0) {
+    //                             res.json({ code: 200, data: 0, msg: '删除攻略评论错误，影响行数为0！' })
+    //                         } else {
+    //                             res.json({ code: 200, data: 1, msg: '删除攻略评论成功！' })
+    //                         }
+    //                     }
+    //                 })
+    //             }
+    //         }
+    //     })
+    // },
     Reply: function (req, res) {
         var sql = 'select * from replys where replyId=? and userId=? and commentId=?' //判断是否回复过
         var replyTime = new Date()
@@ -332,13 +379,13 @@ var operationController = {
         var sql = ''
         switch (strategyInfo.strategyType) {
             case 'scenerystrategy':
-                sql = ' select users.userName,users.headPic,scenerystrategy.*,comments.commentId 评论Id,comments.commentContent,comments.commentTime,replys.replyId,replys.replyContent,replys.userId 回复评论Id,replys.replyTime from scenerystrategy left join users on users.userId=scenerystrategy.userId left join comments on scenerystrategy.strategyId = comments.strategyId  and comments.strategyType="scenerystrategy" left join replys on comments.commentId = replys.commentId where scenerystrategy.strategyId = ?';
+                sql = ' select users.userId,users.userName,users.headPic,scenerystrategy.* from scenerystrategy left join users on users.userId=scenerystrategy.userId where scenerystrategy.strategyId = ?';
                 break;
             case 'foodstrategy':
-                sql = ' select users.userName,users.headPic,foodstrategy.strategyId,foodstrategy.type,foodstrategy.title,foodstrategy.cover,foodstrategy.fsInfo ssInfo, foodstrategy.fsLikeNum,foodstrategy.fsCollectionNum,foodstrategy.cityName,foodstrategy.userId,foodstrategy.fsTime ssTime,foodstrategy.fsStatus ssStatus,comments.commentId 评论Id,comments.commentContent,comments.commentTime,replys.replyId,replys.replyContent,replys.userId 回复评论Id,replys.replyTime from foodstrategy left join users on users.userId=foodstrategy.userId left join comments on foodstrategy.strategyId = comments.strategyId  and comments.strategyType="foodstrategy" left join replys on comments.commentId = replys.commentId where foodstrategy.strategyId =?';
+                sql = ' select users.userId,users.userName,users.headPic,foodstrategy.strategyId,foodstrategy.type,foodstrategy.title,foodstrategy.cover,foodstrategy.fsInfo ssInfo, foodstrategy.fsLikeNum,foodstrategy.fsCollectionNum,foodstrategy.cityName,foodstrategy.userId,foodstrategy.fsTime ssTime,foodstrategy.fsStatus ssStatus from foodstrategy left join users on users.userId=foodstrategy.userId  where foodstrategy.strategyId =?	';
                 break;
             case 'personalrow':
-                sql = ' select users.userName,users.headPic,personalrow.strategyId,personalrow.type,personalrow.title,personalrow.cover,personalrow.prInfo ssInfo, personalrow.prLikeNum,personalrow.prCollectionNum,personalrow.city,personalrow.userId,personalrow.prTime ssTime,personalrow.prStatus ssStatus,comments.commentId 评论Id,comments.commentContent,comments.commentTime,replys.replyId,replys.replyContent,replys.userId 回复评论Id,replys.replyTime from personalrow left join users on users.userId=personalrow.userId left join comments on personalrow.strategyId = comments.strategyId  and comments.strategyType="personalrow" left join replys on comments.commentId = replys.commentId where personalrow.strategyId =?';
+                sql = ' select  users.userId,users.userName,users.headPic,personalrow.strategyId,personalrow.type,personalrow.title,personalrow.cover,personalrow.prInfo ssInfo, personalrow.prLikeNum,personalrow.prCollectionNum,personalrow.city,personalrow.userId,personalrow.prTime ssTime,personalrow.prStatus ssStatus from personalrow left join users on users.userId=personalrow.userId  where personalrow.strategyId =? ';
                 break;
         }
         operationDAO.strategyDetail(sql, strategyInfo, function (err, results) {
