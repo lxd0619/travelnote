@@ -121,7 +121,12 @@
                   v-if="isShow === true"
                 >
                   <!-- 导航栏用户头像 -->
-                  <img :src="getPic(userInfo[0].headPic)" class="rounded-circle" id="navHeadPic" alt />
+                  <img
+                    :src="getPic(userInfo[0].headPic)"
+                    class="rounded-circle"
+                    id="navHeadPic"
+                    alt
+                  />
                 </a>
                 <div
                   class="dropdown-menu text-center"
@@ -258,5 +263,9 @@ export default {
 }
 #search {
   font-size: 15px;
+}
+
+.nav-item {
+  font-size: 18px;
 }
 </style>

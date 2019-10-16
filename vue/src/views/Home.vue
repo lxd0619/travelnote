@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="container">
+    <!-- <div class="container"> -->
       <!-- 轮播图 -->
       <div id="circleContent" class="carousel slide carousel-fade" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -36,7 +36,7 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-    </div>
+    <!-- </div> -->
 
     <div
       class="container scrollspy-example mt-5"
@@ -446,7 +446,7 @@ export default {
 </script>
 <style scoped>
 .carousel-item {
-  height: 25em;
+  height: 40em;
 }
 
 .card img {
