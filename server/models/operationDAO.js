@@ -45,8 +45,26 @@ var operationDAO={
             }
         })
     },
+    AddPrCollect: function (sql,collectInfo,callback) {
+        DAO(sql,[collectInfo.strategyId], function (err, results) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, results)
+            }
+        })
+    },
     DelCollect: function (sql,collectInfo,callback) {
         DAO(sql,[collectInfo.strategyId,collectInfo.strategyType,collectInfo.userId], function (err, results) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, results)
+            }
+        })
+    },
+    CutPrCollect: function (sql,collectInfo,callback) {
+        DAO(sql,[collectInfo.strategyId], function (err, results) {
             if (err) {
                 callback(err, null)
             } else {

@@ -72,6 +72,18 @@ var operationController = {
                             }
                         }
                     })
+                    sql=" update personalrow SET prCollectionNum = (prCollectionNum+1) where personalrow.strategyId=?"//更新personalrow的数据
+                    operationDAO.AddPrCollect(sql, collectInfo, function(err, results) {
+                        if (err) {
+                            res.json({ code: 500, data: 0, msg: '增加prCollectionNum错误！' + err.message })
+                        } else {
+                            if (results.affectedRows == 0) {
+                                res.json({ code: 200, data: 0, msg: '增加prCollectionNum错误,影响行数为0！' })
+                            } else {
+                                res.json({ code: 200, data: 1, msg: '增加prCollectionNum成功！' })
+                            }
+                        }
+                    })
                 } else {
                     sql = "delete from collections where strategyId=? and strategyType=?  and userId=?" //删除
                     operationDAO.DelCollect(sql, collectInfo, function(err, results) {
@@ -85,6 +97,19 @@ var operationController = {
                             }
                         }
                     })
+                    // sql=" update personalrow SET prCollectionNum = prCollectionNum-1 where personalrow.strategyId=?"//更新personalrow的数据
+                    // operationDAO.AddPrCollect(sql, collectInfo, function(err, results) {
+                    //     if (err) {
+                    //         res.json({ code: 500, data: 0, msg: '减小prCollectionNum错误！' + err.message })
+                    //     } else {
+                    //         if (results.affectedRows == 0) {
+                    //             res.json({ code: 200, data: 0, msg: '减小prCollectionNum错误,影响行数为0！' })
+                    //         } else {
+                    //             res.json({ code: 200, data: 1, msg: '减小prCollectionNum成功！' })
+                    //         }
+                    //     }
+                    // })
+                
                 }
             }
         })
