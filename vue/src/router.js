@@ -16,9 +16,7 @@ import Search from './views/Search.vue'
 import UserCenter from './views/UserCenter.vue'
 import View from './views/View.vue'
 import Forget_pwd from './views/Forget_pwd.vue'
-import Article from './views/Article.vue'
-import jwt_decode from "jwt-decode";
-import Jn from './views/Jn.vue'
+import Jn from './views/JN.vue'
 import Nm from './views/Nm.vue'
 import Xa from './views/Xa.vue'
 Vue.use(Router)

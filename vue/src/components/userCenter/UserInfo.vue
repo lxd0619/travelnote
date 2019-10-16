@@ -182,8 +182,11 @@
             role="tabpanel"
             aria-labelledby="v-pills-headPic-tab"
           >
-            <div id="updHead" class="ml-5 bg-secondary">
-              <div class="rounded-circle h-100 w-100"></div>
+            <!-- <div id="updHead" class="ml-5 bg-secondary">
+              <div
+                class="rounded-circle h-100 w-100 bg-white"
+                style="background-image: url('../../assets/headPic/head1.jpg');"
+              ></div>
             </div>
             <form class="mt-4 ml-4">
               <button type="button" id="updHeadBtn" class="btn btn-outline-primary">选择头像</button>
@@ -191,7 +194,43 @@
             </form>
             <div class="form-group invisible">
               <label for="exampleFormControlFile1">上传文件</label>
-              <input type="file" class="form-control-file" @change="uploadHead()" />
+              <input type="file" class="form-control-file" id="uploadHead" @change="uploadHead()" />
+            </div> -->
+
+            <div id="upload">
+              <!--elementui的上传图片的upload组件-->
+              <el-upload
+                class="upload-demo"
+                ref="upload"
+                list-type="picture-card"
+                action="localhost:3000/userCenter/headPic"
+                :before-upload="beforeupload"
+                :auto-upload="false"
+                :multiple="false"
+              >
+                <i class="el-icon-plus"></i>
+              </el-upload>
+
+              <!-- <el-upload
+                class="avatar-uploader"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload"
+              >
+                <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload> -->
+
+              <el-form ref="form" :model="form" label-width="80px">
+                <!-- <el-form-item label="活动名称">
+                  <el-input v-model="form.name" name="names" style="width:360px;"></el-input>
+                </el-form-item>-->
+                <el-form-item>
+                  <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                  <el-button>取消</el-button>
+                </el-form-item>
+              </el-form>
             </div>
           </div>
           <!-- 修改密码 -->
@@ -313,7 +352,13 @@ export default {
           address: "",
           registerTime: ""
         }
-      ]
+      ],
+      company_id: "10001",
+      fileList: [],
+      form: {
+        name: "" //绑定表单元素的属性
+      },
+      param: "" // 表单最后提交的参数对象
     };
   },
   created() {
@@ -334,6 +379,11 @@ export default {
       .finally(function() {
         // always executed
       });
+    $(function() {
+      $("#updHeadBtn").click(function() {
+        $('input[type="file"]').trigger("click");
+      });
+    });
   },
   methods: {
     //修改用户信息
@@ -352,19 +402,43 @@ export default {
         });
     },
     //修改用户头像
-    uploadHead() {
+    onSubmit() {
+      let _this = this;
+      var names = _this.form.name;
+      this.$refs.upload.submit();
+      //将非表单元素的数据也添加到参数对象中；
+      this.param.append("company_id", _this.company_id);
+      //将表单元素的数据也添加到参数对象中；
+      this.param.append("caption", names);
+      //设置提交请求头，适用于上传文件
+      let config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      // //调用接口，执行上传所有数据的操作
       this.$axios
-        .post("http://localhost:3000/users/uploadHeadPic", file)
-        .then(res => {
-          console.log("头像上传成功！".res);
-          alert("头像上传成功！");
-        })
-        .catch(err => {
-          console.log("error:" + err);
-        })
-        .finally(function() {
-          // always executed
+        .post("http://localhost:3000/userCenter/headPic", this.param, config)
+        .then(function(result) {
+          console.log(result);
         });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    //当上传文件组件submit之前触发执行
+    beforeupload(file) {
+      console.log("准备上传。。。。");
+      // 准备表单上传需要的参数对象
+      this.param = new FormData();
+      this.fileList.push(file); // 把需要上传的文件保存到数组中
+      console.log("这是图片文件" + JSON.stringify(this.fileList));
+      // 遍历数组，把所有文件都保存到参数对象中
+      // for (let i = 0; i < this.fileList.length; i++) {
+      //   this.param.append(`img_${i}`, this.fileList[i]);
+      // }
+      this.param.append(`img`, this.fileList[0]);
+      return false;
     },
     //修改电话号
     UpdateTel() {
@@ -403,5 +477,35 @@ export default {
 #updHead {
   width: 15em;
   height: 15em;
+}
+.rounded-circle {
+  background-image: url("../../assets/headPic/head1.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>

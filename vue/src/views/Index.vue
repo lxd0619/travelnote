@@ -121,7 +121,8 @@
                   v-if="isShow === true"
                 >
                   <!-- 导航栏用户头像 -->
-                  <img src class="rounded-circle" id="navHeadPic" alt />
+                  <img src="../assets/headPic/head1.jpg" class="rounded-circle" id="navHeadPic" alt />
+                  <p>{{userInfo[0].headPic}}</p>
                 </a>
                 <div
                   class="dropdown-menu text-center"
