@@ -2,7 +2,6 @@
   <div>
     <div id="head"></div>
     <div class="contain">
-
       <div id="circleContent" class="carousel slide carousel-fade" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#circleContent" data-slide-to="0" class="active"></li>
@@ -13,7 +12,7 @@
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img class="d-block w-100"  src="../assets/view/景色背景图片.jpg" />
+            <img class="d-block w-100" src="../assets/view/景色背景图片.jpg" />
           </div>
           <div class="carousel-item">
             <img class="d-block w-100" src="../assets/view/景色背景图片2.jpg" />
@@ -32,6 +31,9 @@
         </a>
       </div>
 
+      <div class="container-fluid waveline">
+        <img src="../assets/view/line2.png" width="100%" />
+      </div>
 
       <div class="ViewProduce">View Produce</div>
       <div class="sheadsecond">景点攻略</div>
@@ -41,8 +43,14 @@
           <div class="intro_box">
             <h3>{{article.title}}</h3>
             <p>{{article.fsInfo}}</p>
-            <span>点赞({{article.fsLikeNum}})</span>
-            <span>收藏({{article.fsCollection}})</span>
+            <span>
+              <img src="../assets/food/收藏_line.png" width="17px" height="17px" />
+              点赞({{article.fsLikeNum}})
+            </span>
+            <span>
+              <img src="../assets/food/点赞_line.png" width="17px" height="17px" />
+              收藏({{article.fsCollection}})
+            </span>
           </div>
         </div>
       </div>
@@ -90,7 +98,7 @@
         </div>
 
         <div class="tit_more">
-          <router-link to="/index/Detail">MORE>></router-link>
+          <router-link to="/index/ViewDetail">MORE>></router-link>
         </div>
         <router-view></router-view>
         <div class="contain strategy">
@@ -111,38 +119,36 @@
               </li>
             </router-link>
             <router-view></router-view>
-             <router-link to="/index/Nm">
-            <li>
-              <a href target="_blank">
-                <img src="../assets/stategyDetail/内蒙古1.jpg" />
-                <div class="strategy_msk"></div>
-                <div class="strategy_txt tit">
-                  <div class="strategy_tit">草原上的内蒙</div>
-                </div>
-                <div class="strategy_txt pos">
-                  <div class="strategy_pos">内蒙古</div>
-                </div>
-              </a>
-            </li>
-             </router-link>
-              <router-view></router-view>
-               <router-link to="/index/Xa">
-            <li>
-              <a href target="_blank">
-                <img src="../assets/stategyDetail/西安.jpg" />
-                <div class="strategy_msk"></div>
-                <div class="strategy_txt tit">
-                  <div class="strategy_tit">历史古都</div>
-                </div>
-                <div class="strategy_txt pos">
-                  <div class="strategy_pos">西安</div>
-                </div>
-              </a>
-            </li>
-             </router-link>
-               <router-view></router-view>
-           
-           
+            <router-link to="/index/Nm">
+              <li>
+                <a href target="_blank">
+                  <img src="../assets/stategyDetail/内蒙古1.jpg" />
+                  <div class="strategy_msk"></div>
+                  <div class="strategy_txt tit">
+                    <div class="strategy_tit">草原上的内蒙</div>
+                  </div>
+                  <div class="strategy_txt pos">
+                    <div class="strategy_pos">内蒙古</div>
+                  </div>
+                </a>
+              </li>
+            </router-link>
+            <router-view></router-view>
+            <router-link to="/index/Xa">
+              <li>
+                <a href target="_blank">
+                  <img src="../assets/stategyDetail/西安.jpg" />
+                  <div class="strategy_msk"></div>
+                  <div class="strategy_txt tit">
+                    <div class="strategy_tit">历史古都</div>
+                  </div>
+                  <div class="strategy_txt pos">
+                    <div class="strategy_pos">西安</div>
+                  </div>
+                </a>
+              </li>
+            </router-link>
+            <router-view></router-view>
           </ul>
         </div>
       </div>
@@ -191,7 +197,9 @@ export default {
   width: 1200px;
   margin: 0 auto;
 }
-
+.container-fluid {
+  margin-top: 50px;
+}
 * {
   margin: 0px;
   padding: 0px;
@@ -206,49 +214,18 @@ export default {
   text-align: center;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 40px;
-}
-.item p {
-  margin-left: 7px;
-}
-.feed-item .author {
-  display: inline-block;
-  margin-right: 10px;
-  font-size: 12px;
-  color: #ff9d00;
+  margin-bottom: 20px;
 }
 
-.feed-item .art dd {
-  overflow: hidden;
+.intro_box span img {
+  margin-bottom: 3px;
+  margin-right: 3px;
 }
-
-.info {
-  margin-top: 20px;
-  width: 1000px;
-  overflow: hidden;
-}
-
-.feed-item .art {
-  height: 340px;
-  padding-top: 20px;
-  margin-bottom: 16px;
-  color: #666;
-}
-
-.feed-item .art dt {
-  display: inline;
-  padding-left: 60px;
-  margin-right: 10px;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-}
-
 .item a:hover {
   text-decoration: none;
 }
 .item p {
+  margin-left: 7px;
   margin-top: 10px;
   font-family: 楷体;
   width: 200px;
@@ -299,7 +276,7 @@ export default {
 }
 .tit p {
   font-size: 12px;
-  height: 40px;
+  height: 38px;
 }
 .txt p {
   font-size: 12px;
@@ -309,6 +286,8 @@ export default {
 }
 .txt h3 {
   overflow: hidden;
+  font-size: 20px;
+  font-family: 楷体;
 }
 .tripb .tit h3 em {
   font-family: Arial;
@@ -365,6 +344,8 @@ li {
   line-height: 36px;
   font-weight: 700;
   color: #454545;
+  width: 290px;
+  height: 45px;
 }
 h1 {
   margin-bottom: 20px;
@@ -380,14 +361,12 @@ h1 {
 .mb5 {
   margin-bottom: 5px !important;
 }
-
 .tit_sub {
   margin: 0 auto;
   text-align: center;
   font-size: 18px;
   font-style: italic;
 }
-
 .tit_more {
   margin: 0 auto;
   padding-top: 20px;
@@ -457,10 +436,6 @@ h1 {
   font-size: 14px;
   color: rgb(151, 151, 151);
 }
-li {
-  list-style: none;
-}
-
 .stragyespecail {
   display: inline-block;
   width: 260px;
@@ -479,15 +454,17 @@ li {
 }
 .stragyespecail h3 {
   font-family: initial;
-  font-size: 18px;
-  color: #666;
-  width: 260px;
+  font-size: 20px;
+  color: rgb(58, 57, 57);
+  font-family: 楷体;
+  width: 250px;
   height: 20px;
   overflow: hidden;
   text-align: center;
+  margin-top: 5px;
 }
 .stragyespecail span {
-  padding-left: 25px;
+  padding-left: 50px;
   width: 260px;
   overflow: hidden;
 }
