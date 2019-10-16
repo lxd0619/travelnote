@@ -20,16 +20,16 @@
               <dl class="termini_name">
                 <dt>华北地区</dt>
                 <dd data-events="click">
-                  <a href="#" target="_blank">北京</a>
+                  <a href="#" target="_blank" @click="go('北京')">北京市</a>
                 </dd>
                 <dd data-events="click">
-                  <a href="#" target="_blank">上海</a>
+                  <a href="#" target="_blank">河北省</a>
                 </dd>
                 <dd data-events="click">
-                  <a href="#" target="_blank">天津</a>
+                  <a href="#" target="_blank">山西省</a>
                 </dd>
                 <dd data-events="click">
-                  <a href="#" target="_blank">重庆</a>
+                  <a href="#" target="_blank">内蒙古自治区</a>
                 </dd>
               </dl>
             </li>
@@ -39,29 +39,14 @@
               </div>
               <dl class="termini_name">
                 <dt>东北地区</dt>
-                <dd data-events="click">
-                  <a href="#" target="_blank">江苏省</a>
+                <dd>
+                  <a href="#" target="_blank">黑龙江省</a>
                 </dd>
-                <dd data-events="click">
-                  <a href="#" target="_blank">上海市</a>
+                <dd >
+                  <a href="#" target="_blank">吉林省</a>
                 </dd>
-                <dd data-events="click">
-                  <a href="#" target="_blank"></a>
-                </dd>
-                <dd data-events="click">
-                  <a href="#" target="_blank">浙江省</a>
-                </dd>
-                <dd data-events="click">
-                  <a href="#" target="_blank">安徽省</a>
-                </dd>
-                <dd data-events="click">
-                  <a href="#" target="_blank">绵阳</a>
-                </dd>
-                <dd data-events="click">
-                  <a href="#" target="_blank">黄山</a>
-                </dd>
-                <dd data-events="click">
-                  <a href="#" target="_blank">三亚</a>
+                <dd>
+                  <a href="#" target="_blank">辽宁省</a>
                 </dd>
               </dl>
             </li>
@@ -72,31 +57,28 @@
               <dl class="termini_name">
                 <dt>华东地区</dt>
                 <dd data-events="click">
-                  <a href="#" target="_blank">河北</a>
+                  <a href="#" target="_blank">上海市</a>
                 </dd>
                 <dd data-events="click">
-                  <a href="#" target="_blank">山东</a>
+                  <a href="#" target="_blank">山东省</a>
                 </dd>
                 <dd data-events="click">
-                  <a href="#" target="_blank">黑龙江</a>
+                  <a href="#" target="_blank">江苏省</a>
                 </dd>
                 <dd data-events="click">
-                  <a href="#" target="_blank">辽宁省</a>
+                  <a href="#" target="_blank">浙江省</a>
                 </dd>
                 <dd data-events="click">
-                  <a href="#" target="_blank">吉林省</a>
+                  <a href="#" target="_blank">安徽省</a>
                 </dd>
                 <dd data-events="click">
-                  <a href="#" target="_blank">黄姚</a>
+                  <a href="#" target="_blank">福建省</a>
                 </dd>
                 <dd data-events="click">
-                  <a href="#" target="_blank">南浔</a>
+                  <a href="#" target="_blank">江西省</a>
                 </dd>
                 <dd data-events="click">
-                  <a href="#" target="_blank">平遥</a>
-                </dd>
-                <dd data-events="click">
-                  <a href="#" target="_blank">凤凰</a>
+                  <a href="#" target="_blank">台湾省</a>
                 </dd>
               </dl>
             </li>
@@ -404,7 +386,6 @@
               <div class="pic_add">
                 <img alt="庐山 " src style="background: none; " />
               </div>
-              <div class="city_name">江苏攻略</div>
             </a>
 
             <div class="scale_tour">
@@ -420,11 +401,19 @@
 </template>
 <script>
 export default {
-  name: "detail",
+  name: "viewdetail",
   data: function() {
-    return {};
+    return {
+     
+    };
   },
- 
+ methods:{
+   go(city){
+     var city_name=JSON.stringify(city)
+     sessionStorage.setItem('city_name',city_name)
+     this.$router.push('/index/detailcity')
+   }
+ }
  
 }
 

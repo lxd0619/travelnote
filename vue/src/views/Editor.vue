@@ -148,12 +148,14 @@ export default {
     // 设置保存发送后台数据事件
     upload() {
       var data = new FormData();
-      // this.artInfo.article = data
-      data.append("cotent", this.phoneEditor.txt.html());
+      data.append("article", this.phoneEditor.txt.html());
+      data.append("artInfo", this.artInfo);
+
+      console.log(data)
       this.$axios({
         methods: "post",
         url: "http://localhost:3000/userCenter/commitArticle",
-        data: this.artInfo,
+        data: data,
         headers: {
           Authorization: window.localStorage["mytoken"]
         }
