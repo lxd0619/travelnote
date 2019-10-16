@@ -17,16 +17,16 @@
 
         <ul class="tab_theme" >
           <li>
-            <img alt="#" style="background: none; " />
+            <img alt="" style="background: none; " />
           </li>
           <li>
-            <img alt="# " style="background: none; " />
+            <img alt="" style="background: none; " />
           </li>
           <li>
-            <img alt="# " src style="background:none;" />
+            <img alt="" src style="background:none;" />
           </li>
           <li>
-            <img alt="庐山 " style="background: none; " />
+            <img alt="" style="background: none; " />
           </li>
         </ul>
         <div class="scale_tour">
