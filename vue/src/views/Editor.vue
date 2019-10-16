@@ -10,7 +10,6 @@
 
             <!--elementui的上传图片的upload组件-->
             <el-upload
-              class="upload-demo"
               ref="upload"
               list-type="picture-card"
               action="localhost:3000/userCenter/headPic"
@@ -21,39 +20,63 @@
             >
               <i class="el-icon-plus"></i>
             </el-upload>
-            <!-- 确认按钮 -->
-            <el-form ref="form" :model="articleForm" label-width="80px">
-              <el-form-item label="攻略类型">
-                <el-input v-model="articleForm.type" name="type" style="width:360px;"></el-input>
+            <!-- 表单 -->
+            <el-form
+              :model="articleForm"
+              :rules="rules"
+              ref="ruleForm"
+              label-width="100px"
+              class="demo-ruleForm"
+            >
+              <el-form-item label="攻略类型" prop="type">
+                <el-select v-model="articleForm.type" placeholder="请选择攻略类型">
+                  <el-option
+                    v-for="item in types"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
               </el-form-item>
-
-              <!-- <el-select v-model="value" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-select>-->
-
-              <el-form-item label="标题">
+              <el-form-item label="标题" prop="title">
                 <el-input v-model="articleForm.title" name="title" style="width:360px;"></el-input>
               </el-form-item>
-              <el-form-item label="城市名称">
+              <el-form-item label="城市名称" prop="cityName">
                 <el-input v-model="articleForm.cityName" name="cityName" style="width:360px;"></el-input>
               </el-form-item>
-              <el-form-item label="几日游">
-                <el-input v-model="articleForm.dayNum" name="dayNum" style="width:360px;"></el-input>
+              <el-form-item label="几日游" prop="dayNum" v-if="articleForm.type === '个性路线'">
+                <el-select v-model="articleForm.dayNum" placeholder="请选择几日游">
+                  <el-option
+                    v-for="day in days"
+                    :key="day.value"
+                    :label="day.label"
+                    :value="day.value"
+                  ></el-option>
+                </el-select>
               </el-form-item>
-              <el-form-item label="适宜季节">
-                <el-input v-model="articleForm.season" name="season" style="width:360px;"></el-input>
+              <el-form-item label="适宜季节" prop="season" v-if="articleForm.type === '个性路线'">
+                <el-select v-model="articleForm.season" placeholder="请选择适宜季节">
+                  <el-option
+                    v-for="season in seasons"
+                    :key="season.value"
+                    :label="season.label"
+                    :value="season.value"
+                  ></el-option>
+                </el-select>
               </el-form-item>
-              <el-form-item label="面向人群">
-                <el-input v-model="articleForm.crowdType" name="crowdType" style="width:360px;"></el-input>
+              <el-form-item label="面向人群" prop="crowdType" v-if="articleForm.type === '个性路线'">
+                <el-select v-model="articleForm.crowdType" placeholder="请选择面向人群">
+                  <el-option
+                    v-for="crowdType in crowdTypes"
+                    :key="crowdType.value"
+                    :label="crowdType.label"
+                    :value="crowdType.value"
+                  ></el-option>
+                </el-select>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="onSubmit">确认提交</el-button>
-                <el-button>取消</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')">确认提交</el-button>
+                <el-button @click="resetForm('ruleForm')">重置</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -62,22 +85,6 @@
             <p class="lead">图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
           </div>
         </div>
-        <!-- <form>
-          <div class="form-group invisible">
-            <label for="exampleFormControlFile1">Example file input</label>
-            <input type="file" class="form-control-file" />
-          </div>
-
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control form-control-lg"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              placeholder="填写游记标题"
-            />
-          </div>
-        </form>-->
       </div>
     </div>
     <div class="container">
@@ -137,8 +144,9 @@
           </div>
         </div>
         <!-- 右侧导航 -->
-        <div class="col-md-1 bg-danger mb-5">
-          <div class="list-group position-fixed text-center">
+        <div class="col-md-1 mb-5">
+          <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
+          <!-- <div class="list-group text-center">
             <a class="list-group-item list-group-item-action" href="#head" title="返回顶部">
               <i class="fa fa-chevron-up" aria-hidden="true"></i>
             </a>
@@ -151,7 +159,7 @@
             >
               <i class="fa fa-paper-plane-o font-weight-bold" aria-hidden="true"></i>
             </a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -160,7 +168,6 @@
 <script>
 import E from "wangeditor";
 export default {
-  // name: "text",
   data() {
     return {
       phoneEditor: "",
@@ -168,14 +175,124 @@ export default {
       fileList: [],
       articleForm: {
         // name: "" //绑定表单元素的属性
-        type: "景点攻略",
-        title: "title11",
-        cityName: "东京",
-        dayNum: "3",
-        season: "冬季",
-        crowdType: "人群"
+        type: "",
+        title: "",
+        cityName: "",
+        dayNum: "",
+        season: "",
+        crowdType: ""
       },
-      param: "" // 表单最后提交的参数对象
+      param: "", // 表单最后提交的参数对象
+      types: [
+        {
+          value: "选项1",
+          label: "景点攻略"
+        },
+        {
+          value: "选项2",
+          label: "美食攻略"
+        },
+        {
+          value: "选项3",
+          label: "个性路线"
+        }
+      ],
+      days: [
+        {
+          value: "选项1",
+          label: "一日游"
+        },
+        {
+          value: "选项2",
+          label: "二日游"
+        },
+        {
+          value: "选项3",
+          label: "三日游"
+        },
+        {
+          value: "选项4",
+          label: "四日游"
+        },
+        {
+          value: "选项5",
+          label: "五日游"
+        },
+        {
+          value: "选项7",
+          label: "七日游"
+        },
+        {
+          value: "选项8",
+          label: "多日游"
+        }
+      ],
+      seasons: [
+        {
+          value: "选项1",
+          label: "春季"
+        },
+        {
+          value: "选项2",
+          label: "夏季"
+        },
+        {
+          value: "选项3",
+          label: "秋季"
+        },
+        {
+          value: "选项4",
+          label: "冬季"
+        }
+      ],
+      crowdTypes: [
+        {
+          value: "选项1",
+          label: "活力行"
+        },
+        {
+          value: "选项2",
+          label: "夕阳游"
+        },
+        {
+          value: "选项3",
+          label: "亲子游"
+        },
+        {
+          value: "选项4",
+          label: "情侣游"
+        },
+        {
+          value: "选项5",
+          label: "蜜月行"
+        },
+        {
+          value: "选项6",
+          label: "伙伴游"
+        }
+      ],
+      rules: {
+        type: [
+          { required: true, message: "请选择攻略类型", trigger: "change" }
+        ],
+        title: [
+          { required: true, message: "请输入标题", trigger: "blur" },
+          { min: 1, max: 80, message: "长度在 1 到 80 个字符", trigger: "blur" }
+        ],
+        cityName: [
+          { required: true, message: "请输入城市名称", trigger: "blur" },
+          { min: 1, max: 16, message: "长度在 1 到 16 个字符", trigger: "blur" }
+        ],
+        dayNum: [
+          { required: true, message: "请选择几日游", trigger: "change" }
+        ],
+        season: [
+          { required: true, message: "请选择适宜季节", trigger: "change" }
+        ],
+        crowdType: [
+          { required: true, message: "请选择面向人群", trigger: "change" }
+        ]
+      }
     };
   },
   created() {
@@ -201,6 +318,19 @@ export default {
     });
   },
   methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          alert("submit!");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
     //修改文章封面
     onSubmit() {
       let _this = this;
@@ -252,7 +382,7 @@ export default {
 
       console.log(data);
       this.$axios
-        .post("http://localhost:3000/userCenter/commitArticle",data)
+        .post("http://localhost:3000/userCenter/commitArticle", data)
         .then(res => {
           console.log("发表成功" + res.data);
         })
@@ -272,7 +402,7 @@ export default {
     // }
     // 上传图片到服务器，base64形式
     // this.phoneEditor.customConfig.uploadImgShowBase64 = true;
-    this.phoneEditor.customConfig.uploadImgServer = "/userCenter/uploadArticle"
+    this.phoneEditor.customConfig.uploadImgServer = "/userCenter/uploadArticle";
     // this.phoneEditor.customConfig.uploadImgServer = "http://localhost:3000/userCenter/uploadArticle"
     // this.phoneEditor.customConfig.uploadImgServer = '/upload'
     // 隐藏网络图片
