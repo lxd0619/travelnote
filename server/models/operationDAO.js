@@ -123,33 +123,33 @@ var operationDAO={
             }
         })
     },
-    AddReply: function (sql,replyInfo,callback) {
-        DAO(sql, [replyInfo.replyContent,replyInfo.userId,replyInfo.replyTime,replyInfo.commentId], function (err, results) {
-            if (err) {
-                callback(err, null)
-            } else {
-                callback(null, results)
-            }
-        })
-    },
-    DelReply: function (sql,replyInfo,callback) {
-        DAO(sql, [replyInfo.replyId,replyInfo.userId,replyInfo.commentId], function (err, results) {
-            if (err) {
-                callback(err, null)
-            } else {
-                callback(null, results)
-            }
-        })
-    },
-    SelReply: function (sql,replyInfo,callback) {
-        DAO(sql, [replyInfo.commentId], function (err, results) {
-            if (err) {
-                callback(err, null)
-            } else {
-                callback(null, results)
-            }
-        })
-    },
+    // AddReply: function (sql,replyInfo,callback) {
+    //     DAO(sql, [replyInfo.replyContent,replyInfo.userId,replyInfo.replyTime,replyInfo.commentId], function (err, results) {
+    //         if (err) {
+    //             callback(err, null)
+    //         } else {
+    //             callback(null, results)
+    //         }
+    //     })
+    // },
+    // DelReply: function (sql,replyInfo,callback) {
+    //     DAO(sql, [replyInfo.replyId,replyInfo.userId,replyInfo.commentId], function (err, results) {
+    //         if (err) {
+    //             callback(err, null)
+    //         } else {
+    //             callback(null, results)
+    //         }
+    //     })
+    // },
+    // SelReply: function (sql,replyInfo,callback) {
+    //     DAO(sql, [replyInfo.commentId], function (err, results) {
+    //         if (err) {
+    //             callback(err, null)
+    //         } else {
+    //             callback(null, results)
+    //         }
+    //     })
+    // },
 
     //举报
     Report: function (sql,reportInfo,callback) {
