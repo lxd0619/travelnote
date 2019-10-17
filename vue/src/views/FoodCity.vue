@@ -1,56 +1,59 @@
 <template>
   <div class="Detail">
     <div class="head"></div>
-    <div class="contain">
-      <div class="pub_wrap termini">
-        <div class="title clearfix">
-          <span class="right_more">
-            <a href="#" target="_blank"></a>
+    <div v-if="show1">
+      <div class="contain">
+        <div class="pub_wrap termini">
+          <div class="title clearfix">
+            <span class="right_more">
+              <a href="#" target="_blank"></a>
+            </span>
+            <h2 class="clearfix">
+              <a class="pr10" href="#" target="_blank">的攻略</a>
+            </h2>
+          </div>
+        </div>
+        <div class="domestic" v-for="message in messages.slice((currentPage-1)*1,(currentPage)*1)"
+          :key="message.index" >
+          <h3>--------“{{message.title}}”</h3>
+        <img :src="getCoverPic(message.cover)"  width="300px" height="300px">
+          <div class="scale_tour">
+            <p>{{message.ssInfo}}</p>
+          </div>
+          <span class="more">
+            <a href="# ">
+              <em>了解详情&gt;&gt;</em>
+            </a>
           </span>
-          <h2 class="clearfix">
-            <a class="pr10" href="#" target="_blank">的攻略</a>
-          </h2>
+          <hr/>
         </div>
-      </div>
-      <div class="domestic" v-for="message in messages" :key="message.index">
-        <h3>{{message.title}}</h3>
-
-        <ul class="tab_theme" @click="go()">
-          <li>
-            <img alt="#" style="background: none; " />
-          </li>
-          <li>
-            <img alt="# " style="background: none; " />
-          </li>
-          <li>
-            <img alt="# " src style="background:none;" />
-          </li>
-          <li>
-            <img alt="庐山 " style="background: none; " />
-          </li>
-        </ul>
-        <div class="scale_tour">
-          <p>{{message.ssInfo}}</p>
+        <div class="block">
+          <el-pagination
+            :page-size="1"
+            :pager-count="11"
+            layout="prev, pager, next"
+            :total="allpages"
+            @current-change="current_change"
+          ></el-pagination>
         </div>
-        <span class="more">
-          <a href="# ">
-            <em>了解详情&gt;&gt;</em>
-          </a>
-        </span>
+        <hr />
       </div>
-      <hr />
-
       <div id="foot"></div>
+    </div>
+    <div v-else id="content">
+      <h1>暂无数据呢~</h1>
     </div>
   </div>
 </template>
 <script>
 export default {
   name: "detailcity",
-  
   data: function() {
     return {
       messages: [],
+      currentPage: 1,
+      allpages: 0,
+      show1: true
     };
   },
   created() {
@@ -61,13 +64,34 @@ export default {
         cityName: city_name
       })
       .then(res => {
-        this.messages = res.data.data;
-        console.log(res)
+        if (res.data.data) {
+          this.messages = res.data.data;
+          this.allpages = res.data.data.length;
+          console.log(this.allpages);
+        } else {
+           this.show1=false
+        }
+
         // console.log("data:"+JSON.stringify(res.data.data))
       })
       .catch(err => {
         console.log(err);
       });
+  },
+  methods: {
+    current_change(currentPage) {
+      this.currentPage = currentPage;
+    },
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    },
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    }
   }
 };
 </script>
@@ -196,6 +220,12 @@ a {
 
 .domestic h3 {
   padding: 10px 0;
+  font-size: 20px;
+  font-family: "宋体";
+  margin-left:20px;
+}
+.domestic img{
+  margin-left: 20px;
 }
 
 .domestic h3 .more {
@@ -395,6 +425,11 @@ a {
   cursor: pointer;
   -webkit-transition: width 0.5s;
   transition: width 0.5s;
+}
+.block {
+  width: 400px;
+  margin: 0px auto;
+  padding-left: 50px;
 }
 </style>
 

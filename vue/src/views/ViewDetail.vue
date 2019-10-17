@@ -42,7 +42,7 @@
                 <dd>
                   <a href="#" target="_blank" @click="go('黑龙江省')">黑龙江省</a>
                 </dd>
-                <dd >
+                <dd>
                   <a href="#" target="_blank" @click="go('吉林省')">吉林省</a>
                 </dd>
                 <dd>
@@ -83,7 +83,7 @@
               </dl>
             </li>
             <li class="br1 pt15">
-              <div class="termini_img termini_img5" >
+              <div class="termini_img termini_img5">
                 <span></span>
               </div>
               <dl class="termini_name">
@@ -219,204 +219,127 @@
         <span class="more">
           <h3>
             江苏省
-            <a href="# ">
+            <a href @click="go('江苏省')">
               <em>更多&gt;&gt;</em>
             </a>
           </h3>
         </span>
-
-        <ul class="tab_theme">
-          <li>
-            <a href="# " target="_blank ">
-              <div class="pic_add">
-                <img alt="#" style="background: none; " />
-              </div>
-              <div class="city_name">古镇之美</div>
-            </a>
-            <div class="scale_tour">
-              <p>春意撩人 登高踏青赏春色</p>
+        <div class="total" v-for="message in messages.slice(0,2)" :key="message.index">
+          <div class="leftimg">
+            <img src="../assets/3.jpg" width="200px" height="200px" />
+          </div>
+          <div class="rightfont">
+            <div class="detailtitle">
+              <h3>{{message.title}}</h3>
             </div>
-          </li>
-          <li>
-            <a href="# " target="_blank ">
-              <div class="pic_add">
-                <img alt="# " style="background: none; " />
-              </div>
-              <div class="city_name">扬花落尽</div>
-            </a>
-            <div class="scale_tour">
-              <p>阳春三月 闻着茶香去峨眉</p>
+            <div class="detail_p">
+              <p>{{message.ssInfo}}</p>
             </div>
-          </li>
-          <li>
-            <a href="# " target="_blank ">
-              <div class="pic_add">
-                <img alt="# " src style="background:none;"  />
-              </div>
-              <div class="city_name">南京畅游</div>
-            </a>
-
-            <div class="scale_tour">
-              <span class="right"></span>
-              <p>迎春 祈福 登五台</p>
-            </div>
-          </li>
-          <li>
-            <a href="3 " target="_blank ">
-              <div class="pic_add">
-                <img alt="庐山 " style="background: none; " />
-              </div>
-              <div class="city_name">江苏攻略</div>
-            </a>
-
-            <div class="scale_tour">
-              <p>亲近自然 春游庐山</p>
-            </div>
-          </li>
-        </ul>
+          </div>
+        
+        </div>
       </div>
       <div class="domestic">
         <span class="more">
           <h3>
             浙江省
-            <a href="# ">
+            <a href @click="go('浙江省')">
               <em>更多&gt;&gt;</em>
             </a>
           </h3>
         </span>
-
-        <ul class="tab_theme">
-          <li>
-            <a href="# " target="_blank ">
-              <div class="pic_add">
-                <img alt="# " src style="background: none; " />
-              </div>
-              <div class="city_name">古镇之美</div>
-            </a>
-            <div class="scale_tour">
-              <p>春意撩人 登高踏青赏春色</p>
+        <div class="total" v-for="message in messages1.slice(0,1)" :key="message.index">
+          <div class="leftimg">
+            <img src="../assets/3.jpg" width="200px" height="200px" />
+          </div>
+          <div class="rightfont">
+            <div class="detailtitle">
+              <h3>{{message.title}}</h3>
             </div>
-          </li>
-          <li>
-            <a href="# " target="_blank ">
-              <div class="pic_add">
-                <img alt="# " src style="background: none; " />
-              </div>
-              <div class="city_name">扬花落尽</div>
-            </a>
-            <div class="scale_tour">
-              <p>阳春三月 闻着茶香去峨眉</p>
+            <div class="detail_p">
+              <p>{{message.ssInfo}}</p>
             </div>
-          </li>
-          <li>
-            <a href="# " target="_blank ">
-              <div class="pic_add">
-                <img alt="# " src style="background: none; " />
-              </div>
-              <div class="city_name">南京畅游</div>
-            </a>
-
-            <div class="scale_tour">
-              <span class="right"></span>
-              <p>迎春 祈福 登五台</p>
-            </div>
-          </li>
-          <li>
-            <a href="3 " target="_blank ">
-              <div class="pic_add">
-                <img alt="庐山 " style="background: none; " />
-              </div>
-              <div class="city_name">江苏攻略</div>
-            </a>
-
-            <div class="scale_tour">
-              <p>亲近自然 春游庐山</p>
-            </div>
-          </li>
-        </ul>
+          </div>  
+        
+        </div>
       </div>
-      <div class="domestic">
-        <span class="more">
-          <h3>
-            四川省
-            <a href="# ">
-              <em>更多&gt;&gt;</em>
-            </a>
-          </h3>
-        </span>
 
-        <ul class="tab_theme">
-          <li>
-            <a href="# " target="_blank ">
-              <div class="pic_add">
-                <img alt="# " src style="background: none; " />
-              </div>
-              <div class="city_name">古镇之美</div>
-            </a>
-            <div class="scale_tour">
-              <p>春意撩人 登高踏青赏春色</p>
-            </div>
-          </li>
-          <li>
-            <a href="# " target="_blank ">
-              <div class="pic_add">
-                <img alt="# " src style="background: none; " />
-              </div>
-              <div class="city_name">扬花落尽</div>
-            </a>
-            <div class="scale_tour">
-              <p>阳春三月 闻着茶香去峨眉</p>
-            </div>
-          </li>
-          <li>
-            <a href="# " target="_blank ">
-              <div class="pic_add">
-                <img alt="# " src style="background: none; " />
-              </div>
-              <div class="city_name">南京畅游</div>
-            </a>
-
-            <div class="scale_tour">
-              <span class="right"></span>
-              <p>迎春 祈福 登五台</p>
-            </div>
-          </li>
-          <li>
-            <a href="3 " target="_blank ">
-              <div class="pic_add">
-                <img alt="庐山 " src style="background: none; " />
-              </div>
-            </a>
-
-            <div class="scale_tour">
-              <p>亲近自然 春游庐山</p>
-            </div>
-          </li>
-        </ul>
-      </div>
       <div id="foot"></div>
     </div>
   </div>
-
 </template>
 <script>
 export default {
   name: "viewdetail",
-  data: function() {
+  data() {
     return {
-     
+      articles: [],
+      messages: [],
+      messages1: [],
+      messages2: [],
+      hotarticles: [],
+      strategyType: "scenerystrategy",
+      cityName: ["江苏省", "浙江省", "吉林省"]
     };
   },
- methods:{
-   go(city){
-     var city_name=JSON.stringify(city)
-     sessionStorage.setItem('city_name',city_name)
-     this.$router.push('/index/detailcity')
-   }
- }
- 
-}
-
+  created() {
+    console.log(this.strategyType);
+    this.$axios
+      .post("http://localhost:3000/operation/normalStrategy", {
+        strategyType: this.strategyType
+      })
+      .then(res => {
+        console.log(res);
+        this.articles = res.data.data;
+      })
+      .catch(error => {
+        console.log("错误信息" + error);
+      });
+    this.$axios
+      .post("http://localhost:3000/scenic/viewstrategyClassify", {
+        cityName: this.cityName[0]
+      })
+      .then(res => {
+        this.messages = res.data.data;
+        console.log(res);
+        // console.log("data:"+JSON.stringify(res.data.data))
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    this.$axios
+      .post("http://localhost:3000/scenic/viewstrategyClassify", {
+        cityName: this.cityName[1]
+      })
+      .then(res => {
+        this.messages1 = res.data.data;
+        console.log(res);
+        // console.log("data:"+JSON.stringify(res.data.data))
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    this.$axios
+      .post("http://localhost:3000/scenic/viewstrategyClassify", {
+        cityName: this.cityName[2]
+      })
+      .then(res => {
+        this.messages2 = res.data.data;
+        console.log(res);
+        // console.log("data:"+JSON.stringify(res.data.data))
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  methods: {
+    go(city) {
+      var city_name = JSON.stringify(city);
+      sessionStorage.setItem("city_name", city_name);
+      this.$router.push("/index/detailcity");
+    }
+  }
+};
 </script>
 <style scoped>
 .contain {
@@ -457,6 +380,9 @@ export default {
   font-size: 24px;
   line-height: 30px;
   text-decoration: none;
+}
+.total{
+  /* border-bottom: 1px solid #333; */
 }
 
 .termini h2 {
@@ -534,7 +460,29 @@ a {
 .termini_name dd a {
   color: #555;
 }
+.total::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.leftimg {
+  background-color: pink;
+  height: 200px;
+  width: 200px;
+  float: left;
+  margin-top: 20px;
+}
 
+.rightfont {
+  float: right;
+  height: 100px;
+  width: 900px;
+  margin-top: 20px;
+}
+.rightfont p {
+  width: 400px;
+  overflow: hidden;
+}
 .termini_img {
   background: url(/img.elongstatic.com/hotel/HotelNewDestRecomm/hotel_index_icon.png)
     no-repeat 0 0;
@@ -580,51 +528,6 @@ a {
   border-radius: 12px;
   cursor: pointer;
   float: left;
-}
-
-.tab_theme {
-  overflow: hidden;
-  width: 1220px;
-  height: 202px;
-}
-
-.tab_theme li {
-  float: left;
-  width: 293px;
-  margin: 0 10px 0 0;
-  overflow: hidden;
-  position: relative;
-}
-
-.tab_theme li a {
-  display: block;
-  width: 100%;
-}
-
-.tab_theme li .pic_add {
-  height: 160px;
-  width: 100%;
-  overflow: hidden;
-}
-
-.tab_theme li img {
-  display: block;
-  width: 100%;
-  margin-top: -20px;
-  position: relative;
-  bottom: 0;
-  -webkit-transiton: bottom 0.3s;
-  transition: bottom 0.3s;
-}
-
-.tab_theme li .city_name {
-  position: absolute;
-  font: 24px/30px Microsoft yahei;
-  color: #fff;
-  top: 124px;
-  left: 0;
-  text-indent: 0.5em;
-  text-shadow: 1px 1px 7px #000;
 }
 
 .more h3 {
@@ -675,7 +578,7 @@ a {
   left: 0;
   top: 0;
   background: rgba(0, 0, 0, 0.3);
-  _background: #b2b2b2;
+  background: #b2b2b2;
 }
 
 .fold_wrap ul li .mask_b h4 {
