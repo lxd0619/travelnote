@@ -46,9 +46,6 @@
             <h5>总结</h5>
             <p>此次行程即可看到非常现代化的大都市，又可游览具有江南特色的园林城市，此外，还可以在乌镇留宿赏夜景，行程总体比较轻松。</p>
           </div>
-          <div class="con-top-right">
-            <div class id="map01" style="width: 400px;height: 300px;"></div>
-          </div>
         </div>
 
         <div class="con-main">
@@ -556,16 +553,13 @@
         <div class="con-comments">
           <div class="l-comment">
             <div class="com-box">
-              <h2>
-                评论（
-                <span class="_comment_num">20</span>）
-              </h2>
+              <h2>评论</h2>
               <ul id="comments" data-page="1" data-id="0">
                 <li
                   class="clearfix comment_item item_1203904"
                   data-id="1203904"
                   data-replied="0"
-                  v-for="dis in discuss"
+                  v-for="(dis,index) in discuss"
                   :key="dis.commentId"
                 >
                   <div class="img">
@@ -574,71 +568,37 @@
                   <div class="info">
                     <h3>{{dis.userName}}</h3>
                     <h4>{{dis.commentTime}}</h4>
-                    <!-- <span>{{index}}楼</span> -->
+                    <span>{{index+1}}楼</span>
                     <div class="com-cont">{{dis.commentContent}}</div>
                     <br />
-                    
+
                     <div class="info-span">
-                      <span @click="delComment(dis.commentId)">删除评论</span>
-                      <span @click="selReply(dis.commentId)">显示回复</span>
-                      <span @click="report">举报</span>
+                      <span
+                        v-if="dis.userId==userId"
+                        @click="delComment(dis.commentId)"
+                        :key="dis.commentId"
+                      >删除个人评论</span>
                     </div>
-                    <!-- 回复内容 -->
-                    <ul
-                      id="comments"
-                      data-page="1"
-                      data-id="0"
-                      v-for="reply in replys"
-                      :key="reply.commentId"
-                    >
-                      <li
-                        v-if="reply.commentId==dis.commentId"
-                        class="clearfix comment_item item_1203904"
-                        data-id="1203904"
-                        data-replied="0"
-                      >
-                        <div class="info">
-                          <h3>{{reply.userName}}</h3>
-                          <h4>{{reply.replyTime}}</h4>
-                          <div class="com-cont">{{reply.replyContent}}</div>
-                        </div>
-                      </li>
-                    </ul>
+              
                   </div>
                 </li>
               </ul>
             </div>
-
             <!-- 最后的插入评论 -->
-            <!-- <div class="clearfix com-form">
+            <div class="clearfix com-form">
               <div class="fm-tare user-log">
-                <el-form label-width="80px" label-height="200px">
-                  <el-form-item>
-                    <el-input type="textarea" placeholder="说点什么吧..." v-model="newcommentContent"></el-input>
-                  </el-form-item>
+                <textarea
+                  class="_j_comment_content"
+                  v-model="newcommentContent"
+                  placeholder="说点什么吧..."
+                ></textarea>
+                <el-form>
                   <el-form-item>
                     <el-button type="primary" @click="addComment()">评论</el-button>
                   </el-form-item>
                 </el-form>
               </div>
-            </div>-->
-            <!-- 最后的插入评论 -->
-
-              <div class="clearfix com-form">
-                <div class="fm-tare user-log">
-                  <textarea
-                    class="_j_comment_content"
-                    v-model="newcommentContent"
-                    placeholder="说点什么吧..."
-                  ></textarea>
-                  <el-form>
-                    <el-form-item>
-                      <el-button type="primary" @click="addComment()">评论</el-button>
-                    </el-form-item>
-                  </el-form>
-                </div>
-              </div>
-         
+            </div>
           </div>
         </div>
       </div>
@@ -646,6 +606,8 @@
   </div>
 </template>
 <script>
+import jwt_decode from "jwt-decode";
+
 export default {
   name: "linestrategy",
   data() {
@@ -654,21 +616,30 @@ export default {
       strategy: [],
       hotarticles: [],
       // strategyType: "personalrow"
-
+      //登录用户信息
+      role: [],
       //全部评论
       discuss: [],
       //插入评论内容
       newcommentContent: "",
 
       //全部回复
-      replys: []
+      replys: [],
+      //插入回复
+      // newReplyContent: "",
+
+      //当前登录用户id
+      userId: ""
     };
   },
   created() {
     //获取传来的攻略类型和id
     var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
+    var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
+    this.userId = userId;
+
     this.info = info;
-    console.log(this.info); //内容
+    // console.log(this.info); //内容
     //加载攻略数据
     this.$axios
       .post("http://localhost:3000/operation/strategydetail", {
@@ -676,7 +647,7 @@ export default {
         strategyId: this.info.id
       })
       .then(res => {
-        // console.log(1, res);
+        // console.log(1, res.data.data);
         this.strategy = res.data.data;
       })
       .catch(err => {
@@ -712,11 +683,13 @@ export default {
           if (judge == 1) {
             this.strategy[0].prCollectionNum =
               parseInt(this.strategy[0].prCollectionNum) + 1;
-            console.log(this.strategy.prCollectionNum);
+            // console.log(this.strategy[0].prCollectionNum);
+            this.$message("收藏成功！");
           } else if (judge == -1) {
             this.strategy[0].prCollectionNum =
               parseInt(this.strategy[0].prCollectionNum) - 1;
             console.log(this.strategy.prCollectionNum);
+            this.$message("取消收藏成功！");
           }
         })
         .catch(err => {
@@ -739,10 +712,12 @@ export default {
             this.strategy[0].prLikeNum =
               parseInt(this.strategy[0].prLikeNum) + 1;
             console.log(this.strategy.prLikeNum);
+            this.$message("点赞成功！");
           } else if (judge == -1) {
             this.strategy[0].prLikeNum =
               parseInt(this.strategy[0].prLikeNum) - 1;
             console.log(this.strategy.prLikeNum);
+            this.$message("取消点赞成功！");
           }
         })
         .catch(err => {
@@ -759,6 +734,7 @@ export default {
         })
         .then(res => {
           console.log(res);
+          this.$message("举报成功！");
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -811,7 +787,9 @@ export default {
     },
 
     //筛选回复
-    selReply(commentId) {
+    selReply(commentId, index) {
+      var _this = this;
+      console.log(index);
       this.$axios
         .post("http://localhost:3000/operation/selreply", {
           // strategyId: this.info.id,
@@ -819,12 +797,43 @@ export default {
           commentId: commentId
         })
         .then(res => {
-          console.log("回复", res);
+          // console.log("筛选回复", res);
           this.replys = res.data.data;
+          // this.commentId=commentId
         })
         .catch(err => {
           console.log("错误信息" + err);
         });
+    },
+    //添加回复
+    // addReply(commentId) {
+    //   this.$axios
+    //     .post("http://localhost:3000/operation/addreply", {
+    //       replyContent: this.newReplyContent,
+    //       userId: this.userId,
+    //       commentId: commentId
+    //       // (replyContent,userId,replyTime,commentId
+    //     })
+    //     .then(res => {
+    //       console.log("回复", res);
+    //       this.replys = res.data.data;
+    //     })
+    //     .catch(err => {
+    //       console.log("错误信息" + err);
+    //     });
+    // },
+
+    //过滤
+
+    //显示提示框
+    openVn() {
+      const h = this.$createElement;
+      this.$message({
+        message: h("p", null, [
+          h("span", null, "内容可以是 "),
+          h("i", { style: "color: teal" }, "VNode")
+        ])
+      });
     }
   }
 };
@@ -885,11 +894,6 @@ export default {
 
 .con-top-left p {
   color: #666;
-}
-
-.container .con-top .con-top-right {
-  float: right;
-  border: 1px solid #eee;
 }
 
 .con-main {
@@ -1035,6 +1039,12 @@ li {
 }
 
 .com-box .info h3 {
+  font-size: 24px;
+  color: blue;
+  font-weight: normal;
+  line-height: 28px;
+}
+.com-box .info #reply-h3 {
   font-size: 18px;
   color: blue;
   font-weight: normal;
@@ -1059,12 +1069,19 @@ li {
 }
 .com-box .info .info-span span {
   margin-right: 20px;
+  cursor: pointer;
 }
 .com-box .info .info-span span:hover {
   color: #ff9d00;
 }
 .com-box .info ul {
   clear: both;
-  margin-left: 50px;
+  margin-left: 80px;
+}
+.com-box .info #replys li {
+  display: none;
+}
+.com-box .info:hover #replys li {
+  display: block;
 }
 </style>
