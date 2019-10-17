@@ -9,10 +9,10 @@
               <div class="figcaption">
                 <div class="bg bg1"></div>
                 <div class="name">
-                  <p>记忆</p>
+                  <p>旅行</p>
                 </div>
                 <div class="content">
-                  <p>品尝到一份别致的美食，会让你久久不能忘记。一份精致的美食，如一份可爱的礼物一样，当你拿到手的时候，除了珍惜，就是赞叹。</p>
+                  <p>人生至少要有两次冲动，一为奋不顾身的爱情，一为说走就走的旅行</p>
                 </div>
               </div>
             </div>
@@ -21,11 +21,11 @@
               <div class="figcaption">
                 <div class="bg bg2"></div>
                 <div class="name">
-                  <p>味道</p>
+                  <p>眼界</p>
                 </div>
                 <div class="content">
                 
-                  <p>果汁新鲜，酸甜，当你倦怠不堪时，刺激你的味蕾和感觉神经，让你新鲜难以忘怀，在心中留下了特别的味道</p>
+                  <p>如果你不出去走走，你就会以为这就是世界</p>
                 </div>
               </div>
             </div>
@@ -33,10 +33,10 @@
               <div class="figcaption">
                 <div class="bg bg3"></div>
                 <div class="name">
-                  <p>传承</p>
+                  <p>自我</p>
                 </div>
                 <div class="content">
-                  <p>寻常的衣食住行中，传统日复一日地延续</p>
+                  <p>在路上，不为旅行，不因某人，只为在未知的途中遇见未知的自己</p>
                 </div>
               </div>
             </div>
@@ -44,11 +44,11 @@
               <div class="figcaption">
                 <div class="bg bg4"></div>
                 <div class="name">
-                  <p>相逢</p>
+                  <p>感动</p>
                 </div>
                 <div class="content">
                   <p>
-                    人们用五味杂陈形容人生，因为懂得，味道是每个心中固守的乡愁
+                  人生最好的旅行，就是你在一个陌生的地方，发现一种久违的感动
                   </p>
                 </div>
               </div>
@@ -57,10 +57,10 @@
               <div class="figcaption">
                 <div class="bg bg5"></div>
                 <div class="name">
-                  <p>流年</p>
+                  <p>时光</p>
                 </div>
                 <div class="content">
-                  <p>当你的掌纹静静地滑过这些旧物的骨架，时光酿造的陈酒便会悄然擦过舌尖的味蕾</p>
+                  <p>流转的时光，都会成为命途中美丽的点缀，看天，看雪，安安静静，不言不语都是好风景</p>
                 </div>
               </div>
             </div>
@@ -139,52 +139,19 @@
         <router-view></router-view>
         <div class="contain strategy">
           <ul style="display: flex;flex-direction: row;justify-content:space-between">
-            <router-link to="/index/Jn">
-              <li>
+              <li v-for="bottom in articles.slice(1,5)" :key="bottom.index">
                 <a href="#" target="_blank">
                   <img src="../assets/view/leftPic3.jpg" />
                   <div class="strategy_msk"></div>
                   <div class="strategy_txt tit">
-                    <div class="strategy_tit">江南水乡</div>
+                    <div class="strategy_tit">{{bottom.title}}</div>
                   </div>
-
                   <div class="strategy_txt pos">
                     <div class="strategy_pos">古镇之美</div>
                   </div>
                 </a>
               </li>
-            </router-link>
-            <router-view></router-view>
-            <router-link to="/index/Nm">
-              <li>
-                <a href target="_blank">
-                  <img src="../assets/stategyDetail/内蒙古1.jpg" />
-                  <div class="strategy_msk"></div>
-                  <div class="strategy_txt tit">
-                    <div class="strategy_tit">草原上的内蒙</div>
-                  </div>
-                  <div class="strategy_txt pos">
-                    <div class="strategy_pos">内蒙古</div>
-                  </div>
-                </a>
-              </li>
-            </router-link>
-            <router-view></router-view>
-            <router-link to="/index/Xa">
-              <li>
-                <a href target="_blank">
-                  <img src="../assets/stategyDetail/西安.jpg" />
-                  <div class="strategy_msk"></div>
-                  <div class="strategy_txt tit">
-                    <div class="strategy_tit">历史古都</div>
-                  </div>
-                  <div class="strategy_txt pos">
-                    <div class="strategy_pos">西安</div>
-                  </div>
-                </a>
-              </li>
-            </router-link>
-            <router-view></router-view>
+      
           </ul>
         </div>
       </div>
@@ -547,7 +514,7 @@ h1 {
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgb(233, 220, 200);
+  background: rgb(190, 236, 236);
   opacity: 0.8;
   /*不透明度。0透明1不透明*/
   /* transition: opacity 0.5s ease; */
@@ -629,15 +596,15 @@ h1 {
   filter: graycale(50%);
 }
  .bg1{
-   background-image:url(../assets/food/2.jpg)}
+   background-image:url(../assets/view/风景背景图1.jpeg)}
  .bg2{
-   background-image:url(../assets/food/3.jpg)}
+   background-image:url(../assets/view/景色背景图2.jpg)}
   .bg3{
-   background-image:url(../assets/food/timg.jpg)}
+   background-image:url(../assets/view/景色背景图片3.jpg)}
  .bg4{
-   background-image:url(../assets/food/food11.jpg)}
+   background-image:url(../assets/view/景色背景图片4.jpg)}
   .bg5{
-   background-image:url(../assets/food/food6.jpg)}
+   background-image:url(../assets/view/景色背景图片5.jpg)}
 h2{
   text-align: center;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
