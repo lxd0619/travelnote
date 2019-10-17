@@ -24,6 +24,9 @@
               <a id="user" @click="user()">用户管理</a>
             </li>
             <li class="li">
+              <a href="/index/home">首页</a>
+            </li>
+            <li class="li">
               <a @click="out()">退出</a>
             </li>
           </ul>
