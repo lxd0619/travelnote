@@ -112,7 +112,7 @@
               <li class="nav-item dropdown ml-2">
                 <a
                   class="nav-link dropdown-toggle d-flex align-items-center justify-content-center"
-                  href="userCenter.html"
+                  href="/index/userCenter"
                   id="userDropdown"
                   role="button"
                   data-toggle="dropdown"
@@ -125,7 +125,7 @@
                     :src="getHeadPic(userInfo[0].headPic)"
                     class="rounded-circle"
                     id="navHeadPic"
-                    alt
+                    @click.prevent="goUserCenter"
                   />
                 </a>
                 <div
@@ -156,6 +156,7 @@
       </div>
     </nav>
     <router-view></router-view>
+    <!-- 页脚 -->
     <nav class="nav flex-column align-items-center bg-secondary text-white">
         <h6 class="mt-3">友情链接</h6>
         <a class="nav-link" href="https://www.mafengwo.cn">马蜂窝</a>
@@ -168,7 +169,6 @@
 export default {
   data() {
     return {
-      img_src: require("../assets/headPic/head1.jpg"),
       isShow: false,
       userInfo: [
         {
@@ -199,6 +199,9 @@ export default {
       .then(res => {
         console.log("查询结果" + res.data.data);
         this.userInfo = res.data.data;
+        if(this.userInfo.headPic == null){
+          this.userInfo.headPic = "primaryHead.jpeg"
+        }
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -210,9 +213,8 @@ export default {
   methods: {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
-      let path = "http://localhost:3000/uploadHeadPic/" + pic;
-      console.log(path);
-      return path;
+      // let path = "http://localhost:3000/uploadHeadPic/" + pic;
+      // return path;
     },
     goAim() {
       this.$router.push("/index/Aim");

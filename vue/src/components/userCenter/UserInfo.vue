@@ -190,9 +190,7 @@
                     :style="{'backgroundImage':'url(' + getPic(userInfo[0].headPic) + ')'}"
                   ></div>
                 </div>
-                <div> 
-
-                </div>
+                <div></div>
                 <div id="upload">
                   <!--elementui的上传图片的upload组件-->
                   <el-upload
@@ -410,18 +408,9 @@ export default {
     },
     //当上传文件组件submit之前触发执行
     beforeupload(file) {
-      console.log("准备上传。。。。");
       // 准备表单上传需要的参数对象
       this.param = new FormData();
-      this.fileList.push(file); // 把需要上传的文件保存到数组中
-      console.log("这是图片文件" + JSON.stringify(this.fileList));
-      // 遍历数组，把所有文件都保存到参数对象中
-      for (let i = 0; i < this.fileList.length; i++) {
-        // this.param.append(`img_${i}`, this.fileList[i]);
-        this.param.append(`img`, this.fileList[this.fileList.length - 1]);
-      }
-      console.log(this.fileList.length);
-      // this.param.append(`img`, this.fileList[0]);
+      this.param.append(`img`, file);
       return false;
     },
     //修改电话号
