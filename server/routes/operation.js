@@ -11,18 +11,44 @@ router.post('/like',passport.authenticate('jwt',{session:false}),function(req,re
 router.post('/collect',passport.authenticate('jwt',{session:false}),function(req,res,next){
     operationController.Collect(req,res)
 })
+
 /*评论和取消评论*/
-router.put('/discuss',passport.authenticate('jwt',{session:false}),function(req,res,next){
-    operationController.Discuss(req,res)
-})
+// router.put('/discuss',passport.authenticate('jwt',{session:false}),function(req,res,next){
+//     operationController.Discuss(req,res)
+// })
 // 插入评论
-router.put('/insertdiscuss',passport.authenticate('jwt',{session:false}),function(req,res,next){
-    operationController.InsertDiscuss(req,res)
+router.put('/adddiscuss',passport.authenticate('jwt',{session:false}),function(req,res,next){
+    operationController.AddDiscuss(req,res)
 })
+//删除评论
+router.post('/deldiscuss',passport.authenticate('jwt',{session:false}),function(req,res,next){
+    operationController.DelDiscuss(req,res)
+})
+//筛选评论
+router.post('/seldiscuss',passport.authenticate('jwt',{session:false}),function(req,res,next){
+    operationController.SelDiscuss(req,res)
+})
+
+
+
 // 回复和取消回复
-router.put('/reply',passport.authenticate('jwt',{session:false}),function(req,res,next){
-    operationController.Reply(req,res)
+// router.put('/reply',passport.authenticate('jwt',{session:false}),function(req,res,next){
+//     operationController.Reply(req,res)
+// })
+// 添加回复
+router.put('/addreply',passport.authenticate('jwt',{session:false}),function(req,res,next){
+    operationController.AddReply(req,res)
 })
+// 删除回复
+router.post('/delreply',passport.authenticate('jwt',{session:false}),function(req,res,next){
+    operationController.DelReply(req,res)
+})
+// 筛选回复
+router.post('/selreply',passport.authenticate('jwt',{session:false}),function(req,res,next){
+    operationController.SelReply(req,res)
+})
+
+
 /*举报 */
 router.post('/report',passport.authenticate('jwt',{session:false}),function(req,res,next){
     operationController.Report(req,res)
