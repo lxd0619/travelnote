@@ -131,18 +131,18 @@ var userController = {
                 console.log('文件上传错误！')
             }
             //fields是常温的表单字段数组，files是上传的文件列表
-
+            var cover = ""
             console.log(files)
-            // var cover = path.parse(files.cover.path).base
-            var cover = "cover"
-
-            // var tableName = req.body.tableName
+            if (files) {
+                cover = "cover"
+            } else {cover = path.parse(files.cover.path).base
+                
+            }
             var type = fields.type
             var title = fields.title
             var article = fields.article
             var userTel = req.user.userTel
             var insertTime = new Date()
-            // var sceneryId = fields.sceneryId
             var cityName = fields.cityName
             var dayNum = fields.dayNum
             var season = fields.season
@@ -150,12 +150,12 @@ var userController = {
             var sqlstr = ''
 
             switch (type) {
-                case '景点攻略': sqlstr = "insert into scenerystrategy (type,title,cover,ssInfo,cityName,userId,ssTime) values (?,?,?,?,?,(select userId from users where tel = ?),?)"; var ins = [type, title, cover, article, cityName, userTel, insertTime]; break;
-                case '美食攻略': sqlstr = 'insert into foodstrategy (type,title,cover,fsInfo,cityName,userId,fsTime) values (?,?,?,?,?,(select userId from users where tel = ?),?)'; var ins = [type, title, cover, article, cityName, userTel, insertTime]; break;
-                case '个性路线': sqlstr = 'insert into personalrow (type,title,cover,dayNum,season,crowdType,prInfo,userId,prTime) values (?,?,?,?,?,?,?,(select userId from users where tel = ?),?)'; var ins = [type, title, cover, dayNum, season, crowdType, article, userTel, insertTime]; break;
-                default: console.log('没有该类型的表');
+                case 'scenerystrategy': sqlstr = "insert into scenerystrategy (type,title,cover,ssInfo,cityName,userId,ssTime) values (?,?,?,?,?,(select userId from users where tel = ?),?)"; var ins = [type, title, cover, article, cityName, userTel, insertTime]; break;
+                case 'foodstrategy': sqlstr = 'insert into foodstrategy (type,title,cover,fsInfo,cityName,userId,fsTime) values (?,?,?,?,?,(select userId from users where tel = ?),?)'; var ins = [type, title, cover, article, cityName, userTel, insertTime]; break;
+                case 'personalrow': sqlstr = 'insert into personalrow (type,title,cover,dayNum,season,crowdType,prInfo,userId,prTime) values (?,?,?,?,?,?,?,(select userId from users where tel = ?),?)'; var ins = [type, title, cover, dayNum, season, crowdType, article, userTel, insertTime]; break;
+                default: console.log('没有该类型');
             }
-            console.log('ins:' + ins)
+            // console.log('ins:' + ins)
             userDAO.commitArticle(sqlstr, ins, function (err, results) {
                 if (err) {
                     res.json({ code: 500, data: 0, msg: '攻略上传失败' })

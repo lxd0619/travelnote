@@ -593,7 +593,6 @@ export default {
   data() {
     return {
       info: [],
-
       strategy: [],
       hotarticles: []
       // strategyType: "personalrow"
