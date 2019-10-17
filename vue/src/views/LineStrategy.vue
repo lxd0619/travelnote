@@ -577,7 +577,7 @@
                     <!-- <span>{{index}}楼</span> -->
                     <div class="com-cont">{{dis.commentContent}}</div>
                     <br />
-                    <br />
+                    
                     <div class="info-span">
                       <span @click="delComment(dis.commentId)">删除评论</span>
                       <span @click="selReply(dis.commentId)">显示回复</span>
