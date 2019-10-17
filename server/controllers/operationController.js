@@ -143,58 +143,11 @@ var operationController = {
             }
         })
     },
-    Discuss: function (req, res) {
-        var sql = 'select * from comments where commentId=? and strategyId=? and strategyType=? and userId=?' //判断是否收藏过
-        var commentTime = new Date()
-        var DiscussInfo = {
-            commentId: req.body.commentId,
-            commentContent: req.body.commentContent,
-            userId: req.body.userId,
-            strategyType: req.body.strategyType,
-            strategyId: req.body.strategyId,
-            commentTime: commentTime,
-        }
-        operationDAO.TestDiscuss(sql, DiscussInfo, function (err, results1) {
-            if (err) {
-                res.json({ code: 500, data: 0, msg: '搜索攻略评论错误！' })
-            } else {
-                if (results1 == null || results1.length == 0) {
-                    console.log('有数据')
-                    sql = "insert into comments(commentContent,strategyId,userId,commentTime,strategyType) values(?,?,?,?,?)" //添加
-                    operationDAO.AddDiscuss(sql, DiscussInfo, function (err, results) {
-                        if (err) {
-                            res.json({ code: 500, data: 0, msg: '添加攻略评论错误！' })
-                        } else {
-                            if (results.affectedRows == 0) {
-                                res.json({ code: 200, data: 0, msg: '添加攻略评论错误,影响行数为0！' })
-                            } else {
-                                res.json({ code: 200, data: 1, msg: '添加攻略评论成功！' })
-                            }
-                        }
-                    })
-                } else {
-                    sql = "delete from comments where commentId=? and strategyId=? and strategyType=? and userId=?" //删除
-                    operationDAO.DelDiscuss(sql, DiscussInfo, function (err, results) {
-                        if (err) {
-                            console.log(err)
-                            res.json({ code: 500, data: 0, msg: '删除攻略评论错误！' })
-                        } else {
-                            if (results.affectedRows == 0) {
-                                res.json({ code: 200, data: 0, msg: '删除攻略评论错误，影响行数为0！' })
-                            } else {
-                                res.json({ code: 200, data: 1, msg: '删除攻略评论成功！' })
-                            }
-                        }
-                    })
-                }
-            }
-        })
-    },
-    // InsertDiscuss: function (req, res) {
-    //     var sql = ''
+    // Discuss: function (req, res) {
+    //     var sql = 'select * from comments where commentId=? and strategyId=? and strategyType=? and userId=?' //判断是否收藏过
     //     var commentTime = new Date()
     //     var DiscussInfo = {
-
+    //         commentId: req.body.commentId,
     //         commentContent: req.body.commentContent,
     //         userId: req.body.userId,
     //         strategyType: req.body.strategyType,
@@ -237,8 +190,127 @@ var operationController = {
     //         }
     //     })
     // },
-    Reply: function (req, res) {
-        var sql = 'select * from replys where replyId=? and userId=? and commentId=?' //判断是否回复过
+
+    //评论
+    AddDiscuss: function (req, res) {
+        var sql = ''
+        var commentTime = new Date()
+        var DiscussInfo = {
+            commentContent: req.body.commentContent,
+            userId: req.user.userId,
+            strategyType: req.body.strategyType,
+            strategyId: req.body.strategyId,
+            commentTime: commentTime,
+        }
+        console.log(DiscussInfo)
+        console.log(1)
+        sql = " insert into comments(commentContent,strategyId,userId,commentTime,strategyType) values(?,?,?,?,?)" //添加
+        operationDAO.AddDiscuss(sql, DiscussInfo, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '添加攻略评论错误！' })
+            } else {
+                if (results.affectedRows == 0) {
+                    res.json({ code: 200, data: 0, msg: '添加攻略评论错误,影响行数为0！' })
+                } else {
+                    res.json({ code: 200, data: 1, msg: '添加攻略评论成功！' })
+                }
+            }
+        })
+    },
+    DelDiscuss: function (req, res) {
+        var sql = ''
+        var DiscussInfo = {
+            commentId: req.body.commentId,
+            strategyId: req.body.strategyId,
+            strategyType: req.body.strategyType,
+            userId: req.user.userId
+        }
+        sql = " delete from comments where commentId=? and strategyId=? and strategyType=? and userId=?" //添加
+        console.log('DiscussInfo内容:')
+        console.log(DiscussInfo)
+        operationDAO.DelDiscuss(sql, DiscussInfo, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '删除攻略评论错误！' })
+            } else {
+                if (results.affectedRows == 0) {
+                    res.json({ code: 200, data: 0, msg: '删除攻略评论错误,影响行数为0！' })
+                } else {
+                    res.json({ code: 200, data: 1, msg: '删除攻略评论成功！' })
+                }
+            }
+        })
+    },
+    SelDiscuss: function (req, res) {
+        var sql = ''
+        var DiscussInfo = {
+            strategyId: req.body.strategyId,
+            strategyType: req.body.strategyType,
+            // commentId:req.body.userId,
+        }
+        console.log(DiscussInfo)
+        sql = " select users.userId,users.userName,users.headPic,comments.* from users,comments where strategyId=? and strategyType=? and comments.userId=users.userId" //筛选
+        operationDAO.SelDiscuss(sql, DiscussInfo, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '筛选攻略评论错误！' })
+            } else {
+                if (results == null || results.length == 0) {
+                    res.json({ code: 200, data: 0, msg: '筛选攻略评论错误,影响行数为0！' })
+                } else {
+                    res.json({ code: 200, data: results, msg: '筛选攻略评论成功！' })
+                }
+            }
+        })
+    },
+    // Reply: function (req, res) {
+    //     var sql = 'select * from replys where replyId=? and userId=? and commentId=?' //判断是否回复过
+    //     var replyTime = new Date()
+    //     var replyInfo = {
+    //         replyId: req.body.replyId,
+    //         replyContent: req.body.replyContent,
+    //         userId: req.body.userId,
+    //         replyTime: replyTime,
+    //         commentId: req.body.commentId,
+    //     }
+    //     operationDAO.TestReply(sql, replyInfo, function (err, results1) {
+    //         if (err) {
+    //             res.json({ code: 500, data: 0, msg: '搜索回复错误！' })
+    //         } else {
+    //             console.log('results1:' + results1)
+    //             if (results1 == null || results1.length == 0) {
+    //                 console.log('有数据')
+    //                 sql = "insert into replys(replyContent,userId,replyTime,commentId) values(?,?,?,?)" //添加
+    //                 operationDAO.AddReply(sql, replyInfo, function (err, results) {
+    //                     if (err) {
+    //                         res.json({ code: 500, data: 0, msg: '添加攻略回复错误！' })
+    //                     } else {
+    //                         if (results.affectedRows == 0) {
+    //                             res.json({ code: 200, data: 0, msg: '添加攻略回复错误,影响行数为0！' })
+    //                         } else {
+    //                             res.json({ code: 200, data: 1, msg: '添加攻略回复成功！' })
+    //                         }
+    //                     }
+    //                 })
+    //             } else {
+    //                 sql = "delete from replys where replyId=? and  userId=? and commentId=?" //删除
+    //                 operationDAO.DelReply(sql, replyInfo, function (err, results) {
+    //                     if (err) {
+    //                         console.log(err)
+    //                         res.json({ code: 500, data: 0, msg: '删除攻略回复错误！' })
+    //                     } else {
+    //                         if (results.affectedRows == 0) {
+    //                             res.json({ code: 200, data: 0, msg: '删除攻略回复错误，影响行数为0！' })
+    //                         } else {
+    //                             res.json({ code: 200, data: 1, msg: '删除攻略回复成功！' })
+    //                         }
+    //                     }
+    //                 })
+    //             }
+    //         }
+    //     })
+    // },
+    //回复评论
+    AddReply: function (req, res) {
+        var sql = '' //判断是否回复过
         var replyTime = new Date()
         var replyInfo = {
             replyId: req.body.replyId,
@@ -247,43 +319,61 @@ var operationController = {
             replyTime: replyTime,
             commentId: req.body.commentId,
         }
-        operationDAO.TestReply(sql, replyInfo, function (err, results1) {
+        sql = "insert into replys(replyContent,userId,replyTime,commentId) values(?,?,?,?)" //添加
+        operationDAO.AddReply(sql, replyInfo, function (err, results) {
             if (err) {
-                res.json({ code: 500, data: 0, msg: '搜索回复错误！' })
+                res.json({ code: 500, data: 0, msg: '添加攻略回复错误！' })
             } else {
-                console.log('results1:' + results1)
-                if (results1 == null || results1.length == 0) {
-                    console.log('有数据')
-                    sql = "insert into replys(replyContent,userId,replyTime,commentId) values(?,?,?,?)" //添加
-                    operationDAO.AddReply(sql, replyInfo, function (err, results) {
-                        if (err) {
-                            res.json({ code: 500, data: 0, msg: '添加攻略回复错误！' })
-                        } else {
-                            if (results.affectedRows == 0) {
-                                res.json({ code: 200, data: 0, msg: '添加攻略回复错误,影响行数为0！' })
-                            } else {
-                                res.json({ code: 200, data: 1, msg: '添加攻略回复成功！' })
-                            }
-                        }
-                    })
+                if (results.affectedRows == 0) {
+                    res.json({ code: 200, data: 0, msg: '添加攻略回复错误,影响行数为0！' })
                 } else {
-                    sql = "delete from replys where replyId=? and  userId=? and commentId=?" //删除
-                    operationDAO.DelReply(sql, replyInfo, function (err, results) {
-                        if (err) {
-                            console.log(err)
-                            res.json({ code: 500, data: 0, msg: '删除攻略回复错误！' })
-                        } else {
-                            if (results.affectedRows == 0) {
-                                res.json({ code: 200, data: 0, msg: '删除攻略回复错误，影响行数为0！' })
-                            } else {
-                                res.json({ code: 200, data: 1, msg: '删除攻略回复成功！' })
-                            }
-                        }
-                    })
+                    res.json({ code: 200, data: 1, msg: '添加攻略回复成功！' })
                 }
             }
         })
     },
+    DelReply: function (req, res) {
+        var sql = '' //判断是否回复过
+        var replyInfo = {
+            replyId: req.body.replyId,
+            userId: req.body.userId,
+            commentId: req.body.commentId,
+        }
+        sql = " delete from replys where replyId=? and  userId=? and commentId=?" //删除
+        operationDAO.DelReply(sql, replyInfo, function (err, results) {
+            if (err) {
+                console.log(err)
+                res.json({ code: 500, data: 0, msg: '删除攻略回复错误！' })
+            } else {
+                if (results.affectedRows == 0) {
+                    res.json({ code: 200, data: 0, msg: '删除攻略回复错误，影响行数为0！' })
+                } else {
+                    res.json({ code: 200, data: 1, msg: '删除攻略回复成功！' })
+                }
+            }
+        })
+    },
+    SelReply: function (req, res) {
+        var sql = ''
+        var DiscussInfo = {
+            // replyId: req.body.replyId,
+            // userId: req.body.userId,
+            commentId: req.body.commentId,
+        }
+        sql = "	select users.userId,users.userName,users.headPic,replys.* from replys join users on users.userId=replys.userId where commentId=?" //筛选
+        operationDAO.SelReply(sql, DiscussInfo, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '筛选攻略回复错误！' })
+            } else {
+                if (results == null || results.length == 0) {
+                    res.json({ code: 200, data: 0, msg: '筛选攻略回复错误,影响行数为0！' })
+                } else {
+                    res.json({ code: 200, data: results, msg: '筛选攻略回复成功！' })
+                }
+            }
+        })
+    },
+
     Report: function (req, res) {
         // update personalrow set prStatus=1 where strategyId=? and (prStatus=0 or prStatus=1)
         var reportInfo = {
