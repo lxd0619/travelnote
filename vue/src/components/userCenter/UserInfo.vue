@@ -241,10 +241,9 @@
                     aria-label="Recipient's username"
                     aria-describedby="button-addon2"
                     v-model="code"
-                    @blur="check()"
                   />
                   <div class="input-group-append">
-                    <button class="btn btn-outline-primary" type="button" @click="sendMsg()">发送验证码</button>
+                    <button class="btn btn-outline-primary" type="button" @click="sendMsg(1)">发送验证码</button>
                   </div>
                 </div>
               </div>
@@ -262,6 +261,7 @@
                     id="password"
                     class="form-control"
                     placeholder="请输入新密码"
+                    v-model="password"
                     @blur="pwdCheck()"
                   />
                   <small class="form-text text-muted">密码必须是数字+字母</small>
@@ -279,6 +279,7 @@
                     class="form-control"
                     placeholder="确认密码"
                     @blur="newpwdCheck()"
+                    v-model="password2"
                   />
                   <small class="form-text text-muted">需与密码相同</small>
                 </div>
@@ -290,12 +291,7 @@
                 data-toggle="popover"
                 data-placement="bottom"
               >
-                <button
-                  class="btn btn-outline-secondary"
-                  style="pointer-events: none;"
-                  type="button"
-                  @click="updatePwd()"
-                >保存</button>
+                <button class="btn btn-outline-secondary" type="button" @click="updatePwd()">保存</button>
               </span>
             </form>
           </div>
@@ -318,9 +314,10 @@
                     placeholder="请输入验证码"
                     aria-label="Recipient's username"
                     aria-describedby="button-addon2"
+                    v-model="code"
                   />
                   <div class="input-group-append">
-                    <button class="btn btn-outline-primary" type="button">发送验证码</button>
+                    <button class="btn btn-outline-primary" type="button" @click="sendMsg(0)">发送验证码</button>
                   </div>
                 </div>
               </div>
@@ -352,6 +349,8 @@ export default {
       code1: "",
       isPwd: false,
       isCpwd: false,
+      password: "",
+      password2: "",
       fileList: [],
       form: {
         // name: "" //绑定表单元素的属性
@@ -417,6 +416,7 @@ export default {
         .post("http://localhost:3000/userCenter/headPic", this.param, config)
         .then(function(result) {
           console.log(result);
+          location.reload();
         });
     },
     resetForm(formName) {
@@ -440,24 +440,35 @@ export default {
     },
     //修改电话号
     UpdateTel() {
-      this.$axios
-        .post("http://localhost:3000/userCenter/updataTel", this.userInfo[0])
-        .then(res => {
-          console.log("更新成功".res);
-          alert("修改成功！");
-        })
-        .catch(err => {
-          console.log("error:" + err);
-        })
-        .finally(function() {
-          // always executed
-        });
+      if (this.code == this.code1) {
+        this.$axios
+          .post("http://localhost:3000/userCenter/updataTel", this.userInfo[0])
+          .then(res => {
+            console.log(res);
+            if (res.data.data) {
+              this.$message({
+                message: res.data.msg + ",请重新登录",
+                type: "success"
+              });
+              let _this = this;
+              var mytime = setTimeout(() => {
+                _this.$router.push("/login");
+              }, 3000);
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log("error:" + err);
+          })
+          .finally(function() {
+            // always executed
+          });
+      }
     },
     //发送信息
-    sendMsg() {
-      console.log(1);
+    sendMsg(type) {
       let tel = this.userInfo[0].tel;
-      let type = "forget";
       var Info = { tel, type };
       console.log(Info);
       this.$axios
@@ -466,39 +477,41 @@ export default {
           console.log(res);
           if (res.data.data) {
             this.code1 = res.data.data;
+            this.$message({
+              message: "信息发送成功，注意接收",
+              type: "success"
+            });
+          } else {
+            this.$message.error(res.data.msg);
           }
         });
     },
     //验证密码
     pwdCheck() {
-      var pwd = document.getElementById("password");
-      var pw = pwd.value.trim();
-      var span = pwd.nextElementSibling;
-      if (pw == "") {
+      var span = document.getElementById("password").nextElementSibling;
+      if (this.password == "") {
         span.className = "error";
         span.innerHTML = "密码不能为空";
-        pwd.value = "";
+        this.password = "";
         this.isPwd = false;
         return;
       }
       var pwReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/;
-      var res = pwReg.test(pw);
+      var res = pwReg.test(this.password);
       if (!res) {
-       
         span.className = "error";
         span.innerHTML = "密码必须英文+数字";
-        pwd.value = "";
+        this.password = "";
         this.isPwd = false;
         return;
       }
       var pwleng = 0;
-      for (var i = 0; i < pw.length; i++) {
+      for (var i = 0; i < this.password.length; i++) {
         pwleng++;
         if (pwleng > 15) {
-          
           span.className = "error";
           span.innerHTML = "密码不能超过15位！";
-          pwd.value = "";
+          this.password = "";
           this.isPwd = false;
           return;
         }
@@ -506,7 +519,7 @@ export default {
       if (pwleng < 8) {
         span.className = "error";
         span.innerHTML = "密码不能低于8位！";
-        pwd.value = "";
+        this.password = "";
         this.isPwd = false;
         return;
       } else {
@@ -516,23 +529,18 @@ export default {
     },
     //确认密码
     newpwdCheck() {
-      var pwd = document.getElementById("password");
-      var pwd2 = document.getElementById("password2");
-      var span = pwd2.nextElementSibling;
-      var pw = pwd.value;
-      var cpw = pwd2.value.trim();
-      if (cpw == "") {
-        
+      var span = document.getElementById("password2").nextElementSibling;
+      if (this.password2 == "") {
         span.className = "error";
         span.innerHTML = "不能为空";
-        pwd2.value = "";
+        this.password2 = "";
         this.isCpwd = false;
         return;
       }
-      if (cpw != pw) {
+      if (this.password != this.password2) {
         span.className = "error";
         span.innerHTML = "两次输入的密码不同，请重新输入";
-        pwd2.value = "";
+        this.password2 = "";
         this.isCpwd = false;
         return;
       } else {
@@ -543,11 +551,23 @@ export default {
     //修改密码
     updatePwd() {
       if (this.code == this.code1 && this.isPwd && this.isCpwd) {
+        var Info = { tel: this.userInfo[0].tel, password: this.password };
         this.$axios
-          .post("http:", this.userInfo[0])
+          .post("http://localhost:3000/login/forgetPwd", Info)
           .then(res => {
-            console.log("更新成功".res);
-            alert("修改成功！");
+            console.log(res);
+            if (res.data.data) {
+              this.$message({
+                message: "密码修改成功,请重新登录",
+                type: "success"
+              });
+              let _this = this;
+              var mytime = setTimeout(() => {
+                _this.$router.push("/login");
+              }, 3000);
+            } else {
+              this.$message.error(res.data.msg);
+            }
           })
           .catch(err => {
             console.log("error:" + err);

@@ -16,7 +16,7 @@ var registController = {
             }
             else {
                 console.log(results.length)
-                if (type == 'register') {
+                if (type == '0') {
                     if (results.length == 0 || results == null) {
                         flag = true
                     } else {

@@ -24,8 +24,9 @@ var userDAO = {
             })
     },
     /**修改用户手机号 */
-    updataTel: function (newTel, userTel, callback) {
-        DAO('update users set tel = ? where tel = ?', [newTel, userTel], function (err, results) {
+    updataTel:function (newTel, userId, callback) {
+        console.log(newTel, userId)
+        DAO('update users set tel = ? where userId = ?', [newTel, userId], function (err, results) {
             if (err) {
                 callback(err, null)
             } else {

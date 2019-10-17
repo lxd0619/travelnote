@@ -5,77 +5,77 @@
     <div id="content">
       <h1>注册</h1>
       <!-- <form action id="reg" method="GET"> -->
-        <div class="inputBox">
-          <input
-            type="text"
-            v-model="registerUser.username"
-            id="username"
-            required
-            @focus="username_tip('focus')"
-            @blur="username_tip('blur')"
-          />
-          <label>用户名</label>
-          <span class="tipMsg"></span>
-        </div>
-        <div class="inputBox">
-          <input
-            type="password"
-            v-model="registerUser.password"
-            id="password"
-            required
-            @focus="pwd_tip('focus')"
-            @blur="pwd_tip('blur')"
-          />
-          <label>密码</label>
-          <span class="tipMsg"></span>
-        </div>
-        <div class="inputBox">
-          <input
-            type="password"
-            v-model="registerUser.password2"
-            id="password2"
-            required
-            @focus="pwdcheck_tip('focus')"
-            @blur="pwdcheck_tip('blur')"
-          />
-          <label>确认密码</label>
-          <span class="tipMsg"></span>
-        </div>
-        <div class="inputBox">
-          <input
-            type="text"
-            v-model="registerUser.tel"
-            id="tel"
-            required
-            @focus="tel_tip('focus')"
-            @blur="tel_tip('blur')"
-          />
-          <label>手机号码</label>
-          <span class="tipMsg"></span>
-        </div>
-        <div class="inputBox">
-          <input
-            type="text"
-            v-model="registerUser.messagecheck"
-            id="messagecheck"
-            required
-            @focus="mess_tip('focus')"
-            @blur="mess_tip('blur')"
-          />
-          <label>手机验证</label>
-          <span class="tipMsg"></span>
-          <input type="button" value="获取验证码" id="check" @click="check()" />
-        </div>
+      <div class="inputBox">
+        <input
+          type="text"
+          v-model="registerUser.username"
+          id="username"
+          required
+          @focus="username_tip('focus')"
+          @blur="username_tip('blur')"
+        />
+        <label>用户名</label>
+        <span class="tipMsg"></span>
+      </div>
+      <div class="inputBox">
+        <input
+          type="password"
+          v-model="registerUser.password"
+          id="password"
+          required
+          @focus="pwd_tip('focus')"
+          @blur="pwd_tip('blur')"
+        />
+        <label>密码</label>
+        <span class="tipMsg"></span>
+      </div>
+      <div class="inputBox">
+        <input
+          type="password"
+          v-model="registerUser.password2"
+          id="password2"
+          required
+          @focus="pwdcheck_tip('focus')"
+          @blur="pwdcheck_tip('blur')"
+        />
+        <label>确认密码</label>
+        <span class="tipMsg"></span>
+      </div>
+      <div class="inputBox">
+        <input
+          type="text"
+          v-model="registerUser.tel"
+          id="tel"
+          required
+          @focus="tel_tip('focus')"
+          @blur="tel_tip('blur')"
+        />
+        <label>手机号码</label>
+        <span class="tipMsg"></span>
+      </div>
+      <div class="inputBox">
+        <input
+          type="text"
+          v-model="registerUser.messagecheck"
+          id="messagecheck"
+          required
+          @focus="mess_tip('focus')"
+          @blur="mess_tip('blur')"
+        />
+        <label>手机验证</label>
+        <span class="tipMsg"></span>
+        <input type="button" value="获取验证码" id="check" @click="check()" />
+      </div>
 
-        <input type="button" value="注册" id="submit" @click="register()" />
-        <a href="/login">已账号？去登录→</a>
+      <input type="button" value="注册" id="submit" @click="register()" />
+      <a href="/login">已账号？去登录→</a>
       <!-- </form> -->
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "register",
   data: function() {
@@ -86,54 +86,50 @@ export default {
         password: "",
         password2: "",
         messagecheck: "",
-        type:'register'
+        type: "0"
       },
       isUsernameOk: false,
       isPasswordOk: false,
       isCpasswordOk: false,
       isTelephoneOK: false,
       isMessageOk: false,
-      code: null,
+      code: null
     };
   },
   methods: {
     username_tip(flag) {
-      var username = document.getElementById("username");
+      var span = document.getElementById("username").nextElementSibling
+        .nextElementSibling;
       if (flag == "focus") {
-        var span = username.nextElementSibling.nextElementSibling;
         span.className = "tipMsg";
         span.innerHTML = "设置后不可更改，中英文都可以，最长14个英文或7个汉字";
       } else {
-        var uname = username.value.trim(); //去除空白字符
-        if (uname == "") {
-          var span = username.nextElementSibling.nextElementSibling;
+        if (this.registerUser.username == "") {
           span.className = "error";
           span.innerHTML = "用户名不能为空";
-          username.value = "";
+          this.registerUser.username = "";
           this.isUsernameOk = false;
           return;
         }
         var charReg = /[\u4E00-\u9FA5] | [\w]/; //[]是取反的意思
-        var res = charReg.test(uname);
+        var res = charReg.test(this.registerUser.username);
         if (res) {
-          var span = username.nextElementSibling.nextElementSibling;
           span.className = "error";
           span.innerHTML = "用户名仅支持中英文、数字和下划线";
           this.isUsernameOk = false;
           return;
         }
         var numReg = /\D/;
-        var res = numReg.test(uname);
+        var res = numReg.test(this.registerUser.username);
         if (!res) {
-          var span = username.nextElementSibling.nextElementSibling;
           span.className = "error";
           span.innerHTML = "用户名仅支持中英文、数字和下划线，且不能位纯数字";
           this.isUsernameOk = false;
           return;
         }
         var len = 0;
-        for (var i = 0; i < uname.length; i++) {
-          if (/[\u4E00-\u9FA5]/.test(uname[i])) {
+        for (var i = 0; i < this.registerUser.username.length; i++) {
+          if (/[\u4E00-\u9FA5]/.test(this.registerUser.username[i])) {
             len += 2;
           } else len += 1;
           if (len > 14) {
@@ -141,13 +137,11 @@ export default {
           }
         }
         if (len > 14) {
-          var span = username.nextElementSibling.nextElementSibling;
           span.className = "error";
           span.innerHTML = "用户名不能超过7个汉字或14个字符";
           this.isUsernameOk = false;
           return;
         } else {
-          var span = username.nextElementSibling.nextElementSibling;
           span.className = "success";
           span.innerHTML = "√";
           this.isUsernameOk = true;
@@ -155,52 +149,45 @@ export default {
       }
     },
     pwd_tip(flag) {
-      var pwd = document.getElementById("password");
+      var span = document.getElementById("password").nextElementSibling.nextElementSibling;
       if (flag == "focus") {
-        var span = pwd.nextElementSibling.nextElementSibling;
         span.className = "tipMsg";
         span.innerHTML = "密码必须英文+数字，长度8至15位";
       } else {
-        var pw = pwd.value.trim();
-        if (pw == "") {
-          var span = pwd.nextElementSibling.nextElementSibling;
+        if (this.registerUser.password == "") {
           span.className = "error";
           span.innerHTML = "密码不能为空";
-          pwd.value = "";
+         this.registerUser.password= "";
           this.isPasswordOk = false;
           return;
         }
         var pwReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/;
-        var res = pwReg.test(pw);
+        var res = pwReg.test(this.registerUser.password);
         if (!res) {
-          var span = pwd.nextElementSibling.nextElementSibling;
           span.className = "error";
           span.innerHTML = "密码必须英文+数字";
-          pwd.value = "";
+          this.registerUser.password= "";
           this.isPasswordOk = false;
           return;
         }
         var pwleng = 0;
-        for (var i = 0; i < pw.length; i++) {
+        for (var i = 0; i < this.registerUser.password.length; i++) {
           pwleng++;
           if (pwleng > 15) {
-            var span = pwd.nextElementSibling.nextElementSibling;
             span.className = "error";
             span.innerHTML = "密码不能超过15位！";
-            pwd.value = "";
+            this.registerUser.password = "";
             this.isPasswordOk = false;
             return;
           }
         }
         if (pwleng < 8) {
-          var span = pwd.nextElementSibling.nextElementSibling;
           span.className = "error";
           span.innerHTML = "密码不能低于8位！";
-          pwd.value = "";
+          this.registerUser.passwords = "";
           this.isPasswordOk = false;
           return;
         } else {
-          var span = pwd.nextElementSibling.nextElementSibling;
           span.className = "success";
           span.innerHTML = "√";
           this.isPasswordOk = true;
@@ -208,32 +195,25 @@ export default {
       }
     },
     pwdcheck_tip(flag) {
-      var pwd = document.getElementById("password");
-      var pwd2 = document.getElementById("password2");
+      var span = document.getElementById("password2").nextElementSibling.nextElementSibling;
       if (flag == "focus") {
-        var span = pwd2.nextElementSibling.nextElementSibling;
         span.className = "tipMsg";
         span.innerHTML = "确认密码";
       } else {
-        var pw = pwd.value;
-        var cpw = pwd2.value.trim();
-        if (cpw == "") {
-          var span = pwd2.nextElementSibling.nextElementSibling;
+        if (this.registerUser.password2 == "") {
           span.className = "error";
           span.innerHTML = "不能为空";
-          pwd2.value = "";
+          this.registerUser.password2 = "";
           this.isCpasswordOk = false;
           return;
         }
-        if (cpw != pw) {
-          var span = pwd2.nextElementSibling.nextElementSibling;
+        if (this.registerUser.password2 != this.registerUser.password) {
           span.className = "error";
           span.innerHTML = "两次输入的密码不同，请重新输入";
-          pwd2.value = "";
+          this.registerUser.password2 = "";
           this.isCpasswordOk = false;
           return;
         } else {
-          var span = pwd2.nextElementSibling.nextElementSibling;
           span.className = "success";
           span.innerHTML = "√";
           this.isCpasswordOk = true;
@@ -241,31 +221,26 @@ export default {
       }
     },
     tel_tip(flag) {
-      var telephone = document.getElementById("tel");
+      var span = document.getElementById("tel").nextElementSibling.nextElementSibling;
       if (flag == "focus") {
-        var span = telephone.nextElementSibling.nextElementSibling;
         span.className = "tipMsg";
         span.innerHTML = "请输入手机号";
       } else {
         var telReg = /^1(3|4|5|7|8)\d{9}$/;
-        var tel = telephone.value.trim();
-        var res = telReg.test(telephone.value);
-        if (tel == "") {
-          var span = telephone.nextElementSibling.nextElementSibling;
+        var res = telReg.test(this.registerUser.tel);
+        if (this.registerUser.tel == "") {
           span.className = "error";
           span.innerHTML = "不能为空";
-          this.value = "";
+          this.registerUser.tel = "";
           this.isTelephoneOK = false;
           return;
         }
         if (!res) {
-          var span = telephone.nextElementSibling.nextElementSibling;
           span.className = "error";
           span.innerHTML = "请输入有效号码！";
           this.isTelephoneOK = false;
           return;
         } else {
-          var span = telephone.nextElementSibling.nextElementSibling;
           span.className = "success";
           span.innerHTML = "√";
           this.isTelephoneOK = true;
@@ -273,30 +248,25 @@ export default {
       }
     },
     mess_tip(flag) {
-      var mess = document.getElementById("messagecheck");
+      var span = document.getElementById("messagecheck").nextElementSibling.nextElementSibling;
       if (flag == "focus") {
-        var span = mess.nextElementSibling.nextElementSibling;
         span.className = "tipMsg";
         span.innerHTML = "请输入验证码";
       } else {
-        var code = mess.value.trim();
-        if (code == "") {
-          var span = mess.nextElementSibling.nextElementSibling;
+        if (this.registerUser.messagecheck == "") {
           span.className = "error";
           span.innerHTML = "不能为空";
-          this.value = "";
+          this.registerUser.messagecheck = "";
           this.isMessageOk = false;
           return;
         }
-        if (code != this.code) {
-          var span = mess.nextElementSibling.nextElementSibling;
+        if (this.registerUser.messagecheck != this.code) {
           span.className = "error";
           span.innerHTML = "验证码不正确请重新输入";
-          this.value = "";
+          this.registerUser.messagecheck = "";
           this.isMessageOk = false;
           return;
         } else {
-          var span = mess.nextElementSibling.nextElementSibling;
           span.className = "success";
           span.innerHTML = "√";
           this.isMessageOk = true;
@@ -305,7 +275,7 @@ export default {
     },
     check() {
       if (this.registerUser.tel) {
-        var check=document.getElementById('check')
+        var check = document.getElementById("check");
         console.log(this.registerUser.tel);
         this.$axios
           .post("http://localhost:3000/regist/getVode", this.registerUser)
@@ -355,23 +325,29 @@ export default {
       }
     },
     register() {
-      if (this.isUsernameOk &&this.isPasswordOk &&this.isCpasswordOk &&this.isTelephoneOK &&this.isMessageOk) {
+      if (
+        this.isUsernameOk &&
+        this.isPasswordOk &&
+        this.isCpasswordOk &&
+        this.isTelephoneOK &&
+        this.isMessageOk
+      ) {
         console.log(1);
         this.$axios
           .post("http://localhost:3000/regist/regist/", this.registerUser)
           .then(res => {
-            console.log('返回的数据：'+res); 
+            console.log("返回的数据：" + res);
             if (res.data.data) {
               this.$message({
                 message: res.data.msg,
                 type: "success"
               });
-            let _this = this;
-            var mytime = setTimeout(function() {
-            _this.$router.push('/login')
-            }, 3000);
+              let _this = this;
+              var mytime = setTimeout(function() {
+                _this.$router.push("/login");
+              }, 3000);
             } else {
-              this.$message.error('错误信息：'+res.data.msg);
+              this.$message.error("错误信息：" + res.data.msg);
             }
           })
           .catch(err => {

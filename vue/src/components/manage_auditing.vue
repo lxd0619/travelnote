@@ -38,7 +38,7 @@
       <div id="content">
         <div
           id="bottom_img"
-          v-for="li in list.slice((currentPage-1)*5,(currentPage)*5)"
+          v-for="li in list.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
           :key="li.strategyId"
         >
           <a @click="strategydetail(li.type,li.strategyId)">
@@ -50,7 +50,7 @@
       </div>
       <div class="block">
         <el-pagination
-          :page-size="5"
+          :page-size="pagesize"
           :pager-count="11"
           layout="prev, pager, next"
           :total="allpages"
@@ -72,6 +72,7 @@ export default {
       allpages: null,
       currentPage: 1,
       show1: false,
+      pagesize:10
     };
   },
   created() {

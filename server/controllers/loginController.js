@@ -38,6 +38,7 @@ var loginController = {
     forgetPwd: function (req, res) {
         var newPwd = req.body.password
         var tel = req.body.tel
+        console.log(newPwd,tel)
         bcrypt.genSalt(10, function (err, salt) {
             bcrypt.hash(newPwd, salt, function (err, hash) {
                 // hash是加密后的字符
