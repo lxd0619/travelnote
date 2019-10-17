@@ -64,8 +64,8 @@ export default {
   methods: {
     getPic(pic) {
       //给图片名加上服务器端访问路径
-      let path = "http://localhost:3000/coverPic/" + pic;
-      return path;
+      // let path = "http://localhost:3000/coverPic/" + pic;
+      // return path;
     }
   }
 };

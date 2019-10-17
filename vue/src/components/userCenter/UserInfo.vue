@@ -240,9 +240,11 @@
                     placeholder="请输入验证码"
                     aria-label="Recipient's username"
                     aria-describedby="button-addon2"
+                    v-model="code"
+                    @blur="check()"
                   />
                   <div class="input-group-append">
-                    <button class="btn btn-outline-primary" type="button">发送验证码</button>
+                    <button class="btn btn-outline-primary" type="button" @click="sendMsg()">发送验证码</button>
                   </div>
                 </div>
               </div>
@@ -255,8 +257,14 @@
                   <label for="exampleInputPassword1">密码</label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="password" class="form-control" placeholder="请输入新密码" readonly />
-                  <small class="form-text text-muted">密码可以是数字、字母</small>
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="请输入新密码"
+                    @blur="pwdCheck()"
+                  />
+                  <small class="form-text text-muted">密码必须是数字+字母</small>
                 </div>
               </div>
               <!-- 确认密码 -->
@@ -265,7 +273,13 @@
                   <label for="exampleInputPassword1">确认密码</label>
                 </div>
                 <div class="col-sm-9">
-                  <input type="password" class="form-control" placeholder="确认密码" readonly />
+                  <input
+                    type="password"
+                    id="password2"
+                    class="form-control"
+                    placeholder="确认密码"
+                    @blur="newpwdCheck()"
+                  />
                   <small class="form-text text-muted">需与密码相同</small>
                 </div>
               </div>
@@ -275,14 +289,12 @@
                 data-container="body"
                 data-toggle="popover"
                 data-placement="bottom"
-                data-content="您需要先验证手机号才能修改密码"
               >
                 <button
                   class="btn btn-outline-secondary"
                   style="pointer-events: none;"
                   type="button"
-                  @click="updatePwd"
-                  disabled
+                  @click="updatePwd()"
                 >保存</button>
               </span>
             </form>
@@ -336,6 +348,10 @@ export default {
           registerTime: ""
         }
       ],
+      code: "",
+      code1: "",
+      isPwd: false,
+      isCpwd: false,
       fileList: [],
       form: {
         // name: "" //绑定表单元素的属性
@@ -428,25 +444,115 @@ export default {
           // always executed
         });
     },
-    //修改密码
-    updatePwd() {
+    //发送信息
+    sendMsg() {
+      console.log(1);
+      let tel = this.userInfo[0].tel;
+      let type = "forget";
+      var Info = { tel, type };
+      console.log(Info);
       this.$axios
-        .post("http://", this.userInfo[0])
+        .post("http://localhost:3000/regist/getVode", Info)
         .then(res => {
-          console.log("更新成功".res);
-          alert("修改成功！");
-        })
-        .catch(err => {
-          console.log("error:" + err);
-        })
-        .finally(function() {
-          // always executed
+          console.log(res);
+          if (res.data.data) {
+            this.code1 = res.data.data;
+          }
         });
     },
+    //验证密码
+    pwdCheck() {
+      var pwd = document.getElementById("password");
+      var pw = pwd.value.trim();
+      var span = pwd.nextElementSibling;
+      if (pw == "") {
+        span.className = "error";
+        span.innerHTML = "密码不能为空";
+        pwd.value = "";
+        this.isPwd = false;
+        return;
+      }
+      var pwReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$/;
+      var res = pwReg.test(pw);
+      if (!res) {
+       
+        span.className = "error";
+        span.innerHTML = "密码必须英文+数字";
+        pwd.value = "";
+        this.isPwd = false;
+        return;
+      }
+      var pwleng = 0;
+      for (var i = 0; i < pw.length; i++) {
+        pwleng++;
+        if (pwleng > 15) {
+          
+          span.className = "error";
+          span.innerHTML = "密码不能超过15位！";
+          pwd.value = "";
+          this.isPwd = false;
+          return;
+        }
+      }
+      if (pwleng < 8) {
+        span.className = "error";
+        span.innerHTML = "密码不能低于8位！";
+        pwd.value = "";
+        this.isPwd = false;
+        return;
+      } else {
+        span.innerHTML = " ";
+        this.isPwd = true;
+      }
+    },
+    //确认密码
+    newpwdCheck() {
+      var pwd = document.getElementById("password");
+      var pwd2 = document.getElementById("password2");
+      var span = pwd2.nextElementSibling;
+      var pw = pwd.value;
+      var cpw = pwd2.value.trim();
+      if (cpw == "") {
+        
+        span.className = "error";
+        span.innerHTML = "不能为空";
+        pwd2.value = "";
+        this.isCpwd = false;
+        return;
+      }
+      if (cpw != pw) {
+        span.className = "error";
+        span.innerHTML = "两次输入的密码不同，请重新输入";
+        pwd2.value = "";
+        this.isCpwd = false;
+        return;
+      } else {
+        span.innerHTML = "";
+        this.isCpwd = true;
+      }
+    },
+    //修改密码
+    updatePwd() {
+      if (this.code == this.code1 && this.isPwd && this.isCpwd) {
+        this.$axios
+          .post("http:", this.userInfo[0])
+          .then(res => {
+            console.log("更新成功".res);
+            alert("修改成功！");
+          })
+          .catch(err => {
+            console.log("error:" + err);
+          })
+          .finally(function() {
+            // always executed
+          });
+      }
+    },
+
     getPic(pic) {
       //给图片名加上服务器端访问路径
-      let path = "http://localhost:3000/uploadHeadPic/" + pic;
-      return path;
+      // let path = "http://localhost:3000/uploadHeadPic/" + pic;
+      // return path;
     }
   }
 };
@@ -485,5 +591,8 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+.error {
+  color: #f00;
 }
 </style>
