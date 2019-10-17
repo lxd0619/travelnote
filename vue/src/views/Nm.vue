@@ -11,11 +11,11 @@
           <h2>草原上的民族</h2>
           <div id="h2-right">
             <div class="ext-r row" style="justify-content:space-around;">
-              <div>
+              <div  @click="updateCollectionNum()">
                 <img src="../assets/linestrategy/shou.png" width="15px" height="15px" />
                 <span>收藏</span>
               </div>
-              <div>
+              <div  @click="updateLikeNum()">
                 <img src="../assets/linestrategy/zan.png" width="15px" height="15px" />
                 <span>点赞</span>
               </div>
@@ -136,7 +136,70 @@
 export default {
   name: "nm",
   data: function() {
-    return {};
+    return {
+       info: [],
+    };
+  },
+   created() {
+    var city_name = JSON.parse(sessionStorage.getItem("city_name"));
+    console.log(city_name); 
+     //获取传来的攻略类型和id
+    var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
+    this.info = info;
+    console.log(this.info); //内容
+    // this.$axios
+    //   .post("http://localhost:3000/delicious/deliciousClassify", {
+    //     cityName: city_name
+    //   })
+    //   .then(res => {
+    //     this.messages = res.data.data;
+    //     console.log(res)
+    //     // console.log("data:"+JSON.stringify(res.data.data))
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+      this.$axios
+      .post("http://localhost:3000/operation/strategydetail", {
+        strategyType: this.info.type,
+        strategyId: this.info.id
+      })
+      .then(res => {
+        alert("success")
+        console.log("?????")
+        console.log(1,res);
+        this.strategy = res.data.data;
+      })
+      .catch(err => {
+        alert("err")
+        console.log("错误信息" + err);
+      });
+  },
+  methods: {
+    //更新收藏数
+    updateCollectionNum(userId) {
+      var judge;
+      this.$axios
+        .post("http://localhost:3000/operation/collect", {
+          strategyId: this.info.id,
+          strategyType: this.info.type,
+          userId: userId
+        })
+        .then(res => {
+          console.log(res);
+          judge = parseInt(res.data.data);
+          if (judge == 1) {
+            this.strategy[0].prCollectionNum = parseInt(this.strategy[0].prCollectionNum) + 1;
+            console.log(this.strategy.prCollectionNum);
+          } else if (judge == -1) {
+            this.strategy[0].prCollectionNum = parseInt(this.strategy[0].prCollectionNum) - 1;
+            console.log(this.strategy.prCollectionNum);
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    }
   }
 };
 </script>
