@@ -37,24 +37,20 @@ var userController = {
     },
     /**修改用户手机号 */
     updataTel: function (req, res) {
-        var newTel = req.body.newTel
-        var userTel = req.user.userTel
-        console.log('userTel:' + userTel)
-        if (newTel.length == 11) {
-            userDAO.updataTel(newTel, userTel, function (err, results) {
-                if (err) {
-                    res.json({ code: 500, data: 0, msg: '用户手机号修改失败' })
+        var newTel = req.body.tel
+        var userId = req.user.userId
+        console.log(newTel, userId)
+        userDAO.updataTel(newTel, userId, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '用户手机号修改失败' })
+            } else {
+                if (results.affectedRows == 0) {
+                    res.json({ code: 200, data: 0, msg: '用户手机号修改失败！' })
                 } else {
-                    if (results.affectedRows == 0) {
-                        res.json({ code: 200, data: 0, msg: '用户手机号修改失败！' })
-                    } else {
-                        res.json({ code: 200, data: 1, msg: '用户手机号修改成功！' })
-                    }
+                    res.json({ code: 200, data: 1, msg: '用户手机号修改成功！' })
                 }
-            })
-        } else {
-            res.json({ code: 500, msg: '用户手机号必须是11位' })
-        }
+            }
+        })
     },
     /**上传头像 */
     headPic: function (req, res) {
