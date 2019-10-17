@@ -1,6 +1,6 @@
 <template>
   <div id="content">
-    <el-table :data="list.slice((currentPage-1)*11,(currentPage)*11)" stripe style="width: 100%">
+    <el-table :data="list.slice((currentPage-1)*pagesize,(currentPage)*pagesize)" stripe style="width: 100%">
       <el-table-column prop="userId" label="用户id" width="120px"></el-table-column>
       <el-table-column prop="userName" label="用户昵称" width="120px"></el-table-column>
       <el-table-column prop="tel" label="用户电话" width="180px"></el-table-column>
@@ -22,7 +22,7 @@
     </el-table>
     <div class="block">
       <el-pagination
-        :page-size="10"
+        :page-size="pagesize"
         :pager-count="11"
         layout="prev, pager, next"
         :total="allpages"
@@ -63,7 +63,8 @@ export default {
       allpages: null,
       currentPage: 1,
       radio: "",
-      id: null
+      id: null,
+      pagesize:11
     };
   },
   created() {

@@ -58,7 +58,7 @@
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img class="d-block w-100" src="../assets/scenerySpot/suMuseum.jpeg" />
-                  <div class="carousel-caption w-75">
+                  <div class="carousel-caption w-75 mt-3">
                     <h5 class="text-dark">苏州博物馆</h5>
                     <p class="text-dark">·传统的苏州园林风格，高低错落，深灰色屋面与白墙相衬，整个博物馆宛若一座小园林。</p>
                   </div>
@@ -141,6 +141,7 @@
                   class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
                   v-for="article in ssarticles"
                   :key="article.strategyId"
+                  style="width:34rem"
                 >
                   <img
                     class="card-img-top"
@@ -157,7 +158,7 @@
                       style="height: 4em;text-overflow:ellipsis;"
                     >{{article.ssInfo}}</p>
                     <p class="text-muted">
-                      <i class="fa fa-map-marker mr-2" aria-hidden="true">贡嘎</i>by
+                      <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>by {{article.userName}}
                       <i>
                         <img src alt />
                       </i>
@@ -197,7 +198,7 @@
                       style="height: 4em;width:10em;text-overflow:ellipsis;"
                     >{{article.fsInfo}}</p>
                     <p class="text-muted">
-                      <i class="fa fa-map-marker mr-2" aria-hidden="true">贡嘎</i>by
+                      <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>by {{article.userName}}
                       <i>
                         <img src alt />
                       </i>
@@ -215,7 +216,6 @@
               role="tabpanel"
               aria-labelledby="nav-hotlines-tab"
             >
-              <h4 id="list-item-4">热门个性路线推荐</h4>
               <div class="card-deck flex-column">
                 <div
                   class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
@@ -237,10 +237,13 @@
                       style="height: 4em;text-overflow:ellipsis;"
                     >{{article.prInfo}}</p>
                     <p class="text-muted">
-                      <i class="fa fa-map-marker mr-2" aria-hidden="true">贡嘎</i>by
+                      <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.city}}</i>by {{article.userName}}
                       <i>
                         <img src alt />
                       </i>
+                      <i class="fa fa-clock-o mr-2" aria-hidden="true">{{article.dayNum}}天</i>
+                      <i class="fa fa-leaf mr-2" aria-hidden="true">{{article.season}}</i>
+                      <i class="fa fa-users mr-2" aria-hidden="true">{{article.crowdType}}</i>
                       <i class="fa fa-eye mr-2" aria-hidden="true">{{article.prCollectionNum}}</i>
                       <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.prLikeNum}}</i>
                     </p>
@@ -403,10 +406,10 @@ export default {
         $("#outer a").css({ "background-color": "rgba(300,300,300,0.1)" });
       });
       //整体修改card组件样式
-      $("#nav-hotFoods .card").addClass(
-        "d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-      );
-      $("#nav-hotlines .card").addClass("mb-2 shadow-sm p-3 bg-white rounded");
+      // $("#nav-hotFoods .card").addClass(
+      //   "d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
+      // );
+      // $("#nav-hotlines .card").addClass("mb-2 shadow-sm p-3 bg-white rounded");
       $("#middle .card-link").css("color", "#000");
       $("#middle .card-text").css("color", "#333");
       $("#middle .card-body i").addClass("mr-2");
@@ -445,10 +448,12 @@ export default {
 };
 </script>
 <style scoped>
-.carousel-item {
+#circleContent .carousel-item {
   height: 40em;
 }
-
+#leftCard .carousel-item {
+  height: 25em;
+}
 .card img {
   width: 14em;
   height: 12em;
