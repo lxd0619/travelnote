@@ -70,7 +70,7 @@ export default {
       forget_pwd: {
         tel: "",
         code: "",
-        type: "forget",
+        type: "1",
         password: "",
         password2: ""
       },

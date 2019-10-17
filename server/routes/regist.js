@@ -7,6 +7,7 @@ router.post('/regist',function(req,res){
 })
 /*手机短信验证*//**手机号码查询*/
 router.post('/getVode', function (req, res, next) {
+    console.log(1)
     registController.telCheck(req,res)
   })
 

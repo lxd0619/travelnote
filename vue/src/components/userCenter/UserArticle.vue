@@ -1,42 +1,36 @@
 <template>
   <div>
-    <div class="card-deck flex-column">
-      <div
-        class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-        v-for="article in articles"
-        :key="article.index"
-      >
-        <img class="card-img-top" :src="getPic(article.cover)" alt="article image" />
-        <span>article:{{article.cover}}</span>
-        <div class="card-body">
-          <h5 class="card-title">{{article.title}}</h5>
-          <p
-            class="card-text overflow-hidden"
-            style="height: 4em;text-overflow:ellipsis;"
-          >{{article.ssInfo}}}</p>
+    <div v-if="show">
+      <div class="card-deck flex-column">
+        <div
+          class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
+          v-for="article in articles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+          :key="article.index"
+        >
+          <img class="card-img-top" :src="getPic(article.cover)" alt="article image" />
+          <div class="card-body">
+            <h5 class="card-title">{{article.title}}</h5>
+            <p
+              class="card-text overflow-hidden"
+              style="height: 4em;text-overflow: ellipsis;"
+            >{{article.ssInfo}}</p>
+          </div>
         </div>
       </div>
+      <!-- 分页 -->
+      <div class="block">
+        <el-pagination
+          :page-size="pagesize"
+          :pager-count="11"
+          layout="prev, pager, next"
+          :total="allPage"
+          @current-change="current_change"
+        ></el-pagination>
+      </div>
     </div>
-    <!-- 分页 -->
-    <nav class="justify-content-end align-text-bottom" aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li class="page-item">
-          <a class="page-link" href="#">上一页</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">1</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">3</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">下一页</a>
-        </li>
-      </ul>
-    </nav>
+    <div v-else>
+      <h3>快去分享你的快乐吧~</h3>
+    </div>
   </div>
 </template>
 <script>
@@ -44,7 +38,11 @@ export default {
   name: "UserArticle",
   data() {
     return {
-      articles: []
+      articles: [],
+      currentPage: 1,
+      allPage: "",
+      pagesize: 2,
+      show: true
     };
   },
   created() {
@@ -52,8 +50,13 @@ export default {
     this.$axios
       .post("http://localhost:3000/userCenter/userArticle")
       .then(res => {
-        console.log("用户攻略查询结果" + res.data.data);
-        this.articles = res.data.data;
+        if (res.data.data) {
+          this.show = true;
+          this.articles = res.data.data;
+          this.allPage = res.data.data.length;
+        } else {
+          this.show = false;
+        }
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -65,11 +68,27 @@ export default {
   methods: {
     getPic(pic) {
       //给图片名加上服务器端访问路径
-      let path = "http://localhost:3000/coverPic/" + pic;
-      return path;
+      // let path = "http://localhost:3000/coverPic/" + pic;
+      // return path;
+    },
+    current_change(currentPage) {
+      this.currentPage = currentPage;
     }
   }
 };
 </script>
 <style scoped>
+h3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ccc;
+}
+.block {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
 </style>

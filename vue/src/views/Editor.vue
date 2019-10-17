@@ -1,100 +1,113 @@
 <template>
   <div>
     <!-- 封面 -->
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container d-flex flex-column mt-5 mb-5">
-        <div class="align-self-center row mt-5 mb-5">
-          <div id="addCover">
-            <!-- <i class="fa fa-picture-o align-self-center" aria-hidden="true"></i>
-            <i class="fa fa-plus-circle rounded-circle" aria-hidden="true"></i>-->
-
-            <!--elementui的上传图片的upload组件-->
-            <el-upload
-              class="upload-demo"
-              ref="upload"
-              list-type="picture-card"
-              action="localhost:3000/userCenter/headPic"
-              :before-upload="beforeupload"
-              :auto-upload="false"
-              :multiple="false"
-              :show-file-list="true"
-            >
-              <i class="el-icon-plus"></i>
-            </el-upload>
-            <!-- 确认按钮 -->
-            <el-form ref="form" :model="articleForm" label-width="80px">
-              <el-form-item label="攻略类型">
-                <el-input v-model="articleForm.type" name="type" style="width:360px;"></el-input>
-              </el-form-item>
-
-              <!-- <el-select v-model="value" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-select>-->
-
-              <el-form-item label="标题">
-                <el-input v-model="articleForm.title" name="title" style="width:360px;"></el-input>
-              </el-form-item>
-              <el-form-item label="城市名称">
-                <el-input v-model="articleForm.cityName" name="cityName" style="width:360px;"></el-input>
-              </el-form-item>
-              <el-form-item label="几日游">
-                <el-input v-model="articleForm.dayNum" name="dayNum" style="width:360px;"></el-input>
-              </el-form-item>
-              <el-form-item label="适宜季节">
-                <el-input v-model="articleForm.season" name="season" style="width:360px;"></el-input>
-              </el-form-item>
-              <el-form-item label="面向人群">
-                <el-input v-model="articleForm.crowdType" name="crowdType" style="width:360px;"></el-input>
-              </el-form-item>
+    <div class="jumbotron">
+      <el-container class>
+        <el-main>
+          <el-row>
+            <!-- 表单 -->
+            <el-form :model="articleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+              <el-row>
+                <el-col :span="24">
+                  <!--elementui的上传图片的upload组件-->
+                  <el-row>
+                    <el-col :span="12">
+                      <div class="mt-3">
+                        <h4 class="display-5 text-right">设置攻略封面</h4>
+                        <p class="lead text-right mt-5">图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
+                      </div>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-upload
+                        class="w-75 mb-5 ml-5"
+                        ref="upload"
+                        list-type="picture-card"
+                        action="http://localhost:3000/userCenter/commitArticle"
+                        :before-upload="beforeupload"
+                        :auto-upload="false"
+                        :multiple="false"
+                        :show-file-list="false"
+                      >
+                        <i class="el-icon-plus"></i>
+                      </el-upload>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="9" :offset="3">
+                      <el-form-item label="攻略类型" prop="type">
+                        <el-select v-model="articleForm.type" placeholder="请选择攻略类型">
+                          <el-option
+                            v-for="type in types"
+                            :key="type.value"
+                            :label="type.label"
+                            :value="type.value"
+                          ></el-option>
+                        </el-select>
+                      </el-form-item>
+                      <el-form-item label="标题" prop="title">
+                        <el-input v-model="articleForm.title" name="title" style="width:200px;"></el-input>
+                      </el-form-item>
+                      <el-form-item label="城市名称" prop="cityName">
+                        <el-input
+                          v-model="articleForm.cityName"
+                          name="cityName"
+                          style="width:200px;"
+                        ></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="几日游" prop="dayNum" v-if="articleForm.type === '个性路线'">
+                        <el-select v-model="articleForm.dayNum" placeholder="请选择几日游">
+                          <el-option
+                            v-for="day in days"
+                            :key="day.value"
+                            :label="day.label"
+                            :value="day.value"
+                          ></el-option>
+                        </el-select>
+                      </el-form-item>
+                      <el-form-item label="适宜季节" prop="season" v-if="articleForm.type === '个性路线'">
+                        <el-select v-model="articleForm.season" placeholder="请选择适宜季节">
+                          <el-option
+                            v-for="season in seasons"
+                            :key="season.value"
+                            :label="season.label"
+                            :value="season.value"
+                          ></el-option>
+                        </el-select>
+                      </el-form-item>
+                      <el-form-item label="面向人群" prop="crowdType" v-if="articleForm.type === '个性路线'">
+                        <el-select v-model="articleForm.crowdType" placeholder="请选择面向人群">
+                          <el-option
+                            v-for="crowdType in crowdTypes"
+                            :key="crowdType.value"
+                            :label="crowdType.label"
+                            :value="crowdType.value"
+                          ></el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </el-col>
+              </el-row>
+              <!-- 提交按钮 -->
               <el-form-item>
-                <el-button type="primary" @click="onSubmit">确认提交</el-button>
-                <el-button>取消</el-button>
+                <!-- <el-button type="primary" @click="submitForm('ruleForm')">确认提交</el-button> -->
+                <el-button @click="resetForm('ruleForm')">重置</el-button>
               </el-form-item>
             </el-form>
-          </div>
-          <div class="mt-2">
-            <h5 class="display-5 align-self-center">设置攻略封面</h5>
-            <p class="lead">图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
-          </div>
-        </div>
-        <!-- <form>
-          <div class="form-group invisible">
-            <label for="exampleFormControlFile1">Example file input</label>
-            <input type="file" class="form-control-file" />
-          </div>
-
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control form-control-lg"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              placeholder="填写游记标题"
-            />
-          </div>
-        </form>-->
-      </div>
+          </el-row>
+        </el-main>
+      </el-container>
     </div>
     <div class="container">
       <div class="row">
+        <!-- 富文本框 -->
         <div class="col-md-11">
-          <!-- 富文本框 -->
-          <div id="editor" class="mb-3"></div>
-
           <div class="clearfix mb-5">
-            <!-- 标题 -->
-            <!-- <input type="text" class="title" placeholder="请输入标题" /> -->
             <!-- 富文本编辑框 -->
             <div id="websiteEditorElem" style="height:300px;background: #ffffff;"></div>
-            <!-- 提交按钮 -->
-            <!-- <el-button type="primary" @click="submit" class="submit">点击上传</el-button> -->
           </div>
-
           <!-- 触发模态框按钮 -->
           <button
             type="button"
@@ -129,29 +142,16 @@
                     type="button"
                     class="btn btn-outline-primary"
                     id="send"
-                    @click="upload()"
+                    @click="upload('ruleForm')"
                   >确认发表</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- 右侧导航 -->
-        <div class="col-md-1 bg-danger mb-5">
-          <div class="list-group position-fixed text-center">
-            <a class="list-group-item list-group-item-action" href="#head" title="返回顶部">
-              <i class="fa fa-chevron-up" aria-hidden="true"></i>
-            </a>
-            <a
-              class="list-group-item list-group-item-action"
-              href="#send"
-              title="发表攻略"
-              data-toggle="modal"
-              data-target="#confirmModal"
-            >
-              <i class="fa fa-paper-plane-o font-weight-bold" aria-hidden="true"></i>
-            </a>
-          </div>
+        <!-- 返回顶部 -->
+        <div class="col-md-1 mb-5">
+          <el-backtop :bottom="200"></el-backtop>
         </div>
       </div>
     </div>
@@ -160,22 +160,131 @@
 <script>
 import E from "wangeditor";
 export default {
-  // name: "text",
   data() {
     return {
       phoneEditor: "",
       name: "",
       fileList: [],
       articleForm: {
-        // name: "" //绑定表单元素的属性
-        type: "景点攻略",
-        title: "title11",
-        cityName: "东京",
-        dayNum: "3",
-        season: "冬季",
-        crowdType: "人群"
+        type: "",
+        cover: "",
+        title: "",
+        cityName: "",
+        dayNum: "",
+        season: "",
+        crowdType: ""
       },
-      param: "" // 表单最后提交的参数对象
+      params: "", // 表单最后提交的参数对象
+      types: [
+        {
+          value: "scenerystrategy",
+          label: "景点攻略"
+        },
+        {
+          value: "foodstrategy",
+          label: "美食攻略"
+        },
+        {
+          value: "personalrow",
+          label: "个性路线"
+        }
+      ],
+      days: [
+        {
+          value: "1",
+          label: "一日游"
+        },
+        {
+          value: "2",
+          label: "二日游"
+        },
+        {
+          value: "3",
+          label: "三日游"
+        },
+        {
+          value: "4",
+          label: "四日游"
+        },
+        {
+          value: "5",
+          label: "五日游"
+        },
+        {
+          value: "7",
+          label: "七日游"
+        },
+        {
+          value: "0",
+          label: "多日游"
+        }
+      ],
+      seasons: [
+        {
+          value: "春季",
+          label: "春季"
+        },
+        {
+          value: "夏季",
+          label: "夏季"
+        },
+        {
+          value: "秋季",
+          label: "秋季"
+        },
+        {
+          value: "冬季",
+          label: "冬季"
+        }
+      ],
+      crowdTypes: [
+        {
+          value: "活力行",
+          label: "活力行"
+        },
+        {
+          value: "夕阳游",
+          label: "夕阳游"
+        },
+        {
+          value: "亲子游",
+          label: "亲子游"
+        },
+        {
+          value: "情侣游",
+          label: "情侣游"
+        },
+        {
+          value: "蜜月行",
+          label: "蜜月行"
+        },
+        {
+          value: "伙伴游",
+          label: "伙伴游"
+        }
+      ],
+      rules: {
+        type: [
+          { required: true, message: "请选择攻略类型", trigger: "change" }
+        ],
+        title: [
+          { required: true, message: "请输入标题", trigger: "blur" },
+          { min: 1, max: 80, message: "长度在 1 到 80 个字符", trigger: "blur" }
+        ],
+        cityName: [
+          { required: true, message: "请输入城市名称", trigger: "blur" },
+          { min: 1, max: 16, message: "长度在 1 到 16 个字符", trigger: "blur" }
+        ],
+        dayNum: [
+          { required: true, message: "请选择几日游", trigger: "change" }
+        ],
+        season: [
+          { required: true, message: "请选择适宜季节", trigger: "change" }
+        ],
+        crowdType: [
+          { required: true, message: "请选择面向人群", trigger: "change" }
+        ]
+      }
     };
   },
   created() {
@@ -201,80 +310,66 @@ export default {
     });
   },
   methods: {
-    //修改文章封面
-    onSubmit() {
-      let _this = this;
-      this.$refs.upload.submit();
-      //将表单元素的数据也添加到参数对象中；
-      this.param.append("articleForm", this.articleForm);
-      //设置提交请求头，适用于上传文件
-      let config = {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      };
-      // //调用接口，执行上传所有数据的操作
-      this.$axios
-        .post("http://localhost:3000/userCenter/headPic", this.param, config)
-        .then(function(result) {
-          console.log(result);
-        });
-    },
+    // 重置表单按钮
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
     //当上传文件组件submit之前触发执行
     beforeupload(file) {
-      console.log("准备上传。。。。");
       // 准备表单上传需要的参数对象
       this.param = new FormData();
-      this.fileList.push(file); // 把需要上传的文件保存到数组中
-      console.log("这是图片文件" + JSON.stringify(this.fileList));
-      // 遍历数组，把所有文件都保存到参数对象中
-      for (let i = 0; i < this.fileList.length; i++) {
-        // this.param.append(`img_${i}`, this.fileList[i]);
-        this.param.append(`img`, this.fileList[this.fileList.length - 1]);
-      }
-      console.log(this.fileList.length);
-      // this.param.append(`img`, this.fileList[0]);
+      this.params.append(`cover`, file);
       return false;
     },
     // 设置保存发送后台数据事件
-    upload() {
-      var data = new FormData();
-      data.append("article", this.phoneEditor.txt.html());
-      data.append("type", this.articleForm.type);
-      data.append("title", this.articleForm.title);
-      data.append("cityName", this.articleForm.cityName);
-      data.append("dayNum", this.articleForm.dayNum);
-      data.append("season", this.articleForm.season);
-      data.append("crowdType", this.articleForm.crowdType);
+    upload(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.params = new FormData();
+          this.params.append("article", this.phoneEditor.txt.html());
+          this.params.append("type", this.articleForm.type);
+          this.params.append("title", this.articleForm.title);
+          this.params.append("cityName", this.articleForm.cityName);
+          this.params.append("dayNum", this.articleForm.dayNum);
+          this.params.append("season", this.articleForm.season);
+          this.params.append("crowdType", this.articleForm.crowdType);
 
-      console.log(data);
-      this.$axios
-        .post("http://localhost:3000/userCenter/commitArticle",data)
-        .then(res => {
-          console.log("发表成功" + res.data);
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
-        })
-        .finally(function() {
-          // always executed
-        });
+          this.$refs.upload.submit();
+          //设置提交请求头，适用于上传文件
+          let config = {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          };
+          console.log(this.params);
+          this.$axios
+            .post(
+              "http://localhost:3000/userCenter/commitArticle",
+              this.params,
+              config
+            )
+            .then(res => {
+              console.log("发表成功" + res.data);
+            })
+            .catch(err => {
+              console.log("错误信息" + err);
+            })
+            .finally(function() {
+              // always executed
+            });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
     }
   },
   mounted() {
     // wangeditor
     this.phoneEditor = new E("#websiteEditorElem");
-    // this.phoneEditor.onchange = function () {
-    //   this.formData.phone = this.$txt.html()
-    // }
     // 上传图片到服务器，base64形式
-    // this.phoneEditor.customConfig.uploadImgShowBase64 = true;
-    this.phoneEditor.customConfig.uploadImgServer = "/userCenter/uploadArticle"
-    // this.phoneEditor.customConfig.uploadImgServer = "http://localhost:3000/userCenter/uploadArticle"
-    // this.phoneEditor.customConfig.uploadImgServer = '/upload'
+    this.phoneEditor.customConfig.uploadImgShowBase64 = true;
+    // this.phoneEditor.customConfig.uploadImgServer = "/userCenter/uploadArticle";
     // 隐藏网络图片
     this.phoneEditor.customConfig.showLinkImg = false;
     // 创建一个富文本编辑器
@@ -285,26 +380,34 @@ export default {
 };
 </script>
 <style scoped>
-#addCover {
-  cursor: pointer;
-}
-
-#addCover i:first-child {
-  font-size: 5rem;
-  color: #fff;
-}
-
-#addCover i:last-child {
-  font-size: 2rem;
-  position: relative;
-  right: 2rem;
-  color: #ff9d00;
-}
-
 .jumbotron {
   background-image: url("../assets/bgPic/editorCover.jpg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+}
+
+.el-row {
+  margin-bottom: 20px;
+}
+.el-col {
+  border-radius: 4px;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
 }
 </style>

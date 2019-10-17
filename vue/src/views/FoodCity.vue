@@ -47,9 +47,10 @@
 <script>
 export default {
   name: "detailcity",
+  
   data: function() {
     return {
-      messages: []
+      messages: [],
     };
   },
   created() {
