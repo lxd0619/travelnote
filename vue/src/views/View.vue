@@ -139,52 +139,19 @@
         <router-view></router-view>
         <div class="contain strategy">
           <ul style="display: flex;flex-direction: row;justify-content:space-between">
-            <router-link to="/index/Jn">
-              <li>
+              <li v-for="bottom in articles.slice(1,5)" :key="bottom.index">
                 <a href="#" target="_blank">
                   <img src="../assets/view/leftPic3.jpg" />
                   <div class="strategy_msk"></div>
                   <div class="strategy_txt tit">
-                    <div class="strategy_tit">江南水乡</div>
+                    <div class="strategy_tit">{{bottom.title}}</div>
                   </div>
-
                   <div class="strategy_txt pos">
                     <div class="strategy_pos">古镇之美</div>
                   </div>
                 </a>
               </li>
-            </router-link>
-            <router-view></router-view>
-            <router-link to="/index/Nm">
-              <li>
-                <a href target="_blank">
-                  <img src="../assets/stategyDetail/内蒙古1.jpg" />
-                  <div class="strategy_msk"></div>
-                  <div class="strategy_txt tit">
-                    <div class="strategy_tit">草原上的内蒙</div>
-                  </div>
-                  <div class="strategy_txt pos">
-                    <div class="strategy_pos">内蒙古</div>
-                  </div>
-                </a>
-              </li>
-            </router-link>
-            <router-view></router-view>
-            <router-link to="/index/Xa">
-              <li>
-                <a href target="_blank">
-                  <img src="../assets/stategyDetail/西安.jpg" />
-                  <div class="strategy_msk"></div>
-                  <div class="strategy_txt tit">
-                    <div class="strategy_tit">历史古都</div>
-                  </div>
-                  <div class="strategy_txt pos">
-                    <div class="strategy_pos">西安</div>
-                  </div>
-                </a>
-              </li>
-            </router-link>
-            <router-view></router-view>
+      
           </ul>
         </div>
       </div>
