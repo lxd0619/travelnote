@@ -58,6 +58,15 @@ var aimDAO = {
             }
         })
     },
+    aimFoodStrategy: function (strategy,callback) {
+        DAO('select * from foodstrategy where foodstrategy.cityName like ? order by strategyId desc', [strategy.cityName], function (err, results) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, results)
+            }
+        })
+    },
 }
 
 module.exports = aimDAO

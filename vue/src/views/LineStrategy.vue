@@ -14,11 +14,11 @@
               <div class="ext-r row" style="justify-content:space-around;">
                 <div class="img-span" @click="updateCollectionNum(stra.userId)">
                   <i class="fa fa-star-o" aria-hidden="true"></i>
-                  <span>({{stra.prCollectionNum}})</span>
+                  <span>收藏({{stra.prCollectionNum}})</span>
                 </div>
                 <div class="img-span" @click="updateLikeNum(stra.userId)">
                   <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                  <span>({{stra.prLikeNum}})</span>
+                  <span>点赞({{stra.prLikeNum}})</span>
                 </div>
                 <div class="img-span" @click="report()">
                   <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
