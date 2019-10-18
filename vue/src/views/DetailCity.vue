@@ -15,7 +15,7 @@
       </div>
       <div class="domestic" v-for="message in messages.slice((currentPage-1)*1,(currentPage)*1)" :key="message.index">
         <h3>{{message.title}}</h3>
-
+    <img :src="getCoverPic(message.cover)"  width="300px" height="300px">
         <div class="scale_tour">
           <p>{{message.ssInfo}}</p>
         </div>
