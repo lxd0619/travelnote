@@ -19,562 +19,185 @@
         <div class="con-title">热门目的地</div>
 
         <div id="con-top-main">
-          <el-tabs v-model="activeName1" @tab-click="handleClick1">
-            <el-tab-pane label="华北" name="first">
-              <div class="con-dl">
-                <dl>
-                  <dt>北京景点</dt>
-                  <dd>
-                    <span @click="go()">故宫</span>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天安门广场</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">南锣鼓巷</a>
-                    <a href="#" target="_blank">恭王府</a>
-                    <a href="#" target="_blank">什刹海</a>
-                    <a href="#" target="_blank">清华大学</a>
-                    <a href="#" target="_blank">北京大学</a>
-                    <a href="#" target="_blank">雍和宫</a>
-                    <a href="#" target="_blank">前门大街</a>
-                    <a href="#" target="_blank">北京动物园</a>
-
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>天津景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>河北景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>山西景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>内蒙古景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="华南" name="second">
-              <div class="con-dl">
-                <dl>
-                  <dt>广东景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>广西景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-
-                <dl>
-                  <dt>海南景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>香港景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>澳门景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="华中" name="third">
-              <div class="con-dl">
-                <dl>
-                  <dt>河南景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>湖北景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-
-                <dl>
-                  <dt>湖南景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>江西景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="华东" name="fourth">
-              <div class="con-dl">
-                <dl>
-                  <dt>上海景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>江苏景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-
-                <dl>
-                  <dt>浙江景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>安徽景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>福建景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>山东景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>台湾景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="西北" name="fiveth">
-              <div class="con-dl">
-                <dl>
-                  <dt>陕西景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>甘肃景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-
-                <dl>
-                  <dt>青海景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>宁夏景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>新疆景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="西南" name="sixth">
-              <div class="con-dl">
-                <dl>
-                  <dt>四川景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>贵州景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-
-                <dl>
-                  <dt>云南景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>重庆景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>西藏景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="东北" name="seventh">
-              <div class="con-dl">
-                <dl>
-                  <dt>黑龙江景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>吉林景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-
-                <dl>
-                  <dt>辽宁景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>山西景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>内蒙古景点</dt>
-                  <dd>
-                    <a href="#" target="_blank">故宫</a>
-                    <a href="#" target="_blank">颐和园</a>
-                    <a href="#" target="_blank">八达岭长城</a>
-                    <a href="#" target="_blank">天坛公园</a>
-                    <a href="#" target="_blank">慕田峪长城</a>
-                    <a href="#" target="_blank">景山公园</a>
-                    <a href="#" target="_blank">圆明园</a>
-                    <a href="#" target="_blank">鸟巢</a>
-                    <a href="sanya.html" target="_blank">三亚</a>
-                  </dd>
-                </dl>
-              </div>
-            </el-tab-pane>
-          </el-tabs>
+          <div class="con-dl">
+            <div class="first-span">直辖市</div>
+            <span @click="go('北京')">北京</span>
+            <span @click="go('上海')">上海</span>
+            <span @click="go('重庆')">重庆</span>
+            <span @click="go('天津')">天津</span>
+          </div>
+          <div class="con-dl">
+            <div class="first-span">
+              <span class="title" @click="go()">云南</span>
+            </div>
+            <span @click="go()">丽江</span>
+            <span @click="go()">大理</span>
+            <span @click="go()">昆明</span>
+            <span @click="go()">香格里拉</span>
+            <span @click="go()">泸沽湖</span>
+            <span @click="go()">双廊</span>
+            <span @click="go()">西双版纳</span>
+            <span @click="go()">束河</span>
+            <span @click="go()">腾冲</span>
+            <span @click="go()">雨崩</span>
+          </div>
+          <div class="con-dl">
+              <div class="first-span">
+              <span class="title" @click="go()">四川</span>
+            </div>
+            <span @click="go()">成都</span>
+            <span @click="go()">九寨沟</span>
+            <span @click="go()">稻城</span>
+            <span @click="go()">色达</span>
+            <span @click="go()">若尔盖</span>
+            <span @click="go()">都江堰</span>
+            <span @click="go()">亚丁</span>
+            <span @click="go()">阿贝</span>
+            <span @click="go()">峨眉山</span>
+            <span @click="go()">牛背山</span>
+          </div>
+          <div class="con-dl">
+              <div class="first-span">
+              <span class="title" @click="go()">浙江</span>
+            </div>
+            <span @click="go('杭州')">杭州</span>
+            <span @click="go()">乌镇</span>
+            <span @click="go()">西塘</span>
+            <span @click="go()">千湖岛</span>
+            <span @click="go()">普陀山</span>
+            <span @click="go()">东极岛</span>
+            <span @click="go()">南浔</span>
+          </div>
+          <div class="con-dl">
+            <div class="first-span">
+              <span class="title" @click="go()">海南</span>
+              <span class="title" @click="go()">福建</span>
+            </div>
+            <span @click="go()">三亚</span>
+            <span @click="go()">蜈支洲岛</span>
+            <span @click="go()">海口</span>
+            <span @click="go()">厦门</span>
+            <span @click="go()">鼓浪屿</span>
+            <span @click="go()">武夷山</span>
+            <span @click="go()">泉州</span>
+          </div>
+          <div class="con-dl">
+              <div class="first-span">
+              <span class="title" @click="go()">江苏</span>
+            </div>
+            <span @click="go()">南京</span>
+            <span @click="go()">苏州</span>
+            <span @click="go()">无锡</span>
+            <span @click="go()">扬州</span>
+            <span @click="go()">周庄</span>
+            <span @click="go()">常州</span>
+            <span @click="go()">连云港</span>
+            <span @click="go()">同里</span>
+          </div>
+          <div class="con-dl">
+              <div class="first-span">
+              <span class="title" @click="go()">广东</span>
+              <span class="title" @click="go()">广西</span>
+            </div>
+            <span @click="go()">广州</span>
+            <span @click="go()">深圳</span>
+            <span @click="go()">珠江</span>
+            <span @click="go()">桂林</span>
+            <span @click="go()">阳塑</span>
+            <span @click="go()">北海</span>
+            <span @click="go()">黄姚古镇</span>
+            <span @click="go()">龙脊梯田</span>
+          </div>
+          <div class="con-dl">
+              <div class="first-span">
+              <span class="title" @click="go()">山东</span>
+              <span class="title" @click="go()">山西</span>
+            </div>
+            <span @click="go()">青岛</span>
+            <span @click="go()">泰山</span>
+            <span @click="go()">日照</span>
+            <span @click="go()">威海</span>
+            <span @click="go()">烟台</span>
+            <span @click="go()">长岛</span>
+            <span @click="go()">蓬莱</span>
+            <span @click="go()">平遥</span>
+            <span @click="go()">大同</span>
+            <span @click="go()">五台山</span>
+            <span @click="go()">壶口瀑布</span>
+          </div>
+          <div class="con-dl">
+              <div class="first-span">
+              <span class="title" @click="go()">湖南</span>
+              <span class="title" @click="go()">湖北</span>
+            </div>
+            <span @click="go()">张家界</span>
+            <span @click="go()">凤凰</span>
+            <span @click="go()">郴州</span>
+            <span @click="go()">武汉</span>
+            <span @click="go()">恩施</span>
+            <span @click="go()">神农架</span>
+          </div>
+          <div class="con-dl">
+            <div class="first-span">
+              <span class="title" @click="go()">安徽</span>
+              <span class="title" @click="go()">江西</span>
+            </div>
+            <span @click="go()">黄山</span>
+            <span @click="go()">宏村</span>
+            <span @click="go()">婺源</span>
+            <span @click="go()">景德镇</span>
+            <span @click="go()">庐山</span>
+            <span @click="go()">三清山</span>
+            <span @click="go()">南昌</span>
+          </div>
+          <div class="con-dl">
+            <div class="first-span">
+              <span class="title" @click="go()">河北</span>
+              <span class="title" @click="go()">河南</span>
+            </div>
+            <span @click="go()">北戴河</span>
+            <span @click="go()">秦皇岛</span>
+            <span @click="go()">承德</span>
+            <span @click="go()">张北</span>
+            <span @click="go()">少林寺</span>
+            <span @click="go()">洛阳</span>
+            <span @click="go()">龙门石窟</span>
+          </div>
+          <div class="con-dl">
+             <div class="first-span">
+              <span class="title" @click="go()">内蒙古</span>
+              <span class="title" @click="go()">东北</span>
+            </div>
+            <span @click="go()">呼伦贝尔</span>
+            <span @click="go()">阿尔山</span>
+            <span @click="go()">海拉尔</span>
+            <span @click="go()">哈尔滨</span>
+            <span @click="go()">漠河</span>
+            <span @click="go()">雪乡</span>
+            <span @click="go()">大连</span>
+            <span @click="go()">丹东</span>
+            <span @click="go()">盘锦</span>
+          </div>
+          <div class="con-dl">
+             <div class="first-span">
+              <span class="title" @click="go()">台湾</span>
+              <span class="title" @click="go()">香港</span>
+              <span class="title" @click="go()">澳门</span>
+            </div>
+            <span @click="go()">台北</span>
+            <span @click="go()">垦丁</span>
+            <span @click="go()">花莲</span>
+            <span @click="go()">高雄</span>
+            <span @click="go()">台中</span>
+            <span @click="go()">九份</span>
+            <span @click="go()">南投</span>
+            <span @click="go()">阿里山</span>
+          </div>
         </div>
       </div>
 
       <div class="tenpx-line"></div>
-      <div id="con-recommend">
+      <!-- <div id="con-recommend">
         <div class="con-title">当季推荐</div>
         <div class="tenpx-line"></div>
 
@@ -612,7 +235,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -641,7 +264,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -670,7 +293,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -734,7 +357,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -763,7 +386,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -792,7 +415,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -825,7 +448,7 @@
               </div>
             </el-tab-pane>
             <el-tab-pane label="3月" name="third">
-               <div id="line-row">
+              <div id="line-row">
                 <div class="item-list clearfix row" style="justify-content: space-around">
                   <div class="item-coat J_item box-shadow">
                     <div class="item">
@@ -856,7 +479,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -885,7 +508,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -914,7 +537,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -978,7 +601,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1007,7 +630,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1036,7 +659,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1069,7 +692,7 @@
               </div>
             </el-tab-pane>
             <el-tab-pane label="5月" name="fifth">
-             <div id="line-row">
+              <div id="line-row">
                 <div class="item-list clearfix row" style="justify-content: space-around">
                   <div class="item-coat J_item box-shadow">
                     <div class="item">
@@ -1100,7 +723,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1129,7 +752,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1158,7 +781,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1222,7 +845,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1251,7 +874,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1280,7 +903,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1344,7 +967,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1373,7 +996,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1402,7 +1025,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1466,7 +1089,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1495,7 +1118,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1524,7 +1147,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1588,7 +1211,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1617,7 +1240,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1646,7 +1269,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1710,7 +1333,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1739,7 +1362,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1768,7 +1391,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1832,7 +1455,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1861,7 +1484,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1890,7 +1513,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1954,7 +1577,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -1983,7 +1606,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -2012,7 +1635,7 @@
                       </div>
                     </div>
                   </div>
-                   <div class="item-coat J_item box-shadow">
+                  <div class="item-coat J_item box-shadow">
                     <div class="item">
                       <img src="../assets/aim/two1.png" width="200px" height="150px" alt />
                       <div class="totalPart">
@@ -2046,12 +1669,40 @@
             </el-tab-pane>
           </el-tabs>
         </div>
-      </div>
+      </div> -->
     </div>
 
-    <div id="footer"></div>
+    <!-- <div id="footer"></div> -->
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      activeName1: "first",
+      activeName2: "first",
+      cityName:'',//go方法返回的一个城市名
+    };
+  },
+  methods: {
+    handleClick1(tab, event) {
+      console.log(tab, event);
+    },
+    handleClick2(tab, event) {
+      console.log(tab, event);
+    },
+
+    go(city) {
+      var cityName = JSON.stringify(city);
+      sessionStorage.setItem("cityName", cityName);
+      // this.$router.push("/index/index/aimline");
+       window.open("/index/aimline");
+    },
+
+  }
+};
+</script>
 <style scoped>
 * {
   margin: 0;
@@ -2131,49 +1782,45 @@ ul {
   width: 80%;
   margin: 0 auto;
 }
-#con-bottom-main{
+#con-bottom-main {
   width: 80%;
   margin: 0 auto;
 }
 
-.con-dl a {
-  color: #777;
-  margin-left: 10px;
-  margin-bottom: 115px;
+.con-dl {
+  border-bottom: 1px dashed #eee;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.con-dl .first-span {
+  margin-right: 40px;
+  font-weight: 500;
+  color: #111;
   text-decoration: none;
+  display: inline-block;
+}
+.con-dl .first-span .title{
+   font-weight: 500;
+  color: #111;
+}
+.con-dl .first-span .title:hover{
+ color: #ff8a00;
 }
 
-.con-dl a:hover {
+.con-dl span {
+  color: #777;
+  margin-right: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.con-dl span:hover {
   color: #ff8a00;
   text-decoration: underline;
-}
-
-.con-dl dl {
-  border-bottom: 1px dashed #eee;
 }
 
 #con-recommend {
   margin: 0 auto;
 }
 </style>
-<script>
-export default {
-  data() {
-    return {
-      activeName1: "first",
-      activeName2: "first"
-    };
-  },
-  methods: {
-    handleClick1(tab, event) {
-      console.log(tab, event);
-    },
-    handleClick2(tab, event) {
-      console.log(tab, event);
-    },
-    go(){
-      window.open('/index/aimline')
-    }
-  }
-};
-</script>
