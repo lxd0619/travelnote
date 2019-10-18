@@ -135,13 +135,14 @@ var userController = {
             console.log(files)
             if (files) {
                 cover = "cover"
-            } else {cover = path.parse(files.cover.path).base
-                
+            } else {
+                cover = path.parse(files.cover.path).base
+
             }
             var type = fields.type
             var title = fields.title
             var article = fields.article
-            var userTel = req.user.userTel
+            var userId = req.user.userId
             var insertTime = new Date()
             var cityName = fields.cityName
             var dayNum = fields.dayNum
@@ -150,9 +151,9 @@ var userController = {
             var sqlstr = ''
 
             switch (type) {
-                case 'scenerystrategy': sqlstr = "insert into scenerystrategy (type,title,cover,ssInfo,cityName,userId,ssTime) values (?,?,?,?,?,(select userId from users where tel = ?),?)"; var ins = [type, title, cover, article, cityName, userTel, insertTime]; break;
-                case 'foodstrategy': sqlstr = 'insert into foodstrategy (type,title,cover,fsInfo,cityName,userId,fsTime) values (?,?,?,?,?,(select userId from users where tel = ?),?)'; var ins = [type, title, cover, article, cityName, userTel, insertTime]; break;
-                case 'personalrow': sqlstr = 'insert into personalrow (type,title,cover,dayNum,season,crowdType,prInfo,userId,prTime) values (?,?,?,?,?,?,?,(select userId from users where tel = ?),?)'; var ins = [type, title, cover, dayNum, season, crowdType, article, userTel, insertTime]; break;
+                case 'scenerystrategy': sqlstr = "insert into scenerystrategy (type,title,cover,ssInfo,cityName,userId,ssTime) values (?,?,?,?,?,?,?)"; var ins = [type, title, cover, article, cityName, userId, insertTime]; break;
+                case 'foodstrategy': sqlstr = 'insert into foodstrategy (type,title,cover,fsInfo,cityName,userId,fsTime) values (?,?,?,?,?,?,?)'; var ins = [type, title, cover, article, cityName, userId, insertTime]; break;
+                case 'personalrow': sqlstr = 'insert into personalrow (type,title,cover,dayNum,season,crowdType,prInfo,userId,prTime) values (?,?,?,?,?,?,?,?,?)'; var ins = [type, title, cover, dayNum, season, crowdType, article, userId, insertTime]; break;
                 default: console.log('没有该类型');
             }
             // console.log('ins:' + ins)
@@ -238,8 +239,8 @@ var userController = {
     /**景点收藏查询 */
     /**攻略收藏查询 */
     collectArticle: function (req, res) {
-        var userTel = req.user.userTel
-        userDAO.collectArticle(userTel, function (err, results) {
+        var userId = req.user.userId
+        userDAO.collectArticle(userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '收藏攻略查询失败' })
             } else {
@@ -253,9 +254,9 @@ var userController = {
     },
     /**关注列表添加 */
     addFriends: function (req, res) {
-        var userTel = req.user.userTel
+        var userId = req.user.userId
         var relationUserId = req.body.relationUserId
-        userDAO.addFriends(userTel, relationUserId, function (err, results) {
+        userDAO.addFriends(userId, relationUserId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '关联用户添加失败' })
             } else {
@@ -299,8 +300,8 @@ var userController = {
     },
     /**查询用户评论 */
     comments: function (req, res) {
-        var userTel = req.user.userTel
-        userDAO.comments(userTel, function (err, results) {
+        var userId = req.user.userId
+        userDAO.comments(userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '用户评论查询失败' })
             } else {
@@ -314,8 +315,8 @@ var userController = {
     },
     /**查询用户评论回复 */
     replys: function (req, res) {
-        var userTel = req.user.userTel
-        userDAO.replys(userTel, function (err, results) {
+        var userId = req.user.userId
+        userDAO.replys(userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '用户评论回复查询失败' })
             } else {
@@ -329,8 +330,8 @@ var userController = {
     },
     /**系统消息查询 */
     sysMessage: function (req, res) {
-        var userTel = req.user.userTel
-        userDAO.sysMessage(userTel, function (err, results) {
+        var userId = req.user.userId
+        userDAO.sysMessage(userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '系统消息查询失败' })
             } else {
@@ -338,6 +339,21 @@ var userController = {
                     res.json({ code: 200, data: 0, msg: '暂无系统消息' })
                 } else {
                     res.json({ code: 200, data: results, msg: '系统消息查询成功' })
+                }
+            }
+        })
+    },
+    //查询未读系统消息数量
+    sysMessageNum: function (req, res) {
+        var userId = req.user.userId
+        userDAO.sysMessageNum(userId, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '系统信息数量查询错误' })
+            } else {
+                if (results == null || results.length == 0) {
+                    res.json({ code: 200, data: 0, msg: '暂无未读消息' })
+                } else {
+                    res.json({ code: 200, data: results[0], msg: '系统信息数量查询成功' })
                 }
             }
         })

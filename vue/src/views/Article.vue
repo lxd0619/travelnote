@@ -10,7 +10,7 @@
           <h1>{{info.title}}</h1>
           <p>作者：{{info.userName}}</p>
           <P>时间:{{info.ssTime}}</P>
-          <p>{{info.ssInfo}}</p>
+          <div v-html="info.ssInfo"></div>
         </div>
         <div id="button" v-if="flage">
           <el-button type="success" icon="el-icon-check" @click="OK()"></el-button>
@@ -76,7 +76,6 @@ export default {
         console.log(res);
         if (res.data.data) {
           this.strategyInfo = res.data.data;
-          console.log(this.strategyInfo);
           if (this.strategyInfo[0].ssStatus == -1) {
             //攻略未审核
             this.flage = true;

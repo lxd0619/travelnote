@@ -45,11 +45,11 @@
   </div>
 </template>
 <script>
-import manageAuditing from "../components/manage_auditing";
-import manageAccusation from "../components/manage_accusation";
-import manageBan from "../components/manage_ban";
-import manageNormal from "../components/manage_normal";
-import manageUser from "../components/manage_user.vue";
+import manageAuditing from "../components/manage/manage_auditing";
+import manageAccusation from "../components/manage/manage_accusation";
+import manageBan from "../components/manage/manage_ban";
+import manageNormal from "../components/manage/manage_normal";
+import manageUser from "../components/manage/manage_user.vue";
 
 export default {
   name: "manage",

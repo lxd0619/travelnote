@@ -90,8 +90,8 @@ var userDAO = {
     },
     /**景点收藏查询 */
     /**攻略收藏查询 */
-    collectArticle: function (userTel, callback) {
-        DAO('select * from collections where userId = (select userId from users where tel = ?)', userTel, function (err, results) {
+    collectArticle: function (userId, callback) {
+        DAO('select * from collections where userId = ?', userId, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -100,8 +100,8 @@ var userDAO = {
         })
     },
     /**关注列表添加 */
-    addFriends: function (userTel, relationUserId, callback) {
-        DAO('insert into relationship (userId,relationUserId) values ((select userId from users where tel = ?),?)', [userTel, relationUserId], function (err, results) {
+    addFriends: function (userId, relationUserId, callback) {
+        DAO('insert into relationship (userId,relationUserId) values ((select userId from users where tel = ?),?)', [userId, relationUserId], function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -130,8 +130,8 @@ var userDAO = {
         })
     },
     /**查询用户评论 */
-    comments: function (userTel, callback) {
-        DAO('select * from comments where userId = (select userId from users where tel = ?)', userTel, function (err, results) {
+    comments: function (userId, callback) {
+        DAO('select * from comments where userId = ?', userId, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -140,8 +140,8 @@ var userDAO = {
         })
     },
     /**查询用户评论回复 */
-    replys: function (userTel, callback) {
-        DAO('select * from replys where userId = (select userId from users where tel = ?)', userTel, function (err, results) {
+    replys: function (userId, callback) {
+        DAO('select * from replys where userId = ?', userId, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -150,12 +150,21 @@ var userDAO = {
         })
     },
     /**系统消息查询 */
-    sysMessage: function (userTel, callback) {
-        DAO('select * from sysmessage where userId = (select userId from users where tel = ?)', userTel, function (err, results) {
+    sysMessage: function (userId, callback) {
+        DAO('select * from sysmessage where userId = ?', userId, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
                 callback(null, results)
+            }
+        })
+    },
+    sysMessageNum:function(userId,callback){
+        DAO('select count(*) Num from sysmessage where userId=? and msStatus=0',userId,function(err,results){
+            if(err){
+                callback(err,null)
+            }else{
+                callback(null,results)
             }
         })
     }

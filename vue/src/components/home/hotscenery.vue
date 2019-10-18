@@ -1,0 +1,113 @@
+<template>
+  <div class="card-deck flex-column">
+    <!-- 热门景点攻略 -->
+    <div v-if="show">
+      <div
+        class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
+        v-for="article in ssarticles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+        :key="article.strategyId"
+        style="width:34rem"
+      >
+        <img
+          class="card-img-top"
+          :src="getCoverPic(article.cover)"
+          alt="Card image cap"
+          style="width: 14em;height: 12em;"
+        />
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="#" class="card-link">{{article.title}}</a>
+          </h5>
+          <p
+            class="card-text overflow-hidden"
+            style="height: 4em;text-overflow:ellipsis;"
+            v-html="article.ssInfo"
+          ></p>
+          <p class="text-muted">
+            <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>
+            by {{article.userName}}
+            <i>
+              <img src alt />
+            </i>
+            <i class="fa fa-eye mr-2" aria-hidden="true">{{article.ssCollectionNum}}</i>
+            <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.ssLikeNum}}</i>
+          </p>
+        </div>
+      </div>
+      <div class="block">
+        <el-pagination
+          :page-size="pagesize"
+          :pager-count="11"
+          layout="prev, pager, next"
+          :total="allpages"
+          @current-change="current_change"
+        ></el-pagination>
+      </div>
+    </div>
+    <div v-else>
+      <h1>暂无数据</h1>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  name: "hotscentery",
+  data() {
+    return {
+      ssarticles: {
+        strategyType: ""
+      },
+      show: false,
+      pagesize:5,
+      currentPage:1,
+      allpages:''
+    };
+  },
+  created() {
+    this.ssarticles.strategyType = "scenerystrategy";
+    this.$axios
+      .post("http://localhost:3000/operation/hotstrategy", this.ssarticles)
+      .then(res => {
+        if (res.data.data) {
+          this.show = true;
+          console.log(res);
+          this.ssarticles = res.data.data;
+          this.allpages=res.data.data.length
+        } else {
+          this.show = false;
+        }
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
+      });
+  },
+  methods: {
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    },
+    current_change(currentPage){
+        this.currentPage=currentPage
+    }
+  }
+};
+</script>
+<style scoped>
+h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ccc;
+}
+.block {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+</style>

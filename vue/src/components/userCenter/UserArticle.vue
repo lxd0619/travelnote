@@ -13,7 +13,8 @@
             <p
               class="card-text overflow-hidden"
               style="height: 4em;text-overflow: ellipsis;"
-            >{{article.ssInfo}}</p>
+              v-html="article.ssInfo"
+            ></p>
           </div>
         </div>
       </div>
@@ -40,7 +41,7 @@ export default {
     return {
       articles: [],
       currentPage: 1,
-      allPage: "",
+      allPage:0,
       pagesize: 2,
       show: true
     };
@@ -68,8 +69,8 @@ export default {
   methods: {
     getPic(pic) {
       //给图片名加上服务器端访问路径
-      // let path = "http://localhost:3000/coverPic/" + pic;
-      // return path;
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
     },
     current_change(currentPage) {
       this.currentPage = currentPage;
