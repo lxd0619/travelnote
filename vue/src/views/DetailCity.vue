@@ -14,16 +14,30 @@
         </div>
       </div>
       <div class="domestic" v-for="message in messages.slice((currentPage-1)*1,(currentPage)*1)" :key="message.index">
-        <h3>{{message.title}}</h3>
-    <img :src="getCoverPic(message.cover)"  width="300px" height="300px">
-        <div class="scale_tour">
-          <p>{{message.ssInfo}}</p>
+       <div class="total">
+          <div class="leftimg">
+            <img :src="getCoverPic(message.cover)" width="320px" height="130px" />
+          </div>
+          <div class="rightfont">
+            <div class="detailtitle">
+              <h3>“{{message.title}}”</h3>
+            </div>
+            <div class="detail_p">
+              <p>{{message.ssInfo}}</p>
+            </div>
+            <div class="likecollection">
+              <span>
+                <img src="../assets/food/收藏_line.png" width="17px" height="17px" />
+                点赞({{message.ssLikeNum}})
+              </span>
+              <span>
+                <img src="../assets/food/点赞_line.png" width="17px" height="17px" />
+                收藏({{message.ssCollection}})
+              </span>
+            </div>
+          </div>
         </div>
-        <span class="more">
-          <a href="# ">
-            <em>了解详情&gt;&gt;</em>
-          </a>
-        </span>
+          <hr/>
       </div>
        <div class="block">
           <el-pagination
@@ -417,6 +431,56 @@ a {
   width: 400px;
   margin: 0px auto;
   padding-left: 50px;
+}
+.total {
+  background-color: rgb(255, 255, 255);
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+.total::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.leftimg {
+  border-right: 1px solid #333;
+  width: 335px;
+  float: left;
+  margin-top: 20px;
+}
+.leftimg {
+  margin-left: 40px;
+  margin-bottom: 15px;
+}
+.rightfont {
+  float: right;
+  height: 130px;
+  width: 800px;
+  margin-top: 20px;
+}
+.rightfont p {
+  width: 400px;
+  overflow: hidden;
+}
+.domestic h3 span {
+  font: 14px/22px Microsoft yahei;
+  color: #555;
+  padding: 1px 10px;
+  margin: 4px 10px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  float: left;
+}
+.detailtitle h3 {
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
+.likecollection {
+  margin-top: 40px;
+  margin-left: 600px;
 }
 </style>
 
