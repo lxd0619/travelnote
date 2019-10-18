@@ -59,10 +59,24 @@ var aimController = {
             }
         })
     },
-    aimScenicDetail: function (req, res) {
-        var scenery = { sceneryName: '%' + req.query.sceneryName + '%' }
-        aimDAO.aimScenicDetail(scenery, function (err, results) {
-            console.log(results)
+    aimPersonalRow: function (req, res) {
+        var strategy = { cityName: '%' + req.body.cityName + '%' }
+        aimDAO.aimPersonalRow(strategy, function (err, results) {
+            if (err) {
+                res.json({ code: 500,data:0, msg: '路线详情查询失败！' })
+            } else {
+                if(results==null||results.length==0){
+                    res.json({code:200,data:0,msg:'未查询到路线详情'})   
+                   }else{
+                       res.json({ code: 200, data: results, msg: '路线详情查询成功' })
+                   }
+                   
+            }
+        })
+    },
+    aimSceneryStrategy: function (req, res) {
+        var strategy = { cityName: '%' + req.body.cityName + '%' }
+        aimDAO.aimSceneryStrategy(strategy, function (err, results) {
             if (err) {
                 res.json({ code: 500,data:0, msg: '景点详情查询失败！' })
             } else {
@@ -74,7 +88,7 @@ var aimController = {
                    
             }
         })
-    }
+    },
 }
 
 module.exports = aimController
