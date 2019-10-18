@@ -17,7 +17,7 @@ import UserCenter from './views/UserCenter.vue'
 import View from './views/View.vue'
 import Forget_pwd from './views/Forget_pwd.vue'
 import Article from './views/Article.vue'
-
+import Message from './views/Message.vue'
 import ViewDetail from './views/ViewDetail.vue'
 import DetailCity from './views/DetailCity.vue'
 import FoodCity from './views/FoodCity.vue'
@@ -106,7 +106,11 @@ let router = new Router({
                         name: 'foodDetail',
                         component: FoodDetail
                     },
-
+                    {
+                        path:'message',
+                        name:'Message',
+                        component:Message
+                    }
                 ]
             },
             {

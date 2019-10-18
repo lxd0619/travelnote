@@ -1,41 +1,41 @@
 <template>
   <div class="home">
     <!-- <div class="container"> -->
-      <!-- 轮播图 -->
-      <div id="circleContent" class="carousel slide carousel-fade" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#circleContent" data-slide-to="0" class="active"></li>
-          <li data-target="#circleContent" data-slide-to="1"></li>
-          <li data-target="#circleContent" data-slide-to="2"></li>
-          <li data-target="#circleContent" data-slide-to="3"></li>
-          <li data-target="#circleContent" data-slide-to="4"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="d-block w-100" src="../assets/bgPic/indexPic1.jpg" />
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="../assets/bgPic/indexPic2.jpg" />
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="../assets/bgPic/indexPic3.jpg" />
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="../assets/bgPic/indexPic4.jpg" />
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="../assets/bgPic/indexPic5.jpg" />
-          </div>
+    <!-- 轮播图 -->
+    <div id="circleContent" class="carousel slide carousel-fade" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#circleContent" data-slide-to="0" class="active"></li>
+        <li data-target="#circleContent" data-slide-to="1"></li>
+        <li data-target="#circleContent" data-slide-to="2"></li>
+        <li data-target="#circleContent" data-slide-to="3"></li>
+        <li data-target="#circleContent" data-slide-to="4"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="d-block w-100" src="../assets/bgPic/indexPic1.jpg" />
         </div>
-        <a class="carousel-control-prev" href="#circleContent" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#circleContent" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="../assets/bgPic/indexPic2.jpg" />
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="../assets/bgPic/indexPic3.jpg" />
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="../assets/bgPic/indexPic4.jpg" />
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="../assets/bgPic/indexPic5.jpg" />
+        </div>
       </div>
+      <a class="carousel-control-prev" href="#circleContent" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#circleContent" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
     <!-- </div> -->
 
     <div
@@ -135,39 +135,7 @@
               role="tabpanel"
               aria-labelledby="nav-hotScenery-tab"
             >
-              <div class="card-deck flex-column">
-                <!-- 热门景点攻略 -->
-                <div
-                  class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-                  v-for="article in ssarticles"
-                  :key="article.strategyId"
-                  style="width:34rem"
-                >
-                  <img
-                    class="card-img-top"
-                    :src="getCoverPic(article.cover)"
-                    alt="Card image cap"
-                    style="width: 14em;height: 12em;"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a href="#" class="card-link">{{article.title}}</a>
-                    </h5>
-                    <p
-                      class="card-text overflow-hidden"
-                      style="height: 4em;text-overflow:ellipsis;"
-                    >{{article.ssInfo}}</p>
-                    <p class="text-muted">
-                      <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>by {{article.userName}}
-                      <i>
-                        <img src alt />
-                      </i>
-                      <i class="fa fa-eye mr-2" aria-hidden="true">{{article.ssCollectionNum}}</i>
-                      <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.ssLikeNum}}</i>
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <hotscentery></hotscentery>
             </div>
             <!-- 热门美食攻略 -->
             <div
@@ -176,38 +144,7 @@
               role="tabpanel"
               aria-labelledby="nav-hotFoods-tab"
             >
-              <div class="card-deck flex-column">
-                <!-- 热门美食攻略 -->
-                <div
-                  class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-                  v-for="article in fsarticles"
-                  :key="article.strategyId"
-                >
-                  <img
-                    class="card-img-top"
-                    :src="getCoverPic(article.cover)"
-                    alt="Card image cap"
-                    style="width: 14em;height: 12em;"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a href="#" class="card-link">{{article.title}}</a>
-                    </h5>
-                    <p
-                      class="card-text overflow-hidden"
-                      style="height: 4em;width:10em;text-overflow:ellipsis;"
-                    >{{article.fsInfo}}</p>
-                    <p class="text-muted">
-                      <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>by {{article.userName}}
-                      <i>
-                        <img src alt />
-                      </i>
-                      <i class="fa fa-eye mr-2" aria-hidden="true">{{article.fsCollectionNum}}</i>
-                      <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.fsLikeNum}}</i>
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <hotFoods></hotFoods>
             </div>
             <!-- 热门线路 -->
             <div
@@ -216,62 +153,9 @@
               role="tabpanel"
               aria-labelledby="nav-hotlines-tab"
             >
-              <div class="card-deck flex-column">
-                <div
-                  class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-                  v-for="article in prarticles"
-                  :key="article.strategyId"
-                >
-                  <img
-                    class="card-img-top"
-                    :src="getCoverPic(article.cover)"
-                    alt="Card image cap"
-                    style="width: 14em;height: 12em;"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a href="#" class="card-link">{{article.title}}</a>
-                    </h5>
-                    <p
-                      class="card-text overflow-hidden"
-                      style="height: 4em;text-overflow:ellipsis;"
-                    >{{article.prInfo}}</p>
-                    <p class="text-muted">
-                      <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.city}}</i>by {{article.userName}}
-                      <i>
-                        <img src alt />
-                      </i>
-                      <i class="fa fa-clock-o mr-2" aria-hidden="true">{{article.dayNum}}天</i>
-                      <i class="fa fa-leaf mr-2" aria-hidden="true">{{article.season}}</i>
-                      <i class="fa fa-users mr-2" aria-hidden="true">{{article.crowdType}}</i>
-                      <i class="fa fa-eye mr-2" aria-hidden="true">{{article.prCollectionNum}}</i>
-                      <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.prLikeNum}}</i>
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <hotRow></hotRow>
             </div>
           </div>
-          <!-- 分页 -->
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#">上一页</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">下一页</a>
-              </li>
-            </ul>
-          </nav>
         </div>
         <!-- 排行榜 -->
         <div class="col-lg-2 d-md-none d-lg-block" id="ranks">
@@ -342,62 +226,22 @@
   </div>
 </template>
 <script>
+import hotscentery from "../components/home/hotscenery";
+import hotFoods from "../components/home/hotfood";
+import hotRow from '../components/home/hotrow'
 export default {
   data() {
     return {
-      ssarticles: {
-        strategyType: ""
-      },
-      fsarticles: {
-        strategyType: ""
-      },
-      prarticles: {
-        strategyType: ""
-      }
+     
     };
+  },
+  components: {
+    hotscentery,
+    hotFoods,
+    hotRow
   },
   created() {
     // 获取热门景点攻略  scenerystrategy
-    this.ssarticles.strategyType = "scenerystrategy";
-    this.$axios
-      .post("http://localhost:3000/operation/hotstrategy", this.ssarticles)
-      .then(res => {
-        console.log("查询结果" + res.data.data);
-        this.ssarticles = res.data.data;
-      })
-      .catch(err => {
-        console.log("错误信息" + err);
-      })
-      .finally(function() {
-        // always executed
-      });
-    this.fsarticles.strategyType = "foodstrategy";
-    this.$axios
-      .post("http://localhost:3000/operation/hotstrategy", this.fsarticles)
-      .then(res => {
-        console.log("查询结果" + res.data.data);
-        this.fsarticles = res.data.data;
-      })
-      .catch(err => {
-        console.log("错误信息" + err);
-      })
-      .finally(function() {
-        // always executed
-      });
-    this.prarticles.strategyType = "personalrow";
-    this.$axios
-      .post("http://localhost:3000/operation/hotstrategy", this.prarticles)
-      .then(res => {
-        console.log("查询结果" + res.data.data);
-        this.prarticles = res.data.data;
-      })
-      .catch(err => {
-        console.log("错误信息" + err);
-      })
-      .finally(function() {
-        // always executed
-      });
-
     $(function() {
       $("#outer a").mouseover(function() {
         $("#outer a").css({ "background-color": "rgba(50,50,50,0.1)" });
@@ -437,6 +281,7 @@ export default {
           .css({ color: "#000" });
       });
     });
+
   },
   methods: {
     getCoverPic(pic) {
