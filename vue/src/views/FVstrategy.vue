@@ -1,27 +1,30 @@
 <template>
-  <div>
-   
+    <div>
+    <div v-for="stra in strategy" :key="stra.strategyId">
       <div class="container-fluid" style="background-color: #fafafa;">
         <div class="container">
           <div class="headerpic">
             <img src="../assets/view/index.jpg" alt />
           </div>
-          <a href="#">景点攻略</a>
+          <a href="#">{{stra.cityName}}攻略</a>
           <span>></span>
-          <a href="#">{{cityName}}</a>
+          <a href="#"></a>
           <span>></span>
-          <span>我心目中最原味的江南水乡</span>
+          <span>{{stra.title}}</span>
           <div id="title">
-            <h2>{{cityName}}</h2>
+            <h2></h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-                <div>
-                  <img src="../assets/linestrategy/shou.png" width="15px" height="15px" />
+                <div  @click="updateCollectionNum(stra.userId)">
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
                   <span>收藏</span>
                 </div>
-                <div>
-                  <img src="../assets/linestrategy/zan.png" width="15px" height="15px" />
+                <div class="img-span" @click="updateLikeNum(stra.userId)">
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
                   <span>点赞</span>
+                </div>
+                <div class="img-span" @click="report()">
+                  <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                 </div>
               </div>
             </div>
@@ -32,44 +35,290 @@
       <div class="contain">
 
       </div>
-      <div class="l-comment">
-        <div class="clearfix com-form">
-          <div class="fm-tare user-log">
-            <textarea class="_j_comment_content">说点什么吧...</textarea>
-            <button type="button" class="gotoLogin" data-gtype="1">评论</button>
+    <div class="con-comments">
+          <div class="l-comment">
+            <div class="com-box">
+              <h2>评论</h2>
+              <ul id="comments" data-page="1" data-id="0">
+                <li
+                  class="clearfix comment_item item_1203904"
+                  data-id="1203904"
+                  data-replied="0"
+                  v-for="(dis,index) in discuss"
+                  :key="dis.commentId"
+                >
+                  <div class="img">
+                    <img :src="getPic(dis.headPic)" />
+                  </div>
+                  <div class="info">
+                    <h3>{{dis.userName}}</h3>
+                    <h4>{{dis.commentTime}}</h4>
+                    <span>{{index+1}}楼</span>
+                    <div class="com-cont">{{dis.commentContent}}</div>
+                    <br />
+
+                    <div class="info-span">
+                      <span
+                        v-if="dis.userId==userId"
+                        @click="delComment(dis.commentId)"
+                        :key="dis.commentId"
+                      >删除个人评论</span>
+                    </div>
+              
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- 最后的插入评论 -->
+            <div class="clearfix com-form">
+              <div class="fm-tare user-log">
+                <textarea
+                  class="_j_comment_content"
+                  v-model="newcommentContent"
+                  placeholder="说点什么吧..."
+                ></textarea>
+                <el-form>
+                  <el-form-item>
+                    <el-button type="primary" @click="addComment()">评论</el-button>
+                  </el-form-item>
+                </el-form>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="com-box">
-          <h2>
-            评论（
-            <span class="_comment_num">20</span>）
-          </h2>
-          <ul id="comments" data-page="1" data-id="0">
-            <li class="clearfix comment_item item_1203904" data-id="1203904" data-replied="0">
-              <div class="img">
-                <img
-                  src="https://p1-q.mafengwo.net/s10/M00/77/C5/wKgBZ1oiiAeASaJoAAB6DH0UYHQ72.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                />
-              </div>
-              <div class="info">
-                <h3>爱旅游的单身</h3>
-                <h4>2019-08-13 14:41:40</h4>
-                <div class="com-cont">长谷寺门票是400</div>
-                <div class="rep-del op_item_1203904 hide" style="display: none;">
-                  <i></i>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+    </div>
     </div>
 </template>
 <script>
+import jwt_decode from "jwt-decode";
+
 export default {
-  name: "jn",
-  data: function() {
-    return {};
+  name: "fvstrategy",
+   data() {
+    return {
+      info: [],
+      strategy: [],
+      hotarticles: [],
+      // strategyType: "personalrow"
+      //登录用户信息
+      role: [],
+      //全部评论
+      discuss: [],
+      //插入评论内容
+      newcommentContent: "",
+
+      //全部回复
+      replys: [],
+      //插入回复
+      // newReplyContent: "",
+
+      //当前登录用户id
+      userId: ""
+    };
+  },
+  created() {
+    //获取传来的攻略类型和id
+    var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
+    var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
+    this.userId = userId;
+
+    this.info = info;
+    // console.log(this.info); //内容
+    //加载攻略数据
+    this.$axios
+      .post("http://localhost:3000/operation/strategydetail", {
+        strategyType: this.info.type,
+        strategyId: this.info.id
+      })
+      .then(res => {
+        // console.log(1, res.data.data);
+        this.strategy = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
+    //筛选评论
+    this.$axios
+      .post("http://localhost:3000/operation/seldiscuss", {
+        strategyId: this.info.id,
+        strategyType: this.info.type
+      })
+      .then(res => {
+        // console.log(2, res);
+        this.discuss = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
+  },
+  methods: {
+    //更新收藏数
+    updateCollectionNum(userId) {
+      var judge;
+      this.$axios
+        .post("http://localhost:3000/operation/collect", {
+          strategyId: this.info.id,
+          strategyType: this.info.type,
+          userId: userId
+        })
+        .then(res => {
+          console.log(res);
+          judge = parseInt(res.data.data);
+          if (judge == 1) {
+            this.strategy[0].prCollectionNum =
+              parseInt(this.strategy[0].prCollectionNum) + 1;
+            // console.log(this.strategy[0].prCollectionNum);
+            this.$message("收藏成功！");
+          } else if (judge == -1) {
+            this.strategy[0].prCollectionNum =
+              parseInt(this.strategy[0].prCollectionNum) - 1;
+            console.log(this.strategy.prCollectionNum);
+            this.$message("取消收藏成功！");
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+    //更新点赞数
+    updateLikeNum(userId) {
+      var judge;
+      this.$axios
+        .post("http://localhost:3000/operation/like", {
+          strategyId: this.info.id,
+          strategyType: this.info.type,
+          userId: userId
+        })
+        .then(res => {
+          console.log(res);
+          judge = parseInt(res.data.data);
+          if (judge == 1) {
+            this.strategy[0].prLikeNum =
+              parseInt(this.strategy[0].prLikeNum) + 1;
+            console.log(this.strategy.prLikeNum);
+            this.$message("点赞成功！");
+          } else if (judge == -1) {
+            this.strategy[0].prLikeNum =
+              parseInt(this.strategy[0].prLikeNum) - 1;
+            console.log(this.strategy.prLikeNum);
+            this.$message("取消点赞成功！");
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+    //举报
+    report() {
+      var judge;
+      this.$axios
+        .post("http://localhost:3000/operation/report", {
+          strategyId: this.info.id,
+          strategyType: this.info.type
+        })
+        .then(res => {
+          console.log(res);
+          this.$message("举报成功！");
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+
+    //获取头像
+    getPic(pic) {
+      let path = "http://localhost:3000/uploadHeadPic" + pic;
+      return path;
+    },
+    //添加评论
+    addComment() {
+      this.$axios
+        .put("http://localhost:3000/operation/adddiscuss", {
+          commentContent: this.newcommentContent,
+          strategyId: this.info.id,
+          // userId:, 在后台token获取
+          strategyType: this.info.type
+          // commentContent,strategyId,userId,commentTime,strategyType
+        })
+        .then(res => {
+          console.log(3, res);
+          console.log("submit!");
+          this.discuss = res.data.data;
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+    // 删除评论
+    delComment(commentId) {
+      console.log(commentId);
+      this.$axios
+        .post("http://localhost:3000/operation/deldiscuss", {
+          commentId: commentId,
+          strategyId: this.info.id,
+          // userId:, 在后台token获取
+          strategyType: this.info.type
+          // commentContent,strategyId,userId,commentTime,strategyType
+        })
+        .then(res => {
+          // console.log(3, res);
+          // console.log("删除成功!");
+          this.discuss = res.data.data;
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+
+    //筛选回复
+    selReply(commentId, index) {
+      var _this = this;
+      console.log(index);
+      this.$axios
+        .post("http://localhost:3000/operation/selreply", {
+          // strategyId: this.info.id,
+          // strategyType: this.info.type
+          commentId: commentId
+        })
+        .then(res => {
+          // console.log("筛选回复", res);
+          this.replys = res.data.data;
+          // this.commentId=commentId
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+    //添加回复
+    // addReply(commentId) {
+    //   this.$axios
+    //     .post("http://localhost:3000/operation/addreply", {
+    //       replyContent: this.newReplyContent,
+    //       userId: this.userId,
+    //       commentId: commentId
+    //       // (replyContent,userId,replyTime,commentId
+    //     })
+    //     .then(res => {
+    //       console.log("回复", res);
+    //       this.replys = res.data.data;
+    //     })
+    //     .catch(err => {
+    //       console.log("错误信息" + err);
+    //     });
+    // },
+
+    //过滤
+
+    //显示提示框
+    openVn() {
+      const h = this.$createElement;
+      this.$message({
+        message: h("p", null, [
+          h("span", null, "内容可以是 "),
+          h("i", { style: "color: teal" }, "VNode")
+        ])
+      });
+    }
   }
 };
 </script>
@@ -293,6 +542,23 @@ textarea {
   line-height: 30px;
   margin-left: 850px;
 }
+.info-span{
+   width: 114px;
+  height: 30px;
+  background: #ff9d00;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  display: block;
+  margin: 20px 0;
+  border-radius: 5px;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 0;
+  line-height: 30px;
+  margin-left: 850px;
+}
 
 li {
   list-style: none;
@@ -328,5 +594,8 @@ li {
 }
 .com-form{
   margin-left:250px;
+}
+.com-cont{
+  margin-left: 48px;
 }
 </style>

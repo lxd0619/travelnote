@@ -71,7 +71,7 @@
       <div class="ViewProduce">View Produce</div>
       <div class="sheadsecond">景点攻略</div>
       <div class="specialFood">
-        <div class="stragyespecail" v-for="article in articles.slice(0,8)" :key="article.index">
+        <div class="stragyespecail"   @click="go(article.type,article.strategyId)" v-for="article in articles.slice(0,8)" :key="article.strategyId">
           <img :src="getCoverPic(article.cover)" width="260px" height="240px" />
           <div class="intro_box">
             <h3>{{article.title}}</h3>
@@ -94,7 +94,7 @@
 
         <div class="tripb">
           <a href="#" target="_blank">
-            <div class="tit" v-for="hostarticle in hotarticles.slice(0,1)" :key="hostarticle.index">
+            <div class="tit"  @click="go(hostarticle.type,hostarticle.strategyId)"  v-for="hostarticle in hotarticles.slice(0,1)" :key="hostarticle.strategyId">
               <h3>
                 <em>01</em>
                 {{hostarticle.title}}
@@ -111,7 +111,7 @@
           </a>
         </div>
         <div class="main_news trips_con">
-          <ul v-for="hotarticle in hotarticles.slice(1,5)" :key="hotarticle.index">
+          <ul  @click="go(hotarticle.type,hotarticle.strategyId)" v-for="hotarticle in hotarticles.slice(1,5)" :key="hotarticle.strategyId">
             <li>
               <a href="#" target="_blank">
                 <img :src="getCoverPic(hotarticle.cover)" />
@@ -139,7 +139,7 @@
         <router-view></router-view>
         <div class="contain strategy">
           <ul style="display: flex;flex-direction: row;justify-content:space-between">
-            <li v-for="bottom in articles.slice(1,5)" :key="bottom.index">
+            <li v-for="bottom in articles.slice(1,5)" :key="bottom.strategyId" @click="go(bottom.type,bottom.strategyId)">
               <a href="#" target="_blank">
                 <img :src="getCoverPic(bottom.cover)" />
                 <div class="strategy_msk"></div>
@@ -160,6 +160,7 @@ export default {
   data() {
     return {
       articles: [],
+    info:[],
       hotarticles: [],
       strategyType: "scenerystrategy"
     };
@@ -194,7 +195,13 @@ export default {
       //给图片名加上服务器端访问路径
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
-    }
+    }, 
+      go(type, id) {
+      var strategy = { type, id };
+      var info = JSON.stringify(strategy);
+      sessionStorage.setItem("info", info);
+      window.open("/index/fvstrategy");
+    },
   }
 };
 </script>
