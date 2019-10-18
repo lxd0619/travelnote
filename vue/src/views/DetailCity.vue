@@ -1,6 +1,7 @@
 <template>
   <div class="Detail">
     <div class="head"></div>
+    <div v-if="show1">
     <div class="contain">
       <div class="pub_wrap termini">
         <div class="title clearfix">
@@ -12,23 +13,9 @@
           </h2>
         </div>
       </div>
-      <div class="domestic" v-for="message in messages" :key="message.index">
+      <div class="domestic" v-for="message in messages.slice((currentPage-1)*1,(currentPage)*1)" :key="message.index">
         <h3>{{message.title}}</h3>
 
-        <ul class="tab_theme" >
-          <li>
-            <img alt="" style="background: none; " />
-          </li>
-          <li>
-            <img alt="" style="background: none; " />
-          </li>
-          <li>
-            <img alt="" src style="background:none;" />
-          </li>
-          <li>
-            <img alt="" style="background: none; " />
-          </li>
-        </ul>
         <div class="scale_tour">
           <p>{{message.ssInfo}}</p>
         </div>
@@ -38,9 +25,21 @@
           </a>
         </span>
       </div>
+       <div class="block">
+          <el-pagination
+            :page-size="1"
+            :pager-count="11"
+            layout="prev, pager, next"
+            :total="allpages"
+            @current-change="current_change"
+          ></el-pagination>
+        </div>
       <hr />
-
+    </div>
       <div id="foot"></div>
+    </div>
+    <div v-else id="content">
+      <h1>暂无数据呢~</h1>
     </div>
   </div>
 </template>
@@ -49,7 +48,10 @@ export default {
   name: "detailcity",
   data: function() {
     return {
-      messages: []
+      messages: [],
+       currentPage: 1,
+      allpages: 0,
+      show1: true
     };
   },
   created() {
@@ -60,14 +62,30 @@ export default {
         cityName: city_name
       })
       .then(res => {
-        this.messages = res.data.data;
-        console.log(res)
-        // console.log("data:"+JSON.stringify(res.data.data))
+        if (res.data.data) {
+          this.messages = res.data.data;
+          this.allpages = res.data.data.length;
+          console.log(this.allpages);
+        } else {
+           this.show1=false
+        }
+
       })
       .catch(err => {
         console.log(err);
       });
+  },
+    methods: {
+    current_change(currentPage) {
+      this.currentPage = currentPage;
+    },
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    }
   }
+  
 };
 </script>
 <style scoped>
@@ -394,6 +412,11 @@ a {
   cursor: pointer;
   -webkit-transition: width 0.5s;
   transition: width 0.5s;
+}
+.block {
+  width: 400px;
+  margin: 0px auto;
+  padding-left: 50px;
 }
 </style>
 

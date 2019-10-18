@@ -76,7 +76,7 @@
           class="stragyespecail"
           v-for="fsarticle in fsarticles.slice(0,8)"
           :key="fsarticle.index">
-          <img src="../assets/bg.jpg" width="219px" height="200px" />
+          <img :src="getCoverPic(fsarticle.cover)" width="219px" height="200px" />
           <div class="intro_box">
             <h3>{{fsarticle.title}}</h3>
             <p>{{fsarticle.fsInfo}}</p>
@@ -102,20 +102,16 @@
                 class="feed-item _j_feed_item"
                 v-for="recommend in rearticles.slice(0,3)"
                 :key="recommend.index"
-              >dd
+              >
                 <hr />
                 <div class="title">{{recommend.title}}</div>
 
                 <dl class="art clearfix">
                   <dt>
-                    <img src="../assets/food/food11.jpg" style="width: 220px;" />
+                    <img :src="getCoverPic(recommend.cover)" style="width: 220px;" />
                   </dt>
-                  <dt>
-                    <img src="../assets/food/food11.jpg" style="width: 220px;" />
-                  </dt>
-                  <dt>
-                    <img src="../assets/food/food11.jpg" style="width: 220px;" />
-                  </dt>
+                 
+                 
                   <dd>
                     <div class="info overflow">{{recommend.fsInfo}}</div>
                     <div class="ext-r">
@@ -144,16 +140,16 @@
           </span>
 
           <div class="top" >
-            <ul>
+            <ul v-for="li in rearticles.slice(0,1)" :key="li.index">
               <li class="gl_list">
                 <a href="#">
-                  <img src="assets/food/songhe.png" width="180px" height="200px" />
+                  <img :src="getCoverPic(li.cover)" width="180px" height="200px" />
                 </a>
               </li>
             </ul>
             <ul v-for="li in rearticles" :key="li.index">
               <li>
-              <span class="num">02</span>
+              <span class="num"></span>
               <a href="#" title="京都">{{li.cityName}}</a>
             </li>
             </ul>
@@ -204,6 +200,13 @@ export default {
       .catch(err => {
         console.log("错误信息" + err);
       });
+  },
+   methods:{
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    }
   }
 };
 </script>

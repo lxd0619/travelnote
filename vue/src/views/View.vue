@@ -2,7 +2,7 @@
   <div>
     <div id="head"></div>
     <div class="contain">
-        <div class="total">
+      <div class="total">
         <section id="timeline">
           <div class="totalcontainer">
             <div class="mine-item">
@@ -24,7 +24,6 @@
                   <p>眼界</p>
                 </div>
                 <div class="content">
-                
                   <p>如果你不出去走走，你就会以为这就是世界</p>
                 </div>
               </div>
@@ -47,9 +46,7 @@
                   <p>感动</p>
                 </div>
                 <div class="content">
-                  <p>
-                  人生最好的旅行，就是你在一个陌生的地方，发现一种久违的感动
-                  </p>
+                  <p>人生最好的旅行，就是你在一个陌生的地方，发现一种久违的感动</p>
                 </div>
               </div>
             </div>
@@ -74,8 +71,8 @@
       <div class="ViewProduce">View Produce</div>
       <div class="sheadsecond">景点攻略</div>
       <div class="specialFood">
-        <div class="stragyespecail" v-for="article in articles.slice(0)" :key="article.index">
-          <img src="../assets/bg.jpg" width="260px" height="240px" />
+        <div class="stragyespecail" v-for="article in articles.slice(0,8)" :key="article.index">
+          <img :src="getCoverPic(article.cover)" width="260px" height="240px" />
           <div class="intro_box">
             <h3>{{article.title}}</h3>
             <p>{{article.ssInfo}}</p>
@@ -102,19 +99,22 @@
                 <em>01</em>
                 {{hostarticle.title}}
               </h3>
-              <p style="overflow:hidden">{{ hostarticle.ssInfo}}</p>
-            </div>
-            <div class="tripb_pic">
+              <p style="overflow:hidden">{{hostarticle.ssInfo}}</p>
+
+             <div class="tripb_pic">
               <em></em>
-              <img src="../assets/view/leftPic1.jpg" height="220px" width="250px" />
+              
+          <img :src="getCoverPic(hostarticle.cover)" height="230px" width="250px" />
+            </div> 
             </div>
+            
           </a>
         </div>
         <div class="main_news trips_con">
           <ul v-for="hotarticle in hotarticles.slice(1,5)" :key="hotarticle.index">
             <li>
               <a href="#" target="_blank">
-                <img src="../assets/view/leftPic2.jpg" />
+                <img :src="getCoverPic(hotarticle.cover)" />
                 <div class="txt">
                   <h3>
                     <em></em>
@@ -139,19 +139,15 @@
         <router-view></router-view>
         <div class="contain strategy">
           <ul style="display: flex;flex-direction: row;justify-content:space-between">
-              <li v-for="bottom in articles.slice(1,5)" :key="bottom.index">
-                <a href="#" target="_blank">
-                  <img src="../assets/view/leftPic3.jpg" />
-                  <div class="strategy_msk"></div>
-                  <div class="strategy_txt tit">
-                    <div class="strategy_tit">{{bottom.title}}</div>
-                  </div>
-                  <div class="strategy_txt pos">
-                    <div class="strategy_pos">古镇之美</div>
-                  </div>
-                </a>
-              </li>
-      
+            <li v-for="bottom in articles.slice(1,5)" :key="bottom.index">
+              <a href="#" target="_blank">
+                <img :src="getCoverPic(bottom.cover)" />
+                <div class="strategy_msk"></div>
+                <div class="strategy_txt tit">
+                  <div class="strategy_tit">{{bottom.title}}</div>
+                </div>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -192,6 +188,13 @@ export default {
       .catch(err => {
         console.log("错误信息" + err);
       });
+  },
+  methods:{
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    }
   }
 };
 </script>
@@ -262,7 +265,7 @@ export default {
 .tripb .tit {
   padding-left: 15px;
   padding-right: 15px;
-  width: 250px;
+  width: 245px;
   height: 100px;
   background-color: #d1e7f4;
 }
@@ -270,6 +273,8 @@ export default {
   position: relative;
   width: 287px;
   height: 242px;
+  margin-left: -20px;
+  margin-top: 20px;
 }
 .tripb_pic em {
   position: absolute;
@@ -487,7 +492,6 @@ h1 {
 
 .mine-item:hover {
   width: 32.5% !important;
-  
 }
 
 .mine-item {
@@ -583,7 +587,7 @@ h1 {
   filter: grayscale(0);
 }
 
-.bg{
+.bg {
   transform: translate3d(0, 0, 0);
   position: absolute;
   width: 100%;
@@ -595,19 +599,24 @@ h1 {
   transition: filter 0.5s ease;
   filter: graycale(50%);
 }
- .bg1{
-   background-image:url(../assets/view/风景背景图1.jpeg)}
- .bg2{
-   background-image:url(../assets/view/景色背景图2.jpg)}
-  .bg3{
-   background-image:url(../assets/view/景色背景图片3.jpg)}
- .bg4{
-   background-image:url(../assets/view/景色背景图片4.jpg)}
-  .bg5{
-   background-image:url(../assets/view/景色背景图片5.jpg)}
-h2{
+.bg1 {
+  background-image: url(../assets/view/风景背景图1.jpeg);
+}
+.bg2 {
+  background-image: url(../assets/view/景色背景图2.jpg);
+}
+.bg3 {
+  background-image: url(../assets/view/景色背景图片3.jpg);
+}
+.bg4 {
+  background-image: url(../assets/view/景色背景图片4.jpg);
+}
+.bg5 {
+  background-image: url(../assets/view/景色背景图片5.jpg);
+}
+h2 {
   text-align: center;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .tab_title ul {
   float: left;

@@ -13,12 +13,15 @@
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
                 <div class="img-span" @click="updateCollectionNum(stra.userId)">
-                  <img src="../assets/linestrategy/shou.png" width="15px" height="15px" />
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
                   <span>({{stra.prCollectionNum}})</span>
                 </div>
                 <div class="img-span" @click="updateLikeNum(stra.userId)">
-                  <img src="../assets/linestrategy/zan.png" width="15px" height="15px" />
+                  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                   <span>({{stra.prLikeNum}})</span>
+                </div>
+                <div class="img-span" @click="report()">
+                  <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                 </div>
               </div>
             </div>
@@ -42,9 +45,6 @@
             <p>该行程有点费脚力，一定要带双平底鞋以备不时之需 。乌镇的外部交通要提前关注一下，选择适合自己的时间段乘坐。</p>
             <h5>总结</h5>
             <p>此次行程即可看到非常现代化的大都市，又可游览具有江南特色的园林城市，此外，还可以在乌镇留宿赏夜景，行程总体比较轻松。</p>
-          </div>
-          <div class="con-top-right">
-            <div class id="map01" style="width: 400px;height: 300px;"></div>
           </div>
         </div>
 
@@ -549,37 +549,55 @@
             </div>
           </div>
         </div>
-
+        <!-- 评论内容 -->
         <div class="con-comments">
           <div class="l-comment">
-            <div class="clearfix com-form">
-              <div class="fm-tare user-log">
-                <textarea class="_j_comment_content">说点什么吧...</textarea>
-                <button type="button" class="gotoLogin" data-gtype="1">评论</button>
-              </div>
-            </div>
             <div class="com-box">
-              <h2>
-                评论（
-                <span class="_comment_num">20</span>）
-              </h2>
+              <h2>评论</h2>
               <ul id="comments" data-page="1" data-id="0">
-                <li class="clearfix comment_item item_1203904" data-id="1203904" data-replied="0">
+                <li
+                  class="clearfix comment_item item_1203904"
+                  data-id="1203904"
+                  data-replied="0"
+                  v-for="(dis,index) in discuss"
+                  :key="dis.commentId"
+                >
                   <div class="img">
-                    <img
-                      src="https://p1-q.mafengwo.net/s10/M00/77/C5/wKgBZ1oiiAeASaJoAAB6DH0UYHQ72.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                    />
+                    <img :src="getPic(dis.headPic)" />
                   </div>
                   <div class="info">
-                    <h3>爱旅游的单身</h3>
-                    <h4>2019-08-13 14:41:40</h4>
-                    <div class="com-cont">长谷寺门票是400</div>
-                    <div class="rep-del op_item_1203904 hide" style="display: none;">
-                      <i></i>
+                    <h3>{{dis.userName}}</h3>
+                    <h4>{{dis.commentTime}}</h4>
+                    <span>{{index+1}}楼</span>
+                    <div class="com-cont">{{dis.commentContent}}</div>
+                    <br />
+
+                    <div class="info-span">
+                      <span
+                        v-if="dis.userId==userId"
+                        @click="delComment(dis.commentId)"
+                        :key="dis.commentId"
+                      >删除个人评论</span>
                     </div>
+              
                   </div>
                 </li>
               </ul>
+            </div>
+            <!-- 最后的插入评论 -->
+            <div class="clearfix com-form">
+              <div class="fm-tare user-log">
+                <textarea
+                  class="_j_comment_content"
+                  v-model="newcommentContent"
+                  placeholder="说点什么吧..."
+                ></textarea>
+                <el-form>
+                  <el-form-item>
+                    <el-button type="primary" @click="addComment()">评论</el-button>
+                  </el-form-item>
+                </el-form>
+              </div>
             </div>
           </div>
         </div>
@@ -588,21 +606,40 @@
   </div>
 </template>
 <script>
+import jwt_decode from "jwt-decode";
+
 export default {
   name: "linestrategy",
   data() {
     return {
       info: [],
       strategy: [],
-      hotarticles: []
+      hotarticles: [],
       // strategyType: "personalrow"
+      //登录用户信息
+      role: [],
+      //全部评论
+      discuss: [],
+      //插入评论内容
+      newcommentContent: "",
+
+      //全部回复
+      replys: [],
+      //插入回复
+      // newReplyContent: "",
+
+      //当前登录用户id
+      userId: ""
     };
   },
   created() {
     //获取传来的攻略类型和id
     var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
+    var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
+    this.userId = userId;
+
     this.info = info;
-    console.log(this.info); //内容
+    // console.log(this.info); //内容
     //加载攻略数据
     this.$axios
       .post("http://localhost:3000/operation/strategydetail", {
@@ -610,8 +647,21 @@ export default {
         strategyId: this.info.id
       })
       .then(res => {
-        console.log(1,res);
+        // console.log(1, res.data.data);
         this.strategy = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
+    //筛选评论
+    this.$axios
+      .post("http://localhost:3000/operation/seldiscuss", {
+        strategyId: this.info.id,
+        strategyType: this.info.type
+      })
+      .then(res => {
+        // console.log(2, res);
+        this.discuss = res.data.data;
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -631,11 +681,15 @@ export default {
           console.log(res);
           judge = parseInt(res.data.data);
           if (judge == 1) {
-            this.strategy[0].prCollectionNum = parseInt(this.strategy[0].prCollectionNum) + 1;
-            console.log(this.strategy.prCollectionNum);
+            this.strategy[0].prCollectionNum =
+              parseInt(this.strategy[0].prCollectionNum) + 1;
+            // console.log(this.strategy[0].prCollectionNum);
+            this.$message("收藏成功！");
           } else if (judge == -1) {
-            this.strategy[0].prCollectionNum = parseInt(this.strategy[0].prCollectionNum) - 1;
+            this.strategy[0].prCollectionNum =
+              parseInt(this.strategy[0].prCollectionNum) - 1;
             console.log(this.strategy.prCollectionNum);
+            this.$message("取消收藏成功！");
           }
         })
         .catch(err => {
@@ -652,19 +706,134 @@ export default {
           userId: userId
         })
         .then(res => {
-         console.log(res);
+          console.log(res);
           judge = parseInt(res.data.data);
           if (judge == 1) {
-            this.strategy[0].prLikeNum = parseInt(this.strategy[0].prLikeNum) + 1;
+            this.strategy[0].prLikeNum =
+              parseInt(this.strategy[0].prLikeNum) + 1;
             console.log(this.strategy.prLikeNum);
+            this.$message("点赞成功！");
           } else if (judge == -1) {
-            this.strategy[0].prLikeNum = parseInt(this.strategy[0].prLikeNum) - 1;
+            this.strategy[0].prLikeNum =
+              parseInt(this.strategy[0].prLikeNum) - 1;
             console.log(this.strategy.prLikeNum);
+            this.$message("取消点赞成功！");
           }
         })
         .catch(err => {
           console.log("错误信息" + err);
         });
+    },
+    //举报
+    report() {
+      var judge;
+      this.$axios
+        .post("http://localhost:3000/operation/report", {
+          strategyId: this.info.id,
+          strategyType: this.info.type
+        })
+        .then(res => {
+          console.log(res);
+          this.$message("举报成功！");
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+
+    //获取头像
+    getPic(pic) {
+      let path = "http://localhost:3000/uploadHeadPic" + pic;
+      return path;
+    },
+    //添加评论
+    addComment() {
+      this.$axios
+        .put("http://localhost:3000/operation/adddiscuss", {
+          commentContent: this.newcommentContent,
+          strategyId: this.info.id,
+          // userId:, 在后台token获取
+          strategyType: this.info.type
+          // commentContent,strategyId,userId,commentTime,strategyType
+        })
+        .then(res => {
+          console.log(3, res);
+          console.log("submit!");
+          this.discuss = res.data.data;
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+    // 删除评论
+    delComment(commentId) {
+      console.log(commentId);
+      this.$axios
+        .post("http://localhost:3000/operation/deldiscuss", {
+          commentId: commentId,
+          strategyId: this.info.id,
+          // userId:, 在后台token获取
+          strategyType: this.info.type
+          // commentContent,strategyId,userId,commentTime,strategyType
+        })
+        .then(res => {
+          // console.log(3, res);
+          // console.log("删除成功!");
+          this.discuss = res.data.data;
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+
+    //筛选回复
+    selReply(commentId, index) {
+      var _this = this;
+      console.log(index);
+      this.$axios
+        .post("http://localhost:3000/operation/selreply", {
+          // strategyId: this.info.id,
+          // strategyType: this.info.type
+          commentId: commentId
+        })
+        .then(res => {
+          // console.log("筛选回复", res);
+          this.replys = res.data.data;
+          // this.commentId=commentId
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+    //添加回复
+    // addReply(commentId) {
+    //   this.$axios
+    //     .post("http://localhost:3000/operation/addreply", {
+    //       replyContent: this.newReplyContent,
+    //       userId: this.userId,
+    //       commentId: commentId
+    //       // (replyContent,userId,replyTime,commentId
+    //     })
+    //     .then(res => {
+    //       console.log("回复", res);
+    //       this.replys = res.data.data;
+    //     })
+    //     .catch(err => {
+    //       console.log("错误信息" + err);
+    //     });
+    // },
+
+    //过滤
+
+    //显示提示框
+    openVn() {
+      const h = this.$createElement;
+      this.$message({
+        message: h("p", null, [
+          h("span", null, "内容可以是 "),
+          h("i", { style: "color: teal" }, "VNode")
+        ])
+      });
     }
   }
 };
@@ -725,11 +894,6 @@ export default {
 
 .con-top-left p {
   color: #666;
-}
-
-.container .con-top .con-top-right {
-  float: right;
-  border: 1px solid #eee;
 }
 
 .con-main {
@@ -820,7 +984,7 @@ textarea {
 }
 
 .com-box ul li {
-  border-bottom: 1px solid #e5e5e5;
+  border-top: 1px solid #e5e5e5;
   padding: 30px 0;
 }
 
@@ -875,8 +1039,14 @@ li {
 }
 
 .com-box .info h3 {
+  font-size: 24px;
+  color: blue;
+  font-weight: normal;
+  line-height: 28px;
+}
+.com-box .info #reply-h3 {
   font-size: 18px;
-  color: #333;
+  color: blue;
   font-weight: normal;
   line-height: 28px;
 }
@@ -893,5 +1063,25 @@ li {
   color: #666;
   line-height: 28px;
   margin-top: 8px;
+}
+.com-box .info .info-span {
+  float: right;
+}
+.com-box .info .info-span span {
+  margin-right: 20px;
+  cursor: pointer;
+}
+.com-box .info .info-span span:hover {
+  color: #ff9d00;
+}
+.com-box .info ul {
+  clear: both;
+  margin-left: 80px;
+}
+.com-box .info #replys li {
+  display: none;
+}
+.com-box .info:hover #replys li {
+  display: block;
 }
 </style>
