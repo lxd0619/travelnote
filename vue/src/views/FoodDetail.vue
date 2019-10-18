@@ -226,7 +226,7 @@
         </span>
         <div class="total" v-for="message in messages.slice(0,2)" :key="message.index">
           <div class="leftimg">
-            <img :src="getCoverPic(message.cover)" width="200px" height="200px" />
+            <img :src="getCoverPic(message.cover)" width="130px" height="130px" />
           </div>
           <div class="rightfont">
             <div class="detailtitle">
@@ -250,7 +250,7 @@
         </span>
         <div class="total" v-for="message in messages1.slice(0,1)" :key="message.index">
           <div class="leftimg">
-            <img :src="getCoverPic(message.cover)" width="200px" height="200px" />
+            <img :src="getCoverPic(message.cover)" width="130px" height="130px" />
           </div>
           <div class="rightfont">
             <div class="detailtitle">
@@ -475,8 +475,7 @@ a {
 }
 .leftimg {
  border-right: 1px solid #333;
-  height: 200px;
-  width: 260px;
+  width: 140px;
   float: left;
   margin-top: 20px;
 }
@@ -487,8 +486,7 @@ a {
 .rightfont {
   float: right;
   height: 100px;
-  width: 900px;
-  
+  width: 1000px;
   margin-top: 20px;
 }
 .rightfont p {
