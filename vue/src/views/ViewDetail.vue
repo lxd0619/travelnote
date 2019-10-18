@@ -224,19 +224,11 @@
             </a>
           </h3>
         </span>
-        <div class="total" v-for="message in messages.slice(0,2)" :key="message.index">
-          <div class="leftimg">
-            <img src="../assets/3.jpg" width="200px" height="200px" />
-          </div>
-          <div class="rightfont">
-            <div class="detailtitle">
-              <h3>{{message.title}}</h3>
+   <div class="total">
+         <div class="detailtitle" v-for="message in messages.slice(0,2)" :key="message.index">
+            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
+              <h3>“{{message.title}}”</h3>
             </div>
-            <div class="detail_p">
-              <p>{{message.ssInfo}}</p>
-            </div>
-          </div>
-        
         </div>
       </div>
       <div class="domestic">
@@ -248,19 +240,27 @@
             </a>
           </h3>
         </span>
-        <div class="total" v-for="message in messages1.slice(0,1)" :key="message.index">
-          <div class="leftimg">
-            <img src="../assets/3.jpg" width="200px" height="200px" />
-          </div>
-          <div class="rightfont">
-            <div class="detailtitle">
-              <h3>{{message.title}}</h3>
+         <div class="total">
+         <div class="detailtitle" v-for="message in messages1.slice(0,2)" :key="message.index">
+            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
+              <h3>“{{message.title}}”</h3>
             </div>
-            <div class="detail_p">
-              <p>{{message.ssInfo}}</p>
+        </div>
+      </div>
+       <div class="domestic">
+        <span class="more">
+          <h3>
+            吉林省
+            <a href @click="go('浙江省')">
+              <em>更多&gt;&gt;</em>
+            </a>
+          </h3>
+        </span>
+         <div class="total">
+         <div class="detailtitle" v-for="message in messages2.slice(0,2)" :key="message.index">
+            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
+              <h3>“{{message.title}}”</h3>
             </div>
-          </div>  
-        
         </div>
       </div>
 
@@ -337,7 +337,12 @@ export default {
       var city_name = JSON.stringify(city);
       sessionStorage.setItem("city_name", city_name);
       this.$router.push("/index/detailcity");
-    }
+    },
+   getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    },
   }
 };
 </script>
@@ -381,9 +386,7 @@ export default {
   line-height: 30px;
   text-decoration: none;
 }
-.total{
-  /* border-bottom: 1px solid #333; */
-}
+
 
 .termini h2 {
   border-color: #8c2;
@@ -466,8 +469,6 @@ a {
   clear: both;
 }
 .leftimg {
-  background-color: pink;
-  height: 200px;
   width: 200px;
   float: left;
   margin-top: 20px;
@@ -645,6 +646,61 @@ a {
   cursor: pointer;
   -webkit-transition: width 0.5s;
   transition: width 0.5s;
+}
+.detailtitle h3 {
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
+.likecollection {
+  margin-top: 40px;
+  margin-left: 600px;
+}
+.domestic h3 span {
+  font: 14px/22px Microsoft yahei;
+  color: #555;
+  padding: 1px 10px;
+  margin: 4px 10px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  float: left;
+}
+.total {
+  background-color: rgb(255, 255, 255);
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+.total::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.leftimg {
+  border-right: 1px solid #333;
+  width: 335px;
+  float: left;
+  margin-top: 20px;
+}
+.leftimg {
+  margin-left: 40px;
+  margin-bottom: 15px;
+}
+.rightfont {
+  float: right;
+  height: 130px;
+  width: 800px;
+  margin-top: 20px;
+}
+.rightfont p {
+  width: 400px;
+  overflow: hidden;
+}
+.detailtitle{
+  width: 300px;
+  height: 300px;
+  display: inline-block;
 }
 </style>
 
