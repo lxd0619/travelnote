@@ -115,7 +115,7 @@
               <p class="p-left">隍庙里的老字号，上海的招牌之一，主打本帮口味地道</p>
             </div>
           </div>
-          <div class="show-img">
+          <!-- <div class="show-img">
             <img src="../assets/aimstrategy/food2.jpeg" alt />
             <span class="img-span">上海老饭店</span>
             <div class="d-txt">
@@ -128,7 +128,7 @@
             <div class="d-txt">
               <p class="p-left">隍庙里的老字号，上海的招牌之一，主打本帮口味地道</p>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="dividepage">
@@ -171,7 +171,8 @@ export default {
       cityName: "",
 
       personalRowStrategy: [],
-      sceneryStrategy: []
+      sceneryStrategy: [],
+      foodStrategy:[],
     };
   },
   created() {
@@ -200,6 +201,18 @@ export default {
       .then(res => {
         // console.log(1,res);
         this.sceneryStrategy = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
+    // 加载美食攻略
+    this.$axios
+      .post("http://localhost:3000/aim/aimfoodstrategy", {
+        cityName: this.cityName
+      })
+      .then(res => {
+        console.log(1,res);
+        this.foodStrategy = res.data.data;
       })
       .catch(err => {
         console.log("错误信息" + err);
