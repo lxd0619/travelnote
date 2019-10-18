@@ -77,18 +77,22 @@
                   aria-expanded="false"
                   v-if="isShow === true"
                 >
-                  <i class="fa fa-bell-o mr-2" aria-hidden="true"></i>消息中心
+                  <el-badge :value="sysnumber" class="item">
+                    <i class="fa fa-bell-o mr-2" aria-hidden="true"></i>
+                    消息中心
+                  </el-badge>
                 </a>
                 <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">
-                    <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>系统通知
+                  <a class="dropdown-item" href="">
+                    <el-badge :value="sysnumber" class="item">
+                      <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>
+                      系统通知
+                    </el-badge>
                   </a>
-                  <a class="dropdown-item" href="#">
-                    <i class="fa fa-at mr-2" aria-hidden="true"></i>关注通知
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    <i class="fa fa-commenting-o mr-2" aria-hidden="true"></i>回复消息
-                  </a>
+                  <!-- <a class="dropdown-item" href="#">
+                    <i class="fa fa-commenting-o mr-2" aria-hidden="true"></i>
+                    <el-badge :value="12" class="item">回复消息</el-badge>
+                  </a> -->
                 </div>
               </li>
 
@@ -158,10 +162,10 @@
     <router-view></router-view>
     <!-- 页脚 -->
     <nav class="nav flex-column align-items-center bg-secondary text-white">
-        <h6 class="mt-3">友情链接</h6>
-        <a class="nav-link" href="https://www.mafengwo.cn">马蜂窝</a>
-        <div class="dropdown-divider w-75"></div>
-        <p class="nav-title">Copyright&nbsp;&copy;2019&nbsp;TravelNote</p>
+      <h6 class="mt-3">友情链接</h6>
+      <a class="nav-link" href="https://www.mafengwo.cn">马蜂窝</a>
+      <div class="dropdown-divider w-75"></div>
+      <p class="nav-title">Copyright&nbsp;&copy;2019&nbsp;TravelNote</p>
     </nav>
   </div>
 </template>
@@ -175,14 +179,25 @@ export default {
           userName: "",
           headPic: ""
         }
-      ]
+      ],
+      sysnumber: ""
     };
   },
   //组件创建完成后执行的操作
   created() {
+    //获取未读系统消息数量
+    this.$axios
+      .post("http://localhost:3000/userCenter/sysMessageNum")
+      .then(res => {
+        if (res.data.data) {
+          this.sysnumber = res.data.data.Num;
+        }
+        console.log(res);
+      });
     if (localStorage.mytoken) {
       this.isShow = true;
     }
+
     // 导航栏拉伸效果
     $(function() {
       $("#search").click(function() {
@@ -199,8 +214,8 @@ export default {
       .then(res => {
         console.log("查询结果" + res.data.data);
         this.userInfo = res.data.data;
-        if(this.userInfo.headPic == null){
-          this.userInfo.headPic = "primaryHead.jpeg"
+        if (this.userInfo.headPic == null) {
+          this.userInfo.headPic = "primaryHead.jpeg";
         }
       })
       .catch(err => {

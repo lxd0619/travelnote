@@ -71,6 +71,9 @@ router.post('/replys', passport.authenticate('jwt',{session:false}),function (re
 router.post('/sysMessage', passport.authenticate('jwt',{session:false}),function (req, res, next) {
     userController.sysMessage(req, res)
 })
+router.post('/sysMessageNum', passport.authenticate('jwt',{session:false}),function (req, res, next) {
+    userController.sysMessageNum(req, res)
+})
 
 
 module.exports = router;
