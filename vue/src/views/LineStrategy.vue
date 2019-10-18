@@ -5,9 +5,9 @@
         <div class="container">
           <span class="con-span">目的地</span>
           <span>></span>
-          <span class="con-span">{{stra.city}}</span>
+          <span class="con-span">{{stra.cityName}}</span>
           <span>></span>
-          <span>{{stra.city}}攻略</span>
+          <span>{{stra.cityName}}攻略</span>
           <div id="title">
             <h2>{{stra.title}}</h2>
             <div id="h2-right">
@@ -28,7 +28,7 @@
           </div>
           <p>
             <span>42%</span>
-            初次访问{{stra.city}}的蜂蜂会选择这条线路
+            初次访问{{stra.cityName}}的蜂蜂会选择这条线路
           </p>
         </div>
       </div>
