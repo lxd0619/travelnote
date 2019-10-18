@@ -282,6 +282,19 @@ export default {
       cityName: ["江苏省", "浙江省", "吉林省"]
     };
   },
+    mouted(){
+     let lis = document.querySelectorAll('.picbig')
+            for (let i = 0; i < lis.length; i++) {
+                lis[i].onmouseover = function() {
+
+                    for (let j = 0; j < lis.length; j++) {
+                        lis[j].style.width = '200px'
+                    }
+                    this.style.width = '400px'
+                }
+            }
+
+  },
   created() {
     console.log(this.strategyType);
     this.$axios
@@ -593,27 +606,27 @@ a {
 }
 
 .pic_auto1 {
-  background: url(../assets/view/leftPic1.jpg) no-repeat center 0;
+  background:url(../assets/view/leftPic1.jpg) no-repeat center 0;
 }
 
 .pic_auto2 {
-  background: url(../assets/view/leftPic2.jpg) no-repeat center 0;
+  background:url(../assets/view/leftPic2.jpg) no-repeat center 0;
 }
 
 .pic_auto3 {
-  background: url(../assets/view/leftPic3.jpg) no-repeat center 0;
+  background:url(../assets/view/leftPic3.jpg) no-repeat center 0;
 }
 
 .pic_auto4 {
-  background: url(../assets/view/leftPic4.jpg) no-repeat center 0;
+  background:url(../assets/view/leftPic4.jpg) no-repeat center 0;
 }
 
 .pic_auto5 {
-  background: url(../assets/view/leftPic5.jpg) no-repeat center 0;
+  background:url(../assets/view/leftPic5.jpg) no-repeat center 0;
 }
 
 .pic_auto6 {
-  background: url(../assets/view/leftPic6.jpg) no-repeat center 0;
+  background:url(../assets/view/leftPic6.jpg) no-repeat center 0;
 }
 
 .pic_auto {
