@@ -13,7 +13,7 @@
             </h2>
           </div>
         </div>
-        <div class="domestic" v-for="message in messages.slice((currentPage-1)*1,(currentPage)*1)"
+        <div class="domestic"  @click="go(message.type,message.strategyId)" v-for="message in messages.slice((currentPage-1)*1,(currentPage)*1)"
           :key="message.index" >
            <div class="total">
           <div class="leftimg">
@@ -99,6 +99,12 @@ export default {
       //给图片名加上服务器端访问路径
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
+    },
+    go(type, id) {
+      var strategy = { type, id };
+      var info = JSON.stringify(strategy);
+      sessionStorage.setItem("info", info);
+      window.open("/index/fvstrategy");
     },
    
   }
