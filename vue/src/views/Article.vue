@@ -62,6 +62,8 @@ export default {
       fail_ssStatus: null,
       msg1: "",
       msg2: "",
+      msg3: "",
+      msg4: "",
       flage: false,
       sysMsgContent: null,
       show: true
@@ -80,9 +82,11 @@ export default {
             //攻略未审核
             this.flage = true;
             this.ok_ssStatus = 0; //攻略通过审核，为正常攻略
-            this.fail_ssStatus = -2;
-            this.msg1 = "是否确认通过"; //攻略驳回状态
+            this.fail_ssStatus = -2; //攻略驳回状态
+            this.msg1 = "是否确认通过"; 
             this.msg2 = "请输入驳回原因";
+            this.msg3 = "未通过审核";
+            this.msg4 = "审核通过";
             this.show = true;
           } else if (this.strategyInfo[0].ssStatus == 1) {
             //攻略被举报
@@ -91,12 +95,14 @@ export default {
             this.fail_ssStatus = 2; //封贴
             this.msg1 = "是否恢复成正常文章";
             this.msg2 = "请输入封贴原因";
+            this.msg3 = "被封了";
             this.show = true;
           } else if (this.strategyInfo[0].ssStatus == 2) {
             //被封的攻略
             this.flage = true;
             this.ok_ssStatus = 0; //恢复成正常攻略
             this.msg1 = "是否恢复成正常文章";
+            this.msg4 = "已经恢复成正常文章";
             this.show = false;
           }
         }
@@ -108,6 +114,9 @@ export default {
       var strategyId = this.strategyInfo[0].strategyId;
       var ssStatus = this.ok_ssStatus;
       var Info = { tableName, ssStatus, strategyId };
+      var userId = this.strategyInfo[0].userId;
+      var sysMsgContent ="@" +this.strategyInfo[0].userName +":您的攻略[" + this.strategyInfo[0].title +']'+this.msg4+'</br>'
+      var message = { sysMsgContent, userId };
       console.log(this.strategyInfo[0].ssStatus, Info);
       if (confirm(this.msg1)) {
         // location.href = "manage.html";
@@ -119,7 +128,27 @@ export default {
                 message: "审核通过",
                 type: "success"
               });
+              this.$axios
+                .post("http://localhost:3000/manage/sendMessage", message)
+                .then(res => {
+                  console.log(res);
+                  if (res.data.data) {
+                    this.$message({
+                      message: "信息发送成功",
+                      type: "success"
+                    });
+                    let _this = this;
+                    let mytime = setTimeout(function() {
+                      _this.$router.push("/manage");
+                    }, 2000);
+                  } else {
+                    this.$message.error("信息发送失败");
+                  }
+                  console.log(res);
+                });
               this.$router.push("/manage");
+            }else{
+              this.$message.error("状态修改失败")
             }
             console.log(res);
           });
@@ -134,25 +163,26 @@ export default {
         var ssStatus = this.fail_ssStatus;
         var Info = { tableName, ssStatus, strategyId };
         var userId = this.strategyInfo[0].userId;
-        var sysMsgContent = this.sysMsgContent + this.strategyInfo[0].title;
+        var sysMsgContent ="@" +this.strategyInfo[0].userName +":您的攻略[" + this.strategyInfo[0].title +']'+this.msg3+'</br>' +this.sysMsgContent;
         console.log(sysMsgContent);
         var message = { sysMsgContent, userId };
         console.log(sysMsgContent);
+
         this.$axios
-          .post("http://localhost:3000/manage/sendMessage", message)
+          .post("http://localhost:3000/manage/Status", Info)
           .then(res => {
-            console.log(res);
             if (res.data.data) {
               this.$message({
-                message: "信息发送成功",
+                message: "成功",
                 type: "success"
               });
               this.$axios
-                .post("http://localhost:3000/manage/Status", Info)
+                .post("http://localhost:3000/manage/sendMessage", message)
                 .then(res => {
+                  console.log(res);
                   if (res.data.data) {
                     this.$message({
-                      message: "成功",
+                      message: "信息发送成功",
                       type: "success"
                     });
                     let _this = this;
@@ -160,15 +190,14 @@ export default {
                       _this.$router.push("/manage");
                     }, 2000);
                   } else {
-                    this.$message.error("失败");
+                    this.$message.error("信息发送失败");
                   }
                   console.log(res);
                 });
             } else {
-              this.$message.error("信息发送失败");
+              this.$message.error("失败");
             }
           });
-
         $("#myModal").modal("hide");
       }
     }
@@ -199,7 +228,7 @@ export default {
 #left {
   position: absolute;
   left: 50%;
-  transform: translate(-50%,0);
+  transform: translate(-50%, 0);
   width: 75%;
 }
 #content {

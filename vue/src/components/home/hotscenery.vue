@@ -15,7 +15,11 @@
         />
         <div class="card-body">
           <h5 class="card-title">
-            <a href="#" class="card-link" @click="go(article.type,article.strategyId)">{{article.title}}</a>
+            <a
+              href="#"
+              class="card-link"
+              @click="go(article.type,article.strategyId)"
+            >{{article.title}}</a>
           </h5>
           <p
             class="card-text overflow-hidden"
@@ -23,12 +27,15 @@
             v-html="article.ssInfo"
           ></p>
           <p class="text-muted">
-            <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>
+            <i class="fa fa-map-marker mr-3" aria-hidden="true">{{article.cityName}}</i>
             by {{article.userName}}
-            <i>
-              <img src alt />
-            </i>
-            <i class="fa fa-eye mr-2" aria-hidden="true">{{article.ssCollectionNum}}</i>
+            <img
+              :src="getHeadPic(article.headPic)"
+              alt="head"
+              class="mr-3"
+              circle
+            />
+            <i class="fa fa-eye mr-3" aria-hidden="true">{{article.ssCollectionNum}}</i>
             <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.ssLikeNum}}</i>
           </p>
         </div>
@@ -57,9 +64,9 @@ export default {
         strategyType: ""
       },
       show: false,
-      pagesize:5,
-      currentPage:1,
-      allpages:''
+      pagesize: 5,
+      currentPage: 1,
+      allpages: ""
     };
   },
   created() {
@@ -71,7 +78,7 @@ export default {
           this.show = true;
           console.log(res);
           this.ssarticles = res.data.data;
-          this.allpages=res.data.data.length
+          this.allpages = res.data.data.length;
         } else {
           this.show = false;
         }
@@ -86,10 +93,19 @@ export default {
   methods: {
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
-      if(pic == "cover" || pic == null){
-        pic = "primaryCover.jpg"
+      if (pic == "cover" || pic == null) {
+        pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    },
+    getHeadPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      if (pic == null) {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
     go(type, id) {
@@ -98,8 +114,8 @@ export default {
       sessionStorage.setItem("info", info);
       window.open("/index/FVstrategy");
     },
-    current_change(currentPage){
-        this.currentPage=currentPage
+    current_change(currentPage) {
+      this.currentPage = currentPage;
     }
   }
 };
@@ -117,5 +133,25 @@ h1 {
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
+}
+.card-body{
+  padding-bottom: 0;
+}
+.text-muted{
+  margin: 0;
+}
+.text-muted img {
+  width: 20px;
+  height: 20px;
+}
+.card {
+  color: #666;
+}
+.card a {
+  font-size: 20px;
+  color: #333;
+}
+.card:hover a {
+  color: #ff9d00;
 }
 </style>
