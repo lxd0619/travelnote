@@ -69,8 +69,11 @@ export default {
   methods: {
     getPic(pic) {
       //给图片名加上服务器端访问路径
-      // let path = "http://localhost:3000/coverPic/" + pic;
-      // return path;
+      if(pic == "cover" || pic == null){
+        pic = "primaryCover.jpg"
+      }
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
     },
     current_change(currentPage) {
       this.currentPage = currentPage;

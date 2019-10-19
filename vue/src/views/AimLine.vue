@@ -15,11 +15,15 @@
       <!-- 路线 -->
       <div class="line">
         <h3>{{cityName}}经典路线</h3>
-        <div class="line-map" v-for="strategy in personalRowStrategy" :key="strategy.strategyId">
+        <div
+          class="line-map"
+          v-for="strategy in personalRowStrategy"
+          :key="strategy.strategyId"
+        >
           <a href>
             <h5 @click="go(strategy.type,strategy.strategyId)">{{strategy.title}}</h5>
           </a>
-          <div class id="map01" style="width: 340px;height: 180px;"></div>
+          <img class id="map01" :src="require('../assets/line/'+strategy.cover)" style="width: 340px;height: 180px;">
           <p>
             <span>{{strategy.firstchoice}}</span>
             初次访问{{cityName}}的蜂蜂会选择这条线路
@@ -31,40 +35,13 @@
         </div>
       </div>
 
-      <div class="dividepage">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
       <!-- 景点 -->
       <div class="view">
         <hr />
         <h3>{{cityName}}景点攻略</h3>
         <div class="main_news">
           <ul>
-            <li v-for="strategy in sceneryStrategy" :key="strategy.strategyId">
+            <li v-for="strategy in sceneryStrategy.slice((currentPage-1)*pagesize,(currentPage)*pagesize)" :key="strategy.strategyId">
               <a href="./linehelp/linestrategy.html" target="_blank">
                 <img src="../assets/aimstrategy/two1.png" />
                 <div class="txt">
@@ -74,93 +51,40 @@
               </a>
             </li>
           </ul>
+           <!-- 清除浮动 -->
+        <div class="clearboth"></div>
+        <!-- 分页 -->
+        <div class="block">
+          <el-pagination
+          background
+            :page-size="pagesize"
+            :pager-count="11"
+            layout="prev, pager, next"
+            :total="allpages"
+            @current-change="current_change"
+          ></el-pagination>
+        </div>
         </div>
       </div>
-      <div class="dividepage">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+
       <!-- 美食 -->
       <div class="foods">
         <hr />
         <h3>{{cityName}}美食攻略</h3>
-        <div class="main-show">
+        <div class="main-show" v-for="strategy in foodStrategy" :key="strategy.strategyId">
           <div class="show-img">
             <img src="../assets/aimstrategy/food1.jpeg" alt />
-            <span class="img-span">绿波廊(豫园路店)</span>
+            <span class="img-span">{{strategy.title}}</span>
             <div class="d-txt">
-              <p class="p-left">隍庙里的老字号，上海的招牌之一，主打本帮口味地道</p>
+              <p class="p-left">{{strategy.fsInfo}}</p>
             </div>
           </div>
-          <!-- <div class="show-img">
-            <img src="../assets/aimstrategy/food2.jpeg" alt />
-            <span class="img-span">上海老饭店</span>
-            <div class="d-txt">
-              <p class="p-left">隍庙里的老字号，上海的招牌之一，主打本帮口味地道</p>
-            </div>
-          </div>
-          <div class="show-img">
-            <img src="../assets/aimstrategy/food3.jpeg" alt />
-            <span class="img-span">绿波廊(豫园路店)</span>
-            <div class="d-txt">
-              <p class="p-left">隍庙里的老字号，上海的招牌之一，主打本帮口味地道</p>
-            </div>
-          </div> -->
+        
         </div>
-      </div>
-      <div class="dividepage">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
       </div>
     </div>
 
-    <div class="bottom"></div>
+    <div class="clearboth"></div>
   </div>
 </template>
 <script>
@@ -168,19 +92,24 @@ export default {
   name: "aimline",
   data: function() {
     return {
+      //城市名
       cityName: "",
 
       personalRowStrategy: [],
       sceneryStrategy: [],
-      foodStrategy:[],
+      foodStrategy: [],
+
+      //分页
+      allpages: null,//有多少条数据，攻略
+      currentPage: 1, //当前页面
+      pagesize: 6 //每页有几条攻略
     };
   },
   created() {
     //获取传来cityName
     var cityName = JSON.parse(sessionStorage.getItem("cityName"));
     this.cityName = cityName;
-    console.log(this.cityName);
-    // console.log(this.cityName)
+    // console.log(this.cityName);
     //加载路线攻略
     this.$axios
       .post("http://localhost:3000/aim/aimpersonalrow", {
@@ -201,6 +130,8 @@ export default {
       .then(res => {
         // console.log(1,res);
         this.sceneryStrategy = res.data.data;
+        this.allpages = res.data.data.length;
+         console.log(1, this.allpages);
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -211,7 +142,7 @@ export default {
         cityName: this.cityName
       })
       .then(res => {
-        console.log(1,res);
+        // console.log(1, res);
         this.foodStrategy = res.data.data;
       })
       .catch(err => {
@@ -227,6 +158,9 @@ export default {
       if (strategy.type == "personalrow") {
         window.open("/index/linestrategy");
       }
+    },
+    current_change: function(currentPage) {
+      this.currentPage = currentPage;
     }
   }
 };
@@ -383,7 +317,7 @@ export default {
   padding-top: 0;
 }
 
-.bottom {
+.clearboth {
   clear: both;
 }
 </style>

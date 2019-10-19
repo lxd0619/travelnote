@@ -93,7 +93,7 @@
           </a>
         </div>
         <!-- 中间部分 -->
-        <div class="col-md-11 col-lg-6" id="middle">
+        <div class="col-md-12 col-lg-7" id="middle">
           <!-- 中间导航栏 -->
           <nav>
             <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
@@ -153,7 +153,7 @@
               role="tabpanel"
               aria-labelledby="nav-hotlines-tab"
             >
-            <hotRow></hotRow>
+              <hotRow></hotRow>
             </div>
           </div>
         </div>
@@ -211,16 +211,7 @@
           </ul>
         </div>
         <!-- 页面导航 -->
-        <div class="col-1 mt-5">
-          <div class="list-group position-fixed text-center">
-            <a class="list-group-item list-group-item-action" href="#head" title="返回顶部">
-              <i class="fa fa-chevron-up" aria-hidden="true"></i>
-            </a>
-            <a class="list-group-item list-group-item-action" href="editor.html" title="写攻略">
-              <i class="fa fa-pencil-square-o font-weight-bold" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
+        <el-backtop :bottom="100"></el-backtop>
       </div>
     </div>
   </div>
@@ -228,12 +219,10 @@
 <script>
 import hotscentery from "../components/home/hotscenery";
 import hotFoods from "../components/home/hotfood";
-import hotRow from '../components/home/hotrow'
+import hotRow from "../components/home/hotrow";
 export default {
   data() {
-    return {
-     
-    };
+    return {};
   },
   components: {
     hotscentery,
@@ -243,27 +232,6 @@ export default {
   created() {
     // 获取热门景点攻略  scenerystrategy
     $(function() {
-      $("#outer a").mouseover(function() {
-        $("#outer a").css({ "background-color": "rgba(50,50,50,0.1)" });
-      });
-      $("#outer a").mouseout(function() {
-        $("#outer a").css({ "background-color": "rgba(300,300,300,0.1)" });
-      });
-      //整体修改card组件样式
-      // $("#nav-hotFoods .card").addClass(
-      //   "d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-      // );
-      // $("#nav-hotlines .card").addClass("mb-2 shadow-sm p-3 bg-white rounded");
-      $("#middle .card-link").css("color", "#000");
-      $("#middle .card-text").css("color", "#333");
-      $("#middle .card-body i").addClass("mr-2");
-      $("#middle .fa-thumbs-o-up")
-        .css("color", "#ff9d00")
-        .addClass("float-right");
-      $("#middle .card-body>p>i>img")
-        .css({ width: "25px", height: "25px" })
-        .addClass("rounded-circle");
-
       $("#middle .card").mouseover(function() {
         $(this)
           .children()
@@ -281,11 +249,13 @@ export default {
           .css({ color: "#000" });
       });
     });
-
   },
   methods: {
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
+      if(pic == "cover" || pic == null){
+        pic = "primaryCover.jpg"
+      }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
     }

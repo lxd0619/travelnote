@@ -83,7 +83,7 @@
                   </el-badge>
                 </a>
                 <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="">
+                  <a class="dropdown-item" href>
                     <el-badge :value="sysnumber" class="item">
                       <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>
                       系统通知
@@ -92,7 +92,7 @@
                   <!-- <a class="dropdown-item" href="#">
                     <i class="fa fa-commenting-o mr-2" aria-hidden="true"></i>
                     <el-badge :value="12" class="item">回复消息</el-badge>
-                  </a> -->
+                  </a>-->
                 </div>
               </li>
 
@@ -130,6 +130,7 @@
                     class="rounded-circle"
                     id="navHeadPic"
                     @click.prevent="goUserCenter"
+                    alt="head"
                   />
                 </a>
                 <div
@@ -175,10 +176,7 @@ export default {
     return {
       isShow: false,
       userInfo: [
-        {
-          userName: "",
-          headPic: ""
-        }
+        {headPic:""}
       ],
       sysnumber: ""
     };
@@ -214,9 +212,6 @@ export default {
       .then(res => {
         console.log("查询结果" + res.data.data);
         this.userInfo = res.data.data;
-        if (this.userInfo.headPic == null) {
-          this.userInfo.headPic = "primaryHead.jpeg";
-        }
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -228,8 +223,12 @@ export default {
   methods: {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
-      // let path = "http://localhost:3000/uploadHeadPic/" + pic;
-      // return path;
+      let path = "";
+      if (pic == null || pic == "") {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
     },
     goAim() {
       this.$router.push("/index/Aim");
@@ -275,7 +274,6 @@ export default {
   width: 40px;
   height: 40px;
   display: inline-block;
-  /* background-image: url(../assets/headPic/head1.jpg); */
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

@@ -6,7 +6,6 @@
         class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
         v-for="article in ssarticles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
         :key="article.strategyId"
-        style="width:34rem"
       >
         <img
           class="card-img-top"
@@ -16,7 +15,7 @@
         />
         <div class="card-body">
           <h5 class="card-title">
-            <a href="#" class="card-link">{{article.title}}</a>
+            <a href="#" class="card-link" @click="go(article.type,article.strategyId)">{{article.title}}</a>
           </h5>
           <p
             class="card-text overflow-hidden"
@@ -87,8 +86,17 @@ export default {
   methods: {
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
+      if(pic == "cover" || pic == null){
+        pic = "primaryCover.jpg"
+      }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
+    },
+    go(type, id) {
+      var strategy = { type, id };
+      var info = JSON.stringify(strategy);
+      sessionStorage.setItem("info", info);
+      window.open("/index/FVstrategy");
     },
     current_change(currentPage){
         this.currentPage=currentPage
