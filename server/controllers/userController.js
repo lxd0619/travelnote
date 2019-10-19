@@ -215,23 +215,24 @@ var userController = {
     },
     /**删除攻略 */
     delArticle: function (req, res) {
-        var tableName = req.body.tableName
+        var type = req.body.type
         var strategyId = req.body.strategyId
+        console.log(type,strategyId)
         var sqlstr = ''
-        switch (tableName) {
-            case 'scenerystrategy': sqlstr = 'update scenerystrategy set status = 3 where strategyId = ?'; break;
-            case 'foodstrategy': sqlstr = 'update foodstrategy set status = 3 where strategyId = ?'; break;
-            case 'personalrow': sqlstr = 'update personalrow set status = 3 where strategyId = ?'; break;
+        switch (type) {
+            case 'scenerystrategy': sqlstr = 'update scenerystrategy set ssStatus = 3 where strategyId = ?'; break;
+            case 'foodstrategy': sqlstr = 'update foodstrategy set fsStatus = 3 where strategyId = ?'; break;
+            case 'personalrow': sqlstr = 'update personalrow set prStatus = 3 where strategyId = ?'; break;
             default: console.log('没有该类型的表');
         }
         userDAO.delArticle(sqlstr, strategyId, function (err, results) {
             if (err) {
-                res.json({ code: 500, data: 0, msg: tableName + '攻略删除失败' })
+                res.json({ code: 500, data: 0, msg: type + '攻略删除失败' })
             } else {
                 if (results.affectedRows == 0) {
                     res.json({ code: 200, data: 0, msg: '攻略删除失败！' })
                 } else {
-                    res.json({ code: 200, data: 1, msg: tableName + '攻略删除成功' })
+                    res.json({ code: 200, data: 1, msg: type + '攻略删除成功' })
                 }
             }
         })
@@ -240,7 +241,8 @@ var userController = {
     /**攻略收藏查询 */
     collectArticle: function (req, res) {
         var userId = req.user.userId
-        userDAO.collectArticle(userId, function (err, results) {
+        var type = req.body.type
+        userDAO.collectArticle(userId,type, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '收藏攻略查询失败' })
             } else {

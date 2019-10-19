@@ -568,7 +568,6 @@ export default {
           });
       }
     },
-
     getPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";

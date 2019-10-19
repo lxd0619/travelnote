@@ -46,12 +46,11 @@ var userDAO = {
     },
     /**个人攻略列表列表 */
     userArticle: function (userId, callback) {
-        console.log(userId)
-        DAO('select type,title,ssInfo,ssLikeNum,ssCollectionNum,ssTime,ssStatus,cover from scenerystrategy where userId = ? and ssStatus != 3'
+        DAO('select strategyId,type,title,ssInfo,cityName,ssLikeNum,ssCollectionNum,ssTime,ssStatus,cover from scenerystrategy where userId = ? and ssStatus != 3'
         +' UNION '+
-        'select type,title,fsInfo,fsLikeNum,fsCollectionNum,fsTime,fsStatus,cover from foodstrategy where userId = ? and fsStatus != 3'
+        'select strategyId,type,title,fsInfo,cityName,fsLikeNum,fsCollectionNum,fsTime,fsStatus,cover from foodstrategy where userId = ? and fsStatus != 3'
         +' UNION '+
-        'select type,title,prInfo,prLikeNum,prCollectionNum,prTime,prStatus,cover from personalrow where userId = ? and prStatus != 3',[userId,userId,userId], function (err, results) {
+        'select strategyId,type,title,prInfo,cityName,prLikeNum,prCollectionNum,prTime,prStatus,cover from personalrow where userId = ? and prStatus != 3',[userId,userId,userId], function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -91,14 +90,21 @@ var userDAO = {
     },
     /**景点收藏查询 */
     /**攻略收藏查询 */
-    collectArticle: function (userId, callback) {
-        DAO('select * from collections where userId = ?', userId, function (err, results) {
-            if (err) {
-                callback(err, null)
-            } else {
-                callback(null, results)
-            }
-        })
+    collectArticle: function (userId,type, callback) {
+        // var sqlstr = ""
+        // switch (type) {
+        //     case 'scenerystrategy': sqlstr = "select * from collections c join personalrow p on c.strategyId = p.strategyId where c.userId = ?"; var ins = [type, title, cover, article, cityName, userId, insertTime]; break;
+        //     case 'foodstrategy': sqlstr = 'select * from collections c join scenerystrategy s on c.strategyId = s.strategyId where c.userId ='; var ins = [type, title, cover, article, cityName, userId, insertTime]; break;
+        //     case 'personalrow': sqlstr = 'insert into personalrow (type,title,cover,dayNum,season,crowdType,prInfo,userId,prTime) values (?,?,?,?,?,?,?,?,?)'; var ins = [type, title, cover, dayNum, season, crowdType, article, userId, insertTime]; break;
+        //     default: console.log('没有该类型');
+        // }
+        // DAO('select * from collections where userId = ?', userId, function (err, results) {
+        //     if (err) {
+        //         callback(err, null)
+        //     } else {
+        //         callback(null, results)
+        //     }
+        // })
     },
     /**关注列表添加 */
     addFriends: function (userId, relationUserId, callback) {

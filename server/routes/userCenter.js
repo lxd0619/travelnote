@@ -39,7 +39,7 @@ router.post('/updateArticle',passport.authenticate('jwt',{session:false}), funct
     userController.updateArticle(req, res)
 })
 /**删除攻略 */
-router.delete('/delArticle',passport.authenticate('jwt',{session:false}), function (req, res, next) {
+router.post('/delArticle',passport.authenticate('jwt',{session:false}), function (req, res, next) {
     userController.delArticle(req, res)
 })
 /**景点收藏查询 */

@@ -253,8 +253,8 @@ export default {
   methods: {
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
-      if(pic == "cover" || pic == null){
-        pic = "primaryCover.jpg"
+      if (pic == "cover" || pic == null) {
+        pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
@@ -280,11 +280,6 @@ export default {
   text-overflow: ellipsis;
 }
 
-.media img {
-  width: 10em;
-  height: 10em;
-}
-
 #ranks ul li {
   height: 4em;
 }
@@ -306,5 +301,8 @@ export default {
 #ranks ul li:hover span {
   line-height: 2;
   font-size: 17px;
+}
+.card:hover {
+  color: #ff9d00;
 }
 </style>
