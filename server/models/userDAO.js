@@ -150,8 +150,8 @@ var userDAO = {
         })
     },
     /**系统消息查询 */
-    sysMessage: function (userId, callback) {
-        DAO('select * from sysmessage where userId = ?', userId, function (err, results) {
+    sysMessage: function (sql,userId, callback) {
+        DAO(sql, userId, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -159,8 +159,9 @@ var userDAO = {
             }
         })
     },
-    sysMessageNum:function(userId,callback){
-        DAO('select count(*) Num from sysmessage where userId=? and msStatus=0',userId,function(err,results){
+    sysMessage_change:function(sysMsgId,callback){
+        console.log(sysMsgId)
+        DAO('update sysmessage set msStatus=1 where sysMsgId=?',sysMsgId,function(err,results){
             if(err){
                 callback(err,null)
             }else{

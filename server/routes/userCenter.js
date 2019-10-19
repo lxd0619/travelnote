@@ -74,6 +74,9 @@ router.post('/sysMessage', passport.authenticate('jwt',{session:false}),function
 router.post('/sysMessageNum', passport.authenticate('jwt',{session:false}),function (req, res, next) {
     userController.sysMessageNum(req, res)
 })
+router.post('/sysMessage_change', passport.authenticate('jwt',{session:false}),function (req, res, next) {
+    userController.sysMessage_change(req, res)
+})
 
 
 module.exports = router;

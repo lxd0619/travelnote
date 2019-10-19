@@ -69,7 +69,7 @@ export default {
     this.$axios
       .get("http://localhost:3000/userCenter/getUserInfo")
       .then(res => {
-        console.log("查询结果" + res.data.data);
+        console.log(res.data.data);
         this.userInfo = res.data.data;
         this.userInfo[0].registerTime = this.userInfo[0].registerTime.slice(
           0,
@@ -86,7 +86,7 @@ export default {
     this.$axios
       .post("http://localhost:3000/userCenter/fans")
       .then(res => {
-        console.log("粉丝查询结果" + res.data.data);
+        console.log(res.data.data);
         this.fans = res.data.data;
       })
       .catch(err => {
@@ -128,9 +128,9 @@ export default {
   },
   methods: {
     getPic(pic) {
-      // //给图片名加上服务器端访问路径
-      // let path = "http://localhost:3000/uploadHeadPic/" + pic;
-      // return path;
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
     }
   }
 };

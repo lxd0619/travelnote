@@ -166,7 +166,6 @@ router.beforeEach((to, from, next) => {
             } else {
                 next() //已经登录并取得token，允许访问路由
             }
-            next()
         } else {
             next('/login') //路由跳转到登录组件
         }
