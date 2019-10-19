@@ -83,7 +83,7 @@ var userController = {
     },
     /**个人攻略列表列表 */
     userArticle: function (req, res) {
-        var userTel = req.user.userId
+        var userId = req.user.userId
         userDAO.userArticle(userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '个人攻略查询失败' })

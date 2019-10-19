@@ -6,7 +6,6 @@
         class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
         v-for="article in ssarticles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
         :key="article.strategyId"
-        style="width:34rem"
       >
         <img
           class="card-img-top"

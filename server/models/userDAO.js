@@ -46,6 +46,7 @@ var userDAO = {
     },
     /**个人攻略列表列表 */
     userArticle: function (userId, callback) {
+        console.log(userId)
         DAO('select type,title,ssInfo,ssLikeNum,ssCollectionNum,ssTime,ssStatus,cover from scenerystrategy where userId = ? and ssStatus != 3'
         +' UNION '+
         'select type,title,fsInfo,fsLikeNum,fsCollectionNum,fsTime,fsStatus,cover from foodstrategy where userId = ? and fsStatus != 3'
