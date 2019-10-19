@@ -138,7 +138,7 @@ export default {
               this.show1 = true;
             } else {
               this.show1 = false;
-            }
+            }  
             this.show=true
             this.sysnumber = res.data.data.length;
             this.msg = res.data.data;
