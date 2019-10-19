@@ -41,7 +41,7 @@ var aimDAO = {
         })
     },
     aimPersonalRow: function (strategy,callback) {
-        DAO('select * from personalrow where personalrow.cityName like ? order by strategyId desc', [strategy.cityName], function (err, results) {
+        DAO('select * from personalrow where personalrow.cityName like ? order by strategyId desc limit 6', [strategy.cityName], function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -59,7 +59,7 @@ var aimDAO = {
         })
     },
     aimFoodStrategy: function (strategy,callback) {
-        DAO('select * from foodstrategy where foodstrategy.cityName like ? order by strategyId desc', [strategy.cityName], function (err, results) {
+        DAO('select * from foodstrategy where foodstrategy.cityName like ? order by strategyId desc limit 6', [strategy.cityName], function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
