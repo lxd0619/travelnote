@@ -72,17 +72,18 @@
       <div class="sheadsecond">景点攻略</div>
       <div class="specialFood">
         <div class="stragyespecail"   @click="go(article.type,article.strategyId)" v-for="article in articles.slice(0,8)" :key="article.strategyId">
-          <img :src="getCoverPic(article.cover)" width="260px" height="240px" />
-          <div class="intro_box">
+         <img :src="getCoverPic(article.cover)" width="260px" height="240px" />
+          <div class="intro_box">   
+          
             <h3>{{article.title}}</h3>
             <p>{{article.ssInfo}}</p>
             <span>
               <img src="../assets/food/收藏_line.png" width="17px" height="17px" />
-              点赞({{article.fsLikeNum}})
+              点赞({{article.ssLikeNum}})
             </span>
             <span>
               <img src="../assets/food/点赞_line.png" width="17px" height="17px" />
-              收藏({{article.fsCollection}})
+              收藏({{article.ssCollection}})
             </span>
           </div>
         </div>
@@ -479,7 +480,7 @@ h1 {
   margin-top: 5px;
 }
 .stragyespecail span {
-  padding-left: 50px;
+  padding-left: 10px;
   width: 260px;
   overflow: hidden;
 }
