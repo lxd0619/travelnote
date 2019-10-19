@@ -333,7 +333,13 @@ var userController = {
     /**系统消息查询 */
     sysMessage: function (req, res) {
         var userId = req.user.userId
-        userDAO.sysMessage(userId, function (err, results) {
+        var type= req.body.type
+        if(type==1){ 
+            var sql="select * from sysmessage where userId = ? and msStatus=1"
+        }else{
+            var sql='select * from sysmessage where userId=? and msStatus=0'
+        }
+        userDAO.sysMessage(sql,userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '系统消息查询失败' })
             } else {
@@ -345,17 +351,16 @@ var userController = {
             }
         })
     },
-    //查询未读系统消息数量
-    sysMessageNum: function (req, res) {
-        var userId = req.user.userId
-        userDAO.sysMessageNum(userId, function (err, results) {
-            if (err) {
-                res.json({ code: 500, data: 0, msg: '系统信息数量查询错误' })
-            } else {
-                if (results == null || results.length == 0) {
-                    res.json({ code: 200, data: 0, msg: '暂无未读消息' })
-                } else {
-                    res.json({ code: 200, data: results[0], msg: '系统信息数量查询成功' })
+    sysMessage_change:function(req,res){
+        var sysMsgId=req.body.sysMsgId
+        userDAO.sysMessage_change(sysMsgId,function(err,results){
+            if(err){
+                res.json({code:500,data:0,msg:'系统更改状态失败'})
+            }else{
+                if(results.affectedRows==0){
+                    res.json({code:200,data:0,msg:'更改状态失败'})
+                }else{
+                    res.json({code:200,data:1,msg:'更改状态成功'})
                 }
             }
         })
