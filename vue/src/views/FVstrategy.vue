@@ -1,24 +1,27 @@
 <template>
-  <div>
+    <div>
     <div v-for="stra in strategy" :key="stra.strategyId">
       <div class="container-fluid" style="background-color: #fafafa;">
         <div class="container">
-          <span class="con-span">目的地</span>
+          <div class="headerpic">
+            <img src="../assets/view/index.jpg" alt />
+          </div>
+          <a href="#">{{stra.cityName}}攻略</a>
           <span>></span>
-          <span class="con-span">{{stra.city}}</span>
+          <a href="#"></a>
           <span>></span>
-          <span>{{stra.city}}攻略</span>
+          <span>{{stra.title}}</span>
           <div id="title">
-            <h2>{{stra.title}}</h2>
+            <h2></h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-                <div class="img-span" @click="updateCollectionNum(stra.userId)">
-                  <i class="fa fa-star-o" aria-hidden="true"></i>
-                  <span>({{stra.prCollectionNum}})</span>
+                <div  @click="updateCollectionNum(stra.userId)">
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                  <span>收藏</span>
                 </div>
                 <div class="img-span" @click="updateLikeNum(stra.userId)">
-                  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                  <span>({{stra.prLikeNum}})</span>
+                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                  <span>点赞</span>
                 </div>
                 <div class="img-span" @click="report()">
                   <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
@@ -29,10 +32,10 @@
         </div>
       </div>
 
-      <div class="container">
-       
-        <!-- 评论内容 -->
-        <div class="con-comments">
+      <div class="contain">
+
+      </div>
+    <div class="con-comments">
           <div class="l-comment">
             <div class="com-box">
               <h2>评论</h2>
@@ -83,16 +86,15 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
-  </div>
+    </div>
 </template>
 <script>
 import jwt_decode from "jwt-decode";
 
 export default {
-  name: "linestrategy",
-  data() {
+  name: "fvstrategy",
+   data() {
     return {
       info: [],
       strategy: [],
@@ -287,7 +289,23 @@ export default {
           console.log("错误信息" + err);
         });
     },
- 
+    //添加回复
+    // addReply(commentId) {
+    //   this.$axios
+    //     .post("http://localhost:3000/operation/addreply", {
+    //       replyContent: this.newReplyContent,
+    //       userId: this.userId,
+    //       commentId: commentId
+    //       // (replyContent,userId,replyTime,commentId
+    //     })
+    //     .then(res => {
+    //       console.log("回复", res);
+    //       this.replys = res.data.data;
+    //     })
+    //     .catch(err => {
+    //       console.log("错误信息" + err);
+    //     });
+    // },
 
     //过滤
 
@@ -309,16 +327,38 @@ export default {
   margin: 0;
   padding: 0;
 }
+.headerpic img {
+  width: 1200px;
+  height: 450px;
+}
 .container {
   margin: 0 auto;
+  margin-top: 40px;
 }
-.container-fluid .container .con-span {
+.container-fluid .container a {
   color: #888;
   font-size: 12px;
 }
-
-.container-fluid .container .con-span:hover {
+.card-body h5 {
+  padding-left: 10px;
+  margin-bottom: 15px;
+}
+.main-show p {
+  padding-left: 10px;
+  margin-top: 15px;
+}
+.container-fluid .container a:hover {
   color: #ff9d00;
+}
+.con-top-left {
+  margin-left: 10px;
+}
+.con-top-left p {
+  margin-left: 15px;
+  margin-top: 10px;
+}
+.con-top-left .route {
+  margin: 15px 10px 10px;
 }
 
 #title {
@@ -329,16 +369,13 @@ export default {
 #title h2 {
   display: inline-block;
   width: 60%;
+  font-family: 楷体;
 }
 
 #title > div {
   float: right;
   /* display: inline-block; */
   width: 40%;
-}
-#title #h2-right .img-span:hover {
-  color: #ff9d00;
-  cursor: pointer;
 }
 
 .container-fluid .container p span {
@@ -362,8 +399,14 @@ export default {
   color: #666;
 }
 
+.container .con-top .con-top-right {
+  float: right;
+  border: 1px solid #eee;
+}
+
 .con-main {
   clear: both;
+  margin-top: 40px;
 }
 
 .con-main .main-show {
@@ -417,8 +460,7 @@ export default {
   text-align: left;
   height: 40px;
 }
-
-/* 评论栏 */
+/* 评论区style */
 .l-comment {
   margin-top: 85px;
 }
@@ -450,7 +492,7 @@ textarea {
 }
 
 .com-box ul li {
-  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
   padding: 30px 0;
 }
 
@@ -472,12 +514,38 @@ textarea {
 
 .com-box {
   border-top: 1px solid #e5e5e5;
-}
+  margin-left: 300px;
+  width: 800px;
+  margin-top: 50px;
 
+}
+.contain{
+  height: 500px;
+  background-color: pink;
+  width: 1200px;
+  margin: 0 auto;
+}
 .com-form .fm-tare button {
   width: 114px;
   height: 40px;
   background: #ffa200;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  display: block;
+  margin: 20px 0;
+  border-radius: 5px;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 0;
+  line-height: 30px;
+  margin-left: 850px;
+}
+.info-span{
+   width: 114px;
+  height: 30px;
+  background: #ff9d00;
   border: 0;
   outline: 0;
   cursor: pointer;
@@ -505,14 +573,8 @@ li {
 }
 
 .com-box .info h3 {
-  font-size: 24px;
-  color: blue;
-  font-weight: normal;
-  line-height: 28px;
-}
-.com-box .info #reply-h3 {
   font-size: 18px;
-  color: blue;
+  color: #333;
   font-weight: normal;
   line-height: 28px;
 }
@@ -530,24 +592,10 @@ li {
   line-height: 28px;
   margin-top: 8px;
 }
-.com-box .info .info-span {
-  float: right;
+.com-form{
+  margin-left:250px;
 }
-.com-box .info .info-span span {
-  margin-right: 20px;
-  cursor: pointer;
-}
-.com-box .info .info-span span:hover {
-  color: #ff9d00;
-}
-.com-box .info ul {
-  clear: both;
-  margin-left: 80px;
-}
-.com-box .info #replys li {
-  display: none;
-}
-.com-box .info:hover #replys li {
-  display: block;
+.com-cont{
+  margin-left: 48px;
 }
 </style>
