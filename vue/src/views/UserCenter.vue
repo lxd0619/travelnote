@@ -2,11 +2,10 @@
   <div class="person">
     <div
       class="jumbotron jumbotron-fluid"
-      style="background: url(require('../assets/bgPic/userCenterbg.jpg')) no-repeat center center;background-size: cover;"
       id="topPic"
     >
       <div class="container">
-        <h1 class="text-light">旅游札记</h1>
+        <h1 class="text-light mt-5">旅游札记</h1>
         <br />
         <h3 class="text-light">更懂世界，更懂你！！！</h3>
       </div>
@@ -20,9 +19,9 @@
           <div
             class="rounded-circle float-right mr-5"
             id="headPic"
-            :style="{'backgroundImage':'url(' + getPic(userInfo[0].headPic) + ')'}"
+            :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"
           ></div>
-          <div class="mt-3 float-right mr-5 text-center" style="width:10rem;"><h4>{{userInfo[0].userName}}</h4></div>
+          <div class="mt-3 float-right mr-5 text-center" style="width:10rem;"><h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4></div>
           <div id="relations" class="mt-3 float-right">
             <ul class="d-flex justify-content-between text-center mr-5">
               <li class="border-right border-bottom border-top">粉丝：<span>{{fans.length}}</span></li>
@@ -31,17 +30,11 @@
           </div>
         </div>
         <!-- 中间部分 -->
-        <div class="col-md-11 col-lg-8" id="content">
+        <div class="col-md-12 col-lg-9" id="content">
           <UserCenterMiddle></UserCenterMiddle>
         </div>
         <!-- 右侧导航 -->
-        <div class="col-1 mt-5">
-          <div id="list-example" class="list-group position-fixed text-center" style="width: 4rem;">
-            <a class="list-group-item" href="#head">
-              <i class="fa fa-chevron-up" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
+        <el-backtop :bottom="100"></el-backtop>
       </div>
     </div>
   </div>
@@ -88,6 +81,9 @@ export default {
       .then(res => {
         console.log("粉丝查询结果" + res.data.data);
         this.fans = res.data.data;
+        if(res.data.data == 0){
+          this.fans = ""
+        }
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -101,6 +97,9 @@ export default {
       .then(res => {
         console.log("关注查询结果" + res.data.data);
         this.attentions = res.data.data;
+        if(res.data.data == 0){
+          this.attentions = ""
+        }
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -112,8 +111,6 @@ export default {
       $('[data-toggle="popover"]').popover({
         container: "body"
       });
-     
-
       $('input[type="file"]').change(function() {
         var fread = new FileReader();
         fread.onload = function(e) {
@@ -127,19 +124,23 @@ export default {
     });
   },
   methods: {
-    getPic(pic) {
-      // //给图片名加上服务器端访问路径
-      // let path = "http://localhost:3000/uploadHeadPic/" + pic;
-      // return path;
-    }
+    getHeadPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      if (pic == null) {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
+    },
   }
 };
 </script>
 <style scoped>
 .jumbotron{
-  
+  background: url('../assets/bgPic/indexPic1.jpg') no-repeat center center;
+  background-size: cover;
 }
-
 .rounded-circle {
   background-repeat: no-repeat;
   background-position: center center;
@@ -174,7 +175,7 @@ export default {
 #relations ul li span{
   color: #ff9d00;
 }
-#headPic:hover::before {
+/* #headPic:hover::before {
   content: "";
   display: block;
   width: 10rem;
@@ -182,7 +183,7 @@ export default {
   border-radius: 75px;
   background: rgba(0, 0, 0, 0.5) url("../assets/camera.png") 50% no-repeat;
   cursor: pointer;
-}
+} */
 
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;

@@ -4,7 +4,7 @@
       <div class="container-fluid" style="background-color: #fafafa;">
         <div class="container">
           <div class="headerpic">
-            <img src="../assets/view/index.jpg" alt />
+            <img :src="getCoverPic(stra.cover)" alt />
           </div>
           <a href="#">{{stra.cityName}}攻略</a>
           <span>></span>
@@ -17,14 +17,15 @@
               <div class="ext-r row" style="justify-content:space-around;">
                 <div  @click="updateCollectionNum(stra.userId)">
                       <i class="fa fa-star-o" aria-hidden="true"></i>
-                  <span>收藏</span>
+                  <span>收藏 {{stra.ssCollectionNum}}</span>
                 </div>
                 <div class="img-span" @click="updateLikeNum(stra.userId)">
-                      <i class="fa fa-star-o" aria-hidden="true"></i>
-                  <span>点赞</span>
+                      <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                  <span>点赞 {{stra.ssLikeNum}}</span>
                 </div>
                 <div class="img-span" @click="report()">
-                  <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                  <span> {{stra.cityName}}</span>
                 </div>
               </div>
             </div>
@@ -32,8 +33,7 @@
         </div>
       </div>
 
-      <div class="contain">
-
+      <div class="contain" v-html="stra.ssInfo">
       </div>
     <div class="con-comments">
           <div class="l-comment">
@@ -226,8 +226,12 @@ export default {
     },
 
     //获取头像
-    getPic(pic) {
-      let path = "http://localhost:3000/uploadHeadPic" + pic;
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      if(pic == "cover" || pic == null){
+        pic = "primaryCover.jpg"
+      }
+      let path = "http://localhost:3000/coverPic/" + pic;
       return path;
     },
     //添加评论
@@ -520,8 +524,7 @@ textarea {
 
 }
 .contain{
-  height: 500px;
-  background-color: pink;
+  background-color:#eee;
   width: 1200px;
   margin: 0 auto;
 }

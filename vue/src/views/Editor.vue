@@ -7,34 +7,33 @@
           <el-row>
             <!-- 表单 -->
             <el-form :model="articleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
-              <el-row>
-                <el-col :span="24">
-                  <!--elementui的上传图片的upload组件-->
-                  <el-row>
-                    <el-col :span="12">
-                      <div class="mt-3">
-                        <h4 class="display-5 text-right">设置攻略封面</h4>
-                        <p class="lead text-right mt-5">图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
-                      </div>
-                    </el-col>
-                    <el-col :span="12">
-                      <el-upload
-                        class="w-75 mb-5 ml-5"
-                        ref="upload"
-                        list-type="picture-card"
-                        action="http://localhost:3000/userCenter/commitArticle"
-                        :before-upload="beforeupload"
-                        :auto-upload="false"
-                        :multiple="false"
-                        :show-file-list="false"
-                      >
-                        <i class="el-icon-plus"></i>
-                      </el-upload>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="9" :offset="3">
-                      <el-form-item label="攻略类型" prop="type">
+              <!--elementui的上传图片的upload组件-->
+              <el-row :gutter="20">
+                <el-col :span="12">
+                  <div class="mt-3">
+                    <h4 class="display-5 text-right">设置攻略封面</h4>
+                    <p class="lead text-right mt-5">图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
+                  </div>
+                </el-col>
+                <el-col :span="12">
+                  <el-upload
+                    class="w-75 mb-5 ml-5"
+                    ref="upload"
+                    list-type="picture-card"
+                    action="http://localhost:3000/userCenter/commitArticle"
+                    :before-upload="beforeupload"
+                    :auto-upload="false"
+                    :multiple="false"
+                    :show-file-list="false"
+                  >
+                    <i class="el-icon-plus"></i>
+                  </el-upload>
+                </el-col>
+              </el-row>
+                <el-col :span="12" :offset="6">
+                  <el-row :gutter="40">
+                    <el-col :span="7">
+                      <el-form-item label="攻略类型" class="text-right" prop="type">
                         <el-select v-model="articleForm.type" placeholder="请选择攻略类型">
                           <el-option
                             v-for="type in types"
@@ -44,10 +43,10 @@
                           ></el-option>
                         </el-select>
                       </el-form-item>
-                      <el-form-item label="标题" prop="title">
+                      <el-form-item label="标题" class="text-right" prop="title">
                         <el-input v-model="articleForm.title" name="title" style="width:200px;"></el-input>
                       </el-form-item>
-                      <el-form-item label="城市名称" prop="cityName">
+                      <el-form-item label="城市名称" class="text-right" prop="cityName">
                         <el-input
                           v-model="articleForm.cityName"
                           name="cityName"
@@ -55,8 +54,13 @@
                         ></el-input>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="12">
-                      <el-form-item label="几日游" prop="dayNum" v-if="articleForm.type === '个性路线'">
+                    <el-col :span="7" class="float-right">
+                      <el-form-item
+                        label="几日游"
+                        class="text-right"
+                        prop="dayNum"
+                        v-if="articleForm.type === 'personalrow'"
+                      >
                         <el-select v-model="articleForm.dayNum" placeholder="请选择几日游">
                           <el-option
                             v-for="day in days"
@@ -66,7 +70,12 @@
                           ></el-option>
                         </el-select>
                       </el-form-item>
-                      <el-form-item label="适宜季节" prop="season" v-if="articleForm.type === '个性路线'">
+                      <el-form-item
+                        label="适宜季节"
+                        class="text-right"
+                        prop="season"
+                        v-if="articleForm.type === 'personalrow'"
+                      >
                         <el-select v-model="articleForm.season" placeholder="请选择适宜季节">
                           <el-option
                             v-for="season in seasons"
@@ -76,7 +85,12 @@
                           ></el-option>
                         </el-select>
                       </el-form-item>
-                      <el-form-item label="面向人群" prop="crowdType" v-if="articleForm.type === '个性路线'">
+                      <el-form-item
+                        label="面向人群"
+                        class="text-right"
+                        prop="crowdType"
+                        v-if="articleForm.type === 'personalrow'"
+                      >
                         <el-select v-model="articleForm.crowdType" placeholder="请选择面向人群">
                           <el-option
                             v-for="crowdType in crowdTypes"
@@ -88,13 +102,16 @@
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <!-- 提交按钮 -->
+                  <el-row>
+                    <el-col :offset="3">
+                      <el-form-item>
+                        <!-- <el-button type="primary" @click="submitForm('ruleForm')">确认提交</el-button> -->
+                        <el-button @click="resetForm('ruleForm')">重置</el-button>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
                 </el-col>
-              </el-row>
-              <!-- 提交按钮 -->
-              <el-form-item>
-                <!-- <el-button type="primary" @click="submitForm('ruleForm')">确认提交</el-button> -->
-                <el-button @click="resetForm('ruleForm')">重置</el-button>
-              </el-form-item>
             </el-form>
           </el-row>
         </el-main>
@@ -341,7 +358,6 @@ export default {
               "Content-Type": "multipart/form-data"
             }
           };
-          console.log(this.params);
           this.$axios
             .post(
               "http://localhost:3000/userCenter/commitArticle",

@@ -45,12 +45,12 @@ var userDAO = {
         })
     },
     /**个人攻略列表列表 */
-    userArticle: function (userTel, callback) {
-        DAO('select type,title,ssInfo,ssLikeNum,ssCollectionNum,ssTime,ssStatus,userName,cover from scenerystrategy join users on scenerystrategy.userId = users.userId where users.tel = ?'
+    userArticle: function (userId, callback) {
+        DAO('select type,title,ssInfo,ssLikeNum,ssCollectionNum,ssTime,ssStatus,cover from scenerystrategy where userId = ? and ssStatus != 3'
         +' UNION '+
-        'select type,title,fsInfo,fsLikeNum,fsCollectionNum,fsTime,fsStatus,userName,cover from foodstrategy join users on foodstrategy.userId = users.userId where users.tel = ?'
+        'select type,title,fsInfo,fsLikeNum,fsCollectionNum,fsTime,fsStatus,cover from foodstrategy where userId = ? and fsStatus != 3'
         +' UNION '+
-        'select type,title,prInfo,prLikeNum,prCollectionNum,prTime,prStatus,userName,cover from personalrow join users on personalrow.userId = users.userId where users.tel = ?',[userTel,userTel,userTel], function (err, results) {
+        'select type,title,prInfo,prLikeNum,prCollectionNum,prTime,prStatus,cover from personalrow where userId = ? and prStatus != 3',[userId,userId,userId], function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
