@@ -227,7 +227,7 @@ export default {
 
     //获取头像
     getPic(pic) {
-      let path = "http://localhost:3000/uploadHeadPic" + pic;
+      let path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
     //添加评论
