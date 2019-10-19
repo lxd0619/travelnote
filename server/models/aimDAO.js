@@ -40,15 +40,33 @@ var aimDAO = {
             }
         })
     },
-    aimScenicDetail: function (scenery,callback) {
-        DAO('select * from scenery where sceneryName like ? order by likeNum desc limit 1', [scenery.sceneryName], function (err, results) {
+    aimPersonalRow: function (strategy,callback) {
+        DAO('select * from personalrow where personalrow.cityName like ? order by strategyId desc limit 6', [strategy.cityName], function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
                 callback(null, results)
             }
         })
-    }
+    },
+    aimSceneryStrategy: function (strategy,callback) {
+        DAO('select * from scenerystrategy where scenerystrategy.cityName like ? order by strategyId desc', [strategy.cityName], function (err, results) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, results)
+            }
+        })
+    },
+    aimFoodStrategy: function (strategy,callback) {
+        DAO('select * from foodstrategy where foodstrategy.cityName like ? order by strategyId desc limit 6', [strategy.cityName], function (err, results) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, results)
+            }
+        })
+    },
 }
 
 module.exports = aimDAO

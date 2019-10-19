@@ -5,20 +5,20 @@
         <div class="container">
           <span class="con-span">目的地</span>
           <span>></span>
-          <span class="con-span">{{stra.city}}</span>
+          <span class="con-span">{{stra.cityName}}</span>
           <span>></span>
-          <span>{{stra.city}}攻略</span>
+          <span>{{stra.cityName}}攻略</span>
           <div id="title">
             <h2>{{stra.title}}</h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
                 <div class="img-span" @click="updateCollectionNum(stra.userId)">
                   <i class="fa fa-star-o" aria-hidden="true"></i>
-                  <span>({{stra.prCollectionNum}})</span>
+                  <span>收藏({{stra.prCollectionNum}})</span>
                 </div>
                 <div class="img-span" @click="updateLikeNum(stra.userId)">
                   <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                  <span>({{stra.prLikeNum}})</span>
+                  <span>点赞({{stra.prLikeNum}})</span>
                 </div>
                 <div class="img-span" @click="report()">
                   <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
@@ -28,7 +28,7 @@
           </div>
           <p>
             <span>42%</span>
-            初次访问{{stra.city}}的蜂蜂会选择这条线路
+            初次访问{{stra.cityName}}的蜂蜂会选择这条线路
           </p>
         </div>
       </div>
@@ -563,7 +563,7 @@
                   :key="dis.commentId"
                 >
                   <div class="img">
-                    <img :src="getPic(dis.headPic)" />
+                    <img :src="getPic(dis.headPic)"/>
                   </div>
                   <div class="info">
                     <h3>{{dis.userName}}</h3>
@@ -579,7 +579,6 @@
                         :key="dis.commentId"
                       >删除个人评论</span>
                     </div>
-              
                   </div>
                 </li>
               </ul>
@@ -743,9 +742,11 @@ export default {
 
     //获取头像
     getPic(pic) {
-      let path = "http://localhost:3000/uploadHeadPic" + pic;
+      let path = "http://localhost:3000/uploadHeadPic/" + pic;
+      console.log(path)
       return path;
     },
+ 
     //添加评论
     addComment() {
       this.$axios
@@ -757,9 +758,21 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
-          console.log(3, res);
-          console.log("submit!");
           this.discuss = res.data.data;
+
+          //添加评论后实时刷新评论
+          this.$axios
+            .post("http://localhost:3000/operation/seldiscuss", {
+              strategyId: this.info.id,
+              strategyType: this.info.type
+            })
+            .then(res => {
+              this.discuss = res.data.data;
+              this.newcommentContent=""
+            })
+            .catch(err => {
+              console.log("错误信息" + err);
+            });
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -767,7 +780,6 @@ export default {
     },
     // 删除评论
     delComment(commentId) {
-      console.log(commentId);
       this.$axios
         .post("http://localhost:3000/operation/deldiscuss", {
           commentId: commentId,
@@ -777,9 +789,19 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
-          // console.log(3, res);
-          // console.log("删除成功!");
           this.discuss = res.data.data;
+           //删除评论后实时刷新评论
+          this.$axios
+            .post("http://localhost:3000/operation/seldiscuss", {
+              strategyId: this.info.id,
+              strategyType: this.info.type
+            })
+            .then(res => {
+              this.discuss = res.data.data;
+            })
+            .catch(err => {
+              console.log("错误信息" + err);
+            });
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -787,24 +809,24 @@ export default {
     },
 
     //筛选回复
-    selReply(commentId, index) {
-      var _this = this;
-      console.log(index);
-      this.$axios
-        .post("http://localhost:3000/operation/selreply", {
-          // strategyId: this.info.id,
-          // strategyType: this.info.type
-          commentId: commentId
-        })
-        .then(res => {
-          // console.log("筛选回复", res);
-          this.replys = res.data.data;
-          // this.commentId=commentId
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
-        });
-    },
+    // selReply(commentId, index) {
+    //   var _this = this;
+    //   console.log(index);
+    //   this.$axios
+    //     .post("http://localhost:3000/operation/selreply", {
+    //       // strategyId: this.info.id,
+    //       // strategyType: this.info.type
+    //       commentId: commentId
+    //     })
+    //     .then(res => {
+    //       // console.log("筛选回复", res);
+    //       this.replys = res.data.data;
+    //       // this.commentId=commentId
+    //     })
+    //     .catch(err => {
+    //       console.log("错误信息" + err);
+    //     });
+    // },
     //添加回复
     // addReply(commentId) {
     //   this.$axios
@@ -823,7 +845,7 @@ export default {
     //     });
     // },
 
-    //过滤
+    
 
     //显示提示框
     openVn() {

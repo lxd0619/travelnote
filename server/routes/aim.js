@@ -21,9 +21,19 @@ router.get('/season',function(req,res,next){
 router.get('/aimScenic',function(req,res,next){
     aimController.aimScenic(req,res)
 })
+
+
+/**路线详情 */
+router.post('/aimpersonalrow',function(req,res,next){
+    aimController.aimPersonalRow(req,res)
+})
 /**景点详情 */
-router.get('/aimScenicDetail',function(req,res,next){
-    aimController.aimScenicDetail(req,res)
+router.post('/aimscenerystrategy',function(req,res,next){
+    aimController.aimSceneryStrategy(req,res)
+})
+/**美食详情 */
+router.post('/aimfoodstrategy',function(req,res,next){
+    aimController.aimFoodStrategy(req,res)
 })
 
 module.exports=router

@@ -476,7 +476,7 @@ var operationController = {
                 sql = ' select users.userId,users.userName,users.headPic,foodstrategy.strategyId,foodstrategy.type,foodstrategy.title,foodstrategy.cover,foodstrategy.fsInfo ssInfo, foodstrategy.fsLikeNum,foodstrategy.fsCollectionNum,foodstrategy.cityName,foodstrategy.userId,foodstrategy.fsTime ssTime,foodstrategy.fsStatus ssStatus from foodstrategy left join users on users.userId=foodstrategy.userId  where foodstrategy.strategyId =?	';
                 break;
             case 'personalrow':
-                sql = ' select  users.userId,users.userName,users.headPic,personalrow.strategyId,personalrow.type,personalrow.title,personalrow.cover,personalrow.prInfo ssInfo, personalrow.prLikeNum,personalrow.prCollectionNum,personalrow.city,personalrow.userId,personalrow.prTime ssTime,personalrow.prStatus ssStatus from personalrow left join users on users.userId=personalrow.userId  where personalrow.strategyId =? ';
+                sql = ' select  users.userId,users.userName,users.headPic,personalrow.strategyId,personalrow.type,personalrow.title,personalrow.cover,personalrow.prInfo ssInfo, personalrow.prLikeNum,personalrow.prCollectionNum,personalrow.cityName,personalrow.userId,personalrow.prTime ssTime,personalrow.prStatus ssStatus from personalrow left join users on users.userId=personalrow.userId  where personalrow.strategyId =? ';
                 break;
         }
         operationDAO.strategyDetail(sql, strategyInfo, function (err, results) {

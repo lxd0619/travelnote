@@ -75,7 +75,7 @@
         <div
           class="stragyespecail"
           v-for="fsarticle in fsarticles.slice(0,8)"
-          :key="fsarticle.index">
+          :key="fsarticle.strategyId"  @click="went(fsarticle.type,fsarticle.strategyId)">
           <img :src="getCoverPic(fsarticle.cover)" width="219px" height="200px" />
           <div class="intro_box">
             <h3>{{fsarticle.title}}</h3>
@@ -101,7 +101,7 @@
               <div
                 class="feed-item _j_feed_item"
                 v-for="recommend in rearticles.slice(0,3)"
-                :key="recommend.index"
+                :key="recommend.strategyId" @click="went(recommend.type,recommend.strategyId)"
               >
                 <hr />
                 <div class="title">{{recommend.title}}</div>
@@ -140,14 +140,14 @@
           </span>
 
           <div class="top" >
-            <ul v-for="li in rearticles.slice(0,1)" :key="li.index">
+            <ul v-for="li in rearticles.slice(0,1)" :key="li.strategyId" @click="went(li.type,li.strategyId)">
               <li class="gl_list">
                 <a href="#">
                   <img :src="getCoverPic(li.cover)" width="180px" height="200px" />
                 </a>
               </li>
             </ul>
-            <ul v-for="li in rearticles" :key="li.index">
+            <ul v-for="li in rearticles" :key="li.strategyId"  @click="went(li.type,li.strategyId)">
               <li>
               <span class="num"></span>
               <a href="#" title="京都">{{li.cityName}}</a>
@@ -206,7 +206,13 @@ export default {
       //给图片名加上服务器端访问路径
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
-    }
+    },
+      went(type, id) {
+      var strategy = { type, id };
+      var info = JSON.stringify(strategy);
+      sessionStorage.setItem("info", info);
+      window.open("/index/fvstrategy");
+    },
   }
 };
 </script>

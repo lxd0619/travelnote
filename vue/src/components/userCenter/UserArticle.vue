@@ -69,11 +69,33 @@ export default {
   methods: {
     getPic(pic) {
       //给图片名加上服务器端访问路径
+      if(pic == "cover" || pic == null){
+        pic = "primaryCover.jpg"
+      }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
     },
     current_change(currentPage) {
       this.currentPage = currentPage;
+    },
+    delArticle(){
+      this.$axios
+      .post("http://localhost:3000/userCenter/delArticle",)
+      .then(res => {
+        if (res.data.data) {
+          this.show = true;
+          this.articles = res.data.data;
+          this.allPage = res.data.data.length;
+        } else {
+          this.show = false;
+        }
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
+      });
     }
   }
 };

@@ -1,6 +1,7 @@
 <template>
   <div class="Detail">
     <div class="head"></div>
+     <div v-if="show1">
     <div class="contain">
       <div class="pub_wrap termini">
         <div class="title clearfix">
@@ -163,58 +164,54 @@
           </ul>
         </div>
       </div>
-      <div class="fold_wrap">
-        <ul class="clearfix" id="sm">
-          <li class="active picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>澳门畅玩</h4>
-              </div>
-              <div class="pic_auto pic_auto1"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>新疆干货</h4>
-              </div>
-              <div class="pic_auto pic_auto3"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>江南水乡</h4>
-              </div>
-              <div class="pic_auto pic_auto4"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>特色古镇</h4>
-              </div>
-              <div class="pic_auto pic_auto5"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>畅游四川</h4>
-              </div>
-              <div class="pic_auto pic_auto6"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>魅力古都</h4>
-              </div>
-              <div class="pic_auto pic_auto7"></div>
-            </a>
-          </li>
-        </ul>
-      </div>
+       <section id="timeline">
+        <div class="totalcontainer">
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg1"></div>
+            </div>
+            <div class="content">
+                  <p>爱至苍山洱海，心如古木不惊</p>
+                </div>
+             
+          </div>
+
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg2"></div>
+               <div class="content">
+                  <p>桂林山水甲天下</p>
+                </div>
+            </div>
+          </div>
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg3"></div>
+               <div class="content">
+                  <p>冰雪大世界 江北冰灯十里明， 碧栏金塔小楼红。 飞桥七彩凌霄卧， 好似长虹挂月空</p>
+                </div>
+            </div>
+           
+          </div>
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg4"></div>
+               <div class="content">
+                  <p>西藏是个神秘的地方，有着灿烂的阳光，洁白的云朵，纯净的天空，稀薄的空气，连绵的雪山，安静的湖泊</p>
+                </div>
+            </div>
+           
+          </div>
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg5"></div>
+            </div>
+             <div class="content">
+                  <p>别浦高楼曾漫倚，对江南千里</p>
+                </div>
+          </div>
+        </div>
+      </section>
       <div class="domestic">
         <span class="more">
           <h3>
@@ -224,48 +221,65 @@
             </a>
           </h3>
         </span>
-        <div class="total" v-for="message in messages.slice(0,2)" :key="message.index">
-          <div class="leftimg">
-            <img :src="getCoverPic(message.cover)" width="200px" height="200px" />
-          </div>
-          <div class="rightfont">
-            <div class="detailtitle">
+        <div class="total" >
+            <div class="detailtitle" @click="go(message.type,message.strategyId)" v-for="message in messages.slice(0,2)" :key="message.index" >
+            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
               <h3>“{{message.title}}”</h3>
             </div>
-            <div class="detail_p">
-              <p>{{message.ssInfo}}</p>
-            </div>
+         
           </div>
-        
+        </div>
+     
+      <div class="domestic">
+        <span class="more">
+          <h3>
+            湖南省
+            <a @click="go('湖南省')">
+              <em>更多&gt;&gt;</em>
+            </a>
+          </h3>
+        </span>
+        <div class="total">
+         <div class="detailtitle" v-for="message in messages1.slice(0,2)" :key="message.strategyId" @click="went(message.type,message.strategyId)">
+            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
+              <h3>“{{message.title}}”</h3>
+            </div>
         </div>
       </div>
       <div class="domestic">
         <span class="more">
           <h3>
-            湖南省
-            <a href @click="go('浙江省')">
+            上海市
+            <a href @click="go('上海市')">
               <em>更多&gt;&gt;</em>
             </a>
           </h3>
         </span>
-        <div class="total" v-for="message in messages1.slice(0,1)" :key="message.index">
-          <div class="leftimg">
-            <img :src="getCoverPic(message.cover)" width="200px" height="200px" />
-          </div>
-          <div class="rightfont">
-            <div class="detailtitle">
-              <h3>{{message.title}}</h3>
+
+  <div class="total">
+         <div class="detailtitle" v-for="message in messages2.slice(0,2)" :key="message.strategyId" @click="went(message.type,message.strategyId)">
+            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
+              <h3>“{{message.title}}”</h3>
             </div>
-            <div class="detail_p">
-              <p>{{message.ssInfo}}</p>
-            </div>
-          </div>  
-        
+        </div>
         </div>
       </div>
-
+        <div class="block">
+          <el-pagination
+            :page-size="1"
+            :pager-count="11"
+            layout="prev, pager, next"
+            :total="allpages"
+            @current-change="current_change"
+          ></el-pagination>
+        </div>
       <div id="foot"></div>
     </div>
+     <div v-else id="content">
+      <h1>暂无数据呢~</h1>
+     
+    </div>
+    
   </div>
 </template>
 <script>
@@ -278,8 +292,9 @@ export default {
       messages1: [],
       messages2: [],
       hotarticles: [],
+       show1: true,
       strategyType: "foodstrategy",
-      cityName: ["江苏省", "湖南省", "吉林省"]
+      cityName: ["江苏省", "湖南省", "上海市"]
     };
   },
   created() {
@@ -309,7 +324,7 @@ export default {
       });
     this.$axios
       .post("http://localhost:3000/delicious/deliciousClassify", {
-        cityName:this.cityName[1]
+        cityName: this.cityName[1]
       })
       .then(res => {
         this.messages1 = res.data.data;
@@ -324,9 +339,13 @@ export default {
         cityName: this.cityName[2]
       })
       .then(res => {
+         if (res.data.data) {
         this.messages2 = res.data.data;
         console.log(res);
         // console.log("data:"+JSON.stringify(res.data.data))
+         }else {
+           this.show1=false
+        }
       })
       .catch(err => {
         console.log(err);
@@ -342,11 +361,21 @@ export default {
       //给图片名加上服务器端访问路径
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
-    }
+    },
+      went(type, id) {
+      var strategy = { type, id };
+      var info = JSON.stringify(strategy);
+      sessionStorage.setItem("info", info);
+      window.open("/index/fvstrategy");
+    },
+   
   }
 };
 </script>
 <style scoped>
+.Detail {
+  background-color: rgba(248, 248, 248, 0.952);
+}
 .contain {
   width: 1200px;
   margin: 0px auto;
@@ -386,7 +415,6 @@ export default {
   line-height: 30px;
   text-decoration: none;
 }
-
 
 .termini h2 {
   border-color: #8c2;
@@ -464,37 +492,12 @@ a {
   color: #555;
 }
 
-.total{
-  background-color:rgba(230, 230, 230,0.3);
-  margin-top:20px;
-}
-.total::after {
-  content: "";
-  display: block;
-  clear: both;
-}
-.leftimg {
- border-right: 1px solid #333;
-  height: 200px;
-  width: 260px;
-  float: left;
+.total {
+  background-color: rgb(255, 255, 255);
   margin-top: 20px;
-}
-.leftimg {
-  margin-left: 40px;
   margin-bottom: 15px;
 }
-.rightfont {
-  float: right;
-  height: 100px;
-  width: 900px;
-  
-  margin-top: 20px;
-}
-.rightfont p {
-  width: 400px;
-  overflow: hidden;
-}
+
 .termini_img {
   background: url(/img.elongstatic.com/hotel/HotelNewDestRecomm/hotel_index_icon.png)
     no-repeat 0 0;
@@ -658,11 +661,110 @@ a {
   -webkit-transition: width 0.5s;
   transition: width 0.5s;
 }
-.detailtitle h3{
-  font-size: 25px;
-  font-family: "宋体";
-  margin-left:30px;
+.detailtitle h3 {
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
 
+.detailtitle{
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+}
+.container:hover .mine-item {
+  width: 23.5%;
+}
+
+.mine-item:hover {
+  width: 32.5% !important;
+}
+
+.mine-item {
+  transform: translate3d(0, 0, 0);
+  display: inline-block;
+  position: relative;
+  width:200px;
+  height: 100%;
+  min-height: 600px;
+  max-height: 800px;
+  color: white;
+  overflow: hidden;
+  transition: width 0.5s ease;
+}
+
+.mine-item:hover .figcaption:after {
+  opacity: 0;
+}
+
+
+.mine-item:hover .figcaption:before {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+
+.figcaption:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(116, 116, 116, 0) 0%,
+    rgba(0, 0, 0, 0) 90%
+  );
+  z-index: 1;
+  opacity: 0;
+  transform: translate3d(0, 0, 0) translateY(50%);
+}
+
+.mine-item:hover .content {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: all 0.75s ease 0.5s;
+}
+.mine-item:hover .bg {
+  filter: grayscale(0);
+}
+
+.bg {
+  transform: translate3d(0, 0, 0);
+  position: absolute;
+  width: 500px;
+  height: 50%;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center center;
+  transition: filter 0.5s ease;
+  filter: graycale(50%);
+}
+.bg1 {
+  background-image: url(../assets/food/广式早茶.jpg);
+}
+.bg2 {
+  background-image: url(../assets/food/火锅.jpg);
+}
+.bg3 {
+  background-image: url(../assets/food/烧烤.jpg);
+}
+.bg4 {
+  background-image: url(../assets/food/肉夹馍.jpg);
+}
+.bg5 {
+  background-image: url(../assets/food/串串香.jpg);
+}
+.content{
+  font-size: 18px;
+  color: aliceblue;
+  margin-top:130px;
+  text-align: center;
+  font-family: 宋体;
 }
 </style>
 

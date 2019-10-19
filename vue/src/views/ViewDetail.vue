@@ -163,58 +163,54 @@
           </ul>
         </div>
       </div>
-      <div class="fold_wrap">
-        <ul class="clearfix" id="sm">
-          <li class="active picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>澳门畅玩</h4>
-              </div>
-              <div class="pic_auto pic_auto1"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>新疆干货</h4>
-              </div>
-              <div class="pic_auto pic_auto3"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>江南水乡</h4>
-              </div>
-              <div class="pic_auto pic_auto4"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>特色古镇</h4>
-              </div>
-              <div class="pic_auto pic_auto5"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>畅游四川</h4>
-              </div>
-              <div class="pic_auto pic_auto6"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>魅力古都</h4>
-              </div>
-              <div class="pic_auto pic_auto7"></div>
-            </a>
-          </li>
-        </ul>
-      </div>
+      <section id="timeline">
+        <div class="totalcontainer">
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg1"></div>
+            </div>
+            <div class="content">
+                  <p>爱至苍山洱海，心如古木不惊</p>
+                </div>
+             
+          </div>
+
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg2"></div>
+               <div class="content">
+                  <p>桂林山水甲天下</p>
+                </div>
+            </div>
+          </div>
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg3"></div>
+               <div class="content">
+                  <p>冰雪大世界 江北冰灯十里明， 碧栏金塔小楼红。 飞桥七彩凌霄卧， 好似长虹挂月空</p>
+                </div>
+            </div>
+           
+          </div>
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg4"></div>
+               <div class="content">
+                  <p>西藏是个神秘的地方，有着灿烂的阳光，洁白的云朵，纯净的天空，稀薄的空气，连绵的雪山，安静的湖泊</p>
+                </div>
+            </div>
+           
+          </div>
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg5"></div>
+            </div>
+             <div class="content">
+                  <p>别浦高楼曾漫倚，对江南千里</p>
+                </div>
+          </div>
+        </div>
+      </section>
       <div class="domestic">
         <span class="more">
           <h3>
@@ -224,19 +220,11 @@
             </a>
           </h3>
         </span>
-        <div class="total" v-for="message in messages.slice(0,2)" :key="message.index">
-          <div class="leftimg">
-            <img src="../assets/3.jpg" width="200px" height="200px" />
+        <div class="total">
+          <div class="detailtitle" v-for="message in messages.slice(0,2)" :key="message.index">
+            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
+            <h3>“{{message.title}}”</h3>
           </div>
-          <div class="rightfont">
-            <div class="detailtitle">
-              <h3>{{message.title}}</h3>
-            </div>
-            <div class="detail_p">
-              <p>{{message.ssInfo}}</p>
-            </div>
-          </div>
-        
         </div>
       </div>
       <div class="domestic">
@@ -248,19 +236,27 @@
             </a>
           </h3>
         </span>
-        <div class="total" v-for="message in messages1.slice(0,1)" :key="message.index">
-          <div class="leftimg">
-            <img src="../assets/3.jpg" width="200px" height="200px" />
+        <div class="total">
+          <div class="detailtitle" v-for="message in messages1.slice(0,2)" :key="message.index">
+            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
+            <h3>“{{message.title}}”</h3>
           </div>
-          <div class="rightfont">
-            <div class="detailtitle">
-              <h3>{{message.title}}</h3>
-            </div>
-            <div class="detail_p">
-              <p>{{message.ssInfo}}</p>
-            </div>
-          </div>  
-        
+        </div>
+      </div>
+      <div class="domestic">
+        <span class="more">
+          <h3>
+            吉林省
+            <a href @click="go('浙江省')">
+              <em>更多&gt;&gt;</em>
+            </a>
+          </h3>
+        </span>
+        <div class="total">
+          <div class="detailtitle" v-for="message in messages2.slice(0,2)" :key="message.index">
+            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
+            <h3>“{{message.title}}”</h3>
+          </div>
         </div>
       </div>
 
@@ -282,6 +278,7 @@ export default {
       cityName: ["江苏省", "浙江省", "吉林省"]
     };
   },
+
   created() {
     console.log(this.strategyType);
     this.$axios
@@ -337,6 +334,11 @@ export default {
       var city_name = JSON.stringify(city);
       sessionStorage.setItem("city_name", city_name);
       this.$router.push("/index/detailcity");
+    },
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
     }
   }
 };
@@ -380,9 +382,6 @@ export default {
   font-size: 24px;
   line-height: 30px;
   text-decoration: none;
-}
-.total{
-  /* border-bottom: 1px solid #333; */
 }
 
 .termini h2 {
@@ -466,8 +465,6 @@ a {
   clear: both;
 }
 .leftimg {
-  background-color: pink;
-  height: 200px;
   width: 200px;
   float: left;
   margin-top: 20px;
@@ -590,31 +587,6 @@ a {
   position: relative;
   padding: 30px 0 0 0;
 }
-
-.pic_auto1 {
-  background: url(../assets/view/leftPic1.jpg) no-repeat center 0;
-}
-
-.pic_auto2 {
-  background: url(../assets/view/leftPic2.jpg) no-repeat center 0;
-}
-
-.pic_auto3 {
-  background: url(../assets/view/leftPic3.jpg) no-repeat center 0;
-}
-
-.pic_auto4 {
-  background: url(../assets/view/leftPic4.jpg) no-repeat center 0;
-}
-
-.pic_auto5 {
-  background: url(../assets/view/leftPic5.jpg) no-repeat center 0;
-}
-
-.pic_auto6 {
-  background: url(../assets/view/leftPic6.jpg) no-repeat center 0;
-}
-
 .pic_auto {
   width: 100%;
   height: 100%;
@@ -646,6 +618,160 @@ a {
   -webkit-transition: width 0.5s;
   transition: width 0.5s;
 }
+.detailtitle h3 {
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
+.likecollection {
+  margin-top: 40px;
+  margin-left: 600px;
+}
+.domestic h3 span {
+  font: 14px/22px Microsoft yahei;
+  color: #555;
+  padding: 1px 10px;
+  margin: 4px 10px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  float: left;
+}
+.total {
+  background-color: rgb(255, 255, 255);
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+.total::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.leftimg {
+  border-right: 1px solid #333;
+  width: 335px;
+  float: left;
+  margin-top: 20px;
+}
+.leftimg {
+  margin-left: 40px;
+  margin-bottom: 15px;
+}
+.rightfont {
+  float: right;
+  height: 130px;
+  width: 800px;
+  margin-top: 20px;
+}
+.rightfont p {
+  width: 400px;
+  overflow: hidden;
+}
+.detailtitle {
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+}
+.detailpic {
+  width: 1200px;
+  margin: 0 auto;
+}
+/* 动画效果图 */
+.container:hover .mine-item {
+  width: 23.5%;
+}
+
+.mine-item:hover {
+  width: 32.5% !important;
+}
+
+.mine-item {
+  transform: translate3d(0, 0, 0);
+  display: inline-block;
+  position: relative;
+  width:200px;
+  height: 100%;
+  min-height: 600px;
+  max-height: 800px;
+  color: white;
+  overflow: hidden;
+  transition: width 0.5s ease;
+}
+
+.mine-item:hover .figcaption:after {
+  opacity: 0;
+}
+
+
+.mine-item:hover .figcaption:before {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+
+.figcaption:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(116, 116, 116, 0) 0%,
+    rgba(0, 0, 0, 0) 90%
+  );
+  z-index: 1;
+  opacity: 0;
+  transform: translate3d(0, 0, 0) translateY(50%);
+}
+
+.mine-item:hover .content {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: all 0.75s ease 0.5s;
+}
+.mine-item:hover .bg {
+  filter: grayscale(0);
+}
+
+.bg {
+  transform: translate3d(0, 0, 0);
+  position: absolute;
+  width: 500px;
+  height: 50%;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center center;
+  transition: filter 0.5s ease;
+  filter: graycale(50%);
+}
+.bg1 {
+  background-image: url(../assets/view/大理.jpg);
+}
+.bg2 {
+  background-image: url(../assets/view/桂林照片.jpg);
+}
+.bg3 {
+  background-image: url(../assets/view/哈尔滨jpg.jpg);
+}
+.bg4 {
+  background-image: url(../assets/view/拉萨1.jpg);
+}
+.bg5 {
+  background-image: url(../assets/view/江南水乡1.jpg);
+}
+.content{
+  font-size: 18px;
+  color: aliceblue;
+  margin-top:130px;
+  text-align: center;
+  font-family: 宋体;
+}
+
+
 </style>
 
 

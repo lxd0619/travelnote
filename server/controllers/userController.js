@@ -83,8 +83,8 @@ var userController = {
     },
     /**个人攻略列表列表 */
     userArticle: function (req, res) {
-        var userTel = req.user.userTel
-        userDAO.userArticle(userTel, function (err, results) {
+        var userId = req.user.userId
+        userDAO.userArticle(userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '个人攻略查询失败' })
             } else {
@@ -219,9 +219,9 @@ var userController = {
         var strategyId = req.body.strategyId
         var sqlstr = ''
         switch (tableName) {
-            case 'scenerystrategy': sqlstr = 'delete from scenerystrategy where strategyId = ?'; break;
-            case 'foodstrategy': sqlstr = 'delete from foodstrategy where strategyId = ?'; break;
-            case 'personalrow': sqlstr = 'delete from personalrow where strategyId = ?'; break;
+            case 'scenerystrategy': sqlstr = 'update scenerystrategy set status = 3 where strategyId = ?'; break;
+            case 'foodstrategy': sqlstr = 'update foodstrategy set status = 3 where strategyId = ?'; break;
+            case 'personalrow': sqlstr = 'update personalrow set status = 3 where strategyId = ?'; break;
             default: console.log('没有该类型的表');
         }
         userDAO.delArticle(sqlstr, strategyId, function (err, results) {
