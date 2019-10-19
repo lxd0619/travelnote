@@ -175,7 +175,9 @@ export default {
   data() {
     return {
       isShow: false,
-      userInfo: [],
+      userInfo: [
+        {headPic:""}
+      ],
       sysnumber: ""
     };
   },
