@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div>
     <div v-for="stra in strategy" :key="stra.strategyId">
       <div class="container-fluid" style="background-color: #fafafa;">
         <div class="container">
@@ -15,17 +15,17 @@
             <h2></h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-                <div  @click="updateCollectionNum(stra.userId)">
-                      <i class="fa fa-star-o" aria-hidden="true"></i>
+                <div @click="updateCollectionNum(stra.userId)">
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
                   <span>收藏 {{stra.ssCollectionNum}}</span>
                 </div>
                 <div class="img-span" @click="updateLikeNum(stra.userId)">
-                      <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                   <span>点赞 {{stra.ssLikeNum}}</span>
                 </div>
                 <div class="img-span" @click="report()">
                   <i class="fa fa-map-marker" aria-hidden="true"></i>
-                  <span> {{stra.cityName}}</span>
+                  <span>{{stra.cityName}}</span>
                 </div>
               </div>
             </div>
@@ -33,68 +33,66 @@
         </div>
       </div>
 
-      <div class="contain" v-html="stra.ssInfo">
-      </div>
-    <div class="con-comments">
-          <div class="l-comment">
-            <div class="com-box">
-              <h2>评论</h2>
-              <ul id="comments" data-page="1" data-id="0">
-                <li
-                  class="clearfix comment_item item_1203904"
-                  data-id="1203904"
-                  data-replied="0"
-                  v-for="(dis,index) in discuss"
-                  :key="dis.commentId"
-                >
-                  <div class="img">
-                    <img :src="getPic(dis.headPic)" />
-                  </div>
-                  <div class="info">
-                    <h3>{{dis.userName}}</h3>
-                    <h4>{{dis.commentTime}}</h4>
-                    <span>{{index+1}}楼</span>
-                    <div class="com-cont">{{dis.commentContent}}</div>
-                    <br />
+      <div class="contain" v-html="stra.ssInfo"></div>
+      <div class="con-comments">
+        <div class="l-comment">
+          <div class="com-box">
+            <h2>评论</h2>
+            <ul id="comments" data-page="1" data-id="0">
+              <li
+                class="clearfix comment_item item_1203904"
+                data-id="1203904"
+                data-replied="0"
+                v-for="(dis,index) in discuss"
+                :key="dis.commentId"
+              >
+                <div class="img">
+                  <img :src="getPic(dis.headPic)" />
+                </div>
+                <div class="info">
+                  <h3>{{dis.userName}}</h3>
+                  <h4>{{dis.commentTime}}</h4>
+                  <span>{{index+1}}楼</span>
+                  <div class="com-cont">{{dis.commentContent}}</div>
+                  <br />
 
-                    <div class="info-span">
-                      <span
-                        v-if="dis.userId==userId"
-                        @click="delComment(dis.commentId)"
-                        :key="dis.commentId"
-                      >删除个人评论</span>
-                    </div>
-              
+                  <div class="info-span">
+                    <span
+                      v-if="dis.userId==userId"
+                      @click="delComment(dis.commentId)"
+                      :key="dis.commentId"
+                    >删除个人评论</span>
                   </div>
-                </li>
-              </ul>
-            </div>
-            <!-- 最后的插入评论 -->
-            <div class="clearfix com-form">
-              <div class="fm-tare user-log">
-                <textarea
-                  class="_j_comment_content"
-                  v-model="newcommentContent"
-                  placeholder="说点什么吧..."
-                ></textarea>
-                <el-form>
-                  <el-form-item>
-                    <el-button type="primary" @click="addComment()">评论</el-button>
-                  </el-form-item>
-                </el-form>
-              </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- 最后的插入评论 -->
+          <div class="clearfix com-form">
+            <div class="fm-tare user-log">
+              <textarea
+                class="_j_comment_content"
+                v-model="newcommentContent"
+                placeholder="说点什么吧..."
+              ></textarea>
+              <el-form>
+                <el-form-item>
+                  <el-button type="primary" @click="addComment()">评论</el-button>
+                </el-form-item>
+              </el-form>
             </div>
           </div>
         </div>
+      </div>
     </div>
-    </div>
+  </div>
 </template>
 <script>
 import jwt_decode from "jwt-decode";
 
 export default {
   name: "fvstrategy",
-   data() {
+  data() {
     return {
       info: [],
       strategy: [],
@@ -228,10 +226,15 @@ export default {
     //获取头像
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
-      if(pic == "cover" || pic == null){
-        pic = "primaryCover.jpg"
+      if (pic == "cover" || pic == null) {
+        pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    },
+    getPic(pic) {
+      let path = "http://localhost:3000/uploadHeadPic/" + pic;
+      console.log(path);
       return path;
     },
     //添加评论
@@ -245,11 +248,21 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
-          console.log(3, res);
-          console.log("submit!");
-          this.discuss = res.data.data;
+          this.$axios
+            .post("http://localhost:3000/operation/seldiscuss", {
+              strategyId: this.info.id,
+              strategyType: this.info.type
+            })
+            .then(res => {
+              // console.log(2, res);
+              this.discuss = res.data.data;
+            })
+            .catch(err => {
+              console.log("错误信息" + err);
+            });
         })
         .catch(err => {
+          alert("@@@@2222@");
           console.log("错误信息" + err);
         });
     },
@@ -521,10 +534,9 @@ textarea {
   margin-left: 300px;
   width: 800px;
   margin-top: 50px;
-
 }
-.contain{
-  background-color:#eee;
+.contain {
+  background-color: #eee;
   width: 1200px;
   margin: 0 auto;
 }
@@ -545,8 +557,8 @@ textarea {
   line-height: 30px;
   margin-left: 850px;
 }
-.info-span{
-   width: 114px;
+.info-span {
+  width: 114px;
   height: 30px;
   background: #ff9d00;
   border: 0;
@@ -595,10 +607,10 @@ li {
   line-height: 28px;
   margin-top: 8px;
 }
-.com-form{
-  margin-left:250px;
+.com-form {
+  margin-left: 250px;
 }
-.com-cont{
+.com-cont {
   margin-left: 48px;
 }
 </style>
