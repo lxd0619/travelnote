@@ -13,17 +13,18 @@
 
     <div class="container">
       <!-- 路线 -->
-      <div class="line">
-        <h3>{{cityName}}经典路线</h3>
-        <div
-          class="line-map"
-          v-for="strategy in personalRowStrategy"
-          :key="strategy.strategyId"
-        >
+      <h3>{{cityName}}经典路线</h3>
+      <div class="line" v-if="show01">
+        <div class="line-map" v-for="strategy in personalRowStrategy" :key="strategy.strategyId">
           <a href>
             <h5 @click="go(strategy.type,strategy.strategyId)">{{strategy.title}}</h5>
           </a>
-          <img class id="map01" :src="require('../assets/line/'+strategy.cover)" style="width: 340px;height: 180px;">
+          <img
+            class
+            id="map01"
+            :src="getCoverPic(strategy.cover)"
+            style="width: 340px;height: 180px;"
+          />
           <p>
             <span>{{strategy.firstchoice}}</span>
             初次访问{{cityName}}的蜂蜂会选择这条线路
@@ -34,16 +35,20 @@
           <a href class="map-last-a" @click="go(strategy.type,strategy.strategyId)">查看详情></a>
         </div>
       </div>
-
+      <div class="nonedata" v-else>暂无{{cityName}}路线攻略</div>
+      <div class="clearboth"></div>
       <!-- 景点 -->
-      <div class="view">
+      <h3>{{cityName}}景点攻略</h3>
+      <div class="view" v-if="show02">
         <hr />
-        <h3>{{cityName}}景点攻略</h3>
         <div class="main_news">
           <ul>
-            <li v-for="strategy in sceneryStrategy.slice((currentPage-1)*pagesize,(currentPage)*pagesize)" :key="strategy.strategyId">
-              <a href="./linehelp/linestrategy.html" target="_blank">
-                <img src="../assets/aimstrategy/two1.png" />
+            <li
+              v-for="strategy in sceneryStrategy.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+              :key="strategy.strategyId"
+            >
+              <a href @click="go(strategy.type,strategy.strategyId)" target="_blank">
+                <img :src="getCoverPic(strategy.cover)" />
                 <div class="txt">
                   <h3>{{strategy.title}}</h3>
                   <span>{{strategy.ssInfo}}</span>
@@ -51,39 +56,40 @@
               </a>
             </li>
           </ul>
-           <!-- 清除浮动 -->
-        <div class="clearboth"></div>
-        <!-- 分页 -->
-        <div class="block">
-          <el-pagination
-          background
-            :page-size="pagesize"
-            :pager-count="11"
-            layout="prev, pager, next"
-            :total="allpages"
-            @current-change="current_change"
-          ></el-pagination>
-        </div>
+          <!-- 清除浮动 -->
+          <div class="clearboth"></div>
+          <!-- 分页 -->
+          <div class="block">
+            <el-pagination
+              background
+              :page-size="pagesize"
+              :pager-count="11"
+              layout="prev, pager, next"
+              :total="allpages"
+              @current-change="current_change"
+            ></el-pagination>
+          </div>
         </div>
       </div>
-
+      <div class="nonedata" v-else>暂无{{cityName}}景点攻略</div>
+      <div class="clearboth"></div>
       <!-- 美食 -->
-      <div class="foods">
+      <h3>{{cityName}}美食攻略</h3>
+      <div class="foods" v-if="show03">
         <hr />
-        <h3>{{cityName}}美食攻略</h3>
         <div class="main-show" v-for="strategy in foodStrategy" :key="strategy.strategyId">
-          <div class="show-img">
-            <img src="../assets/aimstrategy/food1.jpeg" alt />
+          <div class="show-img" @click="go(strategy.type,strategy.strategyId)">
+            <img :src="getCoverPic(strategy.cover)" alt />
             <span class="img-span">{{strategy.title}}</span>
             <div class="d-txt">
               <p class="p-left">{{strategy.fsInfo}}</p>
             </div>
           </div>
-        
         </div>
       </div>
-    </div>
+      <div class="nonedata" v-else>暂无{{cityName}}美食攻略</div>
 
+    </div>
     <div class="clearboth"></div>
   </div>
 </template>
@@ -94,13 +100,15 @@ export default {
     return {
       //城市名
       cityName: "",
-
       personalRowStrategy: [],
       sceneryStrategy: [],
       foodStrategy: [],
+      show01: false,
+      show02: false,
+      show03: false,
 
       //分页
-      allpages: null,//有多少条数据，攻略
+      allpages: null, //有多少条数据，攻略
       currentPage: 1, //当前页面
       pagesize: 6 //每页有几条攻略
     };
@@ -109,6 +117,7 @@ export default {
     //获取传来cityName
     var cityName = JSON.parse(sessionStorage.getItem("cityName"));
     this.cityName = cityName;
+    console.log('当前的城市',this.cityName)
     // console.log(this.cityName);
     //加载路线攻略
     this.$axios
@@ -116,8 +125,11 @@ export default {
         cityName: this.cityName
       })
       .then(res => {
-        // console.log(1,res);
+        if(res.data.data){
+        // console.log(1, res);
         this.personalRowStrategy = res.data.data;
+        this.show01 = true;
+         }
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -128,10 +140,12 @@ export default {
         cityName: this.cityName
       })
       .then(res => {
-        // console.log(1,res);
+        console.log(this.cityName,res.data.data);
+        if(res.data.data){
         this.sceneryStrategy = res.data.data;
         this.allpages = res.data.data.length;
-         console.log(1, this.allpages);
+        this.show02 = true;
+        }
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -142,27 +156,44 @@ export default {
         cityName: this.cityName
       })
       .then(res => {
+        if(res.data.data){
         // console.log(1, res);
         this.foodStrategy = res.data.data;
+        this.show03 = true;
+        }
       })
       .catch(err => {
         console.log("错误信息" + err);
       });
   },
   methods: {
-    //页面跳转并传送攻略类型和id
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      // if (pic == null || pic=="") {
+      //   pic = "primaryHead.jpeg";
+      // }
+      path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    },
+    //页面跳转
     go(type, id) {
       var strategy = { type, id };
+      console.log(this.cityName,strategy)
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
       if (strategy.type == "personalrow") {
         window.open("/index/linestrategy");
+      } else if (strategy.type == "scenerystrategy") {
+        window.open("/index/fvstrategy");
+      } else if (strategy.type == "foodstrategy") {
+        window.open("/index/fvstrategy");
       }
     },
     current_change: function(currentPage) {
       this.currentPage = currentPage;
     }
-  }
+  },
 };
 </script>
 
@@ -220,12 +251,6 @@ export default {
   position: absolute;
   bottom: 0;
   right: 10px;
-}
-
-.container .dividepage {
-  clear: both;
-  float: right;
-  margin-right: 30px;
 }
 
 .container .view {
@@ -317,6 +342,12 @@ export default {
   padding-top: 0;
 }
 
+.container .nonedata {
+  font-size: 36px;
+  font-weight: 700px;
+  color: #737373;
+  text-align: center;
+}
 .clearboth {
   clear: both;
 }
