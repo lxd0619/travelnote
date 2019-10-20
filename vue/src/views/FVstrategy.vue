@@ -15,13 +15,15 @@
             <h2></h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-                <div @click="updateCollectionNum(stra.userId)">
-                  <i class="fa fa-star-o" aria-hidden="true"></i>
-                  <span>收藏 {{stra.ssCollectionNum}}</span>
+                <div @click="updateCollectionNum(stra.userId)" class="operation" id="operation" style="cursor:pointer">
+                  <i
+                    class="el-icon-star-off"
+                    aria-hidden="true"
+                    id="icon"
+                  >收藏 {{stra.ssCollectionNum}}</i>
                 </div>
-                <div class="img-span" @click="updateLikeNum(stra.userId)">
-                  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                  <span>点赞 {{stra.ssLikeNum}}</span>
+                <div class="img-span" @click="updateLikeNum(stra.userId)" id="operation1" style="cursor:pointer">
+                  <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
                 </div>
                 <div class="img-span" @click="report()">
                   <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -167,11 +169,17 @@ export default {
               parseInt(this.strategy[0].prCollectionNum) + 1;
             // console.log(this.strategy[0].prCollectionNum);
             this.$message("收藏成功！");
+            $("#operation").addClass("operated");
+            $("#icon").removeClass("el-icon-star-off");
+            $("#icon").addClass("el-icon-star-on");
           } else if (judge == -1) {
             this.strategy[0].prCollectionNum =
               parseInt(this.strategy[0].prCollectionNum) - 1;
             console.log(this.strategy.prCollectionNum);
             this.$message("取消收藏成功！");
+            $("#operation").removeClass("operated");
+            $("#icon").removeClass("el-icon-star-on");
+            $("#icon").addClass("el-icon-star-off");
           }
         })
         .catch(err => {
@@ -195,11 +203,13 @@ export default {
               parseInt(this.strategy[0].prLikeNum) + 1;
             console.log(this.strategy.prLikeNum);
             this.$message("点赞成功！");
+            $("#operation1").addClass("operated");
           } else if (judge == -1) {
             this.strategy[0].prLikeNum =
               parseInt(this.strategy[0].prLikeNum) - 1;
             console.log(this.strategy.prLikeNum);
             this.$message("取消点赞成功！");
+            $("#operation1").removeClass("operated");
           }
         })
         .catch(err => {
@@ -248,7 +258,6 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
-          this.newcommentContent=''
           this.$axios
             .post("http://localhost:3000/operation/seldiscuss", {
               strategyId: this.info.id,
@@ -279,18 +288,9 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
-          this.$axios
-            .post("http://localhost:3000/operation/seldiscuss", {
-              strategyId: this.info.id,
-              strategyType: this.info.type
-            })
-            .then(res => {
-              // console.log(2, res);
-              this.discuss = res.data.data;
-            })
-            .catch(err => {
-              console.log("错误信息" + err);
-            });
+          // console.log(3, res);
+          // console.log("删除成功!");
+          this.discuss = res.data.data;
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -386,6 +386,13 @@ export default {
 }
 .con-top-left .route {
   margin: 15px 10px 10px;
+}
+.operation :hover {
+  color: #ff9d00;
+}
+.operated {
+  color: #ff9d00;
+  
 }
 
 #title {

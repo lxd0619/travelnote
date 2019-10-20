@@ -159,7 +159,7 @@ var userController = {
             // console.log('ins:' + ins)
             userDAO.commitArticle(sqlstr, ins, function (err, results) {
                 if (err) {
-                    res.json({ code: 500, data: 0, msg: '攻略上传失败' })
+                    res.json({ code: 500, data: 0, msg: '攻略上传失败'+err.message })
                 } else {
                     if (results.affectedRows == 0) {
                         res.json({ code: 200, data: 0, msg: '攻略上传失败！' })
