@@ -131,7 +131,7 @@ export default {
         strategyId: this.info.id
       })
       .then(res => {
-        // console.log(1, res.data.data);
+        console.log(res)
         this.strategy = res.data.data;
       })
       .catch(err => {
@@ -152,6 +152,33 @@ export default {
       });
   },
   methods: {
+    // updateCollectionNum(userId) {
+    //   var judge;
+    //   this.$axios
+    //     .post("http://localhost:3000/operation/collect", {
+    //       strategyId: this.info.id,
+    //       strategyType: this.info.type,
+    //       userId: userId
+    //     })
+    //     .then(res => {
+    //       console.log(res);
+    //       judge = parseInt(res.data.data);
+    //       if (judge == 1) {
+    //         this.strategy[0].ssCollectionNum =
+    //           parseInt(this.strategy[0].ssCollectionNum) + 1;
+    //         // console.log(this.strategy[0].prCollectionNum);
+    //         this.$message("收藏成功！");
+    //       } else if (judge == -1) {
+    //         this.strategy[0].prCollectionNum =
+    //           parseInt(this.strategy[0].ssCollectionNum) - 1;
+    //         console.log(this.strategy.ssCollectionNum);
+    //         this.$message("取消收藏成功！");
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.log("错误信息" + err);
+    //     });
+    // },
     //更新收藏数
     updateCollectionNum(userId) {
       var judge;
@@ -165,18 +192,21 @@ export default {
           console.log(res);
           judge = parseInt(res.data.data);
           if (judge == 1) {
-            this.strategy[0].prCollectionNum =
-              parseInt(this.strategy[0].prCollectionNum) + 1;
+            this.strategy[0].ssCollectionNum =
+              parseInt(this.strategy[0].ssCollectionNum) + 1;
             // console.log(this.strategy[0].prCollectionNum);
             this.$message("收藏成功！");
             $("#operation").addClass("operated");
             $("#icon").removeClass("el-icon-star-off");
             $("#icon").addClass("el-icon-star-on");
           } else if (judge == -1) {
-            this.strategy[0].prCollectionNum =
-              parseInt(this.strategy[0].prCollectionNum) - 1;
-            console.log(this.strategy.prCollectionNum);
+            this.strategy[0].ssCollectionNum =
+              parseInt(this.strategy[0].ssCollectionNum) - 1;
+            console.log(this.strategy.ssCollectionNum);
             this.$message("取消收藏成功！");
+            if(this.strategy[0].ssCollectionNum<0){
+              this.strategy[0].ssCollectionNum=0
+            }
             $("#operation").removeClass("operated");
             $("#icon").removeClass("el-icon-star-on");
             $("#icon").addClass("el-icon-star-off");
@@ -199,15 +229,15 @@ export default {
           console.log(res);
           judge = parseInt(res.data.data);
           if (judge == 1) {
-            this.strategy[0].prLikeNum =
-              parseInt(this.strategy[0].prLikeNum) + 1;
-            console.log(this.strategy.prLikeNum);
+            this.strategy[0].ssLikeNum =
+              parseInt(this.strategy[0].ssLikeNum) + 1;
+            console.log(this.strategy.ssLikeNum);
             this.$message("点赞成功！");
             $("#operation1").addClass("operated");
           } else if (judge == -1) {
-            this.strategy[0].prLikeNum =
-              parseInt(this.strategy[0].prLikeNum) - 1;
-            console.log(this.strategy.prLikeNum);
+            this.strategy[0].ssLikeNum =
+              parseInt(this.strategy[0].ssLikeNum) - 1;
+            console.log(this.strategy.ssLikeNum);
             this.$message("取消点赞成功！");
             $("#operation1").removeClass("operated");
           }
@@ -258,6 +288,7 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
+          this.newcommentContent=''
           this.$axios
             .post("http://localhost:3000/operation/seldiscuss", {
               strategyId: this.info.id,
@@ -288,9 +319,18 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
-          // console.log(3, res);
-          // console.log("删除成功!");
-          this.discuss = res.data.data;
+          this.$axios
+      .post("http://localhost:3000/operation/seldiscuss", {
+        strategyId: this.info.id,
+        strategyType: this.info.type
+      })
+      .then(res => {
+        // console.log(2, res);
+        this.discuss = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -501,7 +541,7 @@ export default {
 
 .com-form .fm-tare textarea {
   height: 200px;
-  width: 1000px;
+  width: 850px;
   padding: 14px;
   border: 1px solid #e5e5e5;
   resize: none;
@@ -509,6 +549,7 @@ export default {
   border-radius: 5px;
   font-size: 14px;
   color: #666;
+  margin-left:50px;
 }
 
 .com-form .user-log textarea {
@@ -572,7 +613,7 @@ textarea {
   text-align: center;
   padding: 0;
   line-height: 30px;
-  margin-left: 850px;
+  margin-left: 780px;
 }
 .info-span {
   width: 114px;
@@ -589,7 +630,7 @@ textarea {
   text-align: center;
   padding: 0;
   line-height: 30px;
-  margin-left: 850px;
+  margin-left: 720px;
 }
 
 li {
@@ -626,6 +667,7 @@ li {
 }
 .com-form {
   margin-left: 250px;
+  margin-top: 10px;
 }
 .com-cont {
   margin-left: 48px;

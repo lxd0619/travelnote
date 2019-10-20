@@ -1,8 +1,8 @@
-var DAO=require('../models/DAO')
-var operationDAO={
+var DAO = require('../models/DAO')
+var operationDAO = {
     //点赞功能
-    TestLike: function (sql,likeInfo,callback) {
-        DAO(sql,[likeInfo.strategyId,likeInfo.strategyType,likeInfo.userId], function (err, results1) {
+    TestLike: function(sql, likeInfo, callback) {
+        DAO(sql, [likeInfo.strategyId, likeInfo.strategyType, likeInfo.userId], function(err, results1) {
             if (err) {
                 callback(err, null)
             } else {
@@ -10,8 +10,8 @@ var operationDAO={
             }
         })
     },
-    AddLike: function (sql,likeInfo,callback) {
-        DAO(sql,[likeInfo.strategyId,likeInfo.strategyType,likeInfo.userId], function (err, results) {
+    AddLike: function(sql, likeInfo, callback) {
+        DAO(sql, [likeInfo.strategyId, likeInfo.strategyType, likeInfo.userId], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -19,8 +19,8 @@ var operationDAO={
             }
         })
     },
-    DelLike: function (sql,likeInfo,callback) {
-        DAO(sql,[likeInfo.strategyId,likeInfo.strategyType,likeInfo.userId], function (err, results) {
+    DelLike: function(sql, likeInfo, callback) {
+        DAO(sql, [likeInfo.strategyId, likeInfo.strategyType, likeInfo.userId], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -28,8 +28,8 @@ var operationDAO={
             }
         })
     },
-    UpdatePrLike: function (sql,likeInfo,callback) {
-        DAO(sql,[likeInfo.strategyId], function (err, results) {
+    UpdatePrLike: function(sql, likeInfo, callback) {
+        DAO(sql, [likeInfo.strategyId], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -38,8 +38,8 @@ var operationDAO={
         })
     },
     //收藏功能
-    TestCollect: function (sql,collectInfo,callback) {
-        DAO(sql,[collectInfo.strategyId,collectInfo.strategyType,collectInfo.userId], function (err, results1) {
+    TestCollect: function(sql, collectInfo, callback) {
+        DAO(sql, [collectInfo.strategyId, collectInfo.strategyType, collectInfo.userId], function(err, results1) {
             if (err) {
                 callback(err, null)
             } else {
@@ -47,8 +47,8 @@ var operationDAO={
             }
         })
     },
-    AddCollect: function (sql,collectInfo,callback) {
-        DAO(sql,[collectInfo.strategyId,collectInfo.strategyType,collectInfo.userId], function (err, results) {
+    AddCollect: function(sql, collectInfo, callback) {
+        DAO(sql, [collectInfo.strategyId, collectInfo.strategyType, collectInfo.userId], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -56,8 +56,8 @@ var operationDAO={
             }
         })
     },
-    DelCollect: function (sql,collectInfo,callback) {
-        DAO(sql,[collectInfo.strategyId,collectInfo.strategyType,collectInfo.userId], function (err, results) {
+    DelCollect: function(sql, collectInfo, callback) {
+        DAO(sql, [collectInfo.strategyId, collectInfo.strategyType, collectInfo.userId], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -65,8 +65,8 @@ var operationDAO={
             }
         })
     },
-    UpdatePrCollect: function (sql,collectInfo,callback) {
-        DAO(sql,[collectInfo.strategyId], function (err, results) {
+    UpdatePrCollect: function(sql, collectInfo, callback) {
+        DAO(sql, [collectInfo.strategyId], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -84,8 +84,8 @@ var operationDAO={
     //         }
     //     })
     // },
-    AddDiscuss: function (sql,DiscussInfo,callback) {
-        DAO(sql, [DiscussInfo.commentContent,DiscussInfo.strategyId,DiscussInfo.userId,DiscussInfo.commentTime,DiscussInfo.strategyType], function (err, results) {
+    AddDiscuss: function(sql, DiscussInfo, callback) {
+        DAO(sql, [DiscussInfo.commentContent, DiscussInfo.strategyId, DiscussInfo.userId, DiscussInfo.commentTime, DiscussInfo.strategyType], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -93,8 +93,8 @@ var operationDAO={
             }
         })
     },
-    DelDiscuss: function (sql,DiscussInfo,callback) {
-        DAO(sql, [DiscussInfo.commentId,DiscussInfo.strategyId,DiscussInfo.strategyType,DiscussInfo.userId], function (err, results) {
+    DelDiscuss: function(sql, DiscussInfo, callback) {
+        DAO(sql, [DiscussInfo.commentId, DiscussInfo.strategyId, DiscussInfo.strategyType, DiscussInfo.userId], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -102,9 +102,9 @@ var operationDAO={
             }
         })
     },
-    SelDiscuss: function (sql,DiscussInfo,callback) {
-        console.log(1,DiscussInfo.strategyId,DiscussInfo.strategyType)
-        DAO(sql, [DiscussInfo.strategyId,DiscussInfo.strategyType], function (err, results) {
+    SelDiscuss: function(sql, DiscussInfo, callback) {
+        console.log(1, DiscussInfo.strategyId, DiscussInfo.strategyType)
+        DAO(sql, [DiscussInfo.strategyId, DiscussInfo.strategyType], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -114,8 +114,8 @@ var operationDAO={
     },
 
     //回复功能
-    TestReply: function (sql,replyInfo,callback) {
-        DAO(sql, [replyInfo.replyId,replyInfo.userId,replyInfo.commentId], function (err, results) {
+    TestReply: function(sql, replyInfo, callback) {
+        DAO(sql, [replyInfo.replyId, replyInfo.userId, replyInfo.commentId], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -152,8 +152,8 @@ var operationDAO={
     // },
 
     //举报
-    Report: function (sql,reportInfo,callback) {
-        DAO(sql,[reportInfo.strategyId], function (err, results) {
+    Report: function(sql, reportInfo, callback) {
+        DAO(sql, [reportInfo.strategyId], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -165,8 +165,8 @@ var operationDAO={
 
 
 
-    normalStrategy: function (sql,callback) {
-        DAO(sql, function (err, results) {
+    normalStrategy: function(sql, callback) {
+        DAO(sql, function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -174,8 +174,8 @@ var operationDAO={
             }
         })
     },
-    hotStrategy: function (sql,callback) {
-        DAO(sql, function (err, results) {
+    hotStrategy: function(sql, callback) {
+        DAO(sql, function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -183,8 +183,8 @@ var operationDAO={
             }
         })
     },
-    strategyDetail: function (sql,strategyInfo,callback) {
-        DAO(sql, [strategyInfo.strategyId],function (err, results) {
+    strategyDetail: function(sql, strategyInfo, callback) {
+        DAO(sql, [strategyInfo.strategyId], function(err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -193,4 +193,4 @@ var operationDAO={
         })
     },
 }
-module.exports=operationDAO
+module.exports = operationDAO

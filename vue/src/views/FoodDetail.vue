@@ -688,7 +688,7 @@ a {
   position: relative;
   width:200px;
   height: 100%;
-  min-height: 600px;
+  min-height: 400px;
   max-height: 800px;
   color: white;
   overflow: hidden;
@@ -736,7 +736,7 @@ a {
   transform: translate3d(0, 0, 0);
   position: absolute;
   width: 500px;
-  height: 50%;
+  height: 100%;
   top: 0;
   left: 0;
   background-size: cover;
