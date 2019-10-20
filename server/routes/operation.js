@@ -30,25 +30,6 @@ router.post('/seldiscuss',passport.authenticate('jwt',{session:false}),function(
 })
 
 
-
-// 回复和取消回复
-// router.put('/reply',passport.authenticate('jwt',{session:false}),function(req,res,next){
-//     operationController.Reply(req,res)
-// })
-// 添加回复
-// router.put('/addreply',passport.authenticate('jwt',{session:false}),function(req,res,next){
-//     operationController.AddReply(req,res)
-// })
-// // 删除回复
-// router.post('/delreply',passport.authenticate('jwt',{session:false}),function(req,res,next){
-//     operationController.DelReply(req,res)
-// })
-// // 筛选回复
-// router.post('/selreply',passport.authenticate('jwt',{session:false}),function(req,res,next){
-//     operationController.SelReply(req,res)
-// })
-
-
 /*举报 */
 router.post('/report',passport.authenticate('jwt',{session:false}),function(req,res,next){
     operationController.Report(req,res)

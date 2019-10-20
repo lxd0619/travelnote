@@ -9,8 +9,8 @@ var passport=require('passport');
 //     lineController.hotLine(req,res)
 // })
 /**平台推荐路线查询 */
-router.get('/terraceline',function(req,res,next){
-    lineController.terraceLine(req,res)
+router.get('/platformrecommend',function(req,res,next){
+    lineController.PlatFormRecommend(req,res)
 })
 /**几日游路线筛选 *//**人群路线筛选 *//**季节路线筛选 */
 router.post('/lineclassify',function(req,res,next){

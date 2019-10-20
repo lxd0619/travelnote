@@ -1,8 +1,8 @@
 var DAO = require('./DAO')
 
 var lineDAO = {
-    terraceLine: function (callback) {
-        DAO('select distinct * from personalrow where userId=1 and (prStatus=0 or prStatus=1) order by prTime desc', null, function (err, results) {
+    PlatFormRecommend: function (callback) {
+        DAO(' select * from personalrow where userId=1 and (prStatus=0 or prStatus=1) order by prTime desc limit 8', null, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -18,7 +18,7 @@ var lineDAO = {
             case 'season': sql += ' season='; break;
             case 'crowdType': sql += ' crowdType='; break;
         }
-        sql += ' ? '
+        sql += ' ?  limit 12'
         console.log(sql)
         DAO(sql, lineInfo.lineType, function (err, results) {
             console.log(sql)

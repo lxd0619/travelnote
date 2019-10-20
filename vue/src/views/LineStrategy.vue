@@ -34,21 +34,21 @@
       </div>
 
       <div class="container">
-        <div class="con-top">
+        <!-- <div class="con-top">
           <div class="con-top-left">
             <h5>路线概览</h5>
             <div class="route">
               {{stra.ssInfo}}
-              <!--改名了 -->
+              改名了
             </div>
             <h5>Tips</h5>
             <p>该行程有点费脚力，一定要带双平底鞋以备不时之需 。乌镇的外部交通要提前关注一下，选择适合自己的时间段乘坐。</p>
             <h5>总结</h5>
             <p>此次行程即可看到非常现代化的大都市，又可游览具有江南特色的园林城市，此外，还可以在乌镇留宿赏夜景，行程总体比较轻松。</p>
           </div>
-        </div>
+        </div> -->
 
-        <div class="con-main">
+        <!-- <div class="con-main">
           <hr />
           <div class="accordion" id="accordionExample">
             <div class="card">
@@ -548,12 +548,20 @@
               </div>
             </div>
           </div>
+        </div> -->
+        <div class="main">
+           <h5>路线概览</h5>
+            <div class="route">
+              {{stra.ssInfo}}
+              <!-- 改名了 -->
+            </div>
         </div>
         <!-- 评论内容 -->
         <div class="con-comments">
           <div class="l-comment">
             <div class="com-box">
               <h2>评论</h2>
+
               <ul id="comments" data-page="1" data-id="0">
                 <li
                   class="clearfix comment_item item_1203904"
@@ -563,7 +571,7 @@
                   :key="dis.commentId"
                 >
                   <div class="img">
-                    <img :src="getPic(dis.headPic)"/>
+                    <img :src="getHeadPic(dis.headPic)" width="48" height="48" />
                   </div>
                   <div class="info">
                     <h3>{{dis.userName}}</h3>
@@ -582,20 +590,20 @@
                   </div>
                 </li>
               </ul>
-            </div>
-            <!-- 最后的插入评论 -->
-            <div class="clearfix com-form">
-              <div class="fm-tare user-log">
-                <textarea
-                  class="_j_comment_content"
-                  v-model="newcommentContent"
-                  placeholder="说点什么吧..."
-                ></textarea>
-                <el-form>
-                  <el-form-item>
-                    <el-button type="primary" @click="addComment()">评论</el-button>
-                  </el-form-item>
-                </el-form>
+              <!-- 最后的插入评论 -->
+              <div class="clearfix com-form">
+                <div class="fm-tare user-log">
+                  <textarea
+                    class="_j_comment_content"
+                    v-model="newcommentContent"
+                    placeholder="说点什么吧..."
+                  ></textarea>
+                  <el-form>
+                    <el-form-item>
+                      <el-button type="primary" @click="addComment()">评论</el-button>
+                    </el-form-item>
+                  </el-form>
+                </div>
               </div>
             </div>
           </div>
@@ -628,7 +636,10 @@ export default {
       // newReplyContent: "",
 
       //当前登录用户id
-      userId: ""
+      userId: "",
+
+      count: 10,
+      loading: false
     };
   },
   created() {
@@ -666,6 +677,7 @@ export default {
         console.log("错误信息" + err);
       });
   },
+
   methods: {
     //更新收藏数
     updateCollectionNum(userId) {
@@ -741,12 +753,16 @@ export default {
     },
 
     //获取头像
-    getPic(pic) {
-      let path = "http://localhost:3000/uploadHeadPic/" + pic;
-      console.log(path)
+    getHeadPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      if (pic == null || pic == "") {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
- 
+
     //添加评论
     addComment() {
       this.$axios
@@ -768,7 +784,7 @@ export default {
             })
             .then(res => {
               this.discuss = res.data.data;
-              this.newcommentContent=""
+              this.newcommentContent = "";
             })
             .catch(err => {
               console.log("错误信息" + err);
@@ -790,7 +806,7 @@ export default {
         })
         .then(res => {
           this.discuss = res.data.data;
-           //删除评论后实时刷新评论
+          //删除评论后实时刷新评论
           this.$axios
             .post("http://localhost:3000/operation/seldiscuss", {
               strategyId: this.info.id,
@@ -807,45 +823,6 @@ export default {
           console.log("错误信息" + err);
         });
     },
-
-    //筛选回复
-    // selReply(commentId, index) {
-    //   var _this = this;
-    //   console.log(index);
-    //   this.$axios
-    //     .post("http://localhost:3000/operation/selreply", {
-    //       // strategyId: this.info.id,
-    //       // strategyType: this.info.type
-    //       commentId: commentId
-    //     })
-    //     .then(res => {
-    //       // console.log("筛选回复", res);
-    //       this.replys = res.data.data;
-    //       // this.commentId=commentId
-    //     })
-    //     .catch(err => {
-    //       console.log("错误信息" + err);
-    //     });
-    // },
-    //添加回复
-    // addReply(commentId) {
-    //   this.$axios
-    //     .post("http://localhost:3000/operation/addreply", {
-    //       replyContent: this.newReplyContent,
-    //       userId: this.userId,
-    //       commentId: commentId
-    //       // (replyContent,userId,replyTime,commentId
-    //     })
-    //     .then(res => {
-    //       console.log("回复", res);
-    //       this.replys = res.data.data;
-    //     })
-    //     .catch(err => {
-    //       console.log("错误信息" + err);
-    //     });
-    // },
-
-    
 
     //显示提示框
     openVn() {
@@ -900,28 +877,26 @@ export default {
 .container-fluid .container p span {
   background-color: #ff9d00;
 }
-
+/* 
 .container .con-top .con-top-left {
   display: inline-block;
   width: 55%;
 }
 
-.con-top-left .route a {
+.con-top-left .route {
   color: #666;
-}
-
-.con-top-left .route a:hover {
-  color: #ff9d00;
+  text-indent:2em;
 }
 
 .con-top-left p {
   color: #666;
-}
+} */
 
 .con-main {
   clear: both;
+   text-indent:2em;
 }
-
+/* 
 .con-main .main-show {
   margin: 0 auto;
   position: relative;
@@ -972,7 +947,7 @@ export default {
 .con-main .main-show .show-img .d-txt .p-left {
   text-align: left;
   height: 40px;
-}
+} */
 
 /* 评论栏 */
 .l-comment {
@@ -1053,10 +1028,8 @@ li {
 }
 
 .com-box li .img {
-  overflow: hidden;
-  width: 48px;
-  height: 48px;
   border-radius: 50%;
+  /* display: inline-block; */
   float: left;
 }
 
