@@ -15,13 +15,13 @@
             <h2></h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-                <div  @click="updateCollectionNum(stra.userId)">
-                      <i class="fa fa-star-o" aria-hidden="true"></i>
-                  <span>收藏 {{stra.ssCollectionNum}}</span>
+                <div  @click="updateCollectionNum(stra.userId)" class="operation" id="operation">
+                      <i class="el-icon-star-off" aria-hidden="true" id='icon'>收藏 {{stra.ssCollectionNum}}</i>
+                  
                 </div>
-                <div class="img-span" @click="updateLikeNum(stra.userId)">
-                      <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                  <span>点赞 {{stra.ssLikeNum}}</span>
+                <div class="img-span operation" @click="updateLikeNum(stra.userId)" id="operation1">
+                      <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
+                 
                 </div>
                 <div class="img-span" @click="report()">
                   <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -131,6 +131,7 @@ export default {
         strategyId: this.info.id
       })
       .then(res => {
+        console.log(res)
         // console.log(1, res.data.data);
         this.strategy = res.data.data;
       })
@@ -165,15 +166,23 @@ export default {
           console.log(res);
           judge = parseInt(res.data.data);
           if (judge == 1) {
-            this.strategy[0].prCollectionNum =
-              parseInt(this.strategy[0].prCollectionNum) + 1;
+            this.strategy[0].ssCollectionNum =
+               parseInt(this.strategy[0].ssCollectionNum )+ 1;
+              console.log(this.strategy[0].ssCollectionNum)
             // console.log(this.strategy[0].prCollectionNum);
             this.$message("收藏成功！");
+            $('#operation').addClass('operated')
+            $('#icon').removeClass('el-icon-star-off')
+            $('#icon').addClass('el-icon-star-on')
+
           } else if (judge == -1) {
-            this.strategy[0].prCollectionNum =
-              parseInt(this.strategy[0].prCollectionNum) - 1;
-            console.log(this.strategy.prCollectionNum);
+            this.strategy[0].ssCollectionNum =
+              parseInt(this.strategy[0].ssCollectionNum) - 1;
+            console.log(this.strategy[0].ssCollectionNum);
             this.$message("取消收藏成功！");
+            $('#operation').removeClass('operated')
+            $('#icon').removeClass('el-icon-star-on')
+            $('#icon').addClass('el-icon-star-off')
           }
         })
         .catch(err => {
@@ -197,11 +206,13 @@ export default {
               parseInt(this.strategy[0].prLikeNum) + 1;
             console.log(this.strategy.prLikeNum);
             this.$message("点赞成功！");
+            $('#operation1').addClass('operated')
           } else if (judge == -1) {
             this.strategy[0].prLikeNum =
               parseInt(this.strategy[0].prLikeNum) - 1;
             console.log(this.strategy.prLikeNum);
             this.$message("取消点赞成功！");
+            $('#operation1').removeClass('operated')
           }
         })
         .catch(err => {
@@ -342,6 +353,12 @@ export default {
 .container-fluid .container a {
   color: #888;
   font-size: 12px;
+}
+.operation :hover{
+  color:#ff9d00;
+}
+.operated{
+  color:#ff9d00;
 }
 .card-body h5 {
   padding-left: 10px;
