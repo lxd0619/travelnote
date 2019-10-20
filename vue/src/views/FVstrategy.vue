@@ -248,6 +248,7 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
+          this.newcommentContent=''
           this.$axios
             .post("http://localhost:3000/operation/seldiscuss", {
               strategyId: this.info.id,
@@ -278,9 +279,18 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
-          // console.log(3, res);
-          // console.log("删除成功!");
-          this.discuss = res.data.data;
+          this.$axios
+            .post("http://localhost:3000/operation/seldiscuss", {
+              strategyId: this.info.id,
+              strategyType: this.info.type
+            })
+            .then(res => {
+              // console.log(2, res);
+              this.discuss = res.data.data;
+            })
+            .catch(err => {
+              console.log("错误信息" + err);
+            });
         })
         .catch(err => {
           console.log("错误信息" + err);
