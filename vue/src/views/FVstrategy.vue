@@ -15,26 +15,35 @@
             <h2></h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-           <div class="operation" id="operation" style="cursor:pointer">
-              <span >
-                          作者:{{stra.userName}}
-                          <img :src="getPic(stra.headPic)" width="35px" height="35px" />
-                        </span>
+                <div  style="cursor:pointer">
+                  <span>
+                    作者:{{stra.userName}}
+                    <img :src="getPic(stra.headPic)" width="35px" height="35px" />
+                  </span>
                 </div>
-                  
-                <div @click="updateCollectionNum(stra.userId)" class="operation" id="operation" style="cursor:pointer">
+
+                <div
+                  @click="updateCollectionNum()"
+                  class="operation"
+                  id="operation"
+                  style="cursor:pointer"
+                >
                   <i
                     class="el-icon-star-off"
                     aria-hidden="true"
                     id="icon"
                   >收藏 {{stra.ssCollectionNum}}</i>
                 </div>
-                <div class="img-span" @click="updateLikeNum(stra.userId)" id="operation1" style="cursor:pointer">
+                <div
+                  class="img-span"
+                  @click="updateLikeNum()"
+                  id="operation1"
+                  style="cursor:pointer"
+                >
                   <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
                 </div>
-                <div class="img-span" @click="report()">
-                  <i class="fa" aria-hidden="true"></i>
-                  <span>举报</span>
+                <div class="img-span" @click="report(stra.userId)">
+                  <i class="el-icon-warning" aria-hidden="true">举报</i>
                 </div>
               </div>
             </div>
@@ -65,12 +74,13 @@
                   <div class="com-cont">{{dis.commentContent}}</div>
                   <br />
 
-                  <div class="info-span" v-if="dis.userId==userId"
-                      @click="delComment(dis.commentId)"
-                      :key="dis.commentId">
-                    <span
-                     
-                    >删除个人评论</span>
+                  <div
+                    class="info-span"
+                    v-if="dis.userId==userId"
+                    @click="delComment(dis.commentId)"
+                    :key="dis.commentId"
+                  >
+                    <span>删除个人评论</span>
                   </div>
                 </div>
               </li>
@@ -121,7 +131,7 @@ export default {
 
       //当前登录用户id
       userId: "",
-       loading: false
+      loading: false
     };
   },
   created() {
@@ -139,7 +149,7 @@ export default {
         strategyId: this.info.id
       })
       .then(res => {
-        console.log(res)
+        console.log(res);
         this.strategy = res.data.data;
       })
       .catch(err => {
@@ -158,43 +168,44 @@ export default {
       .catch(err => {
         console.log("错误信息" + err);
       });
+    /**判断当前用户是否点赞过 */
+    this.$axios
+      .post("http://localhost:3000/operation/isLike", {
+        strategyId: this.info.id,
+        strategyType: this.info.type,
+        userId: this.userId
+      })
+      .then(res => {
+        console.log(1, res);
+        if (res.data.data) {
+          $("#operation1").addClass("operated");
+        }
+      });
+    /**判断该用户是否收藏该攻略 */
+    this.$axios
+      .post("http://localhost:3000/operation/iscollect", {
+        strategyId: this.info.id,
+        strategyType: this.info.type,
+        userId: this.userId
+      })
+      .then(res => {
+        console.log(2, res);
+        if (res.data.data) {
+          $("#operation").addClass("operated");
+          $("#icon").removeClass("el-icon-star-off");
+          $("#icon").addClass("el-icon-star-on");
+        }
+      });
   },
   methods: {
-    // updateCollectionNum(userId) {
-    //   var judge;
-    //   this.$axios
-    //     .post("http://localhost:3000/operation/collect", {
-    //       strategyId: this.info.id,
-    //       strategyType: this.info.type,
-    //       userId: userId
-    //     })
-    //     .then(res => {
-    //       console.log(res);
-    //       judge = parseInt(res.data.data);
-    //       if (judge == 1) {
-    //         this.strategy[0].ssCollectionNum =
-    //           parseInt(this.strategy[0].ssCollectionNum) + 1;
-    //         // console.log(this.strategy[0].prCollectionNum);
-    //         this.$message("收藏成功！");
-    //       } else if (judge == -1) {
-    //         this.strategy[0].prCollectionNum =
-    //           parseInt(this.strategy[0].ssCollectionNum) - 1;
-    //         console.log(this.strategy.ssCollectionNum);
-    //         this.$message("取消收藏成功！");
-    //       }
-    //     })
-    //     .catch(err => {
-    //       console.log("错误信息" + err);
-    //     });
-    // },
     //更新收藏数
-    updateCollectionNum(userId) {
+    updateCollectionNum() {
       var judge;
       this.$axios
         .post("http://localhost:3000/operation/collect", {
           strategyId: this.info.id,
           strategyType: this.info.type,
-          userId: userId
+          userId: this.userId
         })
         .then(res => {
           console.log(res);
@@ -212,8 +223,8 @@ export default {
               parseInt(this.strategy[0].ssCollectionNum) - 1;
             console.log(this.strategy.ssCollectionNum);
             this.$message("取消收藏成功！");
-            if(this.strategy[0].ssCollectionNum<0){
-              this.strategy[0].ssCollectionNum=0
+            if (this.strategy[0].ssCollectionNum < 0) {
+              this.strategy[0].ssCollectionNum = 0;
             }
             $("#operation").removeClass("operated");
             $("#icon").removeClass("el-icon-star-on");
@@ -225,13 +236,13 @@ export default {
         });
     },
     //更新点赞数
-    updateLikeNum(userId) {
+    updateLikeNum() {
       var judge;
       this.$axios
         .post("http://localhost:3000/operation/like", {
           strategyId: this.info.id,
           strategyType: this.info.type,
-          userId: userId
+          userId: this.userId
         })
         .then(res => {
           console.log(res);
@@ -255,16 +266,22 @@ export default {
         });
     },
     //举报
-    report() {
+    report(id) {
       var judge;
       this.$axios
         .post("http://localhost:3000/operation/report", {
           strategyId: this.info.id,
-          strategyType: this.info.type
+          strategyType: this.info.type,
+          writerId:id
         })
         .then(res => {
-          console.log(res);
-          this.$message("举报成功！");
+          console.log(res)
+         if(res.data.data){
+            this.$message(res.data.msg);
+          }else{
+            this.$message.error(res.data.msg)
+          }
+          
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -296,7 +313,7 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
-          this.newcommentContent=''
+          this.newcommentContent = "";
           this.$axios
             .post("http://localhost:3000/operation/seldiscuss", {
               strategyId: this.info.id,
@@ -328,17 +345,17 @@ export default {
         })
         .then(res => {
           this.$axios
-      .post("http://localhost:3000/operation/seldiscuss", {
-        strategyId: this.info.id,
-        strategyType: this.info.type
-      })
-      .then(res => {
-        // console.log(2, res);
-        this.discuss = res.data.data;
-      })
-      .catch(err => {
-        console.log("错误信息" + err);
-      });
+            .post("http://localhost:3000/operation/seldiscuss", {
+              strategyId: this.info.id,
+              strategyType: this.info.type
+            })
+            .then(res => {
+              // console.log(2, res);
+              this.discuss = res.data.data;
+            })
+            .catch(err => {
+              console.log("错误信息" + err);
+            });
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -410,10 +427,10 @@ export default {
   margin: 0 auto;
   margin-top: 40px;
 }
-.container-fluid .container a {
+/* .container-fluid .container a {
   color: #888;
   font-size: 12px;
-}
+} */
 .card-body h5 {
   padding-left: 10px;
   margin-bottom: 15px;
@@ -422,8 +439,16 @@ export default {
   padding-left: 10px;
   margin-top: 15px;
 }
-.container-fluid .container a:hover {
+/* .container-fluid .container a:hover {
   color: #ff9d00;
+} */
+#title #h2-right .img-span:not(:last-child):hover {
+  color: #ff9d00;
+  cursor: pointer;
+}
+#title #h2-right .img-span:last-child:hover {
+  color: red;
+  cursor: pointer;
 }
 .con-top-left {
   margin-left: 10px;
@@ -440,7 +465,6 @@ export default {
 }
 .operated {
   color: #ff9d00;
-  
 }
 
 #title {
@@ -557,7 +581,7 @@ export default {
   border-radius: 5px;
   font-size: 14px;
   color: #666;
-  margin-left:50px;
+  margin-left: 50px;
 }
 
 .com-form .user-log textarea {
