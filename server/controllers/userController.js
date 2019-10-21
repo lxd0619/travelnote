@@ -63,10 +63,16 @@ var userController = {
             }
             //fields是常温的表单字段数组，files是上传的文件列表
             //保存图片路径到数据库
+            var headPic = ""
+            if (files) {
+                headPic = path.parse(files.headPic.path).base
+            } else {
+                headPic = "headPic"
+            }
             //1.获取当前用户编号
             var userTel = req.user.userTel
             //1.获取当前用户的图片名称
-            var headPic = path.parse(files.img.path).base
+            // var headPic = path.parse(files.img.path).base
             var userHead = { headPic: headPic, userTel: userTel }
             userDAO.headPic(userHead, function (err, results) {
                 if (err) {
@@ -96,30 +102,30 @@ var userController = {
             }
         })
     },
-    /**上传攻略 */
+    /**上传攻略图片到服务器 */
     uploadArticle: function (req, res) {
-        //定义一个对象results，用于返回wangeditor
-        var results = {
-            "errno": 0,
-            "data": []
-        }
-        var form = new formidable.IncomingForm()      //创建上传表单对象
-        form.uploadDir = path.join(__dirname, '../public/uploadArticlePic')           //设置上传文件的路径
-        form.keepExtensions = true                      //设置保留上传文件的扩展名
-        //当每个文件上传时都会触发的事件方法，用于多文件上传
-        form.on('file', function (err, file) {
-            console.log(file)
-            results.data.push('http://localhost:3000/userCenter/coverPic/' + path.parse(file.path).base)
-        })
-        form.parse(req, function (err, fields, files) {
-            if (err) {
-                res.json({
-                    "errno": -1,
-                    "data": []
-                })
-            }
-            res.send(results)
-        })
+        // //定义一个对象results，用于返回wangeditor
+        // var results = {
+        //     "errno": 0,
+        //     "data": []
+        // }
+        // var form = new formidable.IncomingForm()      //创建上传表单对象
+        // form.uploadDir = path.join(__dirname, '../public/uploadArticlePic')           //设置上传文件的路径
+        // form.keepExtensions = true                      //设置保留上传文件的扩展名
+        // //当每个文件上传时都会触发的事件方法，用于多文件上传
+        // form.on('file', function (err, file) {
+        //     console.log(file)
+        //     results.data.push('http://localhost:3000/userCenter/coverPic/' + path.parse(file.path).base)
+        // })
+        // form.parse(req, function (err, fields, files) {
+        //     if (err) {
+        //         res.json({
+        //             "errno": -1,
+        //             "data": []
+        //         })
+        //     }
+        //     res.send(results)
+        // })
     },
     /**上传攻略到数据库 */
     commitArticle: function (req, res) {
@@ -132,7 +138,6 @@ var userController = {
             }
             //fields是常温的表单字段数组，files是上传的文件列表
             var cover = ""
-            console.log(files)
             if (files) {
                 cover = "cover"
             } else {
@@ -220,9 +225,9 @@ var userController = {
         console.log(type,strategyId)
         var sqlstr = ''
         switch (type) {
-            case 'scenerystrategy': sqlstr = 'update scenerystrategy set ssStatus = 3 where strategyId = ?'; break;
-            case 'foodstrategy': sqlstr = 'update foodstrategy set fsStatus = 3 where strategyId = ?'; break;
-            case 'personalrow': sqlstr = 'update personalrow set prStatus = 3 where strategyId = ?'; break;
+            case 'scenerystrategy': sqlstr = 'update scenerystrategy set ssStatus = -4 where strategyId = ?'; break;
+            case 'foodstrategy': sqlstr = 'update foodstrategy set fsStatus = -4 where strategyId = ?'; break;
+            case 'personalrow': sqlstr = 'update personalrow set prStatus = -4 where strategyId = ?'; break;
             default: console.log('没有该类型的表');
         }
         userDAO.delArticle(sqlstr, strategyId, function (err, results) {
@@ -241,9 +246,9 @@ var userController = {
     /**攻略收藏查询 */
     collectArticle: function (req, res) {
         var userId = req.user.userId
-        var type = req.body.type
-        userDAO.collectArticle(userId,type, function (err, results) {
+        userDAO.collectArticle(userId, function (err, results) {
             if (err) {
+                console.log(err)
                 res.json({ code: 500, data: 0, msg: '收藏攻略查询失败' })
             } else {
                 if (results == null || results.length == 0) {

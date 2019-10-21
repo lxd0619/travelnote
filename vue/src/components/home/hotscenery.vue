@@ -1,5 +1,5 @@
 <template>
-  <div class="card-deck flex-column">
+  <div class="card-deck flex-column mb-5">
     <!-- 热门景点攻略 -->
     <div v-if="show">
       <div
@@ -11,7 +11,7 @@
           class="card-img-top"
           :src="getCoverPic(article.cover)"
           alt="Card image cap"
-          style="width: 14em;height: 12em;"
+          style="width: 14rem;height: 11rem;"
         />
         <div class="card-body">
           <h5 class="card-title">
@@ -27,7 +27,7 @@
             v-html="article.ssInfo"
           ></p>
           <p class="text-muted">
-            <i class="fa fa-map-marker mr-3" aria-hidden="true">{{article.cityName}}</i>
+            <i class="fa fa-map-marker mr-3" aria-hidden="true"> {{article.cityName}}</i>
             by {{article.userName}}
             <img
               :src="getHeadPic(article.headPic)"
@@ -35,8 +35,8 @@
               class="mr-3"
               circle
             />
-            <i class="fa fa-eye mr-3" aria-hidden="true">{{article.ssCollectionNum}}</i>
-            <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.ssLikeNum}}</i>
+            <i class="el-icon-star-off mr-2"> {{article.ssCollectionNum}}</i>
+            <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true"> {{article.ssLikeNum}}</i>
           </p>
         </div>
       </div>
@@ -64,7 +64,7 @@ export default {
         strategyType: ""
       },
       show: false,
-      pagesize: 5,
+      pagesize: 7,
       currentPage: 1,
       allpages: ""
     };
@@ -102,7 +102,7 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null) {
+      if (pic == null || pic == "" || pic =="headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
@@ -136,6 +136,8 @@ h1 {
 }
 .card-body{
   padding-bottom: 0;
+  width: 10rem;
+  height: 5rem;
 }
 .text-muted{
   margin: 0;

@@ -1,5 +1,5 @@
 <template>
-  <div class="card-deck flex-column">
+  <div class="card-deck flex-column mb-5">
     <div v-if="show">
       <div
         class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
@@ -25,16 +25,19 @@
             style="height: 4em;text-overflow:ellipsis;"
           >{{article.prInfo}}</p>
           <p class="text-muted">
-            <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.city}}</i>
+            <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.city}}</i>
             by {{article.userName}}
-            <i>
-              <img src alt />
-            </i>
-            <i class="fa fa-clock-o mr-2" aria-hidden="true">{{article.dayNum}}天</i>
-            <i class="fa fa-leaf mr-2" aria-hidden="true">{{article.season}}</i>
-            <i class="fa fa-users mr-2" aria-hidden="true">{{article.crowdType}}</i>
-            <i class="fa fa-eye mr-2" aria-hidden="true">{{article.prCollectionNum}}</i>
-            <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.prLikeNum}}</i>
+            <img
+              :src="getHeadPic(article.headPic)"
+              alt="head"
+              class="mr-3"
+              circle
+            />
+            <i class="fa fa-clock-o mr-2" aria-hidden="true"> {{article.dayNum}}天</i>
+            <i class="fa fa-leaf mr-2" aria-hidden="true"> {{article.season}}</i>
+            <i class="fa fa-users mr-2" aria-hidden="true"> {{article.crowdType}}</i>
+            <i class="el-icon-star-off mr-2"> {{article.prCollectionNum}}</i>
+            <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true"> {{article.prLikeNum}}</i>
           </p>
         </div>
       </div>
@@ -95,6 +98,14 @@ export default {
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
+    },getHeadPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      if (pic == null || pic == "" || pic =="headPic") {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
     },
     //页面跳转并传送攻略类型和id
     go(type, id) {
@@ -125,6 +136,15 @@ h1 {
 }
 .card-body{
   padding-bottom: 0;
+  width: 10rem;
+  height: 5rem;
+}
+.text-muted{
+  margin: 0;
+}
+.text-muted img {
+  width: 20px;
+  height: 20px;
 }
 .card {
   color: #666;

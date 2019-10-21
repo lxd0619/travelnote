@@ -90,21 +90,18 @@ var userDAO = {
     },
     /**景点收藏查询 */
     /**攻略收藏查询 */
-    collectArticle: function (userId,type, callback) {
-        // var sqlstr = ""
-        // switch (type) {
-        //     case 'scenerystrategy': sqlstr = "select * from collections c join personalrow p on c.strategyId = p.strategyId where c.userId = ?"; var ins = [type, title, cover, article, cityName, userId, insertTime]; break;
-        //     case 'foodstrategy': sqlstr = 'select * from collections c join scenerystrategy s on c.strategyId = s.strategyId where c.userId ='; var ins = [type, title, cover, article, cityName, userId, insertTime]; break;
-        //     case 'personalrow': sqlstr = 'insert into personalrow (type,title,cover,dayNum,season,crowdType,prInfo,userId,prTime) values (?,?,?,?,?,?,?,?,?)'; var ins = [type, title, cover, dayNum, season, crowdType, article, userId, insertTime]; break;
-        //     default: console.log('没有该类型');
-        // }
-        // DAO('select * from collections where userId = ?', userId, function (err, results) {
-        //     if (err) {
-        //         callback(err, null)
-        //     } else {
-        //         callback(null, results)
-        //     }
-        // })
+    collectArticle: function (userId, callback) {
+        DAO("select collections.strategyId,type,title,ssInfo,cityName,ssLikeNum,ssCollectionNum,ssTime,ssStatus,cover from collections join scenerystrategy on collections.strategyId = scenerystrategy.strategyId where collections.userId = ? and collections.strategyType = 'scenerystrategy'"
+        +" union "+
+        "select collections.strategyId,type,title,fsInfo,cityName,fsLikeNum,fsCollectionNum,fsTime,fsStatus,cover from collections join foodstrategy on collections.strategyId = foodstrategy.strategyId where collections.userId = ? and collections.strategyType = 'foodstrategy'"
+        +" union "+
+        "select collections.strategyId,type,title,prInfo,cityName,prLikeNum,prCollectionNum,prTime,prStatus,cover from collections join personalrow on collections.strategyId = personalrow.strategyId where collections.userId = ? and collections.strategyType = 'personalrow'", [userId,userId,userId], function (err, results) {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, results)
+            }
+        })
     },
     /**关注列表添加 */
     addFriends: function (userId, relationUserId, callback) {
