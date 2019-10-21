@@ -12,13 +12,11 @@
             <h2>{{stra.title}}</h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-                <div class="img-span" @click="updateCollectionNum(stra.userId)">
-                  <i class="fa fa-star-o" aria-hidden="true"></i>
-                  <span>收藏({{stra.prCollectionNum}})</span>
+                <div class="img-span" @click="updateCollectionNum(stra.userId)" id="operation">
+                  <i class="el-icon-star-off" aria-hidden="true" id='icon'>收藏({{stra.prCollectionNum}})</i>
                 </div>
-                <div class="img-span" @click="updateLikeNum(stra.userId)">
-                  <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                  <span>点赞({{stra.prLikeNum}})</span>
+                <div class="img-span" @click="updateLikeNum(stra.userId)" id="operation1">
+                  <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞({{stra.prLikeNum}})</i>
                 </div>
                 <div class="img-span" @click="report()">
                   <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
@@ -563,7 +561,7 @@
                   :key="dis.commentId"
                 >
                   <div class="img">
-                    <img :src="getPic(dis.headPic)"/>
+                    <img :src="getPic(dis.headPic)" />
                   </div>
                   <div class="info">
                     <h3>{{dis.userName}}</h3>
@@ -682,13 +680,20 @@ export default {
           if (judge == 1) {
             this.strategy[0].prCollectionNum =
               parseInt(this.strategy[0].prCollectionNum) + 1;
-            // console.log(this.strategy[0].prCollectionNum);
             this.$message("收藏成功！");
+            $("#operation").addClass("operated");
+            $("#icon").removeClass("el-icon-star-off");
+            $("#icon").addClass("el-icon-star-on");
           } else if (judge == -1) {
             this.strategy[0].prCollectionNum =
               parseInt(this.strategy[0].prCollectionNum) - 1;
-            console.log(this.strategy.prCollectionNum);
+            if (this.strategy[0].prCollectionNum < 0) {
+              this.strategy[0].prCollectionNum = 0;
+            }
             this.$message("取消收藏成功！");
+            $("#operation").removeClass("operated");
+            $("#icon").removeClass("el-icon-star-on");
+            $("#icon").addClass("el-icon-star-off");
           }
         })
         .catch(err => {
@@ -712,11 +717,13 @@ export default {
               parseInt(this.strategy[0].prLikeNum) + 1;
             console.log(this.strategy.prLikeNum);
             this.$message("点赞成功！");
+             $("#operation1").addClass("operated");
           } else if (judge == -1) {
             this.strategy[0].prLikeNum =
               parseInt(this.strategy[0].prLikeNum) - 1;
             console.log(this.strategy.prLikeNum);
             this.$message("取消点赞成功！");
+             $("#operation1").removeClass("operated");
           }
         })
         .catch(err => {
@@ -743,10 +750,10 @@ export default {
     //获取头像
     getPic(pic) {
       let path = "http://localhost:3000/uploadHeadPic/" + pic;
-      console.log(path)
+      console.log(path);
       return path;
     },
- 
+
     //添加评论
     addComment() {
       this.$axios
@@ -768,7 +775,7 @@ export default {
             })
             .then(res => {
               this.discuss = res.data.data;
-              this.newcommentContent=""
+              this.newcommentContent = "";
             })
             .catch(err => {
               console.log("错误信息" + err);
@@ -790,7 +797,7 @@ export default {
         })
         .then(res => {
           this.discuss = res.data.data;
-           //删除评论后实时刷新评论
+          //删除评论后实时刷新评论
           this.$axios
             .post("http://localhost:3000/operation/seldiscuss", {
               strategyId: this.info.id,
@@ -845,8 +852,6 @@ export default {
     //     });
     // },
 
-    
-
     //显示提示框
     openVn() {
       const h = this.$createElement;
@@ -896,7 +901,12 @@ export default {
   color: #ff9d00;
   cursor: pointer;
 }
-
+.operation :hover {
+  color: #ff9d00;
+}
+.operated {
+  color: #ff9d00;
+}
 .container-fluid .container p span {
   background-color: #ff9d00;
 }

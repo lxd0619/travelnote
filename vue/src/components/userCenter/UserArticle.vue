@@ -114,6 +114,7 @@ export default {
           for (var i = 0; i < this.articles.length; i++) {
             if (this.articles[i].strategyId == strategyId) {
               this.articles.splice(i, 1); 
+              this.allPage=this.articles.length
             }
           }
           if(this.articles.length == 0){
