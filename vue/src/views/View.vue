@@ -83,7 +83,7 @@
             </span>
             <span>
               <img src="../assets/food/点赞_line.png" width="17px" height="17px" />
-              收藏({{article.ssCollection}})
+              收藏({{article.ssCollectionNum}})
             </span>
           </div>
         </div>
@@ -111,8 +111,8 @@
             
           </a>
         </div>
-        <div class="main_news trips_con">
-          <ul  @click="go(hotarticle.type,hotarticle.strategyId)" v-for="hotarticle in hotarticles.slice(1,5)" :key="hotarticle.strategyId">
+        <div class="main_news trips_con" style="width:900px">
+          <ul style="width:400px;float:left;margin-left:50px" @click="go(hotarticle.type,hotarticle.strategyId)" v-for="hotarticle in hotarticles.slice(1,7)" :key="hotarticle.strategyId">
             <li>
               <a href="#" target="_blank">
                 <img :src="getCoverPic(hotarticle.cover)" />
@@ -295,6 +295,7 @@ export default {
   height: 38px;
 }
 .txt p {
+  margin-left: 10px;
   font-size: 12px;
   height: 55px;
   width: 220px;
@@ -304,6 +305,7 @@ export default {
   overflow: hidden;
   font-size: 20px;
   font-family: 楷体;
+  margin-left: 10px;
 }
 .tripb .tit h3 em {
   font-family: Arial;
@@ -337,8 +339,9 @@ ul {
 }
 .main_news ul li {
   padding-bottom: 10px;
-  width: 595px;
+  width: 400px;
   border-bottom: 1px dotted #cbcbcb;
+  margin: 0px;
 }
 li {
   list-style: none;
@@ -350,8 +353,8 @@ li {
 }
 .main_news ul li a div.txt {
   display: block;
-  padding-left: 15px;
-  width: 420px;
+  margin: 0px;
+  width: 220px;
   height: 100px;
   overflow: hidden;
 }
@@ -360,7 +363,7 @@ li {
   line-height: 36px;
   font-weight: 700;
   color: #454545;
-  width: 290px;
+  width: 220px;
   height: 45px;
 }
 h1 {

@@ -221,7 +221,7 @@
           </h3>
         </span>
         <div class="total">
-          <div class="detailtitle" v-for="message in messages.slice(0,2)" :key="message.index">
+          <div class="detailtitle"  @click="went(message.type,message.strategyId)" v-for="message in messages.slice(0,2)" :key="message.strategyId">
             <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
             <h3>“{{message.title}}”</h3>
           </div>
@@ -237,7 +237,7 @@
           </h3>
         </span>
         <div class="total">
-          <div class="detailtitle" v-for="message in messages1.slice(0,2)" :key="message.index">
+          <div class="detailtitle"  @click="went(message.type,message.strategyId)"  v-for="message in messages1.slice(0,2)" :key="message.strategyId">
             <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
             <h3>“{{message.title}}”</h3>
           </div>
@@ -247,13 +247,13 @@
         <span class="more">
           <h3>
             吉林省
-            <a href @click="go('浙江省')">
+            <a href @click="go('吉林省')">
               <em>更多&gt;&gt;</em>
             </a>
           </h3>
         </span>
         <div class="total">
-          <div class="detailtitle" v-for="message in messages2.slice(0,2)" :key="message.index">
+          <div class="detailtitle" @click="went(message.type,message.strategyId)" v-for="message in messages2.slice(0,2)" :key="message.strategyId">
             <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
             <h3>“{{message.title}}”</h3>
           </div>
@@ -339,7 +339,13 @@ export default {
       //给图片名加上服务器端访问路径
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
-    }
+    },
+    went(type, id) {
+      var strategy = { type, id };
+      var info = JSON.stringify(strategy);
+      sessionStorage.setItem("info", info);
+      window.open("/index/fvstrategy");
+    },
   }
 };
 </script>
@@ -692,7 +698,7 @@ a {
   position: relative;
   width:200px;
   height: 100%;
-  min-height: 600px;
+  min-height: 400px;
   max-height: 800px;
   color: white;
   overflow: hidden;
@@ -740,7 +746,7 @@ a {
   transform: translate3d(0, 0, 0);
   position: absolute;
   width: 500px;
-  height: 50%;
+  height: 100%;
   top: 0;
   left: 0;
   background-size: cover;
