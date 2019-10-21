@@ -15,6 +15,13 @@
             <h2></h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
+           <div class="operation" id="operation" style="cursor:pointer">
+              <span >
+                          作者:{{stra.userName}}
+                          <img :src="getPic(stra.headPic)" width="35px" height="35px" />
+                        </span>
+                </div>
+                  
                 <div @click="updateCollectionNum(stra.userId)" class="operation" id="operation" style="cursor:pointer">
                   <i
                     class="el-icon-star-off"
@@ -26,8 +33,8 @@
                   <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
                 </div>
                 <div class="img-span" @click="report()">
-                  <i class="fa fa-map-marker" aria-hidden="true"></i>
-                  <span>{{stra.cityName}}</span>
+                  <i class="fa" aria-hidden="true"></i>
+                  <span>举报</span>
                 </div>
               </div>
             </div>
@@ -58,11 +65,11 @@
                   <div class="com-cont">{{dis.commentContent}}</div>
                   <br />
 
-                  <div class="info-span">
-                    <span
-                      v-if="dis.userId==userId"
+                  <div class="info-span" v-if="dis.userId==userId"
                       @click="delComment(dis.commentId)"
-                      :key="dis.commentId"
+                      :key="dis.commentId">
+                    <span
+                     
                     >删除个人评论</span>
                   </div>
                 </div>
@@ -113,7 +120,8 @@ export default {
       // newReplyContent: "",
 
       //当前登录用户id
-      userId: ""
+      userId: "",
+       loading: false
     };
   },
   created() {

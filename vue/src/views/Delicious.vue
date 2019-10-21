@@ -160,6 +160,7 @@
         </div>
       </div>
     </div>
+  
     <div id="foot"></div>
   </div>
 </template>
@@ -562,7 +563,6 @@ dd {
   display: inline-block;
   margin-right: 10px;
   font-size: 12px;
-  color: #ff9d00;
 }
 
 .navSearch {
