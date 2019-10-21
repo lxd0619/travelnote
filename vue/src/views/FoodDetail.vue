@@ -171,7 +171,7 @@
               <div class="bg bg1"></div>
             </div>
             <div class="content">
-                  <p>爱至苍山洱海，心如古木不惊</p>
+               <p>一缕青烟，一串爱意，美味串串香</p>
                 </div>
              
           </div>
@@ -180,7 +180,8 @@
             <div class="figcaption">
               <div class="bg bg2"></div>
                <div class="content">
-                  <p>桂林山水甲天下</p>
+                    <p>能一起吃火锅的人，一定是一个世界的</p>
+                  
                 </div>
             </div>
           </div>
@@ -188,7 +189,7 @@
             <div class="figcaption">
               <div class="bg bg3"></div>
                <div class="content">
-                  <p>冰雪大世界 江北冰灯十里明， 碧栏金塔小楼红。 飞桥七彩凌霄卧， 好似长虹挂月空</p>
+             <p>观看世间奇景，烤出人生百味</p>
                 </div>
             </div>
            
@@ -197,7 +198,7 @@
             <div class="figcaption">
               <div class="bg bg4"></div>
                <div class="content">
-                  <p>西藏是个神秘的地方，有着灿烂的阳光，洁白的云朵，纯净的天空，稀薄的空气，连绵的雪山，安静的湖泊</p>
+                  <p> 吊炉慢烤玉金锣，卤水熬熟瘦胾坨，香脆激活舌味蕾，非常诱惑肉夹馍</p>
                 </div>
             </div>
            
@@ -207,7 +208,7 @@
               <div class="bg bg5"></div>
             </div>
              <div class="content">
-                  <p>别浦高楼曾漫倚，对江南千里</p>
+             <p>一缕青烟，一串爱意，美味串串香</p>
                 </div>
           </div>
         </div>
@@ -275,6 +276,7 @@
         </div>
       <div id="foot"></div>
     </div>
+    
      <div v-else id="content">
       <h1>暂无数据呢~</h1>
      

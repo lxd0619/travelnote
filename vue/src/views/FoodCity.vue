@@ -8,8 +8,8 @@
             <span class="right_more">
               <a href="#" target="_blank"></a>
             </span>
-            <h2 class="clearfix">
-              <a class="pr10" href="#" target="_blank">的攻略</a>
+            <h2 class="clearfix" v-for="message in messages.slice(0,1)"  :key="message.index">
+              <a class="pr10" href="#" target="_blank">{{message.cityName}}的攻略</a>
             </h2>
           </div>
         </div>
