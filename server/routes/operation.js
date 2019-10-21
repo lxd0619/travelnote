@@ -3,6 +3,15 @@ var router = express.Router();
 var operationController=require('../controllers/operationController')
 var passport=require('passport');
 
+/**判断该用户是否点赞 */
+router.post('/islike',passport.authenticate('jwt',{session:false}),function(req,res,next){
+    operationController.isLike(req,res)
+})
+
+/**判断该用户是否点赞 */
+router.post('/iscollect',passport.authenticate('jwt',{session:false}),function(req,res,next){
+    operationController.isCollect(req,res)
+})
 /**点赞 */
 router.post('/like',passport.authenticate('jwt',{session:false}),function(req,res,next){
     operationController.Like(req,res)
