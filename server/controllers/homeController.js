@@ -3,6 +3,8 @@ var homeDAO = require('../models/homeDAO')
 var homeController = {
     search: function (req, res) {
         var keyWord = req.body.keyWord
+        console.length(req.body)
+        console.log(keyWord)
         homeDAO.search(keyWord, function (err, results) {
             if (err) {
                 res.json({ code: 500,data:0, msg: '关键词查询失败' })
