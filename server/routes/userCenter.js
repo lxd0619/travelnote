@@ -4,6 +4,24 @@ var userController = require('../controllers/userController')
 var passport=require('passport')
 
 ////users.js
+/**查询他人用户信息 */
+router.post('/getInfo',function(req,res,next){
+    userController.getInfo(req,res)
+})
+/**查看他人攻略 */
+router.post('/Article',function(req,res,next){
+    userController.Article(req,res)
+})
+/**查看他人粉丝 */
+router.post('/HisFriends',function(req,res,next){
+    userController.Friends(req,res)
+})
+
+/** 查看他人关注*/
+router.post('/HisAttentions',function(req,res,next){
+    userController.HisAttentions(req,res)
+})
+
 /**根据Id查询用户信息*/
 router.get('/getUserInfo',passport.authenticate('jwt',{session:false}), function (req, res, next) {
     userController.getUserInfo(req, res)

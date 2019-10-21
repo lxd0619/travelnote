@@ -4,6 +4,69 @@ var path = require('path')
 var bcrypt = require('bcrypt')
 
 var userController = {
+    /**查询他人接口 */
+    getInfo: function (req, res) {
+        var userId = req.body.userId
+        console.log(1, userId)
+        userDAO.getInfo(userId, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '用户信息查询失败' })
+            } else {
+                if (results == null || results.length == 0) {
+                    res.json({ code: 200, data: 0, msg: '暂无用户信息' })
+                } else {
+                    res.json({ code: 200, data: results, msg: '用户信息查询成功' })
+                }
+            }
+        })
+    },
+    /** 查询他人攻略*/
+    Article: function (req, res) {
+        var userId = req.body.userId
+        userDAO.userArticle(userId, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '个人攻略查询失败' })
+            } else {
+                if (results == null || results.length == 0) {
+                    res.json({ code: 200, data: 0, msg: '暂无个人攻略' })
+                } else {
+                    res.json({ code: 200, data: results, data: results, msg: '个人攻略查询成功' })
+                }
+            }
+        })
+    },
+    /**查询他人粉丝 */
+    Friends: function (req, res) {
+        var userId = req.body.userId
+        userDAO.fans(userId, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '粉丝查询失败' })
+            } else {
+                if (results == null || results.length == 0) {
+                    res.json({ code: 200, data: 0, msg: '粉丝查询失败' })
+                } else {
+                    res.json({ code: 200, data: results, msg: '粉丝查询成功' })
+                }
+            }
+        })
+    },
+
+    /**查询他人关注 */
+    HisAttentions: function (req, res) {
+        var userId = req.body.userId
+        console.log(userId)
+        userDAO.attentions(userId, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '关注查询失败' })
+            } else {
+                if (results == null || results.length == 0) {
+                    res.json({ code: 200, data: 0, msg: '关注查询失败' })
+                } else {
+                    res.json({ code: 200, data: results, msg: '关注查询成功' })
+                }
+            }
+        })
+    },
     /**根据Id查询用户信息*/
     getUserInfo: function (req, res) {
         var userId = req.user.userId
@@ -164,7 +227,7 @@ var userController = {
             // console.log('ins:' + ins)
             userDAO.commitArticle(sqlstr, ins, function (err, results) {
                 if (err) {
-                    res.json({ code: 500, data: 0, msg: '攻略上传失败'+err.message })
+                    res.json({ code: 500, data: 0, msg: '攻略上传失败' + err.message })
                 } else {
                     if (results.affectedRows == 0) {
                         res.json({ code: 200, data: 0, msg: '攻略上传失败！' })
@@ -222,7 +285,7 @@ var userController = {
     delArticle: function (req, res) {
         var type = req.body.type
         var strategyId = req.body.strategyId
-        console.log(type,strategyId)
+        console.log(type, strategyId)
         var sqlstr = ''
         switch (type) {
             case 'scenerystrategy': sqlstr = 'update scenerystrategy set ssStatus = -4 where strategyId = ?'; break;
@@ -259,21 +322,43 @@ var userController = {
             }
         })
     },
-    /**关注列表添加 */
+    /**关注和取消关注*/
     addFriends: function (req, res) {
         var userId = req.user.userId
         var relationUserId = req.body.relationUserId
-        userDAO.addFriends(userId, relationUserId, function (err, results) {
+        var info = { userId, relationUserId }
+        userDAO.is_attentions(info, function (err, results) {
             if (err) {
-                res.json({ code: 500, data: 0, msg: '关联用户添加失败' })
+                res.json({ code: 500, data: 0, msg: '关注查询失败' })
             } else {
                 if (results == null || results.length == 0) {
-                    res.json({ code: 200, data: 0, msg: '关联用户添加失败' })
+                    userDAO.addFriends(userId, relationUserId, function (err, results) {
+                        if (err) {
+                            res.json({ code: 500, data: 0, msg: '关联用户添加失败' })
+                        } else {
+                            if (results == null || results.length == 0) {
+                                res.json({ code: 200, data: 0, msg: '关联用户添加失败' })
+                            } else {
+                                res.json({ code: 200, data: results, msg: '关注成功' })
+                            }
+                        }
+                    })
                 } else {
-                    res.json({ code: 200, data: results, msg: '关联用户添加成功' })
+                    userDAO.delFriends(userId, relationUserId,function(err,results){
+                        if (err) {
+                            res.json({ code: 500, data: 0, msg: '取消关联用户添加失败' })
+                        } else {
+                            if (results == null || results.length == 0) {
+                                res.json({ code: 200, data: 0, msg: '取消关联用户添加失败' })
+                            } else {
+                                res.json({ code: 200, data: results, msg: '取消关联用户添加成功' })
+                            }
+                        }
+                    })
                 }
             }
         })
+
     },
     /**粉丝列表查询 */
     fans: function (req, res) {
@@ -338,13 +423,13 @@ var userController = {
     /**系统消息查询 */
     sysMessage: function (req, res) {
         var userId = req.user.userId
-        var type= req.body.type
-        if(type==1){ 
-            var sql="select * from sysmessage where userId = ? and msStatus=1"
-        }else{
-            var sql='select * from sysmessage where userId=? and msStatus=0'
+        var type = req.body.type
+        if (type == 1) {
+            var sql = "select * from sysmessage where userId = ? and msStatus=1"
+        } else {
+            var sql = 'select * from sysmessage where userId=? and msStatus=0'
         }
-        userDAO.sysMessage(sql,userId, function (err, results) {
+        userDAO.sysMessage(sql, userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '系统消息查询失败' })
             } else {
@@ -356,16 +441,16 @@ var userController = {
             }
         })
     },
-    sysMessage_change:function(req,res){
-        var sysMsgId=req.body.sysMsgId
-        userDAO.sysMessage_change(sysMsgId,function(err,results){
-            if(err){
-                res.json({code:500,data:0,msg:'系统更改状态失败'})
-            }else{
-                if(results.affectedRows==0){
-                    res.json({code:200,data:0,msg:'更改状态失败'})
-                }else{
-                    res.json({code:200,data:1,msg:'更改状态成功'})
+    sysMessage_change: function (req, res) {
+        var sysMsgId = req.body.sysMsgId
+        userDAO.sysMessage_change(sysMsgId, function (err, results) {
+            if (err) {
+                res.json({ code: 500, data: 0, msg: '系统更改状态失败' })
+            } else {
+                if (results.affectedRows == 0) {
+                    res.json({ code: 200, data: 0, msg: '更改状态失败' })
+                } else {
+                    res.json({ code: 200, data: 1, msg: '更改状态成功' })
                 }
             }
         })
