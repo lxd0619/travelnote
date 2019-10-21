@@ -6,8 +6,8 @@
         <form action="#" id="searchForm">
           <div id="formDiv">
             <p>Don't fear the unknow</p>
-            <input type="text" placeholder="我想去..." />
-            <input type="button" value="搜索" />
+            <input type="text" placeholder="我想去..." v-model="searchName"/>
+            <input type="button" value="搜索" @click="goSearch(searchName)" />
             <p>苏州 上海 北京 陕西</p>
           </div>
         </form>
@@ -206,6 +206,7 @@
 export default {
   data() {
     return {
+      searchName:'',
       activeName1: "first",
       activeName2: "first",
       cityName:'',//go方法返回的一个城市名
@@ -218,7 +219,14 @@ export default {
     handleClick2(tab, event) {
       console.log(tab, event);
     },
-
+    // 搜索功能跳转
+    goSearch(searchName) {
+      // console.log(searchName)
+      var cityName = JSON.stringify(searchName);
+      sessionStorage.setItem("cityName", cityName);
+      // this.$router.push("/index/index/aimline");
+       window.open("/index/aimline");
+    },
     go(city) {
       var cityName = JSON.stringify(city);
       sessionStorage.setItem("cityName", cityName);
