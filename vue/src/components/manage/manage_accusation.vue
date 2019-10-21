@@ -44,7 +44,8 @@
           <a @click="strategydetail(li.type,li.strategyId)">
             <img id="img" :src="getPic(li.cover)" style="width: 200px ;height: 200px;" />
             <p>{{li.title}}</p>
-            <span>作者：{{li.userName}}</span>
+            <span>作者：{{li.userName}}</span><br>
+            <span>被举报次数：{{li.ssStatus}}</span>
           </a>
         </div>
       </div>
@@ -119,7 +120,7 @@ body {
 #content {
   position: relative;
   width: 1200px;
-  height: 605px;
+  height: 650px;
   text-align: center;
 }
 h1{
@@ -135,7 +136,7 @@ h1{
   float: left;
   background-color: white;
   width: 200px;
-  height: 270px;
+  height: 290px;
   margin: 10px 20px;
   text-align: center;
   line-height: 30px;

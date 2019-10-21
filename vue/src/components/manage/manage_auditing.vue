@@ -116,7 +116,7 @@ body {
 #content {
   position: relative;
   width: 1200px;
-  height: 605px;
+  height: 640px;
 }
 h1{
   position: absolute;

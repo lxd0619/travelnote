@@ -3,7 +3,7 @@
     <header>
       <h1>用户后台管理</h1>
     </header>
-    <div class="line"></div>
+    <!-- <div class="line"></div> -->
     <div class="main">
       <nav>
         <div class="menu">
@@ -152,6 +152,7 @@ header {
 .main {
   position: relative;
   background-color: #eeeeee;
+  margin-top: 10px;
 }
 h1 {
   color: #00b894;
@@ -193,7 +194,7 @@ header a {
 }
 
 .menu ul {
-  height: 650px;
+  height: 690px;
   width: 200px;
   background-color: #226b80;
   padding: 0;

@@ -6,8 +6,8 @@ var bcrypt = require('bcrypt')
 var userController = {
     /**根据Id查询用户信息*/
     getUserInfo: function (req, res) {
-        var userTel = req.user.userTel
-        userDAO.getUserInfo(userTel, function (err, results) {
+        var userId = req.user.userId
+        userDAO.getUserInfo(userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '用户信息查询失败' })
             } else {
