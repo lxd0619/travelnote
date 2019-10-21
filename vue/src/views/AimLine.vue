@@ -10,7 +10,6 @@
         </div>
       </div>
     </div>
-
     <div class="container">
       <!-- 路线 -->
       <h3>{{cityName}}经典路线</h3>
@@ -56,7 +55,7 @@
               </a>
             </li>
           </ul>
-          
+
           <!-- 清除浮动 -->
           <div class="clearboth"></div>
           <!-- 分页 -->
