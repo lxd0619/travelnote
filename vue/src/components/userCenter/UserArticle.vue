@@ -116,7 +116,6 @@ export default {
           strategyId: strategyId
         })
         .then(res => {
-          console.log(res);
           // location.reload()
           console.log("aaa:" + this.articles);
           for (var i = 0; i < this.articles.length; i++) {

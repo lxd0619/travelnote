@@ -47,7 +47,6 @@
           >修改手机号</a>
         </div>
       </div>
-      <p>{{userInfo}}</p>
       <!-- 个人资料内容 -->
       <div class="col-9">
         <div class="tab-content" id="v-pills-tabContent">
@@ -360,31 +359,31 @@ export default {
     this.$axios
       .get("http://localhost:3000/userCenter/getUserInfo")
       .then(res => {
-        console.log("查询结果" + res.data.data);
         this.userInfo = res.data.data;
         this.userInfo[0].registerTime = this.userInfo[0].registerTime.slice(
           0,
           this.userInfo[0].registerTime.indexOf("T")
         );
-        let percent = 0;
+
         if (this.userInfo[0].userName) {
-          percent += 20;
-        } else if (this.userInfo[0].sex == "保密") {
-          percent += 20;
-        } else if (this.userInfo[0].headPic != "headPic") {
-          percent += 20;
-        } else if (
-          this.userInfo[0].email != "" ||
-          this.userInfo[0].email != null
-        ) {
-          percent += 20;
-        } else if (
-          this.userInfo[0].address != "" ||
-          this.userInfo[0].address != null
-        ) {
-          percent += 20;
+          this.percentage += 20;
         }
-        this.percentage = percent;
+        if (this.userInfo[0].sex != "保密") {
+          this.percentage += 20;
+        }
+        if (this.userInfo[0].headPic != "headPic") {
+          this.percentage += 20;
+        }
+        // if (this.this.userInfo[0].email != null) {
+        if (this.userInfo[0].email.length > 0) {
+          this.percentage += 20;
+        }
+        // }
+        // if (this.this.userInfo[0].address != null) {
+        if (this.userInfo[0].address.length > 0) {
+          this.percentage += 20;
+        }
+        // }
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -401,30 +400,27 @@ export default {
   methods: {
     //修改用户信息
     submitForm(formName) {
+      let _this = this;
       this.$axios
         .post("http://localhost:3000/userCenter/updateUser", this.userInfo[0])
         .then(res => {
-          console.log("更新成功".res);
           alert("修改成功！");
-          let percent = 0;
+          this.percentage = 0
           if (this.userInfo[0].userName) {
-            percent += 20;
-          } else if (this.userInfo[0].sex == "保密") {
-            percent += 20;
-          } else if (this.userInfo[0].headPic != "headPic") {
-            percent += 20;
-          } else if (
-            this.userInfo[0].email != "" ||
-            this.userInfo[0].email != null
-          ) {
-            percent += 20;
-          } else if (
-            this.userInfo[0].address != "" ||
-            this.userInfo[0].address != null
-          ) {
-            percent += 20;
+            this.percentage += 20;
           }
-          this.percentage = percent;
+          if (this.userInfo[0].sex != "保密") {
+            this.percentage += 20;
+          }
+          if (this.userInfo[0].headPic != "headPic") {
+            this.percentage += 20;
+          }
+          if (this.userInfo[0].email.length > 0) {
+            this.percentage += 20;
+          }
+          if (this.userInfo[0].address.length > 0) {
+            this.percentage += 20;
+          }
         })
         .catch(err => {
           console.log("error:" + err);
