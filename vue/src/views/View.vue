@@ -129,7 +129,7 @@
         </div>
       </div>
       <div>
-        <div class="bottom" style="margin-top: 550px">
+        <div class="bottom" style="margin-top:550px">
           <h1 class="tit-line mb5">游记攻略</h1>
           <div class="tit_sub">独行或同游，聪明的人与你在一起</div>
         </div>
