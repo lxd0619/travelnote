@@ -217,7 +217,7 @@
         <span class="more">
           <h3>
             江苏省
-            <a href @click="go('江苏省')">
+            <a href="javascript;" @click="go('江苏省')">
               <em>更多&gt;&gt;</em>
             </a>
           </h3>
@@ -235,7 +235,7 @@
         <span class="more">
           <h3>
             湖南省
-            <a @click="go('湖南省')">
+            <a href="javascript;" @click="go('湖南省')">
               <em>更多&gt;&gt;</em>
             </a>
           </h3>
@@ -251,7 +251,7 @@
         <span class="more">
           <h3>
             上海市
-            <a href @click="go('上海市')">
+            <a href="javascript;" @click="go('上海市')">
               <em>更多&gt;&gt;</em>
             </a>
           </h3>
