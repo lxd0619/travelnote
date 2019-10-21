@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-5">
     <div v-if="show">
       <div class="card-deck flex-column" id="article">
         <div
@@ -28,9 +28,9 @@
               v-html="article.ssInfo"
             ></p>
             <p class="text-muted">
-              <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>
-              <i class="fa fa-eye mr-2" aria-hidden="true">{{article.ssCollectionNum}}</i>
-              <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.ssLikeNum}}</i>
+              <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.cityName}}</i>
+              <i class="el-icon-star-off mr-2"> {{article.ssCollectionNum}}</i>
+              <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true"> {{article.ssLikeNum}}</i>
             </p>
           </div>
         </div>
@@ -59,7 +59,7 @@ export default {
       articles: [],
       currentPage: 1,
       allPage: 0,
-      pagesize: 2,
+      pagesize: 5,
       show: true
     };
   },
@@ -91,6 +91,14 @@ export default {
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
+    },getHeadPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      if (pic == null || pic == "" || pic =="headPic") {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
     },
     go(type, id) {
       var strategy = { type, id };
@@ -110,15 +118,15 @@ export default {
         .then(res => {
           console.log(res);
           // location.reload()
-          console.log("aaa:"+this.articles)
+          console.log("aaa:" + this.articles);
           for (var i = 0; i < this.articles.length; i++) {
             if (this.articles[i].strategyId == strategyId) {
-              this.articles.splice(i, 1); 
-              this.allPage=this.articles.length
+              this.articles.splice(i, 1);
+              this.allPage = this.articles.length;
             }
           }
-          if(this.articles.length == 0){
-            this.show = false
+          if (this.articles.length == 0) {
+            this.show = false;
           }
         })
         .catch(err => {
@@ -145,10 +153,22 @@ h3 {
   left: 50%;
   transform: translate(-50%, 0);
 }
-#article img {
+#article img:first-child {
   width: 13rem;
   height: 11rem;
 }
+.card-body{
+  padding-bottom: 0;
+  width: 10rem;
+  height: 5rem;
+}
+.text-muted{
+  margin: 0;
+}
+/* .text-muted img {
+  width: 20px;
+  height: 20px;
+} */
 .card {
   color: #666;
 }
@@ -158,9 +178,6 @@ h3 {
 }
 .card:hover a {
   color: #ff9d00;
-}
-.card-title {
-  width: 10rem;
 }
 #delBtn {
   position: relative;

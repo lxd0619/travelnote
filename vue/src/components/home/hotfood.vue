@@ -26,13 +26,16 @@
             v-html="article.fsInfo"
           ></p>
           <p class="text-muted">
-            <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>
+            <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.cityName}}</i>
             by {{article.userName}}
-            <i>
-              <img src alt />
-            </i>
-            <i class="fa fa-eye mr-2" aria-hidden="true">{{article.fsCollectionNum}}</i>
-            <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.fsLikeNum}}</i>
+            <img
+              :src="getHeadPic(article.headPic)"
+              alt="head"
+              class="mr-3"
+              circle
+            />
+            <i class="el-icon-star-off mr-2"> {{article.fsCollectionNum}}</i>
+            <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true"> {{article.fsLikeNum}}</i>
           </p>
         </div>
       </div>
@@ -93,6 +96,14 @@ export default {
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
+    },getHeadPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      if (pic == null || pic == "" || pic =="headPic") {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
     },
     go(type, id) {
       var strategy = { type, id };
@@ -122,6 +133,15 @@ h1 {
 }
 .card-body{
   padding-bottom: 0;
+  width: 10rem;
+  height: 5rem;
+}
+.text-muted{
+  margin: 0;
+}
+.text-muted img {
+  width: 20px;
+  height: 20px;
 }
 .card {
   color: #666;

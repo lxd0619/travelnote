@@ -63,10 +63,16 @@ var userController = {
             }
             //fields是常温的表单字段数组，files是上传的文件列表
             //保存图片路径到数据库
+            var headPic = ""
+            if (files) {
+                headPic = path.parse(files.headPic.path).base
+            } else {
+                headPic = "headPic"
+            }
             //1.获取当前用户编号
             var userTel = req.user.userTel
             //1.获取当前用户的图片名称
-            var headPic = path.parse(files.img.path).base
+            // var headPic = path.parse(files.img.path).base
             var userHead = { headPic: headPic, userTel: userTel }
             userDAO.headPic(userHead, function (err, results) {
                 if (err) {
@@ -96,7 +102,7 @@ var userController = {
             }
         })
     },
-    /**上传攻略图片到数据库 */
+    /**上传攻略图片到服务器 */
     uploadArticle: function (req, res) {
         // //定义一个对象results，用于返回wangeditor
         // var results = {
@@ -132,7 +138,6 @@ var userController = {
             }
             //fields是常温的表单字段数组，files是上传的文件列表
             var cover = ""
-            console.log(files)
             if (files) {
                 cover = "cover"
             } else {
@@ -243,6 +248,7 @@ var userController = {
         var userId = req.user.userId
         userDAO.collectArticle(userId, function (err, results) {
             if (err) {
+                console.log(err)
                 res.json({ code: 500, data: 0, msg: '收藏攻略查询失败' })
             } else {
                 if (results == null || results.length == 0) {

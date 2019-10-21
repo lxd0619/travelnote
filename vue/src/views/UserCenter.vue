@@ -147,10 +147,6 @@ export default {
   background-size: cover;
 }
 
-#content {
-  height: 40em;
-}
-
 #headPic {
   height: 10rem;
   width: 10rem;
