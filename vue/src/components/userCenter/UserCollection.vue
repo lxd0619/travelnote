@@ -1,5 +1,5 @@
 <template>
-  <div id="content">
+  <div id="content" class="mb-5">
     <div v-if="show">
       <div class="card-deck flex-column" id="collectArticle">
         <div
@@ -8,13 +8,19 @@
           :key="collection.index"
           @click="go(article.type,article.strategyId)"
         >
-          <img class="card-img-top" src alt="Card image cap" />
+          <img class="card-img-top" :src="getPic(collection.cover)" alt="collectionArticlePic" />
           <div class="card-body">
             <h5 class="card-title">{{collection.title}}</h5>
             <p
               class="card-text overflow-hidden"
               style="height: 4em;text-overflow:ellipsis;"
-            >{{collection.ssInfo}}}</p>
+              v-html="collection.ssInfo"
+            ></p>
+            <p class="text-muted">
+              <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{collection.cityName}}</i>
+              <i class="el-icon-star-off mr-2"> {{collection.ssCollectionNum}}</i>
+              <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true"> {{collection.ssLikeNum}}</i>
+            </p>
           </div>
         </div>
       </div>
@@ -75,6 +81,14 @@ export default {
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
+    },getHeadPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      if (pic == null || pic == "" || pic =="headPic") {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
     },
     go(type, id) {
       var strategy = { type, id };
@@ -102,11 +116,30 @@ h3 {
   left: 50%;
   transform: translate(-50%, 0);
 }
-#collectArticle img {
+#collectArticle img:first-child {
   width: 12rem;
   height: 10rem;
 }
-.card:hover {
+.card-body{
+  padding-bottom: 0;
+  width: 10rem;
+  height: 5rem;
+}
+.text-muted{
+  margin: 0;
+}
+/* .text-muted img {
+  width: 20px;
+  height: 20px;
+} */
+.card {
+  color: #666;
+}
+.card a {
+  font-size: 20px;
+  color: #333;
+}
+.card:hover a {
   color: #ff9d00;
 }
 </style>

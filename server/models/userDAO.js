@@ -2,8 +2,8 @@ var DAO = require('./DAO')
 //针对用户数据操作的模块对象
 var userDAO = {
     /**根据Id查询用户信息*/
-    getUserInfo: function (userTel, callback) {
-        DAO('select userName,sex,tel,headPic,email,address,registerTime from users where tel = ?', userTel, function (err, results) {
+    getUserInfo: function (userId, callback) {
+        DAO('select userName,sex,tel,headPic,email,address,registerTime,userStatus from users where userId = ?', userId, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -92,9 +92,9 @@ var userDAO = {
     /**攻略收藏查询 */
     collectArticle: function (userId, callback) {
         DAO("select collections.strategyId,type,title,ssInfo,cityName,ssLikeNum,ssCollectionNum,ssTime,ssStatus,cover from collections join scenerystrategy on collections.strategyId = scenerystrategy.strategyId where collections.userId = ? and collections.strategyType = 'scenerystrategy'"
-        +"union"+
+        +" union "+
         "select collections.strategyId,type,title,fsInfo,cityName,fsLikeNum,fsCollectionNum,fsTime,fsStatus,cover from collections join foodstrategy on collections.strategyId = foodstrategy.strategyId where collections.userId = ? and collections.strategyType = 'foodstrategy'"
-        +"union"+
+        +" union "+
         "select collections.strategyId,type,title,prInfo,cityName,prLikeNum,prCollectionNum,prTime,prStatus,cover from collections join personalrow on collections.strategyId = personalrow.strategyId where collections.userId = ? and collections.strategyType = 'personalrow'", [userId,userId,userId], function (err, results) {
             if (err) {
                 callback(err, null)

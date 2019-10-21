@@ -74,16 +74,7 @@ var operationDAO = {
             }
         })
     },
-    //评论功能
-    // TestDiscuss: function (sql,DiscussInfo,callback) {
-    //     DAO(sql, [DiscussInfo.commentId,DiscussInfo.strategyId,DiscussInfo.strategyType,DiscussInfo.userId], function (err, results) {
-    //         if (err) {
-    //             callback(err, null)
-    //         } else {
-    //             callback(null, results)
-    //         }
-    //     })
-    // },
+    
     AddDiscuss: function(sql, DiscussInfo, callback) {
         DAO(sql, [DiscussInfo.commentContent, DiscussInfo.strategyId, DiscussInfo.userId, DiscussInfo.commentTime, DiscussInfo.strategyType], function(err, results) {
             if (err) {
@@ -123,36 +114,11 @@ var operationDAO = {
             }
         })
     },
-    // AddReply: function (sql,replyInfo,callback) {
-    //     DAO(sql, [replyInfo.replyContent,replyInfo.userId,replyInfo.replyTime,replyInfo.commentId], function (err, results) {
-    //         if (err) {
-    //             callback(err, null)
-    //         } else {
-    //             callback(null, results)
-    //         }
-    //     })
-    // },
-    // DelReply: function (sql,replyInfo,callback) {
-    //     DAO(sql, [replyInfo.replyId,replyInfo.userId,replyInfo.commentId], function (err, results) {
-    //         if (err) {
-    //             callback(err, null)
-    //         } else {
-    //             callback(null, results)
-    //         }
-    //     })
-    // },
-    // SelReply: function (sql,replyInfo,callback) {
-    //     DAO(sql, [replyInfo.commentId], function (err, results) {
-    //         if (err) {
-    //             callback(err, null)
-    //         } else {
-    //             callback(null, results)
-    //         }
-    //     })
-    // },
 
     //举报
     Report: function(sql, reportInfo, callback) {
+        console.log('举报')
+        console.log(reportInfo)
         DAO(sql, [reportInfo.strategyId], function(err, results) {
             if (err) {
                 callback(err, null)
@@ -161,9 +127,42 @@ var operationDAO = {
             }
         })
     },
-
-
-
+    //查询用户是否举报
+    selectReport:function(req,callback){
+        console.log("查询用户是否举报")
+        console.log(req)
+        DAO('select * from reports where strategyType=? and strategyId=? and userId=?',[req.strategyType,req.strategyId,req.userId],function(err,results){
+            if(err){
+                callback(err,null)
+            }else{
+                callback(null,results)
+            }
+        })
+    },
+    //插入举报用户
+    insertReport:function(req,callback){
+        console.log('插入举报用户')
+        console.log(req)
+      DAO('INSERT into reports(strategyType,strategyId,userId) values(?,?,?)',[req.strategyType,req.strategyId,req.userId],function(err,results){
+          if(err){
+              callback(err,null)
+          }else{
+              callback(null,results)
+          }
+      })
+    },
+    //更改用户状态
+    changeUser:function(userId,callback){
+        console.log('更改用户状态')
+        console.log(userId)
+        DAO('update users set userStatus=userStatus+1 where userId=?',userId,function(err,results){
+            if(err){
+            callback(err,null)
+            }else{
+                callback(null,results)
+            }
+        })
+    },
 
     normalStrategy: function(sql, callback) {
         DAO(sql, function(err, results) {

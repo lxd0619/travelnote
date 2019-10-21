@@ -27,7 +27,7 @@
             v-html="article.ssInfo"
           ></p>
           <p class="text-muted">
-            <i class="fa fa-map-marker mr-3" aria-hidden="true">{{article.cityName}}</i>
+            <i class="fa fa-map-marker mr-3" aria-hidden="true"> {{article.cityName}}</i>
             by {{article.userName}}
             <img
               :src="getHeadPic(article.headPic)"
@@ -35,8 +35,8 @@
               class="mr-3"
               circle
             />
-            <i class="fa fa-eye mr-3" aria-hidden="true">{{article.ssCollectionNum}}</i>
-            <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.ssLikeNum}}</i>
+            <i class="el-icon-star-off mr-2"> {{article.ssCollectionNum}}</i>
+            <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true"> {{article.ssLikeNum}}</i>
           </p>
         </div>
       </div>
@@ -102,7 +102,7 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null) {
+      if (pic == null || pic == "" || pic =="headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;

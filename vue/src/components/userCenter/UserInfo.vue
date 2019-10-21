@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-5">
     <div class="row">
       <!-- 个人资料导航 -->
       <div class="col-3">
@@ -47,6 +47,7 @@
           >修改手机号</a>
         </div>
       </div>
+      <p>{{userInfo}}</p>
       <!-- 个人资料内容 -->
       <div class="col-9">
         <div class="tab-content" id="v-pills-tabContent">
@@ -58,16 +59,12 @@
             aria-labelledby="v-pills-userInfo-tab"
           >
             <!-- 个人资料进度条 -->
-            <div class="progress">
-              <div
-                class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                role="progressbar"
-                aria-valuenow="75"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                style="width: 75%"
-              >个人资料完整度75%</div>
-            </div>
+            <el-progress
+              :text-inside="true"
+              :stroke-width="24"
+              :percentage="percentage"
+              status="success"
+            ></el-progress>
             <!-- 表单 -->
             <form class="mt-4">
               <!-- 用户名 -->
@@ -187,7 +184,7 @@
                 <div id="updHead" class="ml-5 bg-secondary">
                   <div
                     class="rounded-circle h-100 w-100 bg-white"
-                    :style="{'backgroundImage':'url(' + getPic(userInfo[0].headPic) + ')'}"
+                    :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"
                   ></div>
                 </div>
                 <div></div>
@@ -351,7 +348,7 @@ export default {
       isCpwd: false,
       password: "",
       password2: "",
-      fileList: [],
+      percentage: 0,
       form: {
         // name: "" //绑定表单元素的属性
       },
@@ -369,6 +366,25 @@ export default {
           0,
           this.userInfo[0].registerTime.indexOf("T")
         );
+        let percent = 0;
+        if (this.userInfo[0].userName) {
+          percent += 20;
+        } else if (this.userInfo[0].sex == "保密") {
+          percent += 20;
+        } else if (this.userInfo[0].headPic != "headPic") {
+          percent += 20;
+        } else if (
+          this.userInfo[0].email != "" ||
+          this.userInfo[0].email != null
+        ) {
+          percent += 20;
+        } else if (
+          this.userInfo[0].address != "" ||
+          this.userInfo[0].address != null
+        ) {
+          percent += 20;
+        }
+        this.percentage = percent;
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -390,6 +406,25 @@ export default {
         .then(res => {
           console.log("更新成功".res);
           alert("修改成功！");
+          let percent = 0;
+          if (this.userInfo[0].userName) {
+            percent += 20;
+          } else if (this.userInfo[0].sex == "保密") {
+            percent += 20;
+          } else if (this.userInfo[0].headPic != "headPic") {
+            percent += 20;
+          } else if (
+            this.userInfo[0].email != "" ||
+            this.userInfo[0].email != null
+          ) {
+            percent += 20;
+          } else if (
+            this.userInfo[0].address != "" ||
+            this.userInfo[0].address != null
+          ) {
+            percent += 20;
+          }
+          this.percentage = percent;
         })
         .catch(err => {
           console.log("error:" + err);
@@ -426,7 +461,7 @@ export default {
     beforeupload(file) {
       // 准备表单上传需要的参数对象
       this.param = new FormData();
-      this.param.append(`img`, file);
+      this.param.append(`headPic`, file);
       return false;
     },
     //修改电话号
@@ -568,10 +603,10 @@ export default {
           });
       }
     },
-    getPic(pic) {
+    getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null) {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;

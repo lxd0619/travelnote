@@ -88,16 +88,16 @@ export default {
             this.msg3 = "未通过审核";
             this.msg4 = "审核通过";
             this.show = true;
-          } else if (this.strategyInfo[0].ssStatus == 1) {
+          } else if (this.strategyInfo[0].ssStatus >= 1) {
             //攻略被举报
             this.flage = true;
             this.ok_ssStatus = 0; //恢复正常文章
-            this.fail_ssStatus = 2; //封贴
+            this.fail_ssStatus = -3; //封贴
             this.msg1 = "是否恢复成正常文章";
             this.msg2 = "请输入封贴原因";
             this.msg3 = "被封了";
             this.show = true;
-          } else if (this.strategyInfo[0].ssStatus == 2) {
+          } else if (this.strategyInfo[0].ssStatus == -3) {
             //被封的攻略
             this.flage = true;
             this.ok_ssStatus = 0; //恢复成正常攻略

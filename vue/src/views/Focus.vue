@@ -1,9 +1,6 @@
 <template>
   <div class="person">
-    <div
-      class="jumbotron jumbotron-fluid"
-      id="topPic"
-    >
+    <div class="jumbotron jumbotron-fluid" id="topPic">
       <div class="container">
         <h1 class="text-light mt-5">旅游札记</h1>
         <br />
@@ -14,24 +11,35 @@
     <div class="container">
       <div class="row mb-5">
         <!-- 左侧边栏 -->
-        <div class="col-lg-3 d-flex flex-column align-items-center  d-md-none d-lg-block border-right">
+        <div
+          class="col-lg-3 d-flex flex-column align-items-center d-md-none d-lg-block border-right"
+        >
           <!-- 圆形头像 -->
           <div
             class="rounded-circle float-right mr-5"
             id="headPic"
             :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"
           ></div>
-          <div class="mt-3 float-right mr-5 text-center" style="width:10rem;"><h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4></div>
+          <div class="mt-3 float-right mr-5 text-center" style="width:10rem;">
+            <h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4>
+          </div>
           <div id="relations" class="mt-3 float-right">
             <ul class="d-flex justify-content-between text-center mr-5">
-              <li class="border-right border-bottom border-top">粉丝：<span>{{fans.length}}</span></li>
-              <li class="border-bottom border-top">关注：<span>{{attentions.length}}</span></li>
+              <li class="border-right border-bottom border-top">
+                粉丝：
+                <span>{{fans.length}}</span>
+              </li>
+              <li class="border-bottom border-top">
+                关注：
+                <span>{{attentions.length}}</span>
+              </li>
             </ul>
+            <span id="addattention">添加关注</span>
           </div>
         </div>
         <!-- 中间部分 -->
         <div class="col-md-12 col-lg-9" id="content">
-          <UserCenterMiddle></UserCenterMiddle>
+          <user-article></user-article>
         </div>
         <!-- 右侧导航 -->
         <el-backtop :bottom="100"></el-backtop>
@@ -40,17 +48,18 @@
   </div>
 </template>
 <script>
-import UserCenterMiddle from "../components/UserCenter_middle";
+import UserArticle from "../components/userCenter/UserArticle";
 export default {
   name: "UserCenter",
   components: {
-    UserCenterMiddle
+    UserArticle
   },
   data() {
     return {
       userInfo: [
         {
-          headPic: ""
+          headPic: "",
+          strategyuserId: ""
         }
       ],
       fans: [],
@@ -58,6 +67,8 @@ export default {
     };
   },
   created() {
+    var strategyuserId = JSON.parse(sessionStorage.getItem("strategyuserId"));
+    this.strategyuserId = strategyuserId;
     // 获取用户信息
     this.$axios
       .get("http://localhost:3000/userCenter/getUserInfo")
@@ -81,8 +92,8 @@ export default {
       .then(res => {
         console.log(res.data.data);
         this.fans = res.data.data;
-        if(res.data.data == 0){
-          this.fans = ""
+        if (res.data.data == 0) {
+          this.fans = "";
         }
       })
       .catch(err => {
@@ -97,8 +108,8 @@ export default {
       .then(res => {
         console.log("关注查询结果" + res.data.data);
         this.attentions = res.data.data;
-        if(res.data.data == 0){
-          this.attentions = ""
+        if (res.data.data == 0) {
+          this.attentions = "";
         }
       })
       .catch(err => {
@@ -127,18 +138,18 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null || pic == "") {
+      if (pic == null) {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
-    },
+    }
   }
 };
 </script>
 <style scoped>
-.jumbotron{
-  background: url('../assets/bgPic/indexPic1.jpg') no-repeat center center;
+.jumbotron {
+  background: url("../assets/bgPic/indexPic1.jpg") no-repeat center center;
   background-size: cover;
 }
 .rounded-circle {
@@ -146,7 +157,9 @@ export default {
   background-position: center center;
   background-size: cover;
 }
-
+#content {
+  height: 40em;
+}
 #headPic {
   height: 10rem;
   width: 10rem;
@@ -156,52 +169,22 @@ export default {
   height: 10rem;
   width: 10rem;
 }
-
-#relations ul{
+#relations ul {
   list-style: none;
   width: 10rem;
   padding: 0;
 }
-#relations ul li{
+#relations ul li {
   float: left;
   height: 3em;
   line-height: 3em;
   width: 80px;
 }
-#relations ul li span{
+#relations ul li span {
   color: #ff9d00;
 }
-/* #headPic:hover::before {
-  content: "";
-  display: block;
-  width: 10rem;
-  height: 10rem;
-  border-radius: 75px;
-  background: rgba(0, 0, 0, 0.5) url("../assets/camera.png") 50% no-repeat;
-  cursor: pointer;
-} */
-
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
+#addattention {
+  margin-left: 48px;
+  background-color: #ff9d00;
 }
 </style>
