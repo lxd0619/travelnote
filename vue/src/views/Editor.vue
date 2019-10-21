@@ -30,88 +30,84 @@
                   </el-upload>
                 </el-col>
               </el-row>
-                <el-col :span="12" :offset="6">
-                  <el-row :gutter="40">
-                    <el-col :span="7">
-                      <el-form-item label="攻略类型" class="text-right" prop="type">
-                        <el-select v-model="articleForm.type" placeholder="请选择攻略类型">
-                          <el-option
-                            v-for="type in types"
-                            :key="type.value"
-                            :label="type.label"
-                            :value="type.value"
-                          ></el-option>
-                        </el-select>
-                      </el-form-item>
-                      <el-form-item label="标题" class="text-right" prop="title">
-                        <el-input v-model="articleForm.title" name="title" style="width:200px;"></el-input>
-                      </el-form-item>
-                      <el-form-item label="城市名称" class="text-right" prop="cityName">
-                        <el-input
-                          v-model="articleForm.cityName"
-                          name="cityName"
-                          style="width:200px;"
-                        ></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="7" class="float-right">
-                      <el-form-item
-                        label="几日游"
-                        class="text-right"
-                        prop="dayNum"
-                        v-if="articleForm.type === 'personalrow'"
-                      >
-                        <el-select v-model="articleForm.dayNum" placeholder="请选择几日游">
-                          <el-option
-                            v-for="day in days"
-                            :key="day.value"
-                            :label="day.label"
-                            :value="day.value"
-                          ></el-option>
-                        </el-select>
-                      </el-form-item>
-                      <el-form-item
-                        label="适宜季节"
-                        class="text-right"
-                        prop="season"
-                        v-if="articleForm.type === 'personalrow'"
-                      >
-                        <el-select v-model="articleForm.season" placeholder="请选择适宜季节">
-                          <el-option
-                            v-for="season in seasons"
-                            :key="season.value"
-                            :label="season.label"
-                            :value="season.value"
-                          ></el-option>
-                        </el-select>
-                      </el-form-item>
-                      <el-form-item
-                        label="面向人群"
-                        class="text-right"
-                        prop="crowdType"
-                        v-if="articleForm.type === 'personalrow'"
-                      >
-                        <el-select v-model="articleForm.crowdType" placeholder="请选择面向人群">
-                          <el-option
-                            v-for="crowdType in crowdTypes"
-                            :key="crowdType.value"
-                            :label="crowdType.label"
-                            :value="crowdType.value"
-                          ></el-option>
-                        </el-select>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <!-- 提交按钮 -->
-                  <el-row>
-                    <el-col :offset="3">
-                      <el-form-item>
-                        <!-- <el-button type="primary" @click="submitForm('ruleForm')">确认提交</el-button> -->
-                        <el-button @click="resetForm('ruleForm')">重置</el-button>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                </el-col>
+              <el-col :span="12" :offset="6">
+                <el-row :gutter="40">
+                  <el-col :span="7">
+                    <el-form-item label="攻略类型" class="text-right" prop="type">
+                      <el-select v-model="articleForm.type" placeholder="请选择攻略类型">
+                        <el-option
+                          v-for="type in types"
+                          :key="type.value"
+                          :label="type.label"
+                          :value="type.value"
+                        ></el-option>
+                      </el-select>
+                    </el-form-item>
+                    <el-form-item label="标题" class="text-right" prop="title">
+                      <el-input v-model="articleForm.title" name="title" style="width:200px;"></el-input>
+                    </el-form-item>
+                    <el-form-item label="城市名称" class="text-right" prop="cityName">
+                      <el-input v-model="articleForm.cityName" name="cityName" style="width:200px;"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="7" class="float-right">
+                    <el-form-item
+                      label="几日游"
+                      class="text-right"
+                      prop="dayNum"
+                      v-if="articleForm.type === 'personalrow'"
+                    >
+                      <el-select v-model="articleForm.dayNum" placeholder="请选择几日游">
+                        <el-option
+                          v-for="day in days"
+                          :key="day.value"
+                          :label="day.label"
+                          :value="day.value"
+                        ></el-option>
+                      </el-select>
+                    </el-form-item>
+                    <el-form-item
+                      label="适宜季节"
+                      class="text-right"
+                      prop="season"
+                      v-if="articleForm.type === 'personalrow'"
+                    >
+                      <el-select v-model="articleForm.season" placeholder="请选择适宜季节">
+                        <el-option
+                          v-for="season in seasons"
+                          :key="season.value"
+                          :label="season.label"
+                          :value="season.value"
+                        ></el-option>
+                      </el-select>
+                    </el-form-item>
+                    <el-form-item
+                      label="面向人群"
+                      class="text-right"
+                      prop="crowdType"
+                      v-if="articleForm.type === 'personalrow'"
+                    >
+                      <el-select v-model="articleForm.crowdType" placeholder="请选择面向人群">
+                        <el-option
+                          v-for="crowdType in crowdTypes"
+                          :key="crowdType.value"
+                          :label="crowdType.label"
+                          :value="crowdType.value"
+                        ></el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <!-- 提交按钮 -->
+                <el-row>
+                  <el-col :offset="3">
+                    <el-form-item>
+                      <!-- <el-button type="primary" @click="submitForm('ruleForm')">确认提交</el-button> -->
+                      <el-button @click="resetForm('ruleForm')">重置</el-button>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </el-col>
             </el-form>
           </el-row>
         </el-main>
@@ -131,10 +127,12 @@
             class="btn btn-outline-primary float-right mt-3 mb-5 mr-5"
             data-toggle="modal"
             data-target="#confirmModal"
+            :plain="true"
+            @click="upload('ruleForm')"
           >发表游记</button>
 
           <!-- 确认发表游记模态框 -->
-          <div
+          <!-- <div
             class="modal fade"
             id="confirmModal"
             tabindex="-1"
@@ -159,12 +157,12 @@
                     type="button"
                     class="btn btn-outline-primary"
                     id="send"
-                    @click="upload('ruleForm')"
+                    
                   >确认发表</button>
                 </div>
               </div>
             </div>
-          </div>
+          </div>-->
         </div>
         <!-- 返回顶部 -->
         <div class="col-md-1 mb-5">
@@ -321,9 +319,9 @@ export default {
         };
         fread.readAsDataURL(this.files[0]);
       });
-      $("#send").click(function() {
-        $("#confirmModal").modal("hide");
-      });
+      // $("#send").click(function() {
+      //   $("#confirmModal").modal("hide");
+      // });
     });
   },
   methods: {
@@ -340,6 +338,7 @@ export default {
     },
     // 设置保存发送后台数据事件
     upload(formName) {
+      let _this = this;
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.params = new FormData();
@@ -365,15 +364,34 @@ export default {
               config
             )
             .then(res => {
-              console.log(res)
-              if(res.data.data){
-                 console.log("发表成功" + res.data);
-              }else{
-                console.log(res.data.msg)
+              console.log(res);
+              if (res.data.data) {
+                console.log("发表成功" + res.data);
+                // 显示成功弹框
+                this.$message({
+                  showClose: true,
+                  message: "恭喜你，游记发表成功！（待审核）",
+                  type: "success"
+                });
+                _this.$router.push("/index/home"); //路由转向首页组件
+              } else {
+                console.log(res.data.msg);
+                // 显示错误弹窗
+                this.$message({
+                  showClose: true,
+                  message: "错了哦，游记发表失败！",
+                  type: "error"
+                });
               }
             })
             .catch(err => {
               console.log("错误信息" + err);
+              // 显示错误弹窗
+              this.$message({
+                showClose: true,
+                message: "错了哦，游记发表失败！",
+                type: "error"
+              });
             })
             .finally(function() {
               // always executed

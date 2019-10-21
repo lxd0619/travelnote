@@ -1,5 +1,5 @@
 <template>
-  <div class="card-deck flex-column">
+  <div class="card-deck flex-column mb-5">
     <!-- 热门景点攻略 -->
     <div v-if="show">
       <div
@@ -11,7 +11,7 @@
           class="card-img-top"
           :src="getCoverPic(article.cover)"
           alt="Card image cap"
-          style="width: 14em;height: 12em;"
+          style="width: 14rem;height: 11rem;"
         />
         <div class="card-body">
           <h5 class="card-title">
@@ -64,7 +64,7 @@ export default {
         strategyType: ""
       },
       show: false,
-      pagesize: 5,
+      pagesize: 7,
       currentPage: 1,
       allpages: ""
     };
@@ -136,6 +136,8 @@ h1 {
 }
 .card-body{
   padding-bottom: 0;
+  width: 10rem;
+  height: 5rem;
 }
 .text-muted{
   margin: 0;

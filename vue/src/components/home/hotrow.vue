@@ -1,5 +1,5 @@
 <template>
-  <div class="card-deck flex-column">
+  <div class="card-deck flex-column mb-5">
     <div v-if="show">
       <div
         class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
