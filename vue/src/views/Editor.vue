@@ -365,7 +365,12 @@ export default {
               config
             )
             .then(res => {
-              console.log("发表成功" + res.data);
+              console.log(res)
+              if(res.data.data){
+                 console.log("发表成功" + res.data);
+              }else{
+                console.log(res.data.msg)
+              }
             })
             .catch(err => {
               console.log("错误信息" + err);

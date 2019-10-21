@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div>
     <div v-for="stra in strategy" :key="stra.strategyId">
       <div class="container-fluid" style="background-color: #fafafa;">
         <div class="container">
@@ -15,17 +15,19 @@
             <h2></h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-                <div  @click="updateCollectionNum(stra.userId)">
-                      <i class="fa fa-star-o" aria-hidden="true"></i>
-                  <span>收藏 {{stra.ssCollectionNum}}</span>
+                <div @click="updateCollectionNum(stra.userId)" class="operation" id="operation" style="cursor:pointer">
+                  <i
+                    class="el-icon-star-off"
+                    aria-hidden="true"
+                    id="icon"
+                  >收藏 {{stra.ssCollectionNum}}</i>
                 </div>
-                <div class="img-span" @click="updateLikeNum(stra.userId)">
-                      <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                  <span>点赞 {{stra.ssLikeNum}}</span>
+                <div class="img-span" @click="updateLikeNum(stra.userId)" id="operation1" style="cursor:pointer">
+                  <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
                 </div>
                 <div class="img-span" @click="report()">
                   <i class="fa fa-map-marker" aria-hidden="true"></i>
-                  <span> {{stra.cityName}}</span>
+                  <span>{{stra.cityName}}</span>
                 </div>
               </div>
             </div>
@@ -33,68 +35,66 @@
         </div>
       </div>
 
-      <div class="contain" v-html="stra.ssInfo">
-      </div>
-    <div class="con-comments">
-          <div class="l-comment">
-            <div class="com-box">
-              <h2>评论</h2>
-              <ul id="comments" data-page="1" data-id="0">
-                <li
-                  class="clearfix comment_item item_1203904"
-                  data-id="1203904"
-                  data-replied="0"
-                  v-for="(dis,index) in discuss"
-                  :key="dis.commentId"
-                >
-                  <div class="img">
-                    <img :src="getPic(dis.headPic)" />
-                  </div>
-                  <div class="info">
-                    <h3>{{dis.userName}}</h3>
-                    <h4>{{dis.commentTime}}</h4>
-                    <span>{{index+1}}楼</span>
-                    <div class="com-cont">{{dis.commentContent}}</div>
-                    <br />
+      <div class="contain" v-html="stra.ssInfo"></div>
+      <div class="con-comments">
+        <div class="l-comment">
+          <div class="com-box">
+            <h2>评论</h2>
+            <ul id="comments" data-page="1" data-id="0">
+              <li
+                class="clearfix comment_item item_1203904"
+                data-id="1203904"
+                data-replied="0"
+                v-for="(dis,index) in discuss"
+                :key="dis.commentId"
+              >
+                <div class="img">
+                  <img :src="getPic(dis.headPic)" />
+                </div>
+                <div class="info">
+                  <h3>{{dis.userName}}</h3>
+                  <h4>{{dis.commentTime}}</h4>
+                  <span>{{index+1}}楼</span>
+                  <div class="com-cont">{{dis.commentContent}}</div>
+                  <br />
 
-                    <div class="info-span">
-                      <span
-                        v-if="dis.userId==userId"
-                        @click="delComment(dis.commentId)"
-                        :key="dis.commentId"
-                      >删除个人评论</span>
-                    </div>
-              
+                  <div class="info-span">
+                    <span
+                      v-if="dis.userId==userId"
+                      @click="delComment(dis.commentId)"
+                      :key="dis.commentId"
+                    >删除个人评论</span>
                   </div>
-                </li>
-              </ul>
-            </div>
-            <!-- 最后的插入评论 -->
-            <div class="clearfix com-form">
-              <div class="fm-tare user-log">
-                <textarea
-                  class="_j_comment_content"
-                  v-model="newcommentContent"
-                  placeholder="说点什么吧..."
-                ></textarea>
-                <el-form>
-                  <el-form-item>
-                    <el-button type="primary" @click="addComment()">评论</el-button>
-                  </el-form-item>
-                </el-form>
-              </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- 最后的插入评论 -->
+          <div class="clearfix com-form">
+            <div class="fm-tare user-log">
+              <textarea
+                class="_j_comment_content"
+                v-model="newcommentContent"
+                placeholder="说点什么吧..."
+              ></textarea>
+              <el-form>
+                <el-form-item>
+                  <el-button type="primary" @click="addComment()">评论</el-button>
+                </el-form-item>
+              </el-form>
             </div>
           </div>
         </div>
+      </div>
     </div>
-    </div>
+  </div>
 </template>
 <script>
 import jwt_decode from "jwt-decode";
 
 export default {
   name: "fvstrategy",
-   data() {
+  data() {
     return {
       info: [],
       strategy: [],
@@ -131,7 +131,7 @@ export default {
         strategyId: this.info.id
       })
       .then(res => {
-        // console.log(1, res.data.data);
+        console.log(res)
         this.strategy = res.data.data;
       })
       .catch(err => {
@@ -152,6 +152,33 @@ export default {
       });
   },
   methods: {
+    // updateCollectionNum(userId) {
+    //   var judge;
+    //   this.$axios
+    //     .post("http://localhost:3000/operation/collect", {
+    //       strategyId: this.info.id,
+    //       strategyType: this.info.type,
+    //       userId: userId
+    //     })
+    //     .then(res => {
+    //       console.log(res);
+    //       judge = parseInt(res.data.data);
+    //       if (judge == 1) {
+    //         this.strategy[0].ssCollectionNum =
+    //           parseInt(this.strategy[0].ssCollectionNum) + 1;
+    //         // console.log(this.strategy[0].prCollectionNum);
+    //         this.$message("收藏成功！");
+    //       } else if (judge == -1) {
+    //         this.strategy[0].prCollectionNum =
+    //           parseInt(this.strategy[0].ssCollectionNum) - 1;
+    //         console.log(this.strategy.ssCollectionNum);
+    //         this.$message("取消收藏成功！");
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.log("错误信息" + err);
+    //     });
+    // },
     //更新收藏数
     updateCollectionNum(userId) {
       var judge;
@@ -165,15 +192,24 @@ export default {
           console.log(res);
           judge = parseInt(res.data.data);
           if (judge == 1) {
-            this.strategy[0].prCollectionNum =
-              parseInt(this.strategy[0].prCollectionNum) + 1;
+            this.strategy[0].ssCollectionNum =
+              parseInt(this.strategy[0].ssCollectionNum) + 1;
             // console.log(this.strategy[0].prCollectionNum);
             this.$message("收藏成功！");
+            $("#operation").addClass("operated");
+            $("#icon").removeClass("el-icon-star-off");
+            $("#icon").addClass("el-icon-star-on");
           } else if (judge == -1) {
-            this.strategy[0].prCollectionNum =
-              parseInt(this.strategy[0].prCollectionNum) - 1;
-            console.log(this.strategy.prCollectionNum);
+            this.strategy[0].ssCollectionNum =
+              parseInt(this.strategy[0].ssCollectionNum) - 1;
+            console.log(this.strategy.ssCollectionNum);
             this.$message("取消收藏成功！");
+            if(this.strategy[0].ssCollectionNum<0){
+              this.strategy[0].ssCollectionNum=0
+            }
+            $("#operation").removeClass("operated");
+            $("#icon").removeClass("el-icon-star-on");
+            $("#icon").addClass("el-icon-star-off");
           }
         })
         .catch(err => {
@@ -193,15 +229,17 @@ export default {
           console.log(res);
           judge = parseInt(res.data.data);
           if (judge == 1) {
-            this.strategy[0].prLikeNum =
-              parseInt(this.strategy[0].prLikeNum) + 1;
-            console.log(this.strategy.prLikeNum);
+            this.strategy[0].ssLikeNum =
+              parseInt(this.strategy[0].ssLikeNum) + 1;
+            console.log(this.strategy.ssLikeNum);
             this.$message("点赞成功！");
+            $("#operation1").addClass("operated");
           } else if (judge == -1) {
-            this.strategy[0].prLikeNum =
-              parseInt(this.strategy[0].prLikeNum) - 1;
-            console.log(this.strategy.prLikeNum);
+            this.strategy[0].ssLikeNum =
+              parseInt(this.strategy[0].ssLikeNum) - 1;
+            console.log(this.strategy.ssLikeNum);
             this.$message("取消点赞成功！");
+            $("#operation1").removeClass("operated");
           }
         })
         .catch(err => {
@@ -228,10 +266,15 @@ export default {
     //获取头像
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
-      if(pic == "cover" || pic == null){
-        pic = "primaryCover.jpg"
+      if (pic == "cover" || pic == null) {
+        pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    },
+    getPic(pic) {
+      let path = "http://localhost:3000/uploadHeadPic/" + pic;
+      console.log(path);
       return path;
     },
     //添加评论
@@ -245,11 +288,22 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
-          console.log(3, res);
-          console.log("submit!");
-          this.discuss = res.data.data;
+          this.newcommentContent=''
+          this.$axios
+            .post("http://localhost:3000/operation/seldiscuss", {
+              strategyId: this.info.id,
+              strategyType: this.info.type
+            })
+            .then(res => {
+              // console.log(2, res);
+              this.discuss = res.data.data;
+            })
+            .catch(err => {
+              console.log("错误信息" + err);
+            });
         })
         .catch(err => {
+          alert("@@@@2222@");
           console.log("错误信息" + err);
         });
     },
@@ -265,9 +319,18 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
-          // console.log(3, res);
-          // console.log("删除成功!");
-          this.discuss = res.data.data;
+          this.$axios
+      .post("http://localhost:3000/operation/seldiscuss", {
+        strategyId: this.info.id,
+        strategyType: this.info.type
+      })
+      .then(res => {
+        // console.log(2, res);
+        this.discuss = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -363,6 +426,13 @@ export default {
 }
 .con-top-left .route {
   margin: 15px 10px 10px;
+}
+.operation :hover {
+  color: #ff9d00;
+}
+.operated {
+  color: #ff9d00;
+  
 }
 
 #title {
@@ -471,7 +541,7 @@ export default {
 
 .com-form .fm-tare textarea {
   height: 200px;
-  width: 1000px;
+  width: 850px;
   padding: 14px;
   border: 1px solid #e5e5e5;
   resize: none;
@@ -479,6 +549,7 @@ export default {
   border-radius: 5px;
   font-size: 14px;
   color: #666;
+  margin-left:50px;
 }
 
 .com-form .user-log textarea {
@@ -521,10 +592,9 @@ textarea {
   margin-left: 300px;
   width: 800px;
   margin-top: 50px;
-
 }
-.contain{
-  background-color:#eee;
+.contain {
+  background-color: #eee;
   width: 1200px;
   margin: 0 auto;
 }
@@ -543,10 +613,10 @@ textarea {
   text-align: center;
   padding: 0;
   line-height: 30px;
-  margin-left: 850px;
+  margin-left: 780px;
 }
-.info-span{
-   width: 114px;
+.info-span {
+  width: 114px;
   height: 30px;
   background: #ff9d00;
   border: 0;
@@ -560,7 +630,7 @@ textarea {
   text-align: center;
   padding: 0;
   line-height: 30px;
-  margin-left: 850px;
+  margin-left: 720px;
 }
 
 li {
@@ -595,10 +665,11 @@ li {
   line-height: 28px;
   margin-top: 8px;
 }
-.com-form{
-  margin-left:250px;
+.com-form {
+  margin-left: 250px;
+  margin-top: 10px;
 }
-.com-cont{
+.com-cont {
   margin-left: 48px;
 }
 </style>

@@ -72,17 +72,18 @@
       <div class="sheadsecond">景点攻略</div>
       <div class="specialFood">
         <div class="stragyespecail"   @click="go(article.type,article.strategyId)" v-for="article in articles.slice(0,8)" :key="article.strategyId">
-          <img :src="getCoverPic(article.cover)" width="260px" height="240px" />
-          <div class="intro_box">
+         <img :src="getCoverPic(article.cover)" width="260px" height="240px" />
+          <div class="intro_box">   
+          
             <h3>{{article.title}}</h3>
             <p>{{article.ssInfo}}</p>
             <span>
               <img src="../assets/food/收藏_line.png" width="17px" height="17px" />
-              点赞({{article.fsLikeNum}})
+              点赞({{article.ssLikeNum}})
             </span>
             <span>
               <img src="../assets/food/点赞_line.png" width="17px" height="17px" />
-              收藏({{article.fsCollection}})
+              收藏({{article.ssCollectionNum}})
             </span>
           </div>
         </div>
@@ -110,8 +111,8 @@
             
           </a>
         </div>
-        <div class="main_news trips_con">
-          <ul  @click="go(hotarticle.type,hotarticle.strategyId)" v-for="hotarticle in hotarticles.slice(1,5)" :key="hotarticle.strategyId">
+        <div class="main_news trips_con" style="width:900px">
+          <ul style="width:400px;float:left;margin-left:50px" @click="go(hotarticle.type,hotarticle.strategyId)" v-for="hotarticle in hotarticles.slice(1,7)" :key="hotarticle.strategyId">
             <li>
               <a href="#" target="_blank">
                 <img :src="getCoverPic(hotarticle.cover)" />
@@ -294,6 +295,7 @@ export default {
   height: 38px;
 }
 .txt p {
+  margin-left: 10px;
   font-size: 12px;
   height: 55px;
   width: 220px;
@@ -303,6 +305,7 @@ export default {
   overflow: hidden;
   font-size: 20px;
   font-family: 楷体;
+  margin-left: 10px;
 }
 .tripb .tit h3 em {
   font-family: Arial;
@@ -336,8 +339,9 @@ ul {
 }
 .main_news ul li {
   padding-bottom: 10px;
-  width: 595px;
+  width: 400px;
   border-bottom: 1px dotted #cbcbcb;
+  margin: 0px;
 }
 li {
   list-style: none;
@@ -349,8 +353,8 @@ li {
 }
 .main_news ul li a div.txt {
   display: block;
-  padding-left: 15px;
-  width: 420px;
+  margin: 0px;
+  width: 220px;
   height: 100px;
   overflow: hidden;
 }
@@ -359,7 +363,7 @@ li {
   line-height: 36px;
   font-weight: 700;
   color: #454545;
-  width: 290px;
+  width: 220px;
   height: 45px;
 }
 h1 {
@@ -479,7 +483,7 @@ h1 {
   margin-top: 5px;
 }
 .stragyespecail span {
-  padding-left: 50px;
+  padding-left: 10px;
   width: 260px;
   overflow: hidden;
 }

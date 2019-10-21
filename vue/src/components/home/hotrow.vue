@@ -14,7 +14,11 @@
         />
         <div class="card-body">
           <h5 class="card-title">
-            <a href="#" class="card-link" @click="go(article.type,article.strategyId)">{{article.title}}</a>
+            <a
+              href="#"
+              class="card-link"
+              @click="go(article.type,article.strategyId)"
+            >{{article.title}}</a>
           </h5>
           <p
             class="card-text overflow-hidden"
@@ -86,8 +90,8 @@ export default {
   methods: {
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
-      if(pic == "cover" || pic == null){
-        pic = "primaryCover.jpg"
+      if (pic == "cover" || pic == null) {
+        pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
@@ -118,5 +122,18 @@ h1 {
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
+}
+.card-body{
+  padding-bottom: 0;
+}
+.card {
+  color: #666;
+}
+.card a {
+  font-size: 20px;
+  color: #333;
+}
+.card:hover a {
+  color: #ff9d00;
 }
 </style>

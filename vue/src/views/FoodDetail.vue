@@ -164,58 +164,54 @@
           </ul>
         </div>
       </div>
-      <div class="fold_wrap">
-        <ul class="clearfix" id="sm">
-          <li class="active picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>澳门畅玩</h4>
-              </div>
-              <div class="pic_auto pic_auto1"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>新疆干货</h4>
-              </div>
-              <div class="pic_auto pic_auto3"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>江南水乡</h4>
-              </div>
-              <div class="pic_auto pic_auto4"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>特色古镇</h4>
-              </div>
-              <div class="pic_auto pic_auto5"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>畅游四川</h4>
-              </div>
-              <div class="pic_auto pic_auto6"></div>
-            </a>
-          </li>
-          <li class="picbig">
-            <a href="#" target="_blank">
-              <div class="mask_b">
-                <h4>魅力古都</h4>
-              </div>
-              <div class="pic_auto pic_auto7"></div>
-            </a>
-          </li>
-        </ul>
-      </div>
+       <section id="timeline">
+        <div class="totalcontainer">
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg1"></div>
+            </div>
+            <div class="content">
+                  <p>爱至苍山洱海，心如古木不惊</p>
+                </div>
+             
+          </div>
+
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg2"></div>
+               <div class="content">
+                  <p>桂林山水甲天下</p>
+                </div>
+            </div>
+          </div>
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg3"></div>
+               <div class="content">
+                  <p>冰雪大世界 江北冰灯十里明， 碧栏金塔小楼红。 飞桥七彩凌霄卧， 好似长虹挂月空</p>
+                </div>
+            </div>
+           
+          </div>
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg4"></div>
+               <div class="content">
+                  <p>西藏是个神秘的地方，有着灿烂的阳光，洁白的云朵，纯净的天空，稀薄的空气，连绵的雪山，安静的湖泊</p>
+                </div>
+            </div>
+           
+          </div>
+          <div class="mine-item">
+            <div class="figcaption">
+              <div class="bg bg5"></div>
+            </div>
+             <div class="content">
+                  <p>别浦高楼曾漫倚，对江南千里</p>
+                </div>
+          </div>
+        </div>
+      </section>
       <div class="domestic">
         <span class="more">
           <h3>
@@ -677,6 +673,98 @@ a {
   width: 300px;
   height: 300px;
   display: inline-block;
+}
+.container:hover .mine-item {
+  width: 23.5%;
+}
+
+.mine-item:hover {
+  width: 32.5% !important;
+}
+
+.mine-item {
+  transform: translate3d(0, 0, 0);
+  display: inline-block;
+  position: relative;
+  width:200px;
+  height: 100%;
+  min-height: 400px;
+  max-height: 800px;
+  color: white;
+  overflow: hidden;
+  transition: width 0.5s ease;
+}
+
+.mine-item:hover .figcaption:after {
+  opacity: 0;
+}
+
+
+.mine-item:hover .figcaption:before {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+
+.figcaption:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(116, 116, 116, 0) 0%,
+    rgba(0, 0, 0, 0) 90%
+  );
+  z-index: 1;
+  opacity: 0;
+  transform: translate3d(0, 0, 0) translateY(50%);
+}
+
+.mine-item:hover .content {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: all 0.75s ease 0.5s;
+}
+.mine-item:hover .bg {
+  filter: grayscale(0);
+}
+
+.bg {
+  transform: translate3d(0, 0, 0);
+  position: absolute;
+  width: 500px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center center;
+  transition: filter 0.5s ease;
+  filter: graycale(50%);
+}
+.bg1 {
+  background-image: url(../assets/food/广式早茶.jpg);
+}
+.bg2 {
+  background-image: url(../assets/food/火锅.jpg);
+}
+.bg3 {
+  background-image: url(../assets/food/烧烤.jpg);
+}
+.bg4 {
+  background-image: url(../assets/food/肉夹馍.jpg);
+}
+.bg5 {
+  background-image: url(../assets/food/串串香.jpg);
+}
+.content{
+  font-size: 18px;
+  color: aliceblue;
+  margin-top:130px;
+  text-align: center;
+  font-family: 宋体;
 }
 </style>
 

@@ -63,6 +63,7 @@ export default {
   },
   methods: {
     login() {
+      console.log(this.loginUser)
       this.$axios
         .post("http://localhost:3000/login/login", this.loginUser)
         .then(res => {

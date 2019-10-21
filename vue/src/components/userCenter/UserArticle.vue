@@ -1,20 +1,37 @@
 <template>
   <div>
     <div v-if="show">
-      <div class="card-deck flex-column">
+      <div class="card-deck flex-column" id="article">
         <div
           class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
           v-for="article in articles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
-          :key="article.index"
+          :key="article.strategyId"
         >
           <img class="card-img-top" :src="getPic(article.cover)" alt="article image" />
           <div class="card-body">
-            <h5 class="card-title">{{article.title}}</h5>
+            <a
+              href="#"
+              @click="go(article.type,article.strategyId)"
+              class="card-title"
+            >{{article.title}}</a>
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              @click="delArticle(article.type,article.strategyId)"
+              circle
+              class="float-right"
+              id="delBtn"
+            ></el-button>
             <p
               class="card-text overflow-hidden"
               style="height: 4em;text-overflow: ellipsis;"
               v-html="article.ssInfo"
             ></p>
+            <p class="text-muted">
+              <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>
+              <i class="fa fa-eye mr-2" aria-hidden="true">{{article.ssCollectionNum}}</i>
+              <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true">{{article.ssLikeNum}}</i>
+            </p>
           </div>
         </div>
       </div>
@@ -41,7 +58,7 @@ export default {
     return {
       articles: [],
       currentPage: 1,
-      allPage:0,
+      allPage: 0,
       pagesize: 2,
       show: true
     };
@@ -69,33 +86,47 @@ export default {
   methods: {
     getPic(pic) {
       //给图片名加上服务器端访问路径
-      if(pic == "cover" || pic == null){
-        pic = "primaryCover.jpg"
+      if (pic == "cover" || pic == null) {
+        pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
     },
+    go(type, id) {
+      var strategy = { type, id };
+      var info = JSON.stringify(strategy);
+      sessionStorage.setItem("info", info);
+      window.open("/index/FVstrategy");
+    },
     current_change(currentPage) {
       this.currentPage = currentPage;
     },
-    delArticle(){
+    delArticle(type, strategyId) {
       this.$axios
-      .post("http://localhost:3000/userCenter/delArticle",)
-      .then(res => {
-        if (res.data.data) {
-          this.show = true;
-          this.articles = res.data.data;
-          this.allPage = res.data.data.length;
-        } else {
-          this.show = false;
-        }
-      })
-      .catch(err => {
-        console.log("错误信息" + err);
-      })
-      .finally(function() {
-        // always executed
-      });
+        .post("http://localhost:3000/userCenter/delArticle", {
+          type: type,
+          strategyId: strategyId
+        })
+        .then(res => {
+          console.log(res);
+          // location.reload()
+          console.log("aaa:"+this.articles)
+          for (var i = 0; i < this.articles.length; i++) {
+            if (this.articles[i].strategyId == strategyId) {
+              this.articles.splice(i, 1); 
+              this.allPage=this.articles.length
+            }
+          }
+          if(this.articles.length == 0){
+            this.show = false
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        })
+        .finally(function() {
+          // always executed
+        });
     }
   }
 };
@@ -113,5 +144,26 @@ h3 {
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
+}
+#article img {
+  width: 13rem;
+  height: 11rem;
+}
+.card {
+  color: #666;
+}
+.card a {
+  font-size: 20px;
+  color: #333;
+}
+.card:hover a {
+  color: #ff9d00;
+}
+.card-title {
+  width: 10rem;
+}
+#delBtn {
+  position: relative;
+  top: -1rem;
 }
 </style>

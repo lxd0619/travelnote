@@ -1,11 +1,12 @@
 <template>
   <div id="content">
     <div v-if="show">
-      <div class="card-deck flex-column">
+      <div class="card-deck flex-column" id="collectArticle">
         <div
           class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
           v-for="collection in collections.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
           :key="collection.index"
+          @click="go(article.type,article.strategyId)"
         >
           <img class="card-img-top" src alt="Card image cap" />
           <div class="card-body">
@@ -69,11 +70,17 @@ export default {
   methods: {
     getPic(pic) {
       //给图片名加上服务器端访问路径
-      if(pic == "cover" || pic == null){
-        pic = "primaryCover.jpg"
+      if (pic == "cover" || pic == null) {
+        pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
+    },
+    go(type, id) {
+      var strategy = { type, id };
+      var info = JSON.stringify(strategy);
+      sessionStorage.setItem("info", info);
+      window.open("/index/FVstrategy");
     },
     current_change(currentPage) {
       this.currentPage = currentPage;
@@ -94,5 +101,12 @@ h3 {
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
+}
+#collectArticle img {
+  width: 12rem;
+  height: 10rem;
+}
+.card:hover {
+  color: #ff9d00;
 }
 </style>
