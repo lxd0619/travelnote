@@ -96,30 +96,30 @@ var userController = {
             }
         })
     },
-    /**上传攻略 */
+    /**上传攻略图片到数据库 */
     uploadArticle: function (req, res) {
-        //定义一个对象results，用于返回wangeditor
-        var results = {
-            "errno": 0,
-            "data": []
-        }
-        var form = new formidable.IncomingForm()      //创建上传表单对象
-        form.uploadDir = path.join(__dirname, '../public/uploadArticlePic')           //设置上传文件的路径
-        form.keepExtensions = true                      //设置保留上传文件的扩展名
-        //当每个文件上传时都会触发的事件方法，用于多文件上传
-        form.on('file', function (err, file) {
-            console.log(file)
-            results.data.push('http://localhost:3000/userCenter/coverPic/' + path.parse(file.path).base)
-        })
-        form.parse(req, function (err, fields, files) {
-            if (err) {
-                res.json({
-                    "errno": -1,
-                    "data": []
-                })
-            }
-            res.send(results)
-        })
+        // //定义一个对象results，用于返回wangeditor
+        // var results = {
+        //     "errno": 0,
+        //     "data": []
+        // }
+        // var form = new formidable.IncomingForm()      //创建上传表单对象
+        // form.uploadDir = path.join(__dirname, '../public/uploadArticlePic')           //设置上传文件的路径
+        // form.keepExtensions = true                      //设置保留上传文件的扩展名
+        // //当每个文件上传时都会触发的事件方法，用于多文件上传
+        // form.on('file', function (err, file) {
+        //     console.log(file)
+        //     results.data.push('http://localhost:3000/userCenter/coverPic/' + path.parse(file.path).base)
+        // })
+        // form.parse(req, function (err, fields, files) {
+        //     if (err) {
+        //         res.json({
+        //             "errno": -1,
+        //             "data": []
+        //         })
+        //     }
+        //     res.send(results)
+        // })
     },
     /**上传攻略到数据库 */
     commitArticle: function (req, res) {
@@ -220,9 +220,9 @@ var userController = {
         console.log(type,strategyId)
         var sqlstr = ''
         switch (type) {
-            case 'scenerystrategy': sqlstr = 'update scenerystrategy set ssStatus = 3 where strategyId = ?'; break;
-            case 'foodstrategy': sqlstr = 'update foodstrategy set fsStatus = 3 where strategyId = ?'; break;
-            case 'personalrow': sqlstr = 'update personalrow set prStatus = 3 where strategyId = ?'; break;
+            case 'scenerystrategy': sqlstr = 'update scenerystrategy set ssStatus = -4 where strategyId = ?'; break;
+            case 'foodstrategy': sqlstr = 'update foodstrategy set fsStatus = -4 where strategyId = ?'; break;
+            case 'personalrow': sqlstr = 'update personalrow set prStatus = -4 where strategyId = ?'; break;
             default: console.log('没有该类型的表');
         }
         userDAO.delArticle(sqlstr, strategyId, function (err, results) {
@@ -241,8 +241,7 @@ var userController = {
     /**攻略收藏查询 */
     collectArticle: function (req, res) {
         var userId = req.user.userId
-        var type = req.body.type
-        userDAO.collectArticle(userId,type, function (err, results) {
+        userDAO.collectArticle(userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '收藏攻略查询失败' })
             } else {
