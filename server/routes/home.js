@@ -5,7 +5,6 @@ var passport=require('passport')
 ////home
 /**搜索 */
 router.post('/search',function(req,res,next){
-    console.log(1)
     homeController.search(req,res)
 })
 
