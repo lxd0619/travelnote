@@ -1,4 +1,6 @@
 var operationDAO = require('../models/operationDAO')
+var userDAO = require("../models/userDAO")
+var manageDAO = require('../models/manageDAO')
 
 var operationController = {
     isLike: function (req, res) {
@@ -8,7 +10,7 @@ var operationController = {
             strategyType: req.body.strategyType,
             userId: req.body.userId
         }
-        console.log(1,likeInfo)
+        console.log(1, likeInfo)
         operationDAO.TestLike(sql, likeInfo, function (err, results1) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '搜索攻略点赞错误！' })
@@ -111,14 +113,14 @@ var operationController = {
         })
     },
     /**判断该用户是否收藏该攻略 */
-    isCollect: function (req,res) {
+    isCollect: function (req, res) {
         var sql = 'select * from collections where strategyId=? and strategyType=? and userId=?'
         var collectInfo = {
             strategyId: req.body.strategyId,
             strategyType: req.body.strategyType,
             userId: req.body.userId
         }
-        console.log(2,collectInfo)
+        console.log(2, collectInfo)
         operationDAO.TestCollect(sql, collectInfo, function (err, results1) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '搜索攻略收藏错误！' })
@@ -227,53 +229,7 @@ var operationController = {
             }
         })
     },
-    // Discuss: function (req, res) {
-    //     var sql = 'select * from comments where commentId=? and strategyId=? and strategyType=? and userId=?' //判断是否收藏过
-    //     var commentTime = new Date()
-    //     var DiscussInfo = {
-    //         commentId: req.body.commentId,
-    //         commentContent: req.body.commentContent,
-    //         userId: req.body.userId,
-    //         strategyType: req.body.strategyType,
-    //         strategyId: req.body.strategyId,
-    //         commentTime: commentTime,
-    //     }
-    //     operationDAO.TestDiscuss(sql, DiscussInfo, function (err, results1) {
-    //         if (err) {
-    //             res.json({ code: 500, data: 0, msg: '搜索攻略评论错误！' })
-    //         } else {
-    //             if (results1 == null || results1.length == 0) {
-    //                 console.log('有数据')
-    //                 sql = "insert into comments(commentContent,strategyId,userId,commentTime,strategyType) values(?,?,?,?,?)" //添加
-    //                 operationDAO.AddDiscuss(sql, DiscussInfo, function (err, results) {
-    //                     if (err) {
-    //                         res.json({ code: 500, data: 0, msg: '添加攻略评论错误！' })
-    //                     } else {
-    //                         if (results.affectedRows == 0) {
-    //                             res.json({ code: 200, data: 0, msg: '添加攻略评论错误,影响行数为0！' })
-    //                         } else {
-    //                             res.json({ code: 200, data: 1, msg: '添加攻略评论成功！' })
-    //                         }
-    //                     }
-    //                 })
-    //             } else {
-    //                 sql = "delete from comments where commentId=? and strategyId=? and strategyType=? and userId=?" //删除
-    //                 operationDAO.DelDiscuss(sql, DiscussInfo, function (err, results) {
-    //                     if (err) {
-    //                         console.log(err)
-    //                         res.json({ code: 500, data: 0, msg: '删除攻略评论错误！' })
-    //                     } else {
-    //                         if (results.affectedRows == 0) {
-    //                             res.json({ code: 200, data: 0, msg: '删除攻略评论错误，影响行数为0！' })
-    //                         } else {
-    //                             res.json({ code: 200, data: 1, msg: '删除攻略评论成功！' })
-    //                         }
-    //                     }
-    //                 })
-    //             }
-    //         }
-    //     })
-    // },
+
 
     //评论
     AddDiscuss: function (req, res) {
@@ -303,6 +259,7 @@ var operationController = {
     },
     DelDiscuss: function (req, res) {
         var sql = ''
+
         var DiscussInfo = {
             commentId: req.body.commentId,
             strategyId: req.body.strategyId,
@@ -345,138 +302,30 @@ var operationController = {
             }
         })
     },
-    // Reply: function (req, res) {
-    //     var sql = 'select * from replys where replyId=? and userId=? and commentId=?' //判断是否回复过
-    //     var replyTime = new Date()
-    //     var replyInfo = {
-    //         replyId: req.body.replyId,
-    //         replyContent: req.body.replyContent,
-    //         userId: req.body.userId,
-    //         replyTime: replyTime,
-    //         commentId: req.body.commentId,
-    //     }
-    //     operationDAO.TestReply(sql, replyInfo, function (err, results1) {
-    //         if (err) {
-    //             res.json({ code: 500, data: 0, msg: '搜索回复错误！' })
-    //         } else {
-    //             console.log('results1:' + results1)
-    //             if (results1 == null || results1.length == 0) {
-    //                 console.log('有数据')
-    //                 sql = "insert into replys(replyContent,userId,replyTime,commentId) values(?,?,?,?)" //添加
-    //                 operationDAO.AddReply(sql, replyInfo, function (err, results) {
-    //                     if (err) {
-    //                         res.json({ code: 500, data: 0, msg: '添加攻略回复错误！' })
-    //                     } else {
-    //                         if (results.affectedRows == 0) {
-    //                             res.json({ code: 200, data: 0, msg: '添加攻略回复错误,影响行数为0！' })
-    //                         } else {
-    //                             res.json({ code: 200, data: 1, msg: '添加攻略回复成功！' })
-    //                         }
-    //                     }
-    //                 })
-    //             } else {
-    //                 sql = "delete from replys where replyId=? and  userId=? and commentId=?" //删除
-    //                 operationDAO.DelReply(sql, replyInfo, function (err, results) {
-    //                     if (err) {
-    //                         console.log(err)
-    //                         res.json({ code: 500, data: 0, msg: '删除攻略回复错误！' })
-    //                     } else {
-    //                         if (results.affectedRows == 0) {
-    //                             res.json({ code: 200, data: 0, msg: '删除攻略回复错误，影响行数为0！' })
-    //                         } else {
-    //                             res.json({ code: 200, data: 1, msg: '删除攻略回复成功！' })
-    //                         }
-    //                     }
-    //                 })
-    //             }
-    //         }
-    //     })
-    // },
-    //回复评论
-    // AddReply: function (req, res) {
-    //     var sql = '' //判断是否回复过
-    //     var replyTime = new Date()
-    //     var replyInfo = {
-    //         replyId: req.body.replyId,
-    //         replyContent: req.body.replyContent,
-    //         userId: req.body.userId,
-    //         replyTime: replyTime,
-    //         commentId: req.body.commentId,
-    //     }
-    //     console.log(1)
-    //     sql = "insert into replys(replyContent,userId,replyTime,commentId) values(?,?,?,?)" //添加
-    //     operationDAO.AddReply(sql, replyInfo, function (err, results) {
-    //         if (err) {
-    //             res.json({ code: 500, data: 0, msg: '添加攻略回复错误！' })
-    //         } else {
-    //             if (results.affectedRows == 0) {
-    //                 res.json({ code: 200, data: 0, msg: '添加攻略回复错误,影响行数为0！' })
-    //             } else {
-    //                 res.json({ code: 200, data: 1, msg: '添加攻略回复成功！' })
-    //             }
-    //         }
-    //     })
-    // },
-    // DelReply: function (req, res) {
-    //     var sql = '' //判断是否回复过
-    //     var replyInfo = {
-    //         replyId: req.body.replyId,
-    //         userId: req.body.userId,
-    //         commentId: req.body.commentId,
-    //     }
-    //     sql = " delete from replys where replyId=? and  userId=? and commentId=?" //删除
-    //     operationDAO.DelReply(sql, replyInfo, function (err, results) {
-    //         if (err) {
-    //             console.log(err)
-    //             res.json({ code: 500, data: 0, msg: '删除攻略回复错误！' })
-    //         } else {
-    //             if (results.affectedRows == 0) {
-    //                 res.json({ code: 200, data: 0, msg: '删除攻略回复错误，影响行数为0！' })
-    //             } else {
-    //                 res.json({ code: 200, data: 1, msg: '删除攻略回复成功！' })
-    //             }
-    //         }
-    //     })
-    // },
-    // SelReply: function (req, res) {
-    //     var sql = ''
-    //     var DiscussInfo = {
-    //         // replyId: req.body.replyId,
-    //         // userId: req.body.userId,
-    //         commentId: req.body.commentId,
-    //     }
-    //     sql = "	select users.userId,users.userName,users.headPic,replys.* from replys join users on users.userId=replys.userId where commentId=?" //筛选
-    //     operationDAO.SelReply(sql, DiscussInfo, function (err, results) {
-    //         if (err) {
-    //             res.json({ code: 500, data: 0, msg: '筛选攻略回复错误！' })
-    //         } else {
-    //             if (results == null || results.length == 0) {
-    //                 res.json({ code: 200, data: 0, msg: '筛选攻略回复错误,影响行数为0！' })
-    //             } else {
-    //                 res.json({ code: 200, data: results, msg: '筛选攻略回复成功！' })
-    //             }
-    //         }
-    //     })
-    // },
-
+    //举报
     Report: function (req, res) {
         // update personalrow set prStatus=1 where strategyId=? and (prStatus=0 or prStatus=1)
+        var userId = req.user.userId
+        var writerId=req.body.writerId
         var reportInfo = {
             strategyType: req.body.strategyType,
             strategyId: req.body.strategyId,
+            userId: req.user.userId,
         }
+
         var sql = ''
         switch (reportInfo.strategyType) {
             case 'scenerystrategy':
-                sql = '  update scenerystrategy set ssStatus=1 where strategyId=? and (ssStatus=0 or ssStatus=1)';
+                sql = 'update scenerystrategy set ssStatus=ssStatus+1 where strategyId=? and (ssStatus=0 or ssStatus>=1)';
                 break;
             case 'foodstrategy':
-                sql = '  update foodstrategy set fsStatus=1 where strategyId=? and (fsStatus=0 or fsStatus=1)';
+                sql = 'update foodstrategy set fsStatus=fsStatus+1 where strategyId=? and (fsStatus=0 or fsStatus>=1)';
                 break;
             case 'personalrow':
-                sql = ' update personalrow set prStatus=1 where strategyId=? and (prStatus=0 or prStatus=1)';
+                sql = 'update personalrow set prStatus=prStatus+1 where strategyId=? and (prStatus=0 or prStatus>=1)';
                 break;
         }
+        console.log(1, reportInfo)
         operationDAO.Report(sql, reportInfo, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '攻略举报错误！' })
@@ -484,7 +333,77 @@ var operationController = {
                 if (results.affectedRows == 0) {
                     res.json({ code: 200, data: 0, msg: '攻略举报失败,未找到攻略数据!' })
                 } else {
-                    res.json({ code: 200, data: 1, msg: '攻略举报成功！' })
+                    console.log(2, reportInfo)
+                    operationDAO.selectReport(reportInfo, function (err, results) {                  //查询用户是否举报过
+                        if (err) {
+                            res.json({ code: 500, data: 0, msg: '举报查询错误' })
+                        } else {
+                            if (results == null || results.length == 0) {
+                                console.log(3, reportInfo)
+                                operationDAO.insertReport(reportInfo, function (err, results) {       //为举报,将举报用户插入举报表
+                                    if (err) {
+                                        res.json({ code: 500, data: 0, msg: '举报插入错误' })
+                                    } else {
+                                        if (results.affectedRows == 0) {
+                                            res.json({ code: 200, data: 0, msg: '插入失败' })
+                                        } else {
+                                            console.log(4, userId)
+                                            operationDAO.changeUser(userId, function (err, results) {
+                                                if (err) {
+                                                    res.json({ code: 500, data: 0, msg: '用户状态错误' })
+                                                } else {
+                                                    if (results.affectedRows == 0) {
+                                                        res.json({ code: 200, data: 0, msg: '用户修改状态失败' })
+                                                    } else {
+                                                        console.log(5,userId)
+                                                        userDAO.getUserInfo(userId, function (err, results) {
+                                                            if (err) {
+                                                                res.json({ code: 500, data: 0, msg: '用户信息查询失败' })
+                                                            } else {
+                                                                if (results == null || results.length == 0) {
+                                                                    res.json({ code: 200, data: 0, msg: '暂无用户信息' })
+                                                                } else {
+                                                                    console.log(7)
+                                                                    console.log(results)
+                                                                    if (results[0].userStatus >= 10) {
+                                                                        console.log(8)
+                                                                        var message = "由于您的攻略被多次举报，我们将对您发出警告"
+                                                                        var time = new Date()
+                                                                        var userId=writerId
+                                                                        var sqlArguments = [message, userId, time]
+                                                                        console.log(6,sqlArguments)
+                                                                        manageDAO.sendMessage(sqlArguments, function (err, results) {
+                                                                            if (err) {
+                                                                                res.json({ code: 500, data: 0, msg: '数据库错误，信息发送失败' })
+                                                                            } else {
+                                                                                if (results.affectedRows == 0) {
+                                                                                    res.json({ code: 200, data: 0, msg: '信息发送失败' })
+                                                                                } else {
+                                                                                    res.json({code:200,data:1,msg:'举报成功'})
+                                                                                }
+                                                                            }
+                                                                        })
+                                                                    }else{
+                                                                        res.json({code:200,data:1,msg:'举报成功'})
+                                                                    }
+                                                                    // res.json({ code: 200, data: results, msg: '用户信息查询成功' })
+                                                                }
+                                                            }
+                                                        })
+                                                        // res.json({ code: 200, data: 1, msg: '举报成功' })
+                                                    }
+
+                                                }
+                                            })
+                                        }
+                                    }
+                                })
+                                // res.json({code:200,data:1,msg:'该用户为举报'})
+                            } else {
+                                res.json({ code: 200, data: 0, msg: '您已经举报过了' })
+                            }
+                        }
+                    })
                 }
             }
         })
@@ -496,13 +415,13 @@ var operationController = {
         var sql = ''
         switch (normalStrategyInfo.strategyType) {
             case 'scenerystrategy':
-                sql = ' select distinct users.userId, users.userName,users.headPic ,scenerystrategy.* from users join scenerystrategy on users.userId=scenerystrategy.userId where (ssStatus=0 or ssStatus=1) order by ssTime desc';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,scenerystrategy.* from users join scenerystrategy on users.userId=scenerystrategy.userId where ssStatus>=0  order by ssTime desc';
                 break;
             case 'foodstrategy':
-                sql = ' select distinct users.userId, users.userName,users.headPic ,foodstrategy.* from users join foodstrategy on users.userId=foodstrategy.userId where (fsStatus=0 or fsStatus=1) order by fsTime desc ';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,foodstrategy.* from users join foodstrategy on users.userId=foodstrategy.userId where fsStatus>=0  order by fsTime desc ';
                 break;
             case 'personalrow':
-                sql = ' select distinct users.userId, users.userName,users.headPic ,personalrow.* from users join personalrow on users.userId=personalrow.userId where (prStatus=0 or prStatus=1) order by prTime desc  ';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,personalrow.* from users join personalrow on users.userId=personalrow.userId where prStatus>=0  order by prTime desc  ';
                 break;
         }
         operationDAO.normalStrategy(sql, function (err, results) {
@@ -524,13 +443,13 @@ var operationController = {
         var sql = ''
         switch (hotStrategyInfo.strategyType) {
             case 'scenerystrategy':
-                sql = ' select distinct users.userId, users.userName,users.headPic ,scenerystrategy.* from users join scenerystrategy on users.userId=scenerystrategy.userId where (ssStatus=0 or ssStatus=1) order by ssLikeNum desc,ssCollectionNum desc ';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,scenerystrategy.* from users join scenerystrategy on users.userId=scenerystrategy.userId where ssStatus>=0  order by ssLikeNum desc,ssCollectionNum desc ';
                 break;
             case 'foodstrategy':
-                sql = ' select distinct users.userId, users.userName,users.headPic ,foodstrategy.* from users join foodstrategy on users.userId=foodstrategy.userId where (fsStatus=0 or fsStatus=1) order by fslikenum desc,fscollectionnum desc ';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,foodstrategy.* from users join foodstrategy on users.userId=foodstrategy.userId where fsStatus>=0  order by fslikenum desc,fscollectionnum desc ';
                 break;
             case 'personalrow':
-                sql = ' select distinct users.userId, users.userName,users.headPic ,personalrow.* from users join personalrow on users.userId=personalrow.userId where (prStatus=0 or prStatus=1) order by personalrow.prLikeNum desc limit 20';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,personalrow.* from users join personalrow on users.userId=personalrow.userId where prStatus>=0  order by personalrow.prLikeNum desc limit 20';
                 break;
         }
         operationDAO.hotStrategy(sql, function (err, results) {
