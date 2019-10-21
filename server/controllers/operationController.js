@@ -484,13 +484,13 @@ var operationController = {
         var sql = ''
         switch (hotStrategyInfo.strategyType) {
             case 'scenerystrategy':
-                sql = ' select distinct users.userId, users.userName,users.headPic ,scenerystrategy.* from users join scenerystrategy on users.userId=scenerystrategy.userId where (ssStatus=0 or ssStatus=1) order by ssLikeNum desc,ssCollectionNum desc';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,scenerystrategy.* from users join scenerystrategy on users.userId=scenerystrategy.userId where (ssStatus=0 or ssStatus=1) order by ssLikeNum desc,ssCollectionNum desc ';
                 break;
             case 'foodstrategy':
                 sql = ' select distinct users.userId, users.userName,users.headPic ,foodstrategy.* from users join foodstrategy on users.userId=foodstrategy.userId where (fsStatus=0 or fsStatus=1) order by fslikenum desc,fscollectionnum desc ';
                 break;
             case 'personalrow':
-                sql = ' select distinct users.userId, users.userName,users.headPic ,personalrow.* from users join personalrow on users.userId=personalrow.userId where (prStatus=0 or prStatus=1) order by personalrow.prLikeNum desc ';
+                sql = ' select distinct users.userId, users.userName,users.headPic ,personalrow.* from users join personalrow on users.userId=personalrow.userId where (prStatus=0 or prStatus=1) order by personalrow.prLikeNum desc limit 20';
                 break;
         }
         operationDAO.hotStrategy(sql, function(err, results) {

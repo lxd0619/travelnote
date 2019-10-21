@@ -8,21 +8,16 @@
         <div class="con-title">平台推荐</div>
         <div id="con-platformRecommend-main">
           <br />
-          <div id="line-row">
-            <div class="item-list clearfix row" style="justify-content: space-around">
+          <div class="line-row">
+            <div class="item-list clearfix row" style="justify-content: space-around" v-if="show01">
               <div
                 class="item-coat J_item box-shadow"
                 @click="go(strategy.type,strategy.strategyId)"
-                v-for="strategy in platformRecommendstrategy.slice(0,8)"
+                v-for="strategy in platformRecommendstrategy"
                 :key="strategy.strategyId"
               >
                 <div class="item">
-                  <img
-                    :src="require('../assets/line/'+strategy.cover)"
-                    width="280px"
-                    height="200px"
-                    alt
-                  />
+                  <img :src="getCoverPic(strategy.cover)" width="280px" height="200px" alt />
                   <div class="totalPart">
                     <a href="#" target="_blank" class="detail">
                       <p class="title">{{strategy.title}}</p>
@@ -46,6 +41,7 @@
                 </div>
               </div>
             </div>
+            <div v-else class="nonedata">暂无平台推荐攻略</div>
           </div>
         </div>
       </div>
@@ -54,8 +50,8 @@
         <div class="con-title">个人推荐</div>
         <div id="con-personalRecommend-main">
           <br />
-          <div id="line-row">
-            <div class="item-list clearfix row" style="justify-content: space-around">
+          <div class="line-row">
+            <div class="item-list clearfix row" style="justify-content: space-around" v-if="show02">
               <div
                 class="item-coat J_item box-shadow"
                 @click="go(strategy.type,strategy.strategyId)"
@@ -63,12 +59,7 @@
                 :key="strategy.strategyId"
               >
                 <div class="item">
-                  <img
-                    :src="require('../assets/line/'+strategy.cover)"
-                    width="280px"
-                    height="200px"
-                    alt
-                  />
+                  <img :src="getCoverPic(strategy.cover)" width="280px" height="200px" alt />
                   <div class="totalPart">
                     <a href="#" target="_blank" class="detail">
                       <p class="title">{{strategy.title}}</p>
@@ -87,12 +78,14 @@
                 </div>
               </div>
             </div>
+            <div v-else class="nonedata">暂无个人推荐攻略</div>
           </div>
         </div>
       </div>
 
       <br />
       <div class="con-content">
+        <!-- 左边广告 -->
         <div id="con-left">
           <div class="left-card">
             <div class="card-txt">
@@ -168,7 +161,7 @@
                 role="tabpanel"
                 aria-labelledby="nav-default-tab"
               >
-                <div class="main_news">
+                <div class="main_news" v-if="show03">
                   <ul>
                     <li
                       @click="go(strategy.type,strategy.strategyId)"
@@ -176,29 +169,16 @@
                       :key="strategy.strategyId"
                     >
                       <a href="#" target="_blank">
-                        <img :src="require('../assets/line/'+strategy.cover)" />
+                        <img :src="getCoverPic(strategy.cover)" />
                         <div class="txt">
                           <h3>{{strategy.title}}</h3>
                           <span>{{strategy.prInfo}}</span>
-                        </div>
-                        <div class="info">
-                          <span class="sp1">
-                            <img src="../assets/line/line1.jpg" alt />
-                            <span class="name">{{strategy.userName}}</span>
-                          </span>
-                          <span>
-                            <img src="../assets/line/shou.png" width="20px" height="20px" />
-                            <span>({{strategy.prCollectionNum}})</span>
-                          </span>
-                          <span>
-                            <img src="../assets/line/zan.png" width="20px" height="20px" />
-                            <span>({{strategy.prLikeNum}})</span>
-                          </span>
                         </div>
                       </a>
                     </li>
                   </ul>
                 </div>
+                <div class="nonedata" v-else>暂无综合推荐攻略</div>
               </div>
 
               <div
@@ -280,7 +260,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-people1-tab"
                   >
-                    <div class="main_news">
+                    <!-- 活力行 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -288,37 +269,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                     <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -326,7 +286,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-people2-tab"
                   >
-                    <div class="main_news">
+                    <!-- 夕阳游 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -334,37 +295,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -372,7 +312,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-people3-tab"
                   >
-                    <div class="main_news">
+                    <!-- 亲子游 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -380,37 +321,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -418,7 +338,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-people4-tab"
                   >
-                    <div class="main_news">
+                    <!-- 情侣游 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -426,37 +347,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -464,7 +364,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-people5-tab"
                   >
-                    <div class="main_news">
+                    <!-- 蜜月行 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -472,37 +373,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -510,7 +390,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-people6-tab"
                   >
-                    <div class="main_news">
+                    <!-- 伙伴游 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -518,37 +399,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                 </div>
               </div>
@@ -642,7 +502,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-time1-tab"
                   >
-                    <div class="main_news">
+                    <!-- 一日游 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -650,37 +511,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -688,7 +528,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-time2-tab"
                   >
-                    <div class="main_news">
+                    <!-- 二日游 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -696,37 +537,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -734,7 +554,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-time3-tab"
                   >
-                    <div class="main_news">
+                    <!-- 三日游 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -742,37 +563,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -780,7 +580,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-time4-tab"
                   >
-                    <div class="main_news">
+                    <!-- 四日游 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -788,37 +589,17 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
                             </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
-                            </div>
+      
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -826,7 +607,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-time5-tab"
                   >
-                    <div class="main_news">
+                    <!-- 五日游 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -834,37 +616,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -872,7 +633,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-time6-tab"
                   >
-                    <div class="main_news">
+                    <!-- 七日游 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -880,37 +642,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -918,7 +659,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-time7-tab"
                   >
-                    <div class="main_news">
+                    <!-- 多日游 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -926,37 +668,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                 </div>
               </div>
@@ -1020,7 +741,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-season1-tab"
                   >
-                    <div class="main_news">
+                    <!-- 春 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -1028,37 +750,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -1066,7 +767,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-season2-tab"
                   >
-                    <div class="main_news">
+                    <!-- 夏 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -1074,37 +776,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -1112,7 +793,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-season3-tab"
                   >
-                    <div class="main_news">
+                    <!-- 秋 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -1120,37 +802,16 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -1158,7 +819,8 @@
                     role="tabpanel"
                     aria-labelledby="nav-season4-tab"
                   >
-                    <div class="main_news">
+                    <!-- 冬 -->
+                    <div class="main_news" v-if="people01">
                       <ul>
                         <li
                           @click="go(strategy.type,strategy.strategyId)"
@@ -1166,46 +828,25 @@
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
-                            <img :src="require('../assets/line/'+strategy.cover)" />
+                            <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
                               <span>{{strategy.prInfo}}</span>
-                            </div>
-                            <div class="info">
-                              <span class="sp1">
-                                <img src="../assets/line/line1.jpg" alt />
-                                <span class="name">{{strategy.userName}}</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/shou.png" width="20px" height="20px" />
-                                <span>({{strategy.prCollectionNum}})</span>
-                              </span>
-                              <span>
-                                <img src="../assets/line/zan.png" width="20px" height="20px" />
-                                <span>({{strategy.prLikeNum}})</span>
-                              </span>
-                              <span>
-                                <img
-                                  src="../assets/line/browsing-history.png"
-                                  width="20px"
-                                  height="20px"
-                                />
-                                <span>浏览量</span>
-                              </span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <br />
         </div>
+        <br />
       </div>
+      <!-- 最后div清除浮动 -->
       <div class="lastdiv"></div>
     </div>
   </div>
@@ -1216,12 +857,15 @@ export default {
   // name: "Line",
   data() {
     return {
-      info: [],
+      info: [], //要传送给具体攻略的类型和id
       platformRecommendstrategy: [],
+      show01: false,
 
       personalrecommendstrategy: [],
+      show02: false,
+      show03: false,
       strategyType: "personalrow",
-      // articles: [],
+      people01:false,
 
       lineClass: "",
       lineType: "",
@@ -1229,31 +873,56 @@ export default {
     };
   },
   created() {
-    // console.log(this.articles.strategyType);
+    // 平台推荐数据
     this.$axios
-      .get("http://localhost:3000/line/terraceline")
+      .get("http://localhost:3000/line/platformrecommend")
       .then(res => {
-        // console.log(res);//"平台推荐查询结果"
-        this.platformRecommendstrategy = res.data.data;
+        if (res.data.data) {
+          this.show01 = true;
+          this.platformRecommendstrategy = res.data.data;
+        } else {
+          this.show01 = false;
+        }
       })
       .catch(err => {
         console.log("错误信息" + err);
       });
 
-    // console.log(this.articles.strategyType);
+    // 个人推荐数据
     this.$axios
       .post("http://localhost:3000/operation/hotstrategy", {
         strategyType: this.strategyType
       })
       .then(res => {
-        // console.log(res);//"个人推荐查询结果"
         this.personalrecommendstrategy = res.data.data;
+        if (res.data.data) {
+          this.show02 = true;
+          this.personalrecommendstrategy = res.data.data;
+          console.log(this.personalrecommendstrategy.length);
+          if (this.personalrecommendstrategy.length > 8) {
+            this.show03 = true;
+          } else {
+            this.show03 = false;
+          }
+        } else {
+          this.show02 = false;
+          this.show03 = false;
+        }
       })
       .catch(err => {
         console.log("错误信息" + err);
       });
   },
   methods: {
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      // if (pic == null || pic=="") {
+      //   pic = "primaryHead.jpeg";
+      // }
+      path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    },
     //页面跳转并传送攻略类型和id
     go(type, id) {
       var strategy = { type, id };
@@ -1269,8 +938,12 @@ export default {
           lineType: this.lineType
         })
         .then(res => {
+          if (res.data.data) {
+            console.log(res);
+            this.people = res.data.data;
+            this.people01=true
+          }
           // console.log(res);//"查询结果"
-          this.people = res.data.data;
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -1312,10 +985,15 @@ export default {
   text-decoration: none;
 }
 
-#line-row {
+.line-row {
   width: 80%;
   margin: 0 auto;
   text-align: center;
+}
+.line-row .nonedata {
+  font-size: 36px;
+  font-weight: 700px;
+  color: #737373;
 }
 .box-shadow {
   margin: 10px;
@@ -1356,6 +1034,12 @@ export default {
   width: 60%;
   margin-left: 40px;
 }
+#con-line-nav .nonedata {
+  font-size: 36px;
+  font-weight: 700px;
+  color: #737373;
+  text-align: center;
+}
 
 .main_news ul {
   list-style: none;
@@ -1385,7 +1069,7 @@ export default {
   display: block;
   padding-left: 15px;
   width: 520px;
-  height: 120px;
+  height: 150px;
   overflow: hidden;
 }
 
@@ -1401,7 +1085,7 @@ export default {
   line-height: 18px;
   color: #737373;
 }
-.main_news ul li a .info {
+/* .main_news ul li a .info {
   display: block;
   padding-left: 15px;
   width: 520px;
@@ -1421,7 +1105,7 @@ export default {
   padding-left: 5px;
   padding-right: 20px;
   font-size: 16px;
-}
+} */
 
 .lastdiv {
   clear: both;

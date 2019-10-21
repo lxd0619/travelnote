@@ -1,8 +1,8 @@
 var lineDAO = require('../models/lineDAO')
 
 var lineController = {
-    terraceLine: function (req, res) {
-        lineDAO.terraceLine(function (err, results) {
+    PlatFormRecommend: function (req, res) {
+        lineDAO.PlatFormRecommend(function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '平台推荐路线查询失败！' })
             } else {
