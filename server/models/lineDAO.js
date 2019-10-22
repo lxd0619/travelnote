@@ -2,7 +2,7 @@ var DAO = require('./DAO')
 
 var lineDAO = {
     PlatFormRecommend: function (callback) {
-        DAO(' select * from personalrow where userId=1 and (prStatus=0 or prStatus=1) order by prTime desc limit 8', null, function (err, results) {
+        DAO(' select * from personalrow where userId=1 and prStatus>=0  order by prTime desc limit 8', null, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
@@ -12,7 +12,7 @@ var lineDAO = {
     },
     LineClassify: function (lineInfo, callback) {
         console.log(lineInfo)
-        var sql = ' select users.userId, users.userName,users.headPic,personalrow.* from personalrow  left join users on users.userId=personalrow.userId  where (prStatus=0 or prStatus=1) and '
+        var sql = ' select users.userId, users.userName,users.headPic,personalrow.* from personalrow  left join users on users.userId=personalrow.userId  where prStatus>=0 and '
         switch (lineInfo.lineClass) {
             case 'dayNum': sql += ' dayNum='; break;
             case 'season': sql += ' season='; break;
