@@ -27,7 +27,7 @@
             v-html="article.ssInfo"
           ></p>
           <p class="text-muted">
-            <i class="fa fa-map-marker mr-3" aria-hidden="true"> {{article.cityName}}</i>
+            <i class="fa fa-map-marker mr-3" aria-hidden="true">{{article.cityName}}</i>
             by {{article.userName}}
             <img
               :src="getHeadPic(article.headPic)"
@@ -35,8 +35,8 @@
               class="mr-3"
               circle
             />
-            <i class="el-icon-star-off mr-2"> {{article.ssCollectionNum}}</i>
-            <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true"> {{article.ssLikeNum}}</i>
+            <i class="el-icon-star-off mr-2">{{article.ssCollectionNum}}</i>
+            <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true">{{article.ssLikeNum}}</i>
           </p>
         </div>
       </div>
@@ -102,7 +102,7 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null || pic == "" || pic =="headPic") {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
@@ -134,12 +134,12 @@ h1 {
   left: 50%;
   transform: translate(-50%, 0);
 }
-.card-body{
+.card-body {
   padding-bottom: 0;
   width: 10rem;
   height: 5rem;
 }
-.text-muted{
+.text-muted {
   margin: 0;
   height: 1rem;
   line-height: 1rem;
@@ -150,6 +150,12 @@ h1 {
 }
 .card {
   color: #666;
+}
+.card:hover {
+  color: red;
+  box-shadow: 0px 5px 5px #eee!important;
+  background-color: rgb(252, 255, 255);
+  transform: 0.3s all;
 }
 .card a {
   font-size: 20px;

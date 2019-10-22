@@ -151,6 +151,11 @@ h1 {
 .card {
   color: #666;
 }
+.card:hover {
+  box-shadow: 0px 5px 5px #eee;
+  background-color: rgb(252, 255, 255);
+  transform: 0.3s all;
+}
 .card a {
   font-size: 20px;
   color: #333;
