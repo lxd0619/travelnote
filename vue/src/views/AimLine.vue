@@ -118,7 +118,6 @@ export default {
     var cityName = JSON.parse(sessionStorage.getItem("cityName"));
     this.cityName = cityName;
     console.log('当前的城市',this.cityName)
-    // console.log(this.cityName);
     //加载路线攻略
     this.$axios
       .post("http://localhost:3000/aim/aimpersonalrow", {
@@ -126,7 +125,6 @@ export default {
       })
       .then(res => {
         if(res.data.data){
-        // console.log(1, res);
         this.personalRowStrategy = res.data.data;
         this.show01 = true;
          }
@@ -170,11 +168,12 @@ export default {
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      // if (pic == null || pic=="") {
-      //   pic = "primaryHead.jpeg";
-      // }
+      if (pic == null || pic==""||pic=="cover") {
+        pic = "primaryCover01.jpg";
+      }
       path = "http://localhost:3000/coverPic/" + pic;
       return path;
+      
     },
     //页面跳转
     go(type, id) {
@@ -320,7 +319,9 @@ export default {
 }
 
 .main-show .show-img:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 18px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgb(255,255,255);
+  transition: 0.5s all;
 }
 
 .main-show .show-img img {
