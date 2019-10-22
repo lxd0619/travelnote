@@ -24,7 +24,7 @@
             <h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4>
           </div>
           <div id="relations" class="mt-3 float-right">
-            <ul class="d-flex justify-content-between text-center mr-5">
+            <ul class="d-flex justify-content-between text-center mr-5" @click="fanslist()">
               <li class="border-right border-bottom border-top">
                 粉丝：
                 <span>{{fans.length}}</span>
@@ -34,12 +34,16 @@
                 <span>{{attentions.length}}</span>
               </li>
             </ul>
-            <span id="addattention">添加关注</span>
+            <div v-if='show2'>
+              <el-button type="warning" v-if="show" @click="addFriends">添加关注</el-button>
+              <el-button type="warning" v-else @click="addFriends">取消关注</el-button>
+            </div>
           </div>
         </div>
         <!-- 中间部分 -->
         <div class="col-md-12 col-lg-9" id="content">
-          <user-article></user-article>
+          <OtherInfo v-if="show3"></OtherInfo>
+          <list v-else></list>
         </div>
         <!-- 右侧导航 -->
         <el-backtop :bottom="100"></el-backtop>
@@ -48,12 +52,12 @@
   </div>
 </template>
 <script>
-import UserArticle from "../components/userCenter/UserArticle";
+import jwt_decode from "jwt-decode";
+import OtherInfo from "../components/userCenter/OtherInfo";
+import List from "../components/userCenter/List";
+
 export default {
   name: "UserCenter",
-  components: {
-    UserArticle
-  },
   data() {
     return {
       userInfo: [
@@ -63,22 +67,38 @@ export default {
         }
       ],
       fans: [],
-      attentions: []
+      attentions: [],
+      show: true,
+      list: [],
+      show1: false,
+      currentPage: 1,
+      allPage: 0,
+      pagesize: 3,
+      visitor: "",
+      show3: true,
+      show2:true
     };
   },
+  components: {
+    OtherInfo,
+    List
+  },
   created() {
+    this.visitor = jwt_decode(localStorage.getItem("mytoken")).userId;
     var strategyuserId = JSON.parse(sessionStorage.getItem("strategyuserId"));
     this.strategyuserId = strategyuserId;
+    if(this.visitor==this.strategyuserId){
+      this.show2=false
+    }
     // 获取用户信息
+    console.log(this.strategyuserId);
     this.$axios
-      .get("http://localhost:3000/userCenter/getUserInfo")
+      .post("http://localhost:3000/userCenter/getInfo", {
+        userId: this.strategyuserId
+      })
       .then(res => {
-        console.log(res.data.data);
+        console.log(1, res);
         this.userInfo = res.data.data;
-        this.userInfo[0].registerTime = this.userInfo[0].registerTime.slice(
-          0,
-          this.userInfo[0].registerTime.indexOf("T")
-        );
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -88,12 +108,24 @@ export default {
       });
     // 获取用户粉丝
     this.$axios
-      .post("http://localhost:3000/userCenter/fans")
+      .post("http://localhost:3000/userCenter/HisFriends", {
+        userId: this.strategyuserId
+      })
       .then(res => {
-        console.log(res.data.data);
         this.fans = res.data.data;
+        console.log(res);
         if (res.data.data == 0) {
           this.fans = "";
+        } else {
+          for (var i = 0; i < this.fans.length; i++) {
+            if (this.fans[i].relationUserId == this.visitor) {
+              this.show = false;
+            }
+          }
+          if (i > this.fans.length) {
+            this.show = true;
+          }
+          console.log(this.show);
         }
       })
       .catch(err => {
@@ -102,9 +134,11 @@ export default {
       .finally(function() {
         // always executed
       });
-    // 获取用户关注
+    //获取用户关注
     this.$axios
-      .post("http://localhost:3000/userCenter/attentions")
+      .post("http://localhost:3000/userCenter/HisAttentions", {
+        userId: this.strategyuserId
+      })
       .then(res => {
         console.log("关注查询结果" + res.data.data);
         this.attentions = res.data.data;
@@ -138,11 +172,55 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null) {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
+    },
+    current_change(currentPage) {
+      this.currentPage = currentPage;
+    },
+    getPic(pic) {
+      //给图片名加上服务器端访问路径
+      if (pic == "cover" || pic == null) {
+        pic = "primaryCover.jpg";
+      }
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    },
+    go(type, id) {
+      var strategy = { type, id };
+      var info = JSON.stringify(strategy);
+      sessionStorage.setItem("info", info);
+      window.open("/index/FVstrategy");
+    },
+    addFriends() {
+      this.$axios
+        .post("http://localhost:3000/userCenter/addFriends", {
+          relationUserId: this.strategyuserId
+        })
+        .then(res => {
+          if (res.data.data == 1) {
+            this.show = false;
+            this.fans.push({ relationUserId: this.visitor });
+            console.log(this.fans);
+          } else if (res.data.data == -1) {
+            this.show = true;
+            for (var i = 0; i < this.fans.length; i++) {
+              if (this.fans[i].relationUserId == this.visitor) {
+                this.fans.splice(this.fans[i]);
+              }
+            }
+          }
+        });
+    },
+    fanslist() {
+      this.show3 = false;
+      var fanslist = JSON.stringify(this.fans);
+      var attentions = JSON.stringify(this.attentions);
+      sessionStorage.setItem("fanslist", fanslist);
+      sessionStorage.setItem("attentions", attentions);
     }
   }
 };
@@ -158,13 +236,16 @@ export default {
   background-size: cover;
 }
 #content {
-  height: 40em;
+  height: 45em;
 }
 #headPic {
   height: 10rem;
   width: 10rem;
 }
-
+#article img:first-child {
+  width: 13rem;
+  height: 11rem;
+}
 #headPic img {
   height: 10rem;
   width: 10rem;
@@ -173,6 +254,7 @@ export default {
   list-style: none;
   width: 10rem;
   padding: 0;
+  cursor: pointer;
 }
 #relations ul li {
   float: left;
@@ -183,8 +265,21 @@ export default {
 #relations ul li span {
   color: #ff9d00;
 }
-#addattention {
+.addattention {
   margin-left: 48px;
   background-color: #ff9d00;
+}
+.block {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+h2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ccc;
 }
 </style>

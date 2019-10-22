@@ -26,6 +26,12 @@ import FVstrategy from './views/FVstrategy.vue'
 import Focus from './views/Focus.vue'
 
 import jwt_decode from "jwt-decode";
+
+const routerPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error=> error)
+}
+
 Vue.use(Router)
 let router = new Router({
         mode: 'history',

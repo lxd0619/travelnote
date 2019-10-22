@@ -37,7 +37,9 @@ var userController = {
     },
     /**查询他人粉丝 */
     Friends: function (req, res) {
+        console.log(9)
         var userId = req.body.userId
+        console.log(8)
         userDAO.fans(userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '粉丝查询失败' })
@@ -326,39 +328,46 @@ var userController = {
     addFriends: function (req, res) {
         var userId = req.user.userId
         var relationUserId = req.body.relationUserId
-        var info = { userId, relationUserId }
-        userDAO.is_attentions(info, function (err, results) {
-            if (err) {
-                res.json({ code: 500, data: 0, msg: '关注查询失败' })
-            } else {
-                if (results == null || results.length == 0) {
-                    userDAO.addFriends(userId, relationUserId, function (err, results) {
-                        if (err) {
-                            res.json({ code: 500, data: 0, msg: '关联用户添加失败' })
-                        } else {
-                            if (results == null || results.length == 0) {
-                                res.json({ code: 200, data: 0, msg: '关联用户添加失败' })
-                            } else {
-                                res.json({ code: 200, data: results, msg: '关注成功' })
-                            }
-                        }
-                    })
+        console.log(userId,relationUserId)
+        if (userId == relationUserId) {
+            console.log(9)
+            res.json({ code: 500, data: 0, msg: '自己不可以关注自己哦' })
+        } else {
+            var info = { userId, relationUserId }
+            userDAO.is_attentions(info, function (err, results) {
+                if (err) {
+                    res.json({ code: 500, data: 0, msg: '关注查询失败' })
                 } else {
-                    userDAO.delFriends(userId, relationUserId,function(err,results){
-                        if (err) {
-                            res.json({ code: 500, data: 0, msg: '取消关联用户添加失败' })
-                        } else {
-                            if (results == null || results.length == 0) {
-                                res.json({ code: 200, data: 0, msg: '取消关联用户添加失败' })
+                    console.log(4)
+                    if (results == null || results.length == 0) {
+                        userDAO.addFriends(userId, relationUserId, function (err, results) {
+                            if (err) {
+                                res.json({ code: 500, data: 0, msg: '关联用户添加失败' })
                             } else {
-                                res.json({ code: 200, data: results, msg: '取消关联用户添加成功' })
+                                if (results == null || results.length == 0) {
+                                    res.json({ code: 200, data: 0, msg: '关联用户添加失败' })
+                                } else {
+                                    res.json({ code: 200, data: 1, msg: '关注成功' })
+                                }
                             }
-                        }
-                    })
+                        })
+                    } else {
+                        console.log(5)
+                        userDAO.delFriends(userId, relationUserId, function (err, results) {
+                            if (err) {
+                                res.json({ code: 500, data: 0, msg: '取消关联用户添加失败' })
+                            } else {
+                                if (results == null || results.length == 0) {
+                                    res.json({ code: 200, data: 0, msg: '取消关联用户添加失败' })
+                                } else {
+                                    res.json({ code: 200, data: -1, msg: '取消关联用户添加成功' })
+                                }
+                            }
+                        })
+                    }
                 }
-            }
-        })
-
+            })
+        }
     },
     /**粉丝列表查询 */
     fans: function (req, res) {
@@ -368,7 +377,7 @@ var userController = {
                 res.json({ code: 500, data: 0, msg: '粉丝查询失败' })
             } else {
                 if (results == null || results.length == 0) {
-                    res.json({ code: 200, data: 0, msg: '粉丝查询失败' })
+                    res.json({ code: 200, data: 0, msg: '没有粉丝' })
                 } else {
                     res.json({ code: 200, data: results, msg: '粉丝查询成功' })
                 }
@@ -383,7 +392,7 @@ var userController = {
                 res.json({ code: 500, data: 0, msg: '关注查询失败' })
             } else {
                 if (results == null || results.length == 0) {
-                    res.json({ code: 200, data: 0, msg: '关注查询失败' })
+                    res.json({ code: 200, data: 0, msg: '没有关注' })
                 } else {
                     res.json({ code: 200, data: results, msg: '关注查询成功' })
                 }

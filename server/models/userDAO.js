@@ -3,7 +3,7 @@ var DAO = require('./DAO')
 var userDAO = {
     getInfo: function (userId, callback) {
         console.log(2, userId)
-        DAO('select userName,sex,headPic,email from users where userId = ?', userId,
+        DAO('select userName,userId,headPic from users where userId = ?', userId,
             function (err, results) {
                 if (err) {
                     callback(err, null)
@@ -114,7 +114,7 @@ var userDAO = {
                 }
             })
     },
-    /**关注列表添加 */
+    /**粉丝列表添加 */
     addFriends: function (userId, relationUserId, callback) {
         DAO('insert into relationship (userId,relationUserId) values (?,?)', [relationUserId,userId], function (err, results) {
             if (err) {

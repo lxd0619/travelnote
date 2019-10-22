@@ -15,7 +15,7 @@
             <h2></h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-                <div  style="cursor:pointer">
+                <div  style="cursor:pointer" @click="go(stra.userId)">
                   <span>
                     作者:{{stra.userName}}
                     <img :src="getPic(stra.headPic)" width="35px" height="35px" />
@@ -381,26 +381,7 @@ export default {
           console.log("错误信息" + err);
         });
     },
-    //添加回复
-    // addReply(commentId) {
-    //   this.$axios
-    //     .post("http://localhost:3000/operation/addreply", {
-    //       replyContent: this.newReplyContent,
-    //       userId: this.userId,
-    //       commentId: commentId
-    //       // (replyContent,userId,replyTime,commentId
-    //     })
-    //     .then(res => {
-    //       console.log("回复", res);
-    //       this.replys = res.data.data;
-    //     })
-    //     .catch(err => {
-    //       console.log("错误信息" + err);
-    //     });
-    // },
-
-    //过滤
-
+    
     //显示提示框
     openVn() {
       const h = this.$createElement;
@@ -410,6 +391,10 @@ export default {
           h("i", { style: "color: teal" }, "VNode")
         ])
       });
+    },
+    go(userId){
+      sessionStorage.setItem('strategyuserId',userId)
+      this.$router.push('/index/focus')
     }
   }
 };

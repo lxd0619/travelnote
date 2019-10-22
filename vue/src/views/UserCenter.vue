@@ -23,7 +23,7 @@
           ></div>
           <div class="mt-3 float-right mr-5 text-center" style="width:10rem;"><h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4></div>
           <div id="relations" class="mt-3 float-right">
-            <ul class="d-flex justify-content-between text-center mr-5">
+            <ul class="d-flex justify-content-between text-center mr-5"  @click="fanslist()">
               <li class="border-right border-bottom border-top">粉丝：<span>{{fans.length}}</span></li>
               <li class="border-bottom border-top">关注：<span>{{attentions.length}}</span></li>
             </ul>
@@ -31,7 +31,8 @@
         </div>
         <!-- 中间部分 -->
         <div class="col-md-12 col-lg-9" id="content">
-          <UserCenterMiddle></UserCenterMiddle>
+          <UserCenterMiddle v-if="show"></UserCenterMiddle>
+          <List></List>
         </div>
         <!-- 右侧导航 -->
         <el-backtop :bottom="100"></el-backtop>
@@ -41,10 +42,14 @@
 </template>
 <script>
 import UserCenterMiddle from "../components/UserCenter_middle";
+import List from "../components/userCenter/List"
+
 export default {
   name: "UserCenter",
   components: {
-    UserCenterMiddle
+    UserCenterMiddle,
+    List 
+
   },
   data() {
     return {
@@ -54,7 +59,8 @@ export default {
         }
       ],
       fans: [],
-      attentions: []
+      attentions: [],
+      show:true
     };
   },
   created() {
@@ -133,6 +139,13 @@ export default {
       path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
+    fanslist(){
+      this.show=false
+      var fanslist = JSON.stringify(this.fans)
+      var attentions=JSON.stringify(this.attentions)
+      sessionStorage.setItem('fanslist',fanslist)
+      sessionStorage.setItem('attentions',attentions)
+    }
   }
 };
 </script>
@@ -161,6 +174,7 @@ export default {
   list-style: none;
   width: 10rem;
   padding: 0;
+  cursor: pointer;
 }
 #relations ul li{
   float: left;
