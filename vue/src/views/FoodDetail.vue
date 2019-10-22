@@ -501,6 +501,7 @@ a {
   background-color: rgb(255, 255, 255);
   margin-top: 20px;
   margin-bottom: 15px;
+  height: 300px;
 }
 
 .termini_img {
@@ -678,6 +679,16 @@ a {
   width: 300px;
   height: 300px;
   display: inline-block;
+}
+.total{
+  box-shadow: 0px 5px 5px #eee;
+   background-color: rgb(252, 255,255);
+   transition: 0.3s all;
+}
+.detailtitle img:hover{
+  width: 255px;
+  height: 253px;
+   transition: 0.3s all;
 }
 .container:hover .mine-item {
   width: 23.5%;

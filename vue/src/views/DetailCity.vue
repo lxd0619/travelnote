@@ -93,7 +93,7 @@ export default {
     current_change(currentPage) {
       this.currentPage = currentPage;
     },
-   getCoverPic(pic) {
+     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
       if (pic == "cover" || pic == null || pic =="") {
         pic = "primaryCover.jpg";
@@ -454,12 +454,24 @@ a {
 .leftimg {
   border-right: 1px solid #333;
   width: 335px;
+ height: 145px;
+  overflow: s;
   float: left;
   margin-top: 20px;
 }
 .leftimg {
   margin-left: 40px;
   margin-bottom: 15px;
+}
+.leftimg img:hover{
+  height: 135px;
+  width: 323px;
+  transition: 0.3s all;
+}
+.leftimg :hover{
+   box-shadow: 0px 5px 5px #eee;
+   background-color: rgb(252, 255,255);
+   transition: 0.3s all;
 }
 .rightfont {
   float: right;
