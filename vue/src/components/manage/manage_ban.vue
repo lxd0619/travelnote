@@ -134,6 +134,11 @@ h1{
   margin: 10px 20px;
   text-align: center;
   line-height: 30px;
+  cursor: pointer;
+}
+#bottom_img:hover{
+   box-shadow: 0px 5px 5px rgb(204, 204, 204);
+   transition: 0.3s all;
 }
 ul {
   list-style: none;
