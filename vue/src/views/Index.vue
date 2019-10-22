@@ -56,11 +56,12 @@
                     type="search"
                     placeholder="全站搜索..."
                     aria-label="搜索"
+                    v-model="keyWord"
                   />
                   <a
                     style="background:none; margin-left:-2rem; color:#ff9d00;"
                     href="/index/search"
-                    @click.prevent="goSearch"
+                    @click.prevent="goSearch(keyWord)"
                   >
                     <i class="fa fa-search" aria-hidden="true"></i>
                   </a>
@@ -77,15 +78,15 @@
                   aria-expanded="false"
                   v-if="isShow === true"
                 >
-                    <i class="fa fa-bell-o mr-2" aria-hidden="true"></i>
-                    消息中心
-                   <el-badge :value="sysnumber" class="item" v-if="show"></el-badge>
+                  <i class="fa fa-bell-o mr-2" aria-hidden="true"></i>
+                  消息中心
+                  <el-badge :value="sysnumber" class="item" v-if="show"></el-badge>
                 </a>
                 <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/index/message">
-                      <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>
-                      系统通知
-                    <el-badge :value="sysnumber" class="item"  v-if="show"></el-badge>
+                    <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>
+                    系统通知
+                    <el-badge :value="sysnumber" class="item" v-if="show"></el-badge>
                   </a>
                   <!-- <a class="dropdown-item" href="#">
                     <i class="fa fa-commenting-o mr-2" aria-hidden="true"></i>
@@ -173,22 +174,21 @@ export default {
   data() {
     return {
       isShow: false,
-      userInfo: [
-        {headPic:""}
-      ],
-      sysnumber:'',
-      show:false
+      userInfo: [{ headPic: "" }],
+      sysnumber: "",
+      show: false,
+      keyWord: ""
     };
   },
   //组件创建完成后执行的操作
   created() {
     //获取未读系统消息数量
     this.$axios
-      .post("http://localhost:3000/userCenter/sysMessage",{type:0})
+      .post("http://localhost:3000/userCenter/sysMessage", { type: 0 })
       .then(res => {
         if (res.data.data) {
-          this.show=true
-          this.sysnumber = res.data.data.length
+          this.show = true;
+          this.sysnumber = res.data.data.length;
         }
         console.log(res);
       });
@@ -224,7 +224,7 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null || pic == "" || pic =="headPic") {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
@@ -251,8 +251,10 @@ export default {
     goRegister() {
       this.$router.push("/register");
     },
-    goSearch() {
-      this.$router.push("/index/search");
+    goSearch(keyWord) {
+      this.$router.push({
+        path: `/index/search/${keyWord}`
+      });
     },
     goUserCenter() {
       this.$router.push("/index/userCenter");
@@ -289,8 +291,8 @@ export default {
 .nav-item {
   font-size: 18px;
 }
-.el-badge{
-  top:-8px;
-  left:-12px
+.el-badge {
+  top: -8px;
+  left: -12px;
 }
 </style>

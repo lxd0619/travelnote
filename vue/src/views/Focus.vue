@@ -18,8 +18,9 @@
           <div
             class="rounded-circle float-right mr-5"
             id="headPic"
-            :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"
+           :src="getHeadPic(userInfo[0].headPic)"
           ></div>
+           <!-- :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}" -->
           <div class="mt-3 float-right mr-5 text-center" style="width:10rem;">
             <h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4>
           </div>
@@ -76,7 +77,8 @@ export default {
       pagesize: 3,
       visitor: "",
       show3: true,
-      show2:true
+      show2:true,
+      show:true,
     };
   },
   components: {
@@ -172,7 +174,7 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null || pic == "" || pic == "headPic") {
+       if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;

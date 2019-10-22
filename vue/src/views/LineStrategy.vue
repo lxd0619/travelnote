@@ -12,7 +12,7 @@
             <h2>{{stra.title}}</h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-                <div class="img-span" @click="go(stra.userId)">
+                <div class="img-span" @click="goFocus(stra.userId)">
                   <img
                     :src=" getHeadPic(stra.headPic)"
                     width="48"
@@ -38,7 +38,6 @@
             </div>
           </div>
           <p>
-            <span>42%</span>
             初次访问{{stra.cityName}}的蜂蜂会选择这条线路
           </p>
         </div>
@@ -302,6 +301,12 @@ export default {
       path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
+// 跳转到作者首页
+    goFocus(strategyuserId) {
+      var strategyuserId = JSON.stringify(strategyuserId);
+      sessionStorage.setItem("strategyuserId", strategyuserId);
+      window.open("/index/focus");
+    },
 
     //添加评论
     addComment() {
@@ -374,10 +379,6 @@ export default {
         ])
       });
     },
-    go(userId){
-      sessionStorage.setItem('strategyuserId',userId)
-      this.$router.push('/index/focus')
-    }
   }
 };
 </script>

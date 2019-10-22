@@ -57,6 +57,7 @@
 import UserInfo from "../components/userCenter/UserInfo";
 import UserArticle from "../components/userCenter/UserArticle";
 import UserCollection from "../components/userCenter/UserCollection";
+
 export default {
   name: "UserCenter",
   components: {

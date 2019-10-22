@@ -80,7 +80,7 @@ let router = new Router({
                         component: LineStrategy
                     },
                     {
-                        path: 'search',
+                        path: 'search/:keyWord',
                         name: 'search',
                         component: Search
                     },

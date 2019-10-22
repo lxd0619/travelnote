@@ -36,7 +36,7 @@
               circle
             />
             <i class="el-icon-star-off mr-2"> {{article.ssCollectionNum}}</i>
-            <i class="fa fa-thumbs-o-up mr-2" aria-hidden="true"> {{article.ssLikeNum}}</i>
+            <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true"> {{article.ssLikeNum}}</i>
           </p>
         </div>
       </div>
@@ -141,6 +141,8 @@ h1 {
 }
 .text-muted{
   margin: 0;
+  height: 1rem;
+  line-height: 1rem;
 }
 .text-muted img {
   width: 20px;

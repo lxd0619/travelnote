@@ -57,7 +57,6 @@ export default {
     this.$axios
       .post("http://localhost:3000/userCenter/collectArticle")
       .then(res => {
-        console.log("用户收藏查询结果" + res.data.data);
         if (res.data.data) {
           this.show = true;
           this.collections = res.data.data;
