@@ -68,4 +68,7 @@ export default {
 };
 </script>
 <style scoped>
+#myTabContent{
+  height: 900px;
+}
 </style>

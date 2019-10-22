@@ -203,7 +203,7 @@ var userController = {
             }
             //fields是常温的表单字段数组，files是上传的文件列表
             var cover = ""
-            if (files) {
+            if (JSON.stringify(files).length > 2) {
                 cover = path.parse(files.cover.path).base
             } else {
                 cover = "cover"

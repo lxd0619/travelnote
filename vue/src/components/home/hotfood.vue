@@ -26,13 +26,12 @@
             v-html="article.fsInfo"
           ></p>
           <p class="text-muted">
-            <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.cityName}}</i>
-            by {{article.userName}}
+            <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.cityName}},</i>
+            by  <a href="#" class="card-link" @click="goUser(article.userId)">{{article.userName}} </a>
             <img
               :src="getHeadPic(article.headPic)"
               alt="head"
-              class="mr-3"
-              circle
+              class="mr-3 rounded-circle"
             />
             <i class="el-icon-star-off mr-2"> {{article.fsCollectionNum}}</i>
             <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true"> {{article.fsLikeNum}}</i>
@@ -111,6 +110,10 @@ export default {
       sessionStorage.setItem("info", info);
       window.open("/index/FVstrategy");
     },
+     goUser(userId){
+      sessionStorage.setItem('strategyuserId',userId)
+      this.$router.push('/index/focus')
+    },
     current_change(currentPage) {
       this.currentPage = currentPage;
     }
@@ -141,6 +144,12 @@ h1 {
   height: 1rem;
   line-height: 1rem;
 }
+.text-muted a{
+  color: #666;
+}
+.text-muted span{
+  color: #ff9d00;
+}
 .text-muted img {
   width: 20px;
   height: 20px;
@@ -149,11 +158,12 @@ h1 {
   color: #666;
 }
 .card:hover {
-  box-shadow: 0px 5px 5px #eee;
-  background-color: rgb(252, 255, 255);
-  transform: 0.3s all;
+  color: #333;
+  box-shadow: 0px 5px 5px #eee!important;
+  background-color: rgba(250, 248, 248, 0.6)!important;
+  transform: 0.3s all !important;
 }
-.card a {
+.card-title a {
   font-size: 20px;
   color: #333;
 }

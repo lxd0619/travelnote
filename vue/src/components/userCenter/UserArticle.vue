@@ -1,19 +1,21 @@
 <template>
-  <div class="mb-5">
+  <div>
     <div v-if="show">
       <div class="card-deck flex-column" id="article">
         <div
-          class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
+          class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded  "
           v-for="article in articles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
           :key="article.strategyId"
         >
+          
           <img class="card-img-top" :src="getPic(article.cover)" alt="article image" />
+          <div class='unread' v-if="article.ssStutas ==-4"><i class='el-icon-lock'></i></div>
           <div class="card-body">
             <a
               href="#"
               @click="go(article.type,article.strategyId)"
               class="card-title"
-            >{{article.title}}</a>
+            >{{article.title}}......{{article.ssStatus}}</a>
             <el-button
               type="danger"
               icon="el-icon-delete"
@@ -28,11 +30,12 @@
               v-html="article.ssInfo"
             ></p>
             <p class="text-muted">
-              <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.cityName}}</i>
-              <i class="el-icon-star-off mr-2"> {{article.ssCollectionNum}}</i>
-              <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true"> {{article.ssLikeNum}}</i>
+              <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>
+              <i class="el-icon-star-off mr-2">{{article.ssCollectionNum}}</i>
+              <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true">{{article.ssLikeNum}}</i>
             </p>
           </div>
+           
         </div>
       </div>
       <!-- 分页 -->
@@ -56,11 +59,14 @@ export default {
   name: "UserArticle",
   data() {
     return {
-      articles: [],
+      articles: [
+        {
+        }
+      ],
       currentPage: 1,
       allPage: 0,
       pagesize: 5,
-      show: true
+      show: true,
     };
   },
   created() {
@@ -72,6 +78,8 @@ export default {
           this.show = true;
           this.articles = res.data.data;
           this.allPage = res.data.data.length;
+         
+          console.log(this.articles)
         } else {
           this.show = false;
         }
@@ -91,10 +99,11 @@ export default {
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
-    },getHeadPic(pic) {
+    },
+    getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null || pic == "" || pic =="headPic") {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
@@ -116,8 +125,11 @@ export default {
           strategyId: strategyId
         })
         .then(res => {
-          // location.reload()
-          console.log("aaa:" + this.articles);
+          this.$message({
+            showClose: true,
+            message: "删除攻略成功！",
+            type: "success"
+          });
           for (var i = 0; i < this.articles.length; i++) {
             if (this.articles[i].strategyId == strategyId) {
               this.articles.splice(i, 1);
@@ -130,6 +142,11 @@ export default {
         })
         .catch(err => {
           console.log("错误信息" + err);
+          this.$message({
+            showClose: true,
+            message: "出错啦！删除失败！",
+            type: "error"
+          });
         })
         .finally(function() {
           // always executed
@@ -139,6 +156,28 @@ export default {
 };
 </script>
 <style scoped>
+.unread{
+  width:825px;
+  height: 210px;
+  background: rgba(19, 19, 19, 0.5);
+  margin: 8px 0px;
+  margin-top: 0;
+  border-radius: 5px;
+  position: absolute;
+  top:0;
+  left:0;
+  font-size: 100px;
+}
+.unread i{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:rgb(246, 245, 236);
+}
+.unread:hover{
+  background: rgba(0, 0, 0, 0.5);
+}
 h3 {
   position: absolute;
   top: 50%;
@@ -156,12 +195,12 @@ h3 {
   width: 13rem;
   height: 11rem;
 }
-.card-body{
+.card-body {
   padding-bottom: 0;
   width: 10rem;
   height: 5rem;
 }
-.text-muted{
+.text-muted {
   margin: 0;
 }
 /* .text-muted img {

@@ -1,16 +1,19 @@
 <template>
-  <div id="content" class="mb-5">
+  <div id="content">
     <div v-if="show">
       <div class="card-deck flex-column" id="collectArticle">
         <div
           class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
           v-for="collection in collections.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
           :key="collection.index"
-          @click="go(article.type,article.strategyId)"
         >
           <img class="card-img-top" :src="getPic(collection.cover)" alt="collectionArticlePic" />
           <div class="card-body">
-            <h5 class="card-title">{{collection.title}}</h5>
+            <a
+              href="#"
+              @click="go(collection.type,collection.strategyId)"
+              class="card-title"
+            >{{collection.title}}</a>
             <p
               class="card-text overflow-hidden"
               style="height: 4em;text-overflow:ellipsis;"
