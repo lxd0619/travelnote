@@ -18,7 +18,7 @@
                 <div  style="cursor:pointer" @click="go(stra.userId)">
                   <span>
                     作者:{{stra.userName}}
-                    <img :src="getPic(stra.headPic)" width="35px" height="35px" />
+                    <img :src="getHeadPic(stra.headPic)" width="35px" height="35px" />
                   </span>
                 </div>
 
@@ -286,6 +286,16 @@ export default {
         .catch(err => {
           console.log("错误信息" + err);
         });
+    },
+
+    getHeadPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      if (pic == null || pic == "" || pic == "headPic") {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
     },
 
     //获取头像
