@@ -39,7 +39,7 @@
         <!-- 中间部分 -->
         <div class="col-md-12 col-lg-9" id="content">
           <UserCenterMiddle v-if="show"></UserCenterMiddle>
-          <List></List>
+          <List v-else></List>
         </div>
         <!-- 右侧导航 -->
         <el-backtop :bottom="100"></el-backtop>
