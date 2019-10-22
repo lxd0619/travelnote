@@ -308,8 +308,11 @@ export default {
       return path;
     },
     getPic(pic) {
-      let path = "http://localhost:3000/uploadHeadPic/" + pic;
-      console.log(path);
+      let path = "";
+      if (pic == null || pic == "" || pic =="headPic") {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
     //添加评论
