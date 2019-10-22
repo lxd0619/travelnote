@@ -18,9 +18,7 @@
           <div
             class="rounded-circle float-right mr-5"
             id="headPic"
-           :src="getHeadPic(userInfo[0].headPic)"
-          ></div>
-           <!-- :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}" -->
+           :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"></div>
           <div class="mt-3 float-right mr-5 text-center" style="width:10rem;">
             <h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4>
           </div>
@@ -86,7 +84,6 @@ export default {
     List
   },
   created() {
-    console.log(typeof(this.fans))
     this.visitor = jwt_decode(localStorage.getItem("mytoken")).userId;
     var strategyuserId = JSON.parse(sessionStorage.getItem("strategyuserId"));
     this.strategyuserId = strategyuserId;
@@ -94,13 +91,11 @@ export default {
       this.show2=false
     }
     // 获取用户信息
-    console.log(this.strategyuserId);
     this.$axios
       .post("http://localhost:3000/userCenter/getInfo", {
         userId: this.strategyuserId
       })
       .then(res => {
-        console.log(1, res);
         this.userInfo = res.data.data;
       })
       .catch(err => {
@@ -155,21 +150,6 @@ export default {
       .finally(function() {
         // always executed
       });
-    $(function() {
-      $('[data-toggle="popover"]').popover({
-        container: "body"
-      });
-      $('input[type="file"]').change(function() {
-        var fread = new FileReader();
-        fread.onload = function(e) {
-          $(".rounded-circle").css(
-            "background-image",
-            "url(" + e.target.result + ")"
-          );
-        };
-        fread.readAsDataURL(this.files[0]);
-      });
-    });
   },
   methods: {
     getHeadPic(pic) {
@@ -251,10 +231,9 @@ export default {
   height: 10rem;
   width: 10rem;
 }
-
-#headPic img {
-  height: 10rem;
-  width: 10rem;
+#article img:first-child {
+  width: 13rem;
+  height: 11rem;
 }
 #relations ul {
   list-style: none;

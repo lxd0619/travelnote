@@ -139,7 +139,7 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null || pic == "") {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
@@ -147,7 +147,7 @@ export default {
     },
     fanslist() {
       this.show = false;
-      console.log(this.userInfo[0].userId)
+      console.log(this.userInfo[0].userId);
       sessionStorage.setItem("strategyuserId", this.userInfo[0].userId);
       var fanslist = JSON.stringify(this.fans);
       var attentions = JSON.stringify(this.attentions);

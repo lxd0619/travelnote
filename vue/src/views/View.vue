@@ -72,7 +72,7 @@
       <div class="sheadsecond">景点攻略</div>
       <div class="specialFood">
         <div class="stragyespecail"   @click="go(article.type,article.strategyId)" v-for="article in articles.slice(0,8)" :key="article.strategyId">
-         <img :src="getCoverPic(article.cover)" width="260px" height="240px" />
+         <img :src="getCoverPic(article.cover)" width="260px" height="238px" />
           <div class="intro_box">   
           
             <h3>{{article.title}}</h3>
@@ -444,7 +444,6 @@ h1 {
   font-size: 16px;
   line-height: 16px;
 }
-
 .strategy_pos {
   margin: 0px auto;
   margin-top: 240px;
@@ -460,12 +459,23 @@ h1 {
 .stragyespecail {
   display: inline-block;
   width: 260px;
+  height: 330px;
+  overflow: hidden;
   margin-left: 18px;
-  border: 1px solid rgb(138, 137, 137);
   margin-bottom: 30px;
 }
+.stragyespecail:hover{
+   box-shadow: 0px 5px 5px #eee;
+   background-color: rgb(252, 255,255);
+   transition: 0.3s all;
+}
+.stragyespecail img:hover{
+  width: 265px;
+  height: 242px;
+   transition: 0.3s all;
+}
 .stragyespecail p {
-  font-size: 15px;
+  font-size: 16px;
   text-align: center;
   color: #666;
   height: 25px;
@@ -475,7 +485,7 @@ h1 {
 }
 .stragyespecail h3 {
   font-family: initial;
-  font-size: 20px;
+  font-size: 1px;
   color: rgb(58, 57, 57);
   font-family: 楷体;
   width: 250px;

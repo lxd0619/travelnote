@@ -634,6 +634,16 @@ a {
   text-overflow: ellipsis;
   color: #333;
 }
+.total{
+  box-shadow: 0px 5px 5px #eee;
+   background-color: rgb(252, 255,255);
+   transition: 0.3s all;
+}
+.detailtitle img:hover{
+  width: 255px;
+  height: 253px;
+   transition: 0.3s all;
+}
 .likecollection {
   margin-top: 40px;
   margin-left: 600px;
@@ -651,6 +661,7 @@ a {
   background-color: rgb(255, 255, 255);
   margin-top: 20px;
   margin-bottom: 15px;
+  height: 300px;
 }
 .total::after {
   content: "";

@@ -27,13 +27,12 @@
             v-html="article.ssInfo"
           ></p>
           <p class="text-muted">
-            <i class="fa fa-map-marker mr-3" aria-hidden="true"> {{article.cityName}}</i>
-            by {{article.userName}}
+            <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.cityName}},</i>
+            by <a href="#" class="card-link" @click="goUser(article.userId)">{{article.userName}} </a>
             <img
               :src="getHeadPic(article.headPic)"
               alt="head"
-              class="mr-3"
-              circle
+              class="mr-3 rounded-circle"
             />
             <i class="el-icon-star-off mr-2"> {{article.ssCollectionNum}}</i>
             <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true"> {{article.ssLikeNum}}</i>
@@ -102,7 +101,7 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null || pic == "" || pic =="headPic") {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
@@ -113,6 +112,10 @@ export default {
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
       window.open("/index/FVstrategy");
+    },
+    goUser(userId){
+      sessionStorage.setItem('strategyuserId',userId)
+      this.$router.push('/index/focus')
     },
     current_change(currentPage) {
       this.currentPage = currentPage;
@@ -134,15 +137,21 @@ h1 {
   left: 50%;
   transform: translate(-50%, 0);
 }
-.card-body{
+.card-body {
   padding-bottom: 0;
   width: 10rem;
   height: 5rem;
 }
-.text-muted{
+.text-muted {
   margin: 0;
   height: 1rem;
   line-height: 1rem;
+}
+.text-muted a{
+  color: #666;
+}
+.text-muted span{
+  color: #ff9d00;
 }
 .text-muted img {
   width: 20px;
@@ -151,9 +160,16 @@ h1 {
 .card {
   color: #666;
 }
-.card a {
+.card:hover {
+  color: #333;
+  box-shadow: 0px 5px 5px #eee!important;
+  background-color: rgba(250, 248, 248, 0.6)!important;
+  transform: 0.3s all !important;
+}
+.card-title a {
   font-size: 20px;
   color: #333;
+  text-decoration: none;
 }
 .card:hover a {
   color: #ff9d00;

@@ -71,11 +71,11 @@ var userDAO = {
     },
     /**个人攻略列表列表 */
     userArticle: function (userId, callback) {
-        DAO('select strategyId,type,title,ssInfo,cityName,ssLikeNum,ssCollectionNum,ssTime,ssStatus,cover from scenerystrategy where userId = ? and ssStatus !=-3'
+        DAO('select strategyId,type,title,ssInfo,cityName,ssLikeNum,ssCollectionNum,ssTime,ssStatus,cover from scenerystrategy where userId = ? and ssStatus != -4'
             + ' UNION ' +
-            'select strategyId,type,title,fsInfo,cityName,fsLikeNum,fsCollectionNum,fsTime,fsStatus,cover from foodstrategy where userId = ? and fsStatus != -3'
+            'select strategyId,type,title,fsInfo,cityName,fsLikeNum,fsCollectionNum,fsTime,fsStatus,cover from foodstrategy where userId = ? and fsStatus != -4'
             + ' UNION ' +
-            'select strategyId,type,title,prInfo,cityName,prLikeNum,prCollectionNum,prTime,prStatus,cover from personalrow where userId = ? and prStatus != -3', [userId, userId, userId], function (err, results) {
+            'select strategyId,type,title,prInfo,cityName,prLikeNum,prCollectionNum,prTime,prStatus,cover from personalrow where userId = ? and prStatus != -4', [userId, userId, userId], function (err, results) {
                 if (err) {
                     callback(err, null)
                 } else {
