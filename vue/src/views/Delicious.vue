@@ -109,7 +109,7 @@
 
                 <dl class="art clearfix">
                   <dt>
-                    <img :src="getCoverPic(recommend.cover)" style="width: 220px;" />
+                    <img :src="getCoverPic(recommend.cover)" style="width: 220px height:200px;" />
                   </dt>
                  
                  
@@ -646,10 +646,22 @@ li {
 .stragyespecail {
   display: inline-block;
   width: 220px;
+  height: 300px;
+  overflow: hidden;
   margin-left: 18px;
-  border: 1px solid rgb(138, 137, 137);
   margin-bottom: 30px;
 }
+.stragyespecail:hover{
+   box-shadow: 0px 5px 5px #eee;
+   background-color: rgb(252, 255,255);
+   transition: 0.3s all;
+}
+.stragyespecail img:hover{
+  width: 225px;
+  height: 203px;
+   transition: 0.3s all;
+}
+
 .stragyespecail p {
   font-size: 15px;
   text-align: center;
@@ -661,7 +673,7 @@ li {
 }
 .stragyespecail h3 {
   font-family: initial;
-  font-size: 18px;
+  font-size: 16px;
   color: #666;
   width: 220px;
   height: 20px;

@@ -899,9 +899,9 @@ export default {
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      // if (pic == null || pic=="") {
-      //   pic = "primaryHead.jpeg";
-      // }
+      if (pic == null || pic=="") {
+        pic = "primaryHead01.jpeg";
+      }
       path = "http://localhost:3000/coverPic/" + pic;
       return path;
     },
@@ -979,9 +979,11 @@ export default {
 }
 .box-shadow {
   margin: 10px;
+  cursor: pointer;
 }
 .box-shadow:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.5s all;
 }
 .box-shadow a {
   color: #666;
@@ -1012,7 +1014,7 @@ export default {
   width: 280px;
   height: 480px;
   padding: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0px 5px 8px #eee;
 }
 
 #con-line {
