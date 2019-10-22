@@ -23,6 +23,7 @@ import DetailCity from './views/DetailCity.vue'
 import FoodCity from './views/FoodCity.vue'
 import FoodDetail from './views/FoodDetail.vue'
 import FVstrategy from './views/FVstrategy.vue'
+import Focus from './views/Focus.vue'
 
 import jwt_decode from "jwt-decode";
 Vue.use(Router)
@@ -116,7 +117,12 @@ let router = new Router({
                         path: 'fvstrategy',
                         name: 'fvstrategy',
                         component: FVstrategy
-                    }
+                    },
+                    {
+                        path: 'focus',
+                        name: 'focus',
+                        component: Focus
+                    },
                 ]
             },
             {

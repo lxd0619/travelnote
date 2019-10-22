@@ -81,7 +81,7 @@ export default {
   methods: {
     List(tableName) {
       var tableName = tableName;
-      var ssStatus = 2;
+      var ssStatus = -3;
       var data = { tableName, ssStatus };
       this.currentPage = 1;
       this.$axios.post("http://localhost:3000/manage/List", data).then(res => {
@@ -115,7 +115,7 @@ body {
 #content {
   position: relative;
   width: 1200px;
-  height: 605px;
+  height: 640px;
 }
 h1{
   position: absolute;

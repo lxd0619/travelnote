@@ -8,7 +8,7 @@
       <el-table-column prop="address" label="城市" width="120px"></el-table-column>
       <el-table-column prop="sex" label="性别" width="120px"></el-table-column>
       <el-table-column prop="role" label="用户权限" width="120px"></el-table-column>
-      <el-table-column prop="userStatus" label="用户状态" width="120px"></el-table-column>
+      <el-table-column prop="status" label="用户状态" width="120px"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <i
@@ -42,7 +42,7 @@
             <el-radio-group v-model="radio">
               <el-radio :label="0">正常</el-radio>
               <el-radio :label="10">警告</el-radio>
-              <el-radio :label="20">封号</el-radio>
+              <el-radio :label="-1">封号</el-radio>
             </el-radio-group>
           </div>
           <div class="modal-footer">
@@ -59,7 +59,9 @@ export default {
   name: "manage_user",
   data() {
     return {
-      list: [],
+      list: [{
+        status:''
+      }],
       allpages: null,
       currentPage: 1,
       radio: "",
@@ -73,14 +75,13 @@ export default {
       this.list = res.data.data;
       for (var i = 0; i < res.data.data.length; i++) {
         if (res.data.data[i].userStatus == 0) {
-          this.list[i].userStatus = "正常";
+          this.list[i].status = "正常";
         } else if (
-          res.data.data[i].userStatus > 0 &&
-          res.data.data[i].userStatus <= 10
+          res.data.data[i].userStatus > 0 
         ) {
-          this.list[i].userStatus = "警告";
+          this.list[i].status = "警告("+this.list[i].userStatus+"次)";
         } else {
-          this.list[i].userStatus = "封号";
+          this.list[i].status = "封号";
         }
       }
       this.allpages = res.data.data.length;
@@ -90,10 +91,9 @@ export default {
     current_change: function(currentPage) {
       this.currentPage = currentPage;
     },
-    operation(index, row) {
+    operation(index) {
       console.log(index);
       this.id = index;
-      console.log(row);
     },
     push() {
       console.log(this.radio, this.id);
@@ -104,17 +104,23 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.data) {
-            for (var i = 0; i < this.list.length; i++) {
-              if (this.list[i].userId == this.id) {
-                if (this.radio == 0) {
-                  this.list[i].userStatus = "正常";
-                } else if (this.radio > 0 && this.radio <= 10) {
-                  this.list[i].userStatus = "警告";
-                } else {
-                  this.list[i].userStatus = "封号";
-                }
-              }
-            }
+            // for (var i = 0; i < this.list.length; i++) {
+            //   if (this.list[i].userId == this.id) {
+            //     console.log(1)
+            //     if (this.radio == 0) {
+            //       console.log(2)
+            //       this.list[i].status = "正常";
+            //     } else if (this.radio > 0) {
+            //       console.log(3)
+            //       console.log(this.radio)
+            //       this.list[i].status = "警告("+ this.radio+"次)";
+            //       console.log(this.list[i].status)
+            //     } else {
+            //       console.log(4)
+            //       this.list[i].status = "封号";
+            //     }
+            //   }
+            // }
             this.$message({
               message: "用户状态修改成功",
               type: "success"
@@ -122,6 +128,19 @@ export default {
           }
         });
       $("#myModal").modal("hide");
+      if(this.radio ==0){
+        var message='您的账号已恢复正常'
+      }else if(this.radio==10){
+        var message='由于您的攻略多次被举报，经审核，予以您警告'
+      }else{
+        var message='更具《中华人民共和国网络安全法》和《互联网信息服务管理办法》规定，经核实，您已违规，现予以您封号处理'
+      }
+      this.$axios.post('http://localhost:3000/manage/sendMessage',{
+        sysMsgContent:message,
+        userId:this.id
+      }).then(res=>{
+        console.log(res)
+      })
     }
   }
 };
@@ -134,7 +153,7 @@ body {
 #content {
   position: relative;
   width: 1200px;
-  height: 648px;
+  height: 658px;
 }
 ul {
   list-style: none;
