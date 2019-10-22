@@ -204,10 +204,9 @@ var userController = {
             //fields是常温的表单字段数组，files是上传的文件列表
             var cover = ""
             if (files) {
-                cover = "cover"
-            } else {
                 cover = path.parse(files.cover.path).base
-
+            } else {
+                cover = "cover"
             }
             var type = fields.type
             var title = fields.title
