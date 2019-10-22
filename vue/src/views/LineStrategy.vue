@@ -31,7 +31,7 @@
                 <div class="img-span" @click="updateLikeNum()" id="operation1">
                   <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞({{stra.prLikeNum}})</i>
                 </div>
-                <div class="img-span" @click="report()">
+                <div class="img-span" @click="report(stra.userId)">
                   <i class="el-icon-warning" aria-hidden="true">举报</i>
                 </div>
               </div>
@@ -152,7 +152,8 @@ export default {
         strategyId: this.info.id
       })
       .then(res => {
-        console.log(1, res.data.data);
+        console.log(3,res.data.data)
+        // console.log(1, res.data.data);
         this.strategy = res.data.data;
       })
       .catch(err => {
@@ -268,16 +269,22 @@ export default {
         });
     },
     //举报
-    report() {
+    report(id) {
       var judge;
       this.$axios
         .post("http://localhost:3000/operation/report", {
           strategyId: this.info.id,
-          strategyType: this.info.type
+          strategyType: this.info.type,
+          writerId:id
         })
         .then(res => {
           console.log(res);
-          this.$message("举报成功！");
+          if(res.data.data){
+            this.$message(res.data.msg);
+          }else{
+            this.$message.error(res.data.msg)
+          }
+          
         })
         .catch(err => {
           console.log("错误信息" + err);

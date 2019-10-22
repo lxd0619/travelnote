@@ -9,11 +9,21 @@ var manageController = {
             var tableName = req.body.tableName
             var ssStatus = req.body.ssStatus
             var sql = ''
-            switch (tableName) {
-                case 'foodstrategy': sql = 'select foodstrategy.*,users.userName from foodstrategy,users where fsStatus=? and foodstrategy.userId=users.userId'; break;
-                case 'scenerystrategy': sql = 'select scenerystrategy.*,users.userName from scenerystrategy,users where ssStatus=? and scenerystrategy.userId=users.userId'; break;
-                case 'personalrow': sql = 'select personalrow.*,users.userName from personalrow,users where prStatus=? and personalrow.userId=users.userId'; break;
+            if (ssStatus == 1) {
+                switch (tableName) {
+                    case 'foodstrategy': sql = 'select foodstrategy.*,users.userName from foodstrategy,users where fsStatus >=? and foodstrategy.userId=users.userId'; break;
+                    case 'scenerystrategy': sql = 'select scenerystrategy.*,users.userName from scenerystrategy,users where ssStatus>=? and scenerystrategy.userId=users.userId'; break;
+                    case 'personalrow': sql = 'select personalrow.*,users.userName from personalrow,users where prStatus>=? and personalrow.userId=users.userId'; break;
+                }
+            } else {
+                switch (tableName) {
+                    case 'foodstrategy': sql = 'select foodstrategy.*,users.userName from foodstrategy,users where fsStatus=? and foodstrategy.userId=users.userId'; break;
+                    case 'scenerystrategy': sql = 'select scenerystrategy.*,users.userName from scenerystrategy,users where ssStatus=? and scenerystrategy.userId=users.userId'; break;
+                    case 'personalrow': sql = 'select personalrow.*,users.userName from personalrow,users where prStatus=? and personalrow.userId=users.userId'; break;
+                }
             }
+
+
             manageDAO.List(sql, ssStatus, function (err, results) {
                 if (err) {
                     res.json({ code: 500, data: 0, msg: '数据查询错误' + err.message })
@@ -45,7 +55,7 @@ var manageController = {
                 case 'scenerystrategy': sql = 'update scenerystrategy set ssStatus=? where strategyId=?'; break;
                 case 'personalrow': sql = 'update personalrow set prStatus=? where strategyId=?'; break;
             }
-            manageDAO.Status(sql,sqlArguments, function (err, results) {
+            manageDAO.Status(sql, sqlArguments, function (err, results) {
                 if (err) {
                     res.json({ code: 500, data: 0, msg: '状态修改错误' })
                 } else {
@@ -65,7 +75,7 @@ var manageController = {
         } else {
             manageDAO.usersSelect(function (err, results) {
                 if (err) {
-                    res.json({ code: 500, data:0, msg: '用户查询错误' })
+                    res.json({ code: 500, data: 0, msg: '用户查询错误' })
                 } else {
                     if (results == null || results.length == 0) {
                         res.json({ code: 200, data: 0, msg: '暂无用户数据' })
@@ -87,7 +97,7 @@ var manageController = {
             var sqlArguments = [message, userId, time]
             manageDAO.sendMessage(sqlArguments, function (err, results) {
                 if (err) {
-                    res.json({ code: 500,data:0, msg: '数据库错误，信息发送失败' })
+                    res.json({ code: 500, data: 0, msg: '数据库错误，信息发送失败' })
                 } else {
                     if (results.affectedRows == 0) {
                         res.json({ code: 200, data: 0, msg: '信息发送失败' })
