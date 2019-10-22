@@ -378,7 +378,7 @@ export default {
           h("i", { style: "color: teal" }, "VNode")
         ])
       });
-    }
+    },
   }
 };
 </script>

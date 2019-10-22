@@ -102,6 +102,7 @@
                 class="feed-item _j_feed_item"
                 v-for="recommend in rearticles.slice(0,3)"
                 :key="recommend.strategyId" @click="went(recommend.type,recommend.strategyId)"
+                style="cursor:pointer"
               >
                 <hr />
                 <div class="title">{{recommend.title}}</div>
