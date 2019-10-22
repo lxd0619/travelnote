@@ -76,7 +76,7 @@
           <div class="intro_box">   
           
             <h3>{{article.title}}</h3>
-            <p>{{article.ssInfo}}</p>
+            <p v-html="article.ssInfo"></p>
             <span>
               <img src="../assets/food/收藏_line.png" width="17px" height="17px" />
               点赞({{article.ssLikeNum}})
