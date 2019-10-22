@@ -37,9 +37,7 @@
               </div>
             </div>
           </div>
-          <p>
-            初次访问{{stra.cityName}}的蜂蜂会选择这条线路
-          </p>
+          <p>初次访问{{stra.cityName}}的蜂蜂会选择这条线路</p>
         </div>
       </div>
 
@@ -76,11 +74,9 @@
                     <br />
 
                     <div class="info-span">
-                      <span
-                        v-if="dis.userId==userId"
-                        @click="delComment(dis.commentId)"
-                        :key="dis.commentId"
-                      >删除个人评论</span>
+                      <span v-if="dis.userId==userId" :key="dis.commentId">
+                        <el-button type="text" @click="delComment(dis.commentId)">删除个人评论</el-button>
+                      </span>
                     </div>
                   </div>
                 </li>
@@ -152,7 +148,7 @@ export default {
         strategyId: this.info.id
       })
       .then(res => {
-        console.log(3,res.data.data)
+        console.log(3, res.data.data);
         // console.log(1, res.data.data);
         this.strategy = res.data.data;
       })
@@ -275,16 +271,15 @@ export default {
         .post("http://localhost:3000/operation/report", {
           strategyId: this.info.id,
           strategyType: this.info.type,
-          writerId:id
+          writerId: id
         })
         .then(res => {
           console.log(res);
-          if(res.data.data){
+          if (res.data.data) {
             this.$message(res.data.msg);
-          }else{
-            this.$message.error(res.data.msg)
+          } else {
+            this.$message.error(res.data.msg);
           }
-          
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -301,7 +296,7 @@ export default {
       path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
-// 跳转到作者首页
+    // 跳转到作者首页
     goFocus(strategyuserId) {
       var strategyuserId = JSON.stringify(strategyuserId);
       sessionStorage.setItem("strategyuserId", strategyuserId);
@@ -341,32 +336,74 @@ export default {
     },
     // 删除评论
     delComment(commentId) {
-      this.$axios
-        .post("http://localhost:3000/operation/deldiscuss", {
-          commentId: commentId,
-          strategyId: this.info.id,
-          // userId:, 在后台token获取
-          strategyType: this.info.type
-          // commentContent,strategyId,userId,commentTime,strategyType
-        })
-        .then(res => {
-          this.discuss = res.data.data;
-          //删除评论后实时刷新评论
+      // if(confirm()){}
+
+      this.$confirm("此操作将删除该评论, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
           this.$axios
-            .post("http://localhost:3000/operation/seldiscuss", {
+            .post("http://localhost:3000/operation/deldiscuss", {
+              commentId: commentId,
               strategyId: this.info.id,
+              // userId:, 在后台token获取
               strategyType: this.info.type
+              // commentContent,strategyId,userId,commentTime,strategyType
             })
             .then(res => {
               this.discuss = res.data.data;
+              //删除评论后实时刷新评论
+              this.$axios
+                .post("http://localhost:3000/operation/seldiscuss", {
+                  strategyId: this.info.id,
+                  strategyType: this.info.type
+                })
+                .then(res => {
+                  this.discuss = res.data.data;
+                })
+                .catch(err => {
+                  console.log("错误信息" + err);
+                });
             })
             .catch(err => {
               console.log("错误信息" + err);
             });
         })
-        .catch(err => {
-          console.log("错误信息" + err);
+        .catch(() => {
+          // this.$message({
+          //   type: 'info',
+          //   message: '已取消删除'
+          // });
         });
+
+      // this.$axios
+      //   .post("http://localhost:3000/operation/deldiscuss", {
+      //     commentId: commentId,
+      //     strategyId: this.info.id,
+      //     // userId:, 在后台token获取
+      //     strategyType: this.info.type
+      //     // commentContent,strategyId,userId,commentTime,strategyType
+      //   })
+      //   .then(res => {
+      //     this.discuss = res.data.data;
+      //     //删除评论后实时刷新评论
+      //     this.$axios
+      //       .post("http://localhost:3000/operation/seldiscuss", {
+      //         strategyId: this.info.id,
+      //         strategyType: this.info.type
+      //       })
+      //       .then(res => {
+      //         this.discuss = res.data.data;
+      //       })
+      //       .catch(err => {
+      //         console.log("错误信息" + err);
+      //       });
+      //   })
+      //   .catch(err => {
+      //     console.log("错误信息" + err);
+      //   });
     },
 
     //显示提示框
@@ -378,7 +415,7 @@ export default {
           h("i", { style: "color: teal" }, "VNode")
         ])
       });
-    },
+    }
   }
 };
 </script>
