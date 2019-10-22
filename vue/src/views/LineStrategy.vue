@@ -12,6 +12,15 @@
             <h2>{{stra.title}}</h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
+                <div class="img-span" @click="goFocus(stra.userId)">
+                  <img
+                    :src=" getHeadPic(stra.headPic)"
+                    width="48"
+                    height="48"
+                    style="border-radius:50%"
+                  />
+                  {{stra.userName}}
+                </div>
                 <div class="img-span" @click="updateCollectionNum()" id="operation">
                   <i
                     class="el-icon-star-off"
@@ -29,7 +38,6 @@
             </div>
           </div>
           <p>
-            <span>42%</span>
             初次访问{{stra.cityName}}的蜂蜂会选择这条线路
           </p>
         </div>
@@ -287,11 +295,17 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null || pic == "") {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
+    },
+// 跳转到作者首页
+    goFocus(strategyuserId) {
+      var strategyuserId = JSON.stringify(strategyuserId);
+      sessionStorage.setItem("strategyuserId", strategyuserId);
+      window.open("/index/focus");
     },
 
     //添加评论

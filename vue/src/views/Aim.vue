@@ -192,7 +192,6 @@
             <span @click="go('九份')">九份</span>
             <span @click="go('南投')">南投</span>
             <span @click="go('阿里山')">阿里山</span>
-            <span @click="goFocus(3)">阿里山</span>
           </div>
         </div>
       </div>
@@ -233,11 +232,6 @@ export default {
       sessionStorage.setItem("cityName", cityName);
       // this.$router.push("/index/index/aimline");
        window.open("/index/aimline");
-    },
-    goFocus(strategyuserId) {
-         var strategyuserId = JSON.stringify(strategyuserId);
-      sessionStorage.setItem("strategyuserId", strategyuserId);
-       window.open("/index/focus");
     },
 
   }

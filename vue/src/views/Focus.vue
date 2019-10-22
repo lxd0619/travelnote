@@ -18,8 +18,9 @@
           <div
             class="rounded-circle float-right mr-5"
             id="headPic"
-            :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"
+           :src="getHeadPic(userInfo[0].headPic)"
           ></div>
+           <!-- :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}" -->
           <div class="mt-3 float-right mr-5 text-center" style="width:10rem;">
             <h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4>
           </div>
@@ -34,7 +35,8 @@
                 <span>{{attentions.length}}</span>
               </li>
             </ul>
-            <span id="addattention">添加关注</span>
+            <span class="addattention" v-if="show">添加关注</span>
+            <span class="addattention" v-else>取消关注</span>
           </div>
         </div>
         <!-- 中间部分 -->
@@ -63,7 +65,8 @@ export default {
         }
       ],
       fans: [],
-      attentions: []
+      attentions: [],
+      show:true,
     };
   },
   created() {
@@ -138,7 +141,7 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null) {
+       if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
@@ -183,7 +186,7 @@ export default {
 #relations ul li span {
   color: #ff9d00;
 }
-#addattention {
+.addattention {
   margin-left: 48px;
   background-color: #ff9d00;
 }
