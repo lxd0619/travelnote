@@ -44,7 +44,8 @@
           <a @click="strategydetail(li.type,li.strategyId)">
             <img id="img" :src="getPic(li.cover)" style="width: 200px ;height: 200px;" />
             <p>{{li.title}}</p>
-            <span>作者：{{li.userName}}</span><br>
+            <span>作者：{{li.userName}}</span>
+            <br />
             <span>被举报次数：{{li.ssStatus}}</span>
           </a>
         </div>
@@ -72,8 +73,8 @@ export default {
       list: [],
       allpages: null,
       currentPage: 1,
-      show1:false,
-      pagesize:10
+      show1: false,
+      pagesize: 10
     };
   },
   created() {
@@ -88,12 +89,12 @@ export default {
       this.$axios.post("http://localhost:3000/manage/List", data).then(res => {
         console.log(res);
         if (res.data.data) {
-          this.show1=true
+          this.show1 = true;
           this.list = res.data.data;
           this.allpages = res.data.data.length;
           console.log(this.allpages);
-        }else{
-          this.show1=false
+        } else {
+          this.show1 = false;
         }
       });
     },
@@ -123,12 +124,12 @@ body {
   height: 650px;
   text-align: center;
 }
-h1{
+h1 {
   position: absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  color:#ccc;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ccc;
 }
 #bottom_img {
   /* width: 1380px; */
@@ -140,6 +141,11 @@ h1{
   margin: 10px 20px;
   text-align: center;
   line-height: 30px;
+  cursor:pointer;
+}
+#bottom_img:hover{
+   box-shadow: 0px 5px 5px rgb(204, 204, 204);
+   transition: 0.3s all;
 }
 ul {
   list-style: none;

@@ -251,10 +251,7 @@ export default {
   height: 10rem;
   width: 10rem;
 }
-#article img:first-child {
-  width: 13rem;
-  height: 11rem;
-}
+
 #headPic img {
   height: 10rem;
   width: 10rem;

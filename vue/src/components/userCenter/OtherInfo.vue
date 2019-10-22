@@ -52,7 +52,7 @@ export default {
       currentPage: 1,
       allPage: 0,
       pagesize: 3,
-      show1:false
+      show1: false
     };
   },
   created() {
@@ -63,6 +63,7 @@ export default {
         userId: this.strategyuserId
       })
       .then(res => {
+        console.log(res);
         if (res.data.data) {
           this.show1 = true;
           this.list = res.data.data;
@@ -81,24 +82,24 @@ export default {
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
     },
-    current_change(currentPage){
-        this.currentPage=currentPage
+    current_change(currentPage) {
+      this.currentPage = currentPage;
     },
     go(type, id) {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
-      if(type=="personalrow"){
-          window.open('/index/LineStrategy')
+      if (type == "personalrow") {
+        window.open("/index/LineStrategy");
       }
       window.open("/index/FVstrategy");
-    },
+    }
   }
 };
 </script>
 <style scoped>
 #article img:first-child {
-  width: 13rem;
+  width: 200px;
   height: 11rem;
 }
 .block {
@@ -113,5 +114,11 @@ h2 {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #ccc;
+}
+.card-body {
+  width: 20rem;
+}
+.text-muted {
+  margin: 0;
 }
 </style>

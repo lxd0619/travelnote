@@ -15,10 +15,10 @@
             <h2></h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
-                <div  style="cursor:pointer" @click="go(stra.userId)">
+                <div style="cursor:pointer" @click="go(stra.userId)">
                   <span>
-                    作者:{{stra.userName}}
-                    <img :src="getHeadPic(stra.headPic)" width="35px" height="35px" />
+                    <img :src="getHeadPic(stra.headPic)" width="35px" height="35px" class='rounded-circle'/>
+                    {{stra.userName}}
                   </span>
                 </div>
 
@@ -272,16 +272,15 @@ export default {
         .post("http://localhost:3000/operation/report", {
           strategyId: this.info.id,
           strategyType: this.info.type,
-          writerId:id
+          writerId: id
         })
         .then(res => {
-          console.log(res)
-         if(res.data.data){
+          console.log(res);
+          if (res.data.data) {
             this.$message(res.data.msg);
-          }else{
-            this.$message.error(res.data.msg)
+          } else {
+            this.$message.error(res.data.msg);
           }
-          
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -309,7 +308,7 @@ export default {
     },
     getPic(pic) {
       let path = "";
-      if (pic == null || pic == "" || pic =="headPic") {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
@@ -394,7 +393,7 @@ export default {
           console.log("错误信息" + err);
         });
     },
-    
+
     //显示提示框
     openVn() {
       const h = this.$createElement;
@@ -405,9 +404,13 @@ export default {
         ])
       });
     },
-    go(userId){
-      sessionStorage.setItem('strategyuserId',userId)
-      this.$router.push('/index/focus')
+    go(userId) {
+      if (userId == this.userId) {
+        this.$router.push("/index/userCenter");
+      } else {
+        sessionStorage.setItem("strategyuserId", userId);
+        this.$router.push("/index/focus");
+      }
     }
   }
 };
