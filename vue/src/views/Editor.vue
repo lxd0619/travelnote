@@ -102,7 +102,6 @@
                 <el-row>
                   <el-col :offset="3">
                     <el-form-item>
-                      <!-- <el-button type="primary" @click="submitForm('ruleForm')">确认提交</el-button> -->
                       <el-button @click="resetForm('ruleForm')">重置</el-button>
                     </el-form-item>
                   </el-col>
@@ -119,50 +118,15 @@
         <div class="col-md-11">
           <div class="clearfix mb-5">
             <!-- 富文本编辑框 -->
-            <div id="websiteEditorElem" style="height:300px;background: #ffffff;"></div>
+            <div id="websiteEditorElem" style="height:350px;background: #ffffff;"></div>
           </div>
-          <!-- 触发模态框按钮 -->
+          <!-- 发表按钮 -->
           <button
             type="button"
             class="btn btn-outline-primary float-right mt-3 mb-5 mr-5"
-            data-toggle="modal"
-            data-target="#confirmModal"
             :plain="true"
             @click="upload('ruleForm')"
           >发表游记</button>
-
-          <!-- 确认发表游记模态框 -->
-          <!-- <div
-            class="modal fade"
-            id="confirmModal"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">确认框</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p class="text-center mt-3">您是否确认要发表游记？</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">关闭</button>
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary"
-                    id="send"
-                    
-                  >确认发表</button>
-                </div>
-              </div>
-            </div>
-          </div>-->
         </div>
         <!-- 返回顶部 -->
         <div class="col-md-1 mb-5">
@@ -306,9 +270,6 @@ export default {
     var editor = null;
     $(function() {
       //更换封面
-      // $("#addCover").click(function() {
-      //   $('input[type="file"]').trigger("click");
-      // });
       $('input[type="file"]').change(function() {
         var fread = new FileReader();
         fread.onload = function(e) {
@@ -319,9 +280,6 @@ export default {
         };
         fread.readAsDataURL(this.files[0]);
       });
-      // $("#send").click(function() {
-      //   $("#confirmModal").modal("hide");
-      // });
     });
   },
   methods: {
@@ -425,7 +383,9 @@ export default {
   background-position: center center;
   background-size: cover;
 }
-
+#websiteEditorElem{
+  height: 400px;
+}
 .el-row {
   margin-bottom: 20px;
 }
