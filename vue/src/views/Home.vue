@@ -293,6 +293,7 @@ export default {
   height: 4em;
   overflow: hidden;
   text-overflow: ellipsis;
+  
 }
 
 #right ul li {

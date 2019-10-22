@@ -93,7 +93,7 @@ export default {
   methods: {
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
-      if (pic == "cover" || pic == null) {
+      if (pic == "cover" || pic == null || pic =="") {
         pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;

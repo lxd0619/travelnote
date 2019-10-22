@@ -1,9 +1,6 @@
 <template>
   <div class="person">
-    <div
-      class="jumbotron jumbotron-fluid"
-      id="topPic"
-    >
+    <div class="jumbotron jumbotron-fluid" id="topPic">
       <div class="container">
         <h1 class="text-light mt-5">旅游札记</h1>
         <br />
@@ -14,25 +11,35 @@
     <div class="container">
       <div class="row mb-5">
         <!-- 左侧边栏 -->
-        <div class="col-lg-3 d-flex flex-column align-items-center  d-md-none d-lg-block border-right">
+        <div
+          class="col-lg-3 d-flex flex-column align-items-center d-md-none d-lg-block border-right"
+        >
           <!-- 圆形头像 -->
           <div
             class="rounded-circle float-right mr-5"
             id="headPic"
             :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"
           ></div>
-          <div class="mt-3 float-right mr-5 text-center" style="width:10rem;"><h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4></div>
+          <div class="mt-3 float-right mr-5 text-center" style="width:10rem;">
+            <h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4>
+          </div>
           <div id="relations" class="mt-3 float-right">
-            <ul class="d-flex justify-content-between text-center mr-5"  @click="fanslist()">
-              <li class="border-right border-bottom border-top">粉丝：<span>{{fans.length}}</span></li>
-              <li class="border-bottom border-top">关注：<span>{{attentions.length}}</span></li>
+            <ul class="d-flex justify-content-between text-center mr-5" @click="fanslist()">
+              <li class="border-right border-bottom border-top">
+                粉丝：
+                <span>{{fans.length}}</span>
+              </li>
+              <li class="border-bottom border-top">
+                关注：
+                <span>{{attentions.length}}</span>
+              </li>
             </ul>
           </div>
         </div>
         <!-- 中间部分 -->
         <div class="col-md-12 col-lg-9" id="content">
           <UserCenterMiddle v-if="show"></UserCenterMiddle>
-          <List></List>
+          <List v-else></List>
         </div>
         <!-- 右侧导航 -->
         <el-backtop :bottom="100"></el-backtop>
@@ -42,14 +49,13 @@
 </template>
 <script>
 import UserCenterMiddle from "../components/UserCenter_middle";
-import List from "../components/userCenter/List"
+import List from "../components/userCenter/List";
 
 export default {
   name: "UserCenter",
   components: {
     UserCenterMiddle,
-    List 
-
+    List
   },
   data() {
     return {
@@ -60,7 +66,7 @@ export default {
       ],
       fans: [],
       attentions: [],
-      show:true
+      show: true
     };
   },
   created() {
@@ -87,8 +93,8 @@ export default {
       .then(res => {
         console.log(res.data.data);
         this.fans = res.data.data;
-        if(res.data.data == 0){
-          this.fans = ""
+        if (res.data.data == 0) {
+          this.fans = [];
         }
       })
       .catch(err => {
@@ -103,8 +109,8 @@ export default {
       .then(res => {
         console.log("关注查询结果" + res.data.data);
         this.attentions = res.data.data;
-        if(res.data.data == 0){
-          this.attentions = ""
+        if (res.data.data == 0) {
+          this.attentions = [];
         }
       })
       .catch(err => {
@@ -139,19 +145,21 @@ export default {
       path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
-    fanslist(){
-      this.show=false
-      var fanslist = JSON.stringify(this.fans)
-      var attentions=JSON.stringify(this.attentions)
-      sessionStorage.setItem('fanslist',fanslist)
-      sessionStorage.setItem('attentions',attentions)
+    fanslist() {
+      this.show = false;
+      console.log(this.userInfo[0].userId)
+      sessionStorage.setItem("strategyuserId", this.userInfo[0].userId);
+      var fanslist = JSON.stringify(this.fans);
+      var attentions = JSON.stringify(this.attentions);
+      sessionStorage.setItem("fanslist", fanslist);
+      sessionStorage.setItem("attentions", attentions);
     }
   }
 };
 </script>
 <style scoped>
-.jumbotron{
-  background: url('../assets/bgPic/indexPic1.jpg') no-repeat center center;
+.jumbotron {
+  background: url("../assets/bgPic/indexPic1.jpg") no-repeat center center;
   background-size: cover;
 }
 .rounded-circle {
@@ -170,19 +178,19 @@ export default {
   width: 10rem;
 }
 
-#relations ul{
+#relations ul {
   list-style: none;
   width: 10rem;
   padding: 0;
   cursor: pointer;
 }
-#relations ul li{
+#relations ul li {
   float: left;
   height: 3em;
   line-height: 3em;
   width: 80px;
 }
-#relations ul li span{
+#relations ul li span {
   color: #ff9d00;
 }
 /* #headPic:hover::before {

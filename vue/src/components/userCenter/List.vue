@@ -60,6 +60,7 @@ export default {
     }else{
         this.show=false
     }
+    console.log(this.show)
     for (var i = 0; i < fanslist.length; i++) {
       this.$axios
         .post("http://localhost:3000/userCenter/getInfo", {
