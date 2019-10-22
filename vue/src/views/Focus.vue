@@ -86,6 +86,7 @@ export default {
     List
   },
   created() {
+    console.log(typeof(this.fans))
     this.visitor = jwt_decode(localStorage.getItem("mytoken")).userId;
     var strategyuserId = JSON.parse(sessionStorage.getItem("strategyuserId"));
     this.strategyuserId = strategyuserId;
@@ -117,7 +118,7 @@ export default {
         this.fans = res.data.data;
         console.log(res);
         if (res.data.data == 0) {
-          this.fans = "";
+          this.fans = [];
         } else {
           for (var i = 0; i < this.fans.length; i++) {
             if (this.fans[i].relationUserId == this.visitor) {
@@ -145,7 +146,7 @@ export default {
         console.log("关注查询结果" + res.data.data);
         this.attentions = res.data.data;
         if (res.data.data == 0) {
-          this.attentions = "";
+          this.attentions = [];
         }
       })
       .catch(err => {
@@ -198,6 +199,8 @@ export default {
       window.open("/index/FVstrategy");
     },
     addFriends() {
+      let _this = this
+      console.log('type',_this.fans)
       this.$axios
         .post("http://localhost:3000/userCenter/addFriends", {
           relationUserId: this.strategyuserId
@@ -205,13 +208,17 @@ export default {
         .then(res => {
           if (res.data.data == 1) {
             this.show = false;
-            this.fans.push({ relationUserId: this.visitor });
-            console.log(this.fans);
+            var info={ relationUserId: this.visitor }
+            console.log(typeof(info))
+            console.log(info,this.fans)
+            console.log(typeof(this.fans))
+            this.fans.push(info) ;
+        
           } else if (res.data.data == -1) {
             this.show = true;
             for (var i = 0; i < this.fans.length; i++) {
               if (this.fans[i].relationUserId == this.visitor) {
-                this.fans.splice(this.fans[i]);
+                this.fans.splice(this.fans[i],1);
               }
             }
           }

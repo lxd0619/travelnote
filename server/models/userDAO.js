@@ -14,7 +14,7 @@ var userDAO = {
     },
     /**根据Id查询用户信息*/
     getUserInfo: function (userId, callback) {
-        DAO('select userName,sex,tel,headPic,email,address,registerTime,userStatus from users where userId = ?', userId, function (err, results) {
+        DAO('select userName,sex,userId,tel,headPic,email,address,registerTime,userStatus from users where userId = ?', userId, function (err, results) {
             if (err) {
                 callback(err, null)
             } else {
