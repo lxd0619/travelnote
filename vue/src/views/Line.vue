@@ -89,21 +89,21 @@
         <div id="con-left">
           <div class="left-card">
             <div class="card-txt">
-              <p>Northern Lights in Norway</p>
+              <p>皑皑雪山，悠悠藏南</p>
             </div>
             <img src="../assets/line/two7.png" alt />
           </div>
           <div class="left-card">
             <div class="card-txt">
-              <p>Northern Lights in Norway</p>
+              <p>雪乡+雪谷，等你来玩</p>
             </div>
-            <img src="../assets/line/two7.png" alt />
+            <img src="../assets/line/snow.jpg" alt />
           </div>
           <div class="left-card">
             <div class="card-txt">
-              <p>Northern Lights in Norway</p>
+              <!-- <p>Northern Lights in Norway</p> -->
             </div>
-            <img src="../assets/line/two7.png" alt />
+            <img class="advertise" src="../assets/line/sanya13.jpeg" alt />
           </div>
         </div>
 
@@ -172,7 +172,7 @@
                         <img :src="getCoverPic(strategy.cover)" />
                         <div class="txt">
                           <h3>{{strategy.title}}</h3>
-                          <span>{{strategy.prInfo}}</span>
+                          <!-- <span>{{strategy.prInfo}}</span> -->
                         </div>
                       </a>
                     </li>
@@ -272,13 +272,12 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
-                     <div class="nonedata" v-else>暂无攻略</div>
+                    <div class="nonedata" v-else>暂无攻略</div>
                   </div>
                   <div
                     class="tab-pane fade"
@@ -298,7 +297,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -324,7 +322,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -350,7 +347,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -376,7 +372,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -402,7 +397,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -514,7 +508,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -540,7 +533,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -566,7 +558,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -592,9 +583,7 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
-      
                           </a>
                         </li>
                       </ul>
@@ -619,7 +608,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -645,7 +633,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -671,7 +658,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -753,7 +739,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -779,7 +764,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -805,7 +789,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -831,7 +814,6 @@
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
                               <h3>{{strategy.title}}</h3>
-                              <span>{{strategy.prInfo}}</span>
                             </div>
                           </a>
                         </li>
@@ -865,7 +847,7 @@ export default {
       show02: false,
       show03: false,
       strategyType: "personalrow",
-      people01:false,
+      people01: false,
 
       lineClass: "",
       lineType: "",
@@ -941,7 +923,7 @@ export default {
           if (res.data.data) {
             console.log(res);
             this.people = res.data.data;
-            this.people01=true
+            this.people01 = true;
           }
           // console.log(res);//"查询结果"
         })
@@ -1025,6 +1007,12 @@ export default {
 #con-left .left-card img {
   width: 280px;
   height: 200px;
+}
+#con-left .left-card .advertise {
+  width: 280px;
+  height: 480px;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #con-line {
