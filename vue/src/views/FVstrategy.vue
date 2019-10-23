@@ -17,7 +17,12 @@
               <div class="ext-r row" style="justify-content:space-around;">
                 <div style="cursor:pointer" @click="go(stra.userId)">
                   <span>
-                    <img :src="getHeadPic(stra.headPic)" width="35px" height="35px" class='rounded-circle'/>
+                    <img
+                      :src="getHeadPic(stra.headPic)"
+                      width="35px"
+                      height="35px"
+                      class="rounded-circle"
+                    />
                     {{stra.userName}}
                   </span>
                 </div>
@@ -89,14 +94,17 @@
           <!-- 最后的插入评论 -->
           <div class="clearfix com-form">
             <div class="fm-tare user-log">
+              <div v-if="isShow === true">
               <textarea
-                class="_j_comment_content"
                 v-model="newcommentContent"
                 placeholder="说点什么吧..."
+                id="textarea"
               ></textarea>
-              <el-form>
+              </div>
+              <div v-if="isShow === false" id="readonly" class="ml-5 mb-5"><h3>由于您的当前用户状态不正常，已禁止评论功能</h3></div>
+              <el-form v-if="isShow === true">
                 <el-form-item>
-                  <el-button type="primary" @click="addComment()">评论</el-button>
+                  <el-button type="primary" @click="addComment()" id="toke">评论</el-button>
                 </el-form-item>
               </el-form>
             </div>
@@ -131,18 +139,23 @@ export default {
 
       //当前登录用户id
       userId: "",
-      loading: false
+      loading: false,
+      isShow:true
     };
   },
   created() {
     //获取传来的攻略类型和id
     var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
     var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
+    var userStatus = jwt_decode(localStorage.getItem("mytoken")).userStatus;
     this.userId = userId;
-
     this.info = info;
     // console.log(this.info); //内容
     //加载攻略数据
+    console.log(userStatus);
+    if (userStatus == -1) {
+      this.isShow = false
+    }
     this.$axios
       .post("http://localhost:3000/operation/strategydetail", {
         strategyType: this.info.type,
@@ -419,6 +432,9 @@ export default {
 * {
   margin: 0;
   padding: 0;
+}
+#readonly h3{
+  color: #666;
 }
 .headerpic img {
   width: 1200px;

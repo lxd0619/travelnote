@@ -2,7 +2,7 @@ var DAO = require('./DAO')
 
 var loginDAO = {
     login: function (tel,callback) {
-        DAO('select password,userId,role from users where tel=? ',tel,function(err,results){
+        DAO('select password,userId,role,userStatus from users where tel=? ',tel,function(err,results){
             if(err){
                 callback(err,null)
             }else{
