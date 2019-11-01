@@ -199,7 +199,6 @@
                   <p>西藏是个神秘的地方，有着灿烂的阳光，洁白的云朵，纯净的天空，稀薄的空气，连绵的雪山，安静的湖泊</p>
                 </div>
             </div>
-           
           </div>
           <div class="mine-item">
             <div class="figcaption">
