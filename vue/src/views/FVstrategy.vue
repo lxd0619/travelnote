@@ -1,50 +1,45 @@
 <template>
   <div>
     <div v-for="stra in strategy" :key="stra.strategyId">
-      <div class="container-fluid" style="background-color: #fafafa;">
-        <div class="container">
-          <div class="headerpic">
-            <img :src="getCoverPic(stra.cover)" alt />
-          </div>
-          <a href="#">{{stra.cityName}}攻略</a>
-          <span>></span>
-          <a href="#"></a>
-          <span>></span>
-          <span>{{stra.title}}</span>
-          <div id="title">
-            <h2></h2>
-            <div id="h2-right">
-              <div class="ext-r row" style="justify-content:space-around;">
-                <div  style="cursor:pointer" @click="go(stra.userId)">
-                  <span>
-                    作者:{{stra.userName}}
-                    <img :src="getHeadPic(stra.headPic)" width="35px" height="35px" />
-                  </span>
-                </div>
+      <div
+        class="contianer-fluid"
+        id="cover"
+        :style="{'backgroundImage':'url(' + getCoverPic(stra.cover) + ')'}"
+      ></div>
+      <div class="contianer">
+        <a href="#">{{stra.cityName}}攻略</a>
+        <span>></span>
+        <a href="#"></a>
+        <span>></span>
+        <span>{{stra.title}}</span>
+        <div id="title">
+          <h2></h2>
+          <div id="h2-right">
+            <div class="ext-r row" style="justify-content:space-around;">
+              <div style="cursor:pointer" @click="go(stra.userId)">
+                <span>
+                  作者:{{stra.userName}}
+                  <img
+                    :src="getHeadPic(stra.headPic)"
+                    width="35px"
+                    height="35px"
+                  />
+                </span>
+              </div>
 
-                <div
-                  @click="updateCollectionNum()"
-                  class="operation"
-                  id="operation"
-                  style="cursor:pointer"
-                >
-                  <i
-                    class="el-icon-star-off"
-                    aria-hidden="true"
-                    id="icon"
-                  >收藏 {{stra.ssCollectionNum}}</i>
-                </div>
-                <div
-                  class="img-span"
-                  @click="updateLikeNum()"
-                  id="operation1"
-                  style="cursor:pointer"
-                >
-                  <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
-                </div>
-                <div class="img-span" @click="report(stra.userId)">
-                  <i class="el-icon-warning" aria-hidden="true">举报</i>
-                </div>
+              <div
+                @click="updateCollectionNum()"
+                class="operation"
+                id="operation"
+                style="cursor:pointer"
+              >
+                <i class="el-icon-star-off" aria-hidden="true" id="icon">收藏 {{stra.ssCollectionNum}}</i>
+              </div>
+              <div class="img-span" @click="updateLikeNum()" id="operation1" style="cursor:pointer">
+                <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
+              </div>
+              <div class="img-span" @click="report(stra.userId)">
+                <i class="el-icon-warning" aria-hidden="true">举报</i>
               </div>
             </div>
           </div>
@@ -272,22 +267,20 @@ export default {
         .post("http://localhost:3000/operation/report", {
           strategyId: this.info.id,
           strategyType: this.info.type,
-          writerId:id
+          writerId: id
         })
         .then(res => {
-          console.log(res)
-         if(res.data.data){
+          console.log(res);
+          if (res.data.data) {
             this.$message(res.data.msg);
-          }else{
-            this.$message.error(res.data.msg)
+          } else {
+            this.$message.error(res.data.msg);
           }
-          
         })
         .catch(err => {
           console.log("错误信息" + err);
         });
     },
-
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
@@ -297,7 +290,6 @@ export default {
       path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
-
     //获取头像
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
@@ -309,7 +301,7 @@ export default {
     },
     getPic(pic) {
       let path = "";
-      if (pic == null || pic == "" || pic =="headPic") {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
@@ -374,7 +366,6 @@ export default {
           console.log("错误信息" + err);
         });
     },
-
     //筛选回复
     selReply(commentId, index) {
       var _this = this;
@@ -394,7 +385,6 @@ export default {
           console.log("错误信息" + err);
         });
     },
-    
     //显示提示框
     openVn() {
       const h = this.$createElement;
@@ -405,9 +395,9 @@ export default {
         ])
       });
     },
-    go(userId){
-      sessionStorage.setItem('strategyuserId',userId)
-      this.$router.push('/index/focus')
+    go(userId) {
+      sessionStorage.setItem("strategyuserId", userId);
+      this.$router.push("/index/focus");
     }
   }
 };
@@ -417,18 +407,12 @@ export default {
   margin: 0;
   padding: 0;
 }
-.headerpic img {
-  width: 1200px;
-  height: 450px;
+#cover {
+  height: 30rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
-.container {
-  margin: 0 auto;
-  margin-top: 40px;
-}
-/* .container-fluid .container a {
-  color: #888;
-  font-size: 12px;
-} */
 .card-body h5 {
   padding-left: 10px;
   margin-bottom: 15px;

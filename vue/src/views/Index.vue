@@ -140,7 +140,7 @@
                   <a class="dropdown-item" href="/index/userCenter" @click.prevent="goUserCenter">
                     <i class="fa fa-user-o mr-2" aria-hidden="true"></i>个人中心
                   </a>
-                  <a class="dropdown-item" href="/index/editor" @click.prevent="goEditor">
+                  <a class="dropdown-item" href="#" @click.prevent="goEditor">
                     <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>撰写攻略
                   </a>
                   <div class="dropdown-divider"></div>
@@ -237,7 +237,16 @@ export default {
       this.$router.push("/index/delicious");
     },
     goEditor() {
-      this.$router.push("/index/editor");
+      if(this.userInfo[0].userStatus == -1){
+        this.$message({
+          showClose: true,
+          message: '警告哦，由于您的当前用户状态不正常，已禁止撰写攻略功能！',
+          type: 'warning',
+          duration:2000
+        });
+      }else{
+        this.$router.push("/index/editor");
+      }
     },
     goHome() {
       this.$router.push("/index/home");

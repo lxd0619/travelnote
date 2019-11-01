@@ -233,7 +233,6 @@ export default {
       // this.$router.push("/index/index/aimline");
        window.open("/index/aimline");
     },
-
   }
 };
 </script>

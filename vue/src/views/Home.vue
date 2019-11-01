@@ -97,7 +97,7 @@
                   </a>
                 </div>
               </div>
-              <a href="line.html">
+              <a href="#" @click="goLine">
                 <img
                   class="card-img-top shadow-sm p-3 rounded"
                   src="../assets/bgPic/周末游.jpg"
@@ -172,7 +172,7 @@
             </div>
             <!-- 排行榜 -->
             <div class="col-lg-2 d-md-none d-lg-block" id="right">
-              <a href="line.html">
+              <a href="#" @click="goLine">
                 <img
                   class="card-img-top mb-5 shadow-sm rounded"
                   src="../assets/bgPic/亲子游.jpg"
@@ -180,46 +180,47 @@
                 />
               </a>
               <h6 class="text-center">热门景点排行榜</h6>
+              <input type="text" class="disabled" >
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <em>01</em>
-                  <span>上海</span>
+                  <span @click="go('上海')">上海</span>
                 </li>
                 <li class="list-group-item">
                   <em>02</em>
-                  <span>成都</span>
+                  <span @click="go('成都')">成都</span>
                 </li>
                 <li class="list-group-item">
                   <em>03</em>
-                  <span>重庆</span>
+                  <span @click="go('重庆')">重庆</span>
                 </li>
                 <li class="list-group-item">
                   <em>04</em>
-                  <span>厦门</span>
+                  <span @click="go('厦门')">厦门</span>
                 </li>
                 <li class="list-group-item">
                   <em>05</em>
-                  <span>西安</span>
+                  <span @click="go('西安')">西安</span>
                 </li>
                 <li class="list-group-item">
                   <em>06</em>
-                  <span>杭州</span>
+                  <span @click="go('杭州')">杭州</span>
                 </li>
                 <li class="list-group-item">
                   <em>07</em>
-                  <span>青岛</span>
+                  <span @click="go('青岛')">青岛</span>
                 </li>
                 <li class="list-group-item">
                   <em>08</em>
-                  <span>丽江</span>
+                  <span @click="go('丽江')">丽江</span>
                 </li>
                 <li class="list-group-item">
                   <em>09</em>
-                  <span>南京</span>
+                  <span @click="go('南京')">南京</span>
                 </li>
                 <li class="list-group-item">
                   <em>10</em>
-                  <span>三亚</span>
+                  <span @click="go('三亚')">三亚</span>
                 </li>
               </ul>
             </div>
@@ -273,6 +274,15 @@ export default {
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
+    },
+    go(city) {
+      var cityName = JSON.stringify(city);
+      sessionStorage.setItem("cityName", cityName);
+      // this.$router.push("/index/index/aimline");
+      window.open("/index/aimline");
+    },
+    goLine() {
+      this.$router.push("/index/line");
     }
   }
 };
@@ -293,7 +303,6 @@ export default {
   height: 4em;
   overflow: hidden;
   text-overflow: ellipsis;
-  
 }
 
 #right ul li {
@@ -308,6 +317,7 @@ export default {
 #right ul span {
   float: right;
   line-height: 2;
+  cursor: pointer;
 }
 
 #right ul li:hover em {
