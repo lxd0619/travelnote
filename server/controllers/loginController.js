@@ -21,7 +21,7 @@ var loginController = {
                         bcrypt.compare(user.userPwd, results[0].password, function (err, resPwd) {
                             if (resPwd) {
                                 //记录登录成功后的token  expiresIn设置token有效时间
-                                jwt.sign({ userTel: user.userTel, userId: results[0].userId, role: results[0].role, }, 'privateKey', { expiresIn: 60 * 120 }, function (err, token) {
+                                jwt.sign({ userTel: user.userTel, userId: results[0].userId, role: results[0].role,userStatus:results[0].userStatus }, 'privateKey', { expiresIn: 60 * 120 }, function (err, token) {
                                     //注意token的固定格式“Bearer ”前缀
                                     res.status(200).json({data:1, msg: '登录成功', token: 'Bearer ' + token })
                                 });

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from './router'
-//设置axios，配置请求拦截器、响应拦截器
+//设置axios，配置请求拦截器
 axios.interceptors.request.use(function (config) {
   //当调用带鉴权的接口时，添加token头部标志
   if (localStorage.getItem('mytoken')) {
