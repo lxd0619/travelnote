@@ -27,78 +27,82 @@
                   </span>
                 </div>
 
-              <div
-                @click="updateCollectionNum()"
-                class="operation"
-                id="operation"
-                style="cursor:pointer"
-              >
-                <i class="el-icon-star-off" aria-hidden="true" id="icon">收藏 {{stra.ssCollectionNum}}</i>
-              </div>
-              <div class="img-span" @click="updateLikeNum()" id="operation1" style="cursor:pointer">
-                <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
-              </div>
-              <div class="img-span" @click="report(stra.userId)">
-                <i class="el-icon-warning" aria-hidden="true">举报</i>
+                <div
+                  @click="updateCollectionNum()"
+                  class="operation"
+                  id="operation"
+                  style="cursor:pointer"
+                >
+                  <i
+                    class="el-icon-star-off"
+                    aria-hidden="true"
+                    id="icon"
+                  >收藏 {{stra.ssCollectionNum}}</i>
+                </div>
+                <div
+                  class="img-span"
+                  @click="updateLikeNum()"
+                  id="operation1"
+                  style="cursor:pointer"
+                >
+                  <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
+                </div>
+                <div class="img-span" @click="report(stra.userId)">
+                  <i class="el-icon-warning" aria-hidden="true">举报</i>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
-
-      <div class="contain" v-html="stra.ssInfo"></div>
-      <div class="con-comments">
-        <div class="l-comment">
-          <div class="com-box">
-            <h2>评论</h2>
-            <ul id="comments" data-page="1" data-id="0">
-              <li
-                class="clearfix comment_item item_1203904"
-                data-id="1203904"
-                data-replied="0"
-                v-for="(dis,index) in discuss"
-                :key="dis.commentId"
-              >
-                <div class="img">
-                  <img :src="getPic(dis.headPic)" />
-                </div>
-                <div class="info">
-                  <h3>{{dis.userName}}</h3>
-                  <h4>{{dis.commentTime}}</h4>
-                  <span>{{index+1}}楼</span>
-                  <div class="com-cont">{{dis.commentContent}}</div>
-                  <br />
-
-                  <div
-                    class="info-span"
-                    v-if="dis.userId==userId"
-                    @click="delComment(dis.commentId)"
-                    :key="dis.commentId"
-                  >
-                    <span>删除个人评论</span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <!-- 最后的插入评论 -->
-          <div class="clearfix com-form">
-            <div class="fm-tare user-log">
-              <div v-if="isShow === true">
-              <textarea
-                v-model="newcommentContent"
-                placeholder="说点什么吧..."
-                id="textarea"
-              ></textarea>
+      <div class="container" v-html="stra.ssInfo"></div>
+      <div class="container">
+        <div class="com-box mt-5">
+          <h2>评论</h2>
+          <ul id="comments" data-page="1" data-id="0">
+            <li
+              class="clearfix comment_item item_1203904"
+              data-id="1203904"
+              data-replied="0"
+              v-for="(dis,index) in discuss"
+              :key="dis.commentId"
+            >
+              <div class="img">
+                <img :src="getHeadPic(dis.headPic)" />
               </div>
-              <div v-if="isShow === false" id="readonly" class="ml-5 mb-5"><h3>由于您的当前用户状态不正常，已禁止评论功能</h3></div>
-              <el-form v-if="isShow === true">
-                <el-form-item>
-                  <el-button type="primary" @click="addComment()" id="toke">评论</el-button>
-                </el-form-item>
-              </el-form>
+              <div class="info">
+                <h3>{{dis.userName}}</h3>
+                <h4>{{dis.commentTime}}</h4>
+                <span>{{index+1}}楼</span>
+                <div class="com-cont">{{dis.commentContent}}</div>
+                <br />
+
+                <div
+                  class="info-span"
+                  v-if="dis.userId==userId"
+                  @click="delComment(dis.commentId)"
+                  :key="dis.commentId"
+                >
+                  <span>删除个人评论</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- 最后的插入评论 -->
+        <div class="clearfix com-form">
+          <div class="fm-tare user-log">
+            <div v-if="isShow === true">
+              <textarea v-model="newcommentContent" placeholder="说点什么吧..." id="textarea"></textarea>
             </div>
+            <div v-if="isShow === false" id="readonly" class="ml-5 mb-5">
+              <h3>由于您的当前用户状态不正常，已禁止评论功能</h3>
+            </div>
+            <el-form v-if="isShow === true">
+              <el-form-item>
+                <el-button type="primary" @click="addComment()" id="toke">评论</el-button>
+              </el-form-item>
+            </el-form>
           </div>
         </div>
       </div>
@@ -131,7 +135,7 @@ export default {
       //当前登录用户id
       userId: "",
       loading: false,
-      isShow:true
+      isShow: true
     };
   },
   created() {
@@ -145,7 +149,7 @@ export default {
     //加载攻略数据
     console.log(userStatus);
     if (userStatus == -1) {
-      this.isShow = false
+      this.isShow = false;
     }
     this.$axios
       .post("http://localhost:3000/operation/strategydetail", {
@@ -217,16 +221,22 @@ export default {
           if (judge == 1) {
             this.strategy[0].ssCollectionNum =
               parseInt(this.strategy[0].ssCollectionNum) + 1;
-            // console.log(this.strategy[0].prCollectionNum);
-            this.$message("收藏成功！");
+            this.$message({
+              showClose: true,
+              message: "收藏成功！",
+              type: "success"
+            });
             $("#operation").addClass("operated");
             $("#icon").removeClass("el-icon-star-off");
             $("#icon").addClass("el-icon-star-on");
           } else if (judge == -1) {
             this.strategy[0].ssCollectionNum =
               parseInt(this.strategy[0].ssCollectionNum) - 1;
-            console.log(this.strategy.ssCollectionNum);
-            this.$message("取消收藏成功！");
+            this.$message({
+              showClose: true,
+              message: "取消收藏成功！",
+              type: "warning"
+            });
             if (this.strategy[0].ssCollectionNum < 0) {
               this.strategy[0].ssCollectionNum = 0;
             }
@@ -254,14 +264,20 @@ export default {
           if (judge == 1) {
             this.strategy[0].ssLikeNum =
               parseInt(this.strategy[0].ssLikeNum) + 1;
-            console.log(this.strategy.ssLikeNum);
-            this.$message("点赞成功！");
+            this.$message({
+              showClose: true,
+              message: "点赞成功！",
+              type: "success"
+            });
             $("#operation1").addClass("operated");
           } else if (judge == -1) {
             this.strategy[0].ssLikeNum =
               parseInt(this.strategy[0].ssLikeNum) - 1;
-            console.log(this.strategy.ssLikeNum);
-            this.$message("取消点赞成功！");
+            this.$message({
+              showClose: true,
+              message: "取消点赞成功！",
+              type: "warning"
+            });
             $("#operation1").removeClass("operated");
           }
         })
@@ -281,7 +297,7 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.data) {
-            this.$message(res.data.msg);
+            this.$message.warning(res.data.msg);
           } else {
             this.$message.error(res.data.msg);
           }
@@ -306,14 +322,6 @@ export default {
         pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
-      return path;
-    },
-    getPic(pic) {
-      let path = "";
-      if (pic == null || pic == "" || pic == "headPic") {
-        pic = "primaryHead.jpeg";
-      }
-      path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
     //添加评论
@@ -420,7 +428,7 @@ export default {
   margin: 0;
   padding: 0;
 }
-#readonly h3{
+#readonly h3 {
   color: #666;
 }
 .headerpic img {
@@ -567,10 +575,6 @@ export default {
   height: 40px;
 }
 /* 评论区style */
-.l-comment {
-  margin-top: 85px;
-}
-
 .com-form .fm-tare textarea {
   height: 200px;
   width: 850px;
@@ -581,7 +585,7 @@ export default {
   border-radius: 5px;
   font-size: 14px;
   color: #666;
-  margin-left: 50px;
+  margin: 0 auto;
 }
 
 .com-form .user-log textarea {
@@ -608,22 +612,15 @@ textarea {
   color: #333;
   font-weight: normal;
   line-height: 24px;
-  margin: 36px 0;
-}
-
-.com-box h2 {
-  font-size: 24px;
-  color: #333;
-  font-weight: normal;
-  line-height: 24px;
-  margin: 36px 0;
+  /* margin: 36px 0; */
 }
 
 .com-box {
   border-top: 1px solid #e5e5e5;
-  margin-left: 300px;
+  /* margin-left: 300px; */
   width: 800px;
-  margin-top: 50px;
+  /* margin-top: 50px; */
+  margin: 0 auto;
 }
 .contain {
   background-color: #eee;
@@ -645,7 +642,8 @@ textarea {
   text-align: center;
   padding: 0;
   line-height: 30px;
-  margin-left: 780px;
+  float: right;
+  margin-right: 40px;
 }
 .info-span {
   width: 114px;

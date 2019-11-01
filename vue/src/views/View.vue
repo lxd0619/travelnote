@@ -154,6 +154,7 @@
       </div>
     </div>
     <div id="foot"></div>
+    <el-backtop :bottom="100"></el-backtop>
   </div>
 </template>
 <script>
@@ -203,7 +204,7 @@ export default {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
-      window.open("/index/fvstrategy");
+      this.$router.push("/index/fvstrategy");
     },
   }
 };

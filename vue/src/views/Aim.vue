@@ -6,7 +6,7 @@
         <form action="#" id="searchForm">
           <div id="formDiv">
             <p>Don't fear the unknow</p>
-            <input type="text" placeholder="我想去..." v-model="searchName"/>
+            <input type="text" placeholder="我想去..." v-model="searchName" />
             <input type="button" value="搜索" @click="goSearch(searchName)" />
             <p>苏州 上海 北京 陕西</p>
           </div>
@@ -42,7 +42,7 @@
             <span @click="go('雨崩')">雨崩</span>
           </div>
           <div class="con-dl">
-              <div class="first-span">
+            <div class="first-span">
               <span class="title" @click="go('四川')">四川</span>
             </div>
             <span @click="go('成都')">成都</span>
@@ -57,7 +57,7 @@
             <span @click="go('牛背山')">牛背山</span>
           </div>
           <div class="con-dl">
-              <div class="first-span">
+            <div class="first-span">
               <span class="title" @click="go('浙江')">浙江</span>
             </div>
             <span @click="go('杭州')">杭州</span>
@@ -82,7 +82,7 @@
             <span @click="go('泉州')">泉州</span>
           </div>
           <div class="con-dl">
-              <div class="first-span">
+            <div class="first-span">
               <span class="title" @click="go('江苏')">江苏</span>
             </div>
             <span @click="go('南京')">南京</span>
@@ -95,7 +95,7 @@
             <span @click="go('同里')">同里</span>
           </div>
           <div class="con-dl">
-              <div class="first-span">
+            <div class="first-span">
               <span class="title" @click="go('广东')">广东</span>
               <span class="title" @click="go('广西')">广西</span>
             </div>
@@ -109,7 +109,7 @@
             <span @click="go('龙脊梯田')">龙脊梯田</span>
           </div>
           <div class="con-dl">
-              <div class="first-span">
+            <div class="first-span">
               <span class="title" @click="go('山东')">山东</span>
               <span class="title" @click="go('山西')">山西</span>
             </div>
@@ -126,7 +126,7 @@
             <span @click="go('壶口瀑布')">壶口瀑布</span>
           </div>
           <div class="con-dl">
-              <div class="first-span">
+            <div class="first-span">
               <span class="title" @click="go('湖南')">湖南</span>
               <span class="title" @click="go('湖北')">湖北</span>
             </div>
@@ -164,7 +164,7 @@
             <span @click="go('龙门石窟')">龙门石窟</span>
           </div>
           <div class="con-dl">
-             <div class="first-span">
+            <div class="first-span">
               <span class="title" @click="go('')">内蒙古</span>
               <span class="title" @click="go('')">东北</span>
             </div>
@@ -179,7 +179,7 @@
             <span @click="go('盘锦')">盘锦</span>
           </div>
           <div class="con-dl">
-             <div class="first-span">
+            <div class="first-span">
               <span class="title" @click="go('台湾')">台湾</span>
               <span class="title" @click="go('香港')">香港</span>
               <span class="title" @click="go('澳门')">澳门</span>
@@ -198,7 +198,7 @@
 
       <div class="tenpx-line"></div>
     </div>
-  
+    <el-backtop :bottom="100"></el-backtop>
   </div>
 </template>
 
@@ -206,10 +206,10 @@
 export default {
   data() {
     return {
-      searchName:'',
+      searchName: "",
       activeName1: "first",
       activeName2: "first",
-      cityName:'',//go方法返回的一个城市名
+      cityName: "" //go方法返回的一个城市名
     };
   },
   methods: {
@@ -225,14 +225,14 @@ export default {
       var cityName = JSON.stringify(searchName);
       sessionStorage.setItem("cityName", cityName);
       // this.$router.push("/index/index/aimline");
-       window.open("/index/aimline");
+      this.$router.push("/index/aimline");
     },
     go(city) {
       var cityName = JSON.stringify(city);
       sessionStorage.setItem("cityName", cityName);
       // this.$router.push("/index/index/aimline");
-       window.open("/index/aimline");
-    },
+      this.$router.push("/index/aimline");
+    }
   }
 };
 </script>
@@ -332,12 +332,12 @@ ul {
   text-decoration: none;
   display: inline-block;
 }
-.con-dl .first-span .title{
-   font-weight: 500;
+.con-dl .first-span .title {
+  font-weight: 500;
   color: #111;
 }
-.con-dl .first-span .title:hover{
- color: #ff8a00;
+.con-dl .first-span .title:hover {
+  color: #ff8a00;
 }
 
 .con-dl span {
