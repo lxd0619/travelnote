@@ -203,7 +203,8 @@ export default {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
-      window.open("/index/fvstrategy");
+      // window.open("/index/fvstrategy");
+      this.$router.push("/index/fvstrategy");
     },
   }
 };
