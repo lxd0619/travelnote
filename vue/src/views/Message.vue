@@ -157,6 +157,7 @@ export default {
         .then(res => {
           if (res.data.data) {
             this.li = content;
+            this.sysnumber--
           } else {
             this.$message.error(res.data.msg);
           }

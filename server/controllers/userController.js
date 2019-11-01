@@ -23,7 +23,7 @@ var userController = {
     /** 查询他人攻略*/
     Article: function (req, res) {
         var userId = req.body.userId
-        userDAO.userArticle(userId, function (err, results) {
+        userDAO.otherArticle(userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '个人攻略查询失败' })
             } else {

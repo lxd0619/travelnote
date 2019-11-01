@@ -55,6 +55,20 @@ var userDAO = {
             }
         })
     },
+    /**其他人攻略查询 */
+    otherArticle: function (userId, callback) {
+        DAO('select strategyId,type,title,ssInfo,cityName,ssLikeNum,ssCollectionNum,ssTime,ssStatus,cover from scenerystrategy where userId = ? and ssStatus >=0'
+            + ' UNION ' +
+            'select strategyId,type,title,fsInfo,cityName,fsLikeNum,fsCollectionNum,fsTime,fsStatus,cover from foodstrategy where userId = ? and fsStatus >= 0'
+            + ' UNION ' +
+            'select strategyId,type,title,prInfo,cityName,prLikeNum,prCollectionNum,prTime,prStatus,cover from personalrow where userId = ? and prStatus >= 0', [userId, userId, userId], function (err, results) {
+                if (err) {
+                    callback(err, null)
+                } else {
+                    callback(null, results)
+                }
+            })
+    },
     /**个人攻略列表列表 */
     userArticle: function (userId, callback) {
         DAO('select strategyId,type,title,ssInfo,cityName,ssLikeNum,ssCollectionNum,ssTime,ssStatus,cover from scenerystrategy where userId = ? and ssStatus != -4'

@@ -1,31 +1,26 @@
 <template>
   <div>
     <div v-for="stra in strategy" :key="stra.strategyId">
-      <div
-        class="contianer-fluid"
-        id="cover"
-        :style="{'backgroundImage':'url(' + getCoverPic(stra.cover) + ')'}"
-      ></div>
-      <div class="contianer">
-        <a href="#">{{stra.cityName}}攻略</a>
-        <span>></span>
-        <a href="#"></a>
-        <span>></span>
-        <span>{{stra.title}}</span>
-        <div id="title">
-          <h2></h2>
-          <div id="h2-right">
-            <div class="ext-r row" style="justify-content:space-around;">
-              <div style="cursor:pointer" @click="go(stra.userId)">
-                <span>
-                  作者:{{stra.userName}}
-                  <img
-                    :src="getHeadPic(stra.headPic)"
-                    width="35px"
-                    height="35px"
-                  />
-                </span>
-              </div>
+      <div class="container-fluid" style="background-color: #fafafa;">
+        <div class="container">
+          <div class="headerpic">
+            <img :src="getCoverPic(stra.cover)" alt />
+          </div>
+          <a href="#">{{stra.cityName}}攻略</a>
+          <span>></span>
+          <a href="#"></a>
+          <span>></span>
+          <span>{{stra.title}}</span>
+          <div id="title">
+            <h2></h2>
+            <div id="h2-right">
+              <div class="ext-r row" style="justify-content:space-around;">
+                <div style="cursor:pointer" @click="go(stra.userId)">
+                  <span>
+                    <img :src="getHeadPic(stra.headPic)" width="35px" height="35px" class='rounded-circle'/>
+                    {{stra.userName}}
+                  </span>
+                </div>
 
               <div
                 @click="updateCollectionNum()"
@@ -44,6 +39,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       <div class="contain" v-html="stra.ssInfo"></div>
@@ -396,8 +392,12 @@ export default {
       });
     },
     go(userId) {
-      sessionStorage.setItem("strategyuserId", userId);
-      this.$router.push("/index/focus");
+      if (userId == this.userId) {
+        this.$router.push("/index/userCenter");
+      } else {
+        sessionStorage.setItem("strategyuserId", userId);
+        this.$router.push("/index/focus");
+      }
     }
   }
 };

@@ -129,11 +129,11 @@ export default {
         });
       $("#myModal").modal("hide");
       if(this.radio ==0){
-        var message='您的账号已恢复正常'
+        var message='@'+this.userId+':您收到一条系统消息<br>您的账号已恢复正常'
       }else if(this.radio==10){
-        var message='由于您的攻略多次被举报，经审核，予以您警告'
+        var message='@'+this.userId+':您收到一条系统警告消息<br>由于您的攻略多次被举报，经审核，予以您警告'
       }else{
-        var message='更具《中华人民共和国网络安全法》和《互联网信息服务管理办法》规定，经核实，您已违规，现予以您封号处理'
+        var message='@'+this.userId+'：您收到一条系统封号消息<br>更具《中华人民共和国网络安全法》和《互联网信息服务管理办法》规定，经核实，您已违规，现予以您封号处理'
       }
       this.$axios.post('http://localhost:3000/manage/sendMessage',{
         sysMsgContent:message,
