@@ -193,7 +193,7 @@
                     class="upload-demo"
                     ref="upload"
                     list-type="picture-card"
-                    action="localhost:3000/userCenter/headPic"
+                    
                     :before-upload="beforeupload"
                     :auto-upload="false"
                     :multiple="false"
@@ -431,7 +431,7 @@ export default {
     },
     //修改用户头像
     onSubmit() {
-      let _this = this;
+      // let _this = this;
       // var names = _this.form.name;
       this.$refs.upload.submit();
       //将非表单元素的数据也添加到参数对象中；
