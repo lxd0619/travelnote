@@ -189,7 +189,9 @@ export default {
         if (res.data.data) {
           this.show = true;
           this.sysnumber = res.data.data.length;
+          // this.sysnumber = 1;
         }
+
         console.log(res);
       });
     if (localStorage.mytoken) {
