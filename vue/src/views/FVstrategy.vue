@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="stra in strategy" :key="stra.strategyId">
-      <div class="jumbotron" :style="{'backgroundImage':'url(' + getCoverPic(stra.cover) + ')'}"></div>
+      <img :src="getCoverPic(stra.cover)" alt="" class="jumbotron">
       <div class="container mt-3">
         <h3 id="artTitle">{{stra.title}}</h3>
         <div id="title">
@@ -414,8 +414,7 @@ export default {
 }
 .jumbotron {
   height: 40rem;
-  background-repeat: no-repeat;
-  background-size: cover;
+  width: 100%;
 }
 .container {
   margin: 0 auto;
