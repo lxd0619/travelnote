@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="stra in strategy" :key="stra.strategyId">
-      <img :src="getCoverPic(stra.cover)" alt="" class="jumbotron">
+      <img :src="getCoverPic(stra.cover)" alt class="jumbotron" />
       <div class="container mt-3">
         <h3 id="artTitle">{{stra.title}}</h3>
         <div id="title">
@@ -59,7 +59,7 @@
                 <span>{{dis.userName}}</span>
                 <span class="com-cont">{{dis.commentContent}}</span>
                 <br />
-              <h4>{{dis.commentTime}}</h4> 
+                <h4>{{dis.commentTime}}</h4>
                 <div
                   class="info-span"
                   v-if="dis.userId==userId"
@@ -90,6 +90,8 @@
         </div>
       </div>
     </div>
+    <!-- 返回顶部 -->
+    <el-backtop :bottom="200"></el-backtop>
   </div>
 </template>
 <script>
@@ -419,10 +421,10 @@ export default {
 .container {
   margin: 0 auto;
 }
-#article{
+#article {
   margin: 2rem;
 }
-#artTitle{
+#artTitle {
   color: #ff9d00;
 }
 #readonly h3 {
@@ -677,8 +679,8 @@ li {
   height: 48px;
 }
 
-.com-box .info{
-  width:1000px;
+.com-box .info {
+  width: 1000px;
   float: left;
 }
 

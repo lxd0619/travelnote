@@ -68,14 +68,15 @@
                   </div>
                   <div class="info">
                     <a @click="goFocus(dis.userId)">{{dis.userName}}:</a>
-                    <span class="com-cont ml-1">
-                      {{dis.commentContent}}
-                    </span>
+                    <span class="com-cont ml-1">{{dis.commentContent}}</span>
                     <br />
                     <div class="info-span">
                       <h4>{{dis.commentTime}}</h4>
                       <span v-if="dis.userId==userId" :key="dis.commentId">
-                        <h4 @click="delComment(dis.commentId)" style="color:#555;font-size:14px">删除个人评论</h4>
+                        <h4
+                          @click="delComment(dis.commentId)"
+                          style="color:#555;font-size:14px"
+                        >删除个人评论</h4>
                       </span>
                     </div>
                   </div>
@@ -111,6 +112,8 @@
         </div>
       </div>
     </div>
+    <!-- 返回顶部 -->
+    <el-backtop :bottom="200"></el-backtop>
   </div>
 </template>
 <script>
@@ -179,11 +182,11 @@ export default {
       .then(res => {
         // console.log(2, res);
         this.discuss = res.data.data;
-        for(let i=0;i<this.discuss.length;i++){
+        for (let i = 0; i < this.discuss.length; i++) {
           this.discuss[i].commentTime = this.discuss[0].commentTime.slice(
-          0,
-          this.discuss[i].commentTime.indexOf("T")
-        );
+            0,
+            this.discuss[i].commentTime.indexOf("T")
+          );
         }
         this.allpages = res.data.data.length;
       })
@@ -589,7 +592,7 @@ li {
 }
 .com-box .info .info-span {
   margin-top: 20px;
-  width:100%;
+  width: 100%;
 }
 .com-box .info .info-span span {
   float: right;
