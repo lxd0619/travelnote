@@ -213,6 +213,7 @@ export default {
         pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
+      console.log(path)
       return path;
     },
   }

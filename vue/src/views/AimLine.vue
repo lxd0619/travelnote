@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-bottom: 100px;">
     <div class="container-fluid" style="background-color: #fafafa;">
       <div class="container">
         <span class="con-span">目的地</span>
