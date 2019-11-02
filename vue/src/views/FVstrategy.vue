@@ -57,7 +57,7 @@
                 class="clearfix comment_item item_1203904"
                 data-id="1203904"
                 data-replied="0"
-                v-for="(dis,index) in discuss"
+                v-for="(dis) in discuss"
                 :key="dis.commentId"
               >
                 <div class="img">
@@ -66,18 +66,13 @@
                 <div class="info">
                   <h3>{{dis.userName}}</h3>
                   <h4>{{dis.commentTime}}</h4>
-                  <span>{{index+1}}楼</span>
                   <div class="com-cont">{{dis.commentContent}}</div>
                   <br />
-
-                  <div
-                    class="info-span"
-                    v-if="dis.userId==userId"
-                    @click="delComment(dis.commentId)"
-                    :key="dis.commentId"
-                  >
-                    <span>删除个人评论</span>
-                  </div>
+                   <div class="info-span">
+                      <span v-if="dis.userId==userId" :key="dis.commentId">
+                        <el-button type="text" @click="delComment(dis.commentId)">删除个人评论</el-button>
+                      </span>
+                    </div>
                 </div>
               </li>
             </ul>
@@ -647,7 +642,7 @@ textarea {
   line-height: 30px;
   margin-left: 780px;
 }
-.info-span {
+/* .info-span {
   width: 114px;
   height: 30px;
   background: #ff9d00;
@@ -663,6 +658,17 @@ textarea {
   padding: 0;
   line-height: 30px;
   margin-left: 720px;
+} */
+
+.com-box .info .info-span {
+  float: right;
+}
+.com-box .info .info-span span {
+  margin-right: 20px;
+  cursor: pointer;
+}
+.com-box .info .info-span span:hover {
+  color: #ff9d00;
 }
 
 li {

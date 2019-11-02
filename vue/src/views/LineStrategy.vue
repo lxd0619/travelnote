@@ -60,41 +60,51 @@
                   class="clearfix comment_item item_1203904"
                   data-id="1203904"
                   data-replied="0"
-                  v-for="(dis,index) in discuss"
+                  v-for="(dis) in discuss.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
                   :key="dis.commentId"
                 >
-                  <div class="img">
+                  <div class="img mr-2" @click="goFocus(dis.userId)">
                     <img :src="getHeadPic(dis.headPic)" width="48" height="48" />
                   </div>
                   <div class="info">
-                    <h3>{{dis.userName}}</h3>
-                    <h4>{{dis.commentTime}}</h4>
-                    <span>{{index+1}}楼</span>
-                    <div class="com-cont">{{dis.commentContent}}</div>
+                    <a @click="goFocus(dis.userId)">{{dis.userName}}:</a>
+                    <span class="com-cont ml-1">
+                      {{dis.commentContent}}
+                    </span>
                     <br />
-
                     <div class="info-span">
+                      <h4>{{dis.commentTime}}</h4>
                       <span v-if="dis.userId==userId" :key="dis.commentId">
-                        <el-button type="text" @click="delComment(dis.commentId)">删除个人评论</el-button>
+                        <h4 @click="delComment(dis.commentId)" style="color:#555;font-size:14px">删除个人评论</h4>
                       </span>
                     </div>
                   </div>
                 </li>
               </ul>
+              <div class="block">
+                <el-pagination
+                  :page-size="pagesize"
+                  :pager-count="11"
+                  layout="prev, pager, next"
+                  :total="allpages"
+                  @current-change="current_change"
+                ></el-pagination>
+              </div>
               <!-- 最后的插入评论 -->
-              <div class="clearfix com-form">
-                <div class="fm-tare user-log">
-                  <textarea
-                    class="_j_comment_content"
-                    v-model="newcommentContent"
-                    placeholder="说点什么吧..."
-                  ></textarea>
-                  <el-form>
-                    <el-form-item>
-                      <el-button type="primary" @click="addComment()">评论</el-button>
-                    </el-form-item>
-                  </el-form>
+            </div>
+            <div class="clearfix com-form">
+              <div class="fm-tare user-log">
+                <div v-if="isShow === true">
+                  <textarea v-model="newcommentContent" placeholder="说点什么吧..." id="textarea"></textarea>
                 </div>
+                <div v-if="isShow === false" id="readonly" class="ml-5 mb-5">
+                  <h3 style="color:red">由于您的当前用户状态不正常，已禁止评论功能</h3>
+                </div>
+                <el-form v-if="isShow === true">
+                  <el-form-item>
+                    <el-button type="primary" @click="addComment()" id="toke">评论</el-button>
+                  </el-form-item>
+                </el-form>
               </div>
             </div>
           </div>
@@ -120,25 +130,30 @@ export default {
       discuss: [],
       //插入评论内容
       newcommentContent: "",
-
       //全部回复
       replys: [],
       //插入回复
       // newReplyContent: "",
-
       //当前登录用户id
       userId: "",
-
       count: 10,
-      loading: false
+      loading: false,
+      isShow: true,
+      currentPage: 1,
+      pagesize: 10,
+      allpages: 0
     };
   },
   created() {
     //获取传来的攻略类型和id
     var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
     var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
+    var userStatus = jwt_decode(localStorage.getItem("mytoken")).userStatus;
     this.userId = userId;
 
+    if (userStatus == -1) {
+      this.isShow = false;
+    }
     this.info = info;
     // console.log(this.info); //内容
     //加载攻略数据
@@ -164,6 +179,13 @@ export default {
       .then(res => {
         // console.log(2, res);
         this.discuss = res.data.data;
+        for(let i=0;i<this.discuss.length;i++){
+          this.discuss[i].commentTime = this.discuss[0].commentTime.slice(
+          0,
+          this.discuss[i].commentTime.indexOf("T")
+        );
+        }
+        this.allpages = res.data.data.length;
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -337,7 +359,6 @@ export default {
     // 删除评论
     delComment(commentId) {
       // if(confirm()){}
-
       this.$confirm("此操作将删除该评论, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -377,35 +398,7 @@ export default {
           //   message: '已取消删除'
           // });
         });
-
-      // this.$axios
-      //   .post("http://localhost:3000/operation/deldiscuss", {
-      //     commentId: commentId,
-      //     strategyId: this.info.id,
-      //     // userId:, 在后台token获取
-      //     strategyType: this.info.type
-      //     // commentContent,strategyId,userId,commentTime,strategyType
-      //   })
-      //   .then(res => {
-      //     this.discuss = res.data.data;
-      //     //删除评论后实时刷新评论
-      //     this.$axios
-      //       .post("http://localhost:3000/operation/seldiscuss", {
-      //         strategyId: this.info.id,
-      //         strategyType: this.info.type
-      //       })
-      //       .then(res => {
-      //         this.discuss = res.data.data;
-      //       })
-      //       .catch(err => {
-      //         console.log("错误信息" + err);
-      //       });
-      //   })
-      //   .catch(err => {
-      //     console.log("错误信息" + err);
-      //   });
     },
-
     //显示提示框
     openVn() {
       const h = this.$createElement;
@@ -415,6 +408,9 @@ export default {
           h("i", { style: "color: teal" }, "VNode")
         ])
       });
+    },
+    current_change: function(currentPage) {
+      this.currentPage = currentPage;
     }
   }
 };
@@ -465,78 +461,11 @@ export default {
 .container-fluid .container p span {
   background-color: #ff9d00;
 }
-/* 
-.container .con-top .con-top-left {
-  display: inline-block;
-  width: 55%;
-}
-
-.con-top-left .route {
-  color: #666;
-  text-indent:2em;
-}
-
-.con-top-left p {
-  color: #666;
-} */
 
 .con-main {
   clear: both;
   text-indent: 2em;
 }
-/* 
-.con-main .main-show {
-  margin: 0 auto;
-  position: relative;
-}
-
-.con-main .main-show .show-img {
-  background-color: white;
-  margin: 25px;
-  float: left;
-  width: 300px;
-}
-
-.con-main .main-show .show-img:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.con-main .main-show .show-img img {
-  width: 300px;
-  height: 200px;
-}
-
-.con-main .main-show .show-img .img-span {
-  font-size: 24px;
-  position: relative;
-  top: -42px;
-  left: 12px;
-  color: white;
-}
-
-.con-main .main-show .show-img .d-txt {
-  text-align: center;
-  padding: 10px 10px;
-  padding-top: 0;
-}
-
-.con-main .traffic {
-  clear: both;
-}
-
-.con-main .foods {
-  clear: both;
-}
-
-.con-main .rooms {
-  clear: both;
-}
-
-.con-main .main-show .show-img .d-txt .p-left {
-  text-align: left;
-  height: 40px;
-} */
-
 /* 评论栏 */
 .l-comment {
   margin-top: 85px;
@@ -570,7 +499,7 @@ textarea {
 
 .com-box ul li {
   border-top: 1px solid #e5e5e5;
-  padding: 30px 0;
+  padding: 15px 0;
 }
 
 .com-box h2 {
@@ -593,6 +522,9 @@ textarea {
   border-top: 1px solid #e5e5e5;
 }
 
+.com-form {
+  margin-top: 50px;
+}
 .com-form .fm-tare button {
   width: 114px;
   height: 40px;
@@ -619,13 +551,20 @@ li {
   border-radius: 50%;
   /* display: inline-block; */
   float: left;
+  cursor: pointer;
+}
+.img span {
+  color: #ff9d00;
 }
 
-.com-box .info h3 {
-  font-size: 24px;
-  color: blue;
-  font-weight: normal;
-  line-height: 28px;
+.com-box .info {
+  width: 1000px;
+  float: left;
+}
+
+.com-box .info a {
+  color: #ff9d00;
+  cursor: pointer;
 }
 .com-box .info #reply-h3 {
   font-size: 18px;
@@ -635,6 +574,7 @@ li {
 }
 
 .com-box .info h4 {
+  display: inline;
   font-size: 12px;
   color: #999;
   font-weight: normal;
@@ -648,9 +588,11 @@ li {
   margin-top: 8px;
 }
 .com-box .info .info-span {
-  float: right;
+  margin-top: 20px;
+  width:100%;
 }
 .com-box .info .info-span span {
+  float: right;
   margin-right: 20px;
   cursor: pointer;
 }
@@ -666,5 +608,14 @@ li {
 }
 .com-box .info:hover #replys li {
   display: block;
+}
+.com-box {
+  position: relative;
+}
+.block {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 </style>
