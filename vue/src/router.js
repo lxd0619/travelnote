@@ -168,14 +168,12 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
     //除了login和register，其他的路由访问必须先登录
     let tokenIsExists = localStorage.getItem('mytoken') ? true : false //检查本地存储中是否有token
-    if (to.path == '/index/home' || to.path == '/index/Aim' || to.path == '/index/aimline' || to.path == '/index/delicious' || to.path == '/index/line' || to.path == '/index/linestrategy' || to.path == '/index/search' || to.path == '/index/view' || to.path == '/login' || to.path == '/register' || to.path == '/forget_pwd' || to.path=='/index/FVstrategy') {
+    if (to.path == '/index/home' || to.path == '/index/Aim' || to.path == '/index/aimline' || to.path == '/index/delicious' || to.path == '/index/line' || to.path == '/index/linestrategy' || to.path == '/index/search' || to.path == '/index/view' || to.path == '/login' || to.path == '/register' || to.path == '/forget_pwd' || to.path=='/index/FVstrategy' || to.path=='/index/FVstrategy#') {
         next() //允许访问路由
     } else {
         if (tokenIsExists) {
             if (to.path == '/manage' || to.path == '/Article') {
-                console.log(jwt_decode(localStorage.getItem('mytoken')).role);
                 var role = jwt_decode(localStorage.getItem('mytoken')).role
-                console.log(123)
                 if (role == 'manage') {
                     next()
                 } else {

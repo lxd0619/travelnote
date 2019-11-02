@@ -1,70 +1,52 @@
 <template>
   <div>
     <div v-for="stra in strategy" :key="stra.strategyId">
-      <div class="container-fluid" style="background-color: #fafafa;">
-        <div class="container">
-          <div class="headerpic">
-            <img :src="getCoverPic(stra.cover)" alt />
-          </div>
-          <a href="#">{{stra.cityName}}攻略</a>
-          <span>></span>
-          <a href="#"></a>
-          <span>></span>
-          <span>{{stra.title}}</span>
-          <div id="title">
-            <h2></h2>
-            <div id="h2-right">
-              <div class="ext-r row" style="justify-content:space-around;">
-                <div style="cursor:pointer" @click="go(stra.userId)">
-                  <span>
-                    <img
-                      :src="getHeadPic(stra.headPic)"
-                      width="35px"
-                      height="35px"
-                      class="rounded-circle"
-                    />
-                    {{stra.userName}}
-                  </span>
-                </div>
+      <div class="jumbotron" :style="{'backgroundImage':'url(' + getCoverPic(stra.cover) + ')'}"></div>
+      <div class="container mt-3">
+        <h3 id="artTitle">{{stra.title}}</h3>
+        <div id="title">
+          <div id="h2-right">
+            <div class="ext-r row" style="justify-content:space-around;">
+              <div style="cursor:pointer" @click="go(stra.userId)">
+                <!-- 头像 -->
+                <span>
+                  <img
+                    :src="getHeadPic(stra.headPic)"
+                    width="35px"
+                    height="35px"
+                    class="rounded-circle"
+                  />
+                  {{stra.userName}}
+                </span>
+              </div>
 
-                <div
-                  @click="updateCollectionNum()"
-                  class="operation"
-                  id="operation"
-                  style="cursor:pointer"
-                >
-                  <i
-                    class="el-icon-star-off"
-                    aria-hidden="true"
-                    id="icon"
-                  >收藏 {{stra.ssCollectionNum}}</i>
-                </div>
-                <div
-                  class="img-span"
-                  @click="updateLikeNum()"
-                  id="operation1"
-                  style="cursor:pointer"
-                >
-                  <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
-                </div>
-                <div class="img-span" @click="report(stra.userId)">
-                  <i class="el-icon-warning" aria-hidden="true">举报</i>
-                </div>
+              <div
+                @click="updateCollectionNum()"
+                class="operation"
+                id="operation"
+                style="cursor:pointer"
+              >
+                <i class="el-icon-star-off" aria-hidden="true" id="icon">收藏 {{stra.ssCollectionNum}}</i>
+              </div>
+              <div class="img-span" @click="updateLikeNum()" id="operation1" style="cursor:pointer">
+                <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
+              </div>
+              <div class="img-span" @click="report(stra.userId)">
+                <i class="el-icon-warning" aria-hidden="true">举报</i>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="contain" v-html="stra.ssInfo"></div>
-    <div class="con-comments">
-      <div class="l-comment">
-        <div class="com-box">
+      <div class="container">
+        <div id="article" v-html="stra.ssInfo"></div>
+      </div>
+      <div class="container">
+        <div class="com-box mt-5">
           <h2>评论</h2>
           <ul id="comments" data-page="1" data-id="0">
             <li
-              class="clearfix comment_item item_1203904"
+              class="clearfix comment_item"
               data-id="1203904"
               data-replied="0"
               v-for="(dis) in discuss"
@@ -74,14 +56,17 @@
                 <img :src="getPic(dis.headPic)" />
               </div>
               <div class="info">
-                <h3>{{dis.userName}}</h3>
-                <h4>{{dis.commentTime}}</h4>
-                <div class="com-cont">{{dis.commentContent}}</div>
+                <span>{{dis.userName}}</span>
+                <span class="com-cont">{{dis.commentContent}}</span>
                 <br />
-                <div class="info-span">
-                  <span v-if="dis.userId==userId" :key="dis.commentId">
-                    <el-button type="text" @click="delComment(dis.commentId)">删除个人评论</el-button>
-                  </span>
+              <h4>{{dis.commentTime}}</h4> 
+                <div
+                  class="info-span"
+                  v-if="dis.userId==userId"
+                  @click="delComment(dis.commentId)"
+                  :key="dis.commentId"
+                >
+                  <span>删除个人评论</span>
                 </div>
               </div>
             </li>
@@ -124,12 +109,10 @@ export default {
       discuss: [],
       //插入评论内容
       newcommentContent: "",
-
       //全部回复
       replys: [],
       //插入回复
       // newReplyContent: "",
-
       //当前登录用户id
       userId: "",
       loading: false,
@@ -139,16 +122,8 @@ export default {
   created() {
     //获取传来的攻略类型和id
     var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
-    var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
-    var userStatus = jwt_decode(localStorage.getItem("mytoken")).userStatus;
-    this.userId = userId;
     this.info = info;
-    // console.log(this.info); //内容
-    //加载攻略数据
-    console.log(userStatus);
-    if (userStatus == -1) {
-      this.isShow = false;
-    }
+    // 获取攻略详情
     this.$axios
       .post("http://localhost:3000/operation/strategydetail", {
         strategyType: this.info.type,
@@ -161,47 +136,58 @@ export default {
       .catch(err => {
         console.log("错误信息" + err);
       });
-    //筛选评论
-    this.$axios
-      .post("http://localhost:3000/operation/seldiscuss", {
-        strategyId: this.info.id,
-        strategyType: this.info.type
-      })
-      .then(res => {
-        // console.log(2, res);
-        this.discuss = res.data.data;
-      })
-      .catch(err => {
-        console.log("错误信息" + err);
-      });
-    /**判断当前用户是否点赞过 */
-    this.$axios
-      .post("http://localhost:3000/operation/isLike", {
-        strategyId: this.info.id,
-        strategyType: this.info.type,
-        userId: this.userId
-      })
-      .then(res => {
-        console.log(1, res);
-        if (res.data.data) {
-          $("#operation1").addClass("operated");
-        }
-      });
-    /**判断该用户是否收藏该攻略 */
-    this.$axios
-      .post("http://localhost:3000/operation/iscollect", {
-        strategyId: this.info.id,
-        strategyType: this.info.type,
-        userId: this.userId
-      })
-      .then(res => {
-        console.log(2, res);
-        if (res.data.data) {
-          $("#operation").addClass("operated");
-          $("#icon").removeClass("el-icon-star-off");
-          $("#icon").addClass("el-icon-star-on");
-        }
-      });
+
+    if (localStorage.getItem("mytoken")) {
+      var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
+      var userStatus = jwt_decode(localStorage.getItem("mytoken")).userStatus;
+      this.userId = userId;
+      // console.log(this.info); //内容
+      //加载攻略数据
+      if (userStatus == -1) {
+        this.isShow = false;
+      }
+      //筛选评论
+      this.$axios
+        .post("http://localhost:3000/operation/seldiscuss", {
+          strategyId: this.info.id,
+          strategyType: this.info.type
+        })
+        .then(res => {
+          // console.log(2, res);
+          this.discuss = res.data.data;
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+      /**判断当前用户是否点赞过 */
+      this.$axios
+        .post("http://localhost:3000/operation/isLike", {
+          strategyId: this.info.id,
+          strategyType: this.info.type,
+          userId: this.userId
+        })
+        .then(res => {
+          console.log(1, res);
+          if (res.data.data) {
+            $("#operation1").addClass("operated");
+          }
+        });
+      /**判断该用户是否收藏该攻略 */
+      this.$axios
+        .post("http://localhost:3000/operation/iscollect", {
+          strategyId: this.info.id,
+          strategyType: this.info.type,
+          userId: this.userId
+        })
+        .then(res => {
+          console.log(2, res);
+          if (res.data.data) {
+            $("#operation").addClass("operated");
+            $("#icon").removeClass("el-icon-star-off");
+            $("#icon").addClass("el-icon-star-on");
+          }
+        });
+    }
   },
   methods: {
     //更新收藏数
@@ -426,16 +412,22 @@ export default {
   margin: 0;
   padding: 0;
 }
-#readonly h3 {
-  color: #666;
-}
-.headerpic img {
-  width: 1200px;
-  height: 450px;
+.jumbotron {
+  height: 40rem;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .container {
   margin: 0 auto;
-  margin-top: 40px;
+}
+#article{
+  margin: 2rem;
+}
+#artTitle{
+  color: #ff9d00;
+}
+#readonly h3 {
+  color: #666;
 }
 .card-body h5 {
   padding-left: 10px;
@@ -445,9 +437,7 @@ export default {
   padding-left: 10px;
   margin-top: 15px;
 }
-/* .container-fluid .container a:hover {
-  color: #ff9d00;
-} */
+
 #title #h2-right .img-span:not(:last-child):hover {
   color: #ff9d00;
   cursor: pointer;
@@ -681,6 +671,15 @@ li {
   width: 48px;
   height: 48px;
   border-radius: 50%;
+  float: left;
+}
+.com-box li .img img {
+  width: 48px;
+  height: 48px;
+}
+
+.com-box .info{
+  width:1000px;
   float: left;
 }
 

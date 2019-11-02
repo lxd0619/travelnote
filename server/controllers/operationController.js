@@ -10,7 +10,6 @@ var operationController = {
             strategyType: req.body.strategyType,
             userId: req.body.userId
         }
-        console.log(1, likeInfo)
         operationDAO.TestLike(sql, likeInfo, function (err, results1) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '搜索攻略点赞错误！' })
@@ -229,7 +228,6 @@ var operationController = {
             }
         })
     },
-
     //评论
     AddDiscuss: function (req, res) {
         var sql = ''
@@ -287,7 +285,6 @@ var operationController = {
             strategyType: req.body.strategyType,
             // commentId:req.body.userId,
         }
-        console.log(DiscussInfo)
         sql = " select users.userId,users.userName,users.headPic,comments.* from users,comments where strategyId=? and strategyType=? and comments.userId=users.userId" //筛选
         operationDAO.SelDiscuss(sql, DiscussInfo, function (err, results) {
             if (err) {
