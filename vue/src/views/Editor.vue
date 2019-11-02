@@ -118,7 +118,8 @@
         <div class="col-md-11">
           <div class="clearfix mb-5">
             <!-- 富文本编辑框 -->
-            <div id="websiteEditorElem" style="height:350px;background: #ffffff;"></div>
+            <div id="editorMenu"></div>
+            <div id="editor" class="mt-3"></div>
           </div>
           <!-- 发表按钮 -->
           <button
@@ -363,7 +364,7 @@ export default {
   },
   mounted() {
     // wangeditor
-    this.phoneEditor = new E("#websiteEditorElem");
+    this.phoneEditor = new E('#editorMenu','#editor');
     // 上传图片到服务器，base64形式
     this.phoneEditor.customConfig.uploadImgShowBase64 = true;
     // this.phoneEditor.customConfig.uploadImgServer = "/userCenter/uploadArticle";
@@ -383,9 +384,17 @@ export default {
   background-position: center center;
   background-size: cover;
 }
-#websiteEditorElem{
-  height: 400px;
+
+#editor {
+  height: auto;
+  width: auto;
+  border: 1px solid #ccc;
 }
+.w-e-toolbar {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+}
+
 .el-row {
   margin-bottom: 20px;
 }

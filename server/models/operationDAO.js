@@ -94,7 +94,6 @@ var operationDAO = {
         })
     },
     SelDiscuss: function(sql, DiscussInfo, callback) {
-        console.log(1, DiscussInfo.strategyId, DiscussInfo.strategyType)
         DAO(sql, [DiscussInfo.strategyId, DiscussInfo.strategyType], function(err, results) {
             if (err) {
                 callback(err, null)
