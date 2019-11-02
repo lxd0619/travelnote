@@ -115,7 +115,7 @@
     <div class="container">
       <div class="row">
         <!-- 富文本框 -->
-        <div class="col-md-11">
+        <div class="col-md-12">
           <div class="clearfix mb-5">
             <!-- 富文本编辑框 -->
             <div id="editorMenu"></div>
@@ -130,9 +130,7 @@
           >发表游记</button>
         </div>
         <!-- 返回顶部 -->
-        <div class="col-md-1 mb-5">
-          <el-backtop :bottom="200"></el-backtop>
-        </div>
+        <el-backtop :bottom="200"></el-backtop>
       </div>
     </div>
   </div>
@@ -364,7 +362,7 @@ export default {
   },
   mounted() {
     // wangeditor
-    this.phoneEditor = new E('#editorMenu','#editor');
+    this.phoneEditor = new E("#editorMenu", "#editor");
     // 上传图片到服务器，base64形式
     this.phoneEditor.customConfig.uploadImgShowBase64 = true;
     // this.phoneEditor.customConfig.uploadImgServer = "/userCenter/uploadArticle";
@@ -386,7 +384,8 @@ export default {
 }
 
 #editor {
-  height: auto;
+  height: 1000px;
+  /* height: auto; */
   width: auto;
   border: 1px solid #ccc;
 }

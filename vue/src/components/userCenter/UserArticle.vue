@@ -15,7 +15,7 @@
               href="#"
               @click="go(article.type,article.strategyId)"
               class="card-title"
-            >{{article.title}}......{{article.ssStatus}}</a>
+            >{{article.title}}</a>
             <el-button
               type="danger"
               icon="el-icon-delete"
