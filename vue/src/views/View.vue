@@ -230,7 +230,7 @@ export default {
 }
 .sheadsecond {
   text-align: center;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  /* font-family: Georgia, "Times New Roman", Times, serif; */
   font-size: 40px;
   margin-bottom: 20px;
 }

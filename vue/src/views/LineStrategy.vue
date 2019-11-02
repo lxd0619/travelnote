@@ -21,17 +21,17 @@
                   />
                   {{stra.userName}}
                 </div>
-                <div class="img-span" @click="updateCollectionNum()" id="operation">
+                <div class="img-span" @click="updateCollectionNum()" id="operation" v-if='stra.ssStatus < 0 ? false:true'>
                   <i
                     class="el-icon-star-off"
                     aria-hidden="true"
                     id="icon"
                   >收藏({{stra.prCollectionNum}})</i>
                 </div>
-                <div class="img-span" @click="updateLikeNum()" id="operation1">
+                <div class="img-span" @click="updateLikeNum()" id="operation1" v-if='stra.ssStatus < 0 ? false:true'>
                   <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞({{stra.prLikeNum}})</i>
                 </div>
-                <div class="img-span" @click="report(stra.userId)">
+                <div class="img-span" @click="report(stra.userId)" v-if='stra.ssStatus < 0 ? false:true'>
                   <i class="el-icon-warning" aria-hidden="true">举报</i>
                 </div>
               </div>
@@ -54,42 +54,46 @@
           <div class="l-comment">
             <div class="com-box">
               <h2>评论</h2>
-
-              <ul id="comments" data-page="1" data-id="0">
-                <li
-                  class="clearfix comment_item item_1203904"
-                  data-id="1203904"
-                  data-replied="0"
-                  v-for="(dis) in discuss.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
-                  :key="dis.commentId"
-                >
-                  <div class="img mr-2" @click="goFocus(dis.userId)">
-                    <img :src="getHeadPic(dis.headPic)" width="48" height="48" />
-                  </div>
-                  <div class="info">
-                    <a @click="goFocus(dis.userId)">{{dis.userName}}:</a>
-                    <span class="com-cont ml-1">{{dis.commentContent}}</span>
-                    <br />
-                    <div class="info-span">
-                      <h4>{{dis.commentTime}}</h4>
-                      <span v-if="dis.userId==userId" :key="dis.commentId">
-                        <h4
-                          @click="delComment(dis.commentId)"
-                          style="color:#555;font-size:14px"
-                        >删除个人评论</h4>
-                      </span>
+              <div v-if='discuss ? true:false'>
+                <ul id="comments" data-page="1" data-id="0">
+                  <li
+                    class="clearfix comment_item item_1203904"
+                    data-id="1203904"
+                    data-replied="0"
+                    v-for="(dis) in discuss.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+                    :key="dis.commentId"
+                  >
+                    <div class="img mr-2" @click="goFocus(dis.userId)">
+                      <img :src="getHeadPic(dis.headPic)" width="48" height="48" />
                     </div>
-                  </div>
-                </li>
-              </ul>
-              <div class="block">
-                <el-pagination
-                  :page-size="pagesize"
-                  :pager-count="11"
-                  layout="prev, pager, next"
-                  :total="allpages"
-                  @current-change="current_change"
-                ></el-pagination>
+                    <div class="info">
+                      <a @click="goFocus(dis.userId)">{{dis.userName}}:</a>
+                      <span class="com-cont ml-1">{{dis.commentContent}}</span>
+                      <br />
+                      <div class="info-span">
+                        <h4>{{dis.commentTime}}</h4>
+                        <span v-if="dis.userId==userId" :key="dis.commentId">
+                          <h4
+                            @click="delComment(dis.commentId)"
+                            style="color:#555;font-size:14px"
+                          >删除个人评论</h4>
+                        </span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <div class="block">
+                  <el-pagination
+                    :page-size="pagesize"
+                    :pager-count="11"
+                    layout="prev, pager, next"
+                    :total="allpages"
+                    @current-change="current_change"
+                  ></el-pagination>
+                </div>
+              </div>
+              <div v-else>
+                <h4 style="color:#999;text-align:center">还没评论，抢个沙发吧</h4>
               </div>
               <!-- 最后的插入评论 -->
             </div>
@@ -99,11 +103,11 @@
                   <textarea v-model="newcommentContent" placeholder="说点什么吧..." id="textarea"></textarea>
                 </div>
                 <div v-if="isShow === false" id="readonly" class="ml-5 mb-5">
-                  <h3 style="color:red">由于您的当前用户状态不正常，已禁止评论功能</h3>
+                  <h3 style="color:red;text-align:center">由于您的当前用户状态不正常，已禁止评论功能</h3>
                 </div>
                 <el-form v-if="isShow === true">
                   <el-form-item>
-                    <el-button type="primary" @click="addComment()" id="toke">评论</el-button>
+                    <el-button  @click="addComment()" id="toke">评论</el-button>
                   </el-form-item>
                 </el-form>
               </div>
@@ -147,6 +151,7 @@ export default {
   created() {
     //获取传来的攻略类型和id
     var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
+    this.info = info;
     this.$axios
       .post("http://localhost:3000/operation/strategydetail", {
         strategyType: this.info.type,
@@ -168,7 +173,7 @@ export default {
       if (userStatus == -1) {
         this.isShow = false;
       }
-      this.info = info;
+
       // console.log(this.info); //内容
       //加载攻略数据
 

@@ -974,9 +974,10 @@ export default {
   text-align: center;
 }
 .line-row .nonedata {
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 700px;
-  color: #737373;
+  color: #999;
+  margin-bottom: 20px;
 }
 .box-shadow {
   margin: 10px;
@@ -1026,10 +1027,11 @@ export default {
   margin-left: 40px;
 }
 #con-line-nav .nonedata {
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 700px;
-  color: #737373;
+  color: #999;
   text-align: center;
+  margin-top: 20px;
 }
 
 .main_news ul {
