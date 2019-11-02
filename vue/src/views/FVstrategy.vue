@@ -19,19 +19,19 @@
                   {{stra.userName}}
                 </span>
               </div>
-
               <div
                 @click="updateCollectionNum()"
                 class="operation"
                 id="operation"
                 style="cursor:pointer"
+                v-if='stra.ssStatus < 0 ? false:true'
               >
                 <i class="el-icon-star-off" aria-hidden="true" id="icon">收藏 {{stra.ssCollectionNum}}</i>
               </div>
-              <div class="img-span" @click="updateLikeNum()" id="operation1" style="cursor:pointer">
+              <div class="img-span" @click="updateLikeNum()" id="operation1" style="cursor:pointer" v-if='stra.ssStatus < 0 ? false:true'>
                 <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
               </div>
-              <div class="img-span" @click="report(stra.userId)">
+              <div class="img-span" @click="report(stra.userId)" v-if='stra.ssStatus < 0 ? false:true' >
                 <i class="el-icon-warning" aria-hidden="true">举报</i>
               </div>
             </div>
@@ -44,33 +44,48 @@
       <div class="container">
         <div class="com-box mt-5">
           <h2>评论</h2>
-          <ul id="comments" data-page="1" data-id="0">
-            <li
-              class="clearfix comment_item"
-              data-id="1203904"
-              data-replied="0"
-              v-for="(dis) in discuss"
-              :key="dis.commentId"
-            >
-              <div class="img">
-                <img :src="getPic(dis.headPic)" />
-              </div>
-              <div class="info">
-                <span>{{dis.userName}}</span>
-                <span class="com-cont">{{dis.commentContent}}</span>
-                <br />
-                <h4>{{dis.commentTime}}</h4>
-                <div
-                  class="info-span"
-                  v-if="dis.userId==userId"
-                  @click="delComment(dis.commentId)"
-                  :key="dis.commentId"
-                >
-                  <span>删除个人评论</span>
+          <div v-if="discuss ? true:false">
+            <ul id="comments" data-page="1" data-id="0">
+              <li
+                class="clearfix comment_item"
+                data-id="1203904"
+                data-replied="0"
+                v-for="(dis) in discuss.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+                :key="dis.commentId"
+              >
+                <div class="img mr-2" @click="go(dis.userId)">
+                  <img :src="getHeadPic(dis.headPic)" />
                 </div>
-              </div>
-            </li>
-          </ul>
+                <div class="info">
+                  <a @click="go(dis.userId)">{{dis.userName}}:</a>
+                  <span class="com-cont ml-1">{{dis.commentContent}}</span>
+                  <br />
+
+                  <div class="info-span">
+                    <h4>{{dis.commentTime}}</h4>
+                    <span v-if="dis.userId==userId" :key="dis.commentId">
+                      <h4
+                        @click="delComment(dis.commentId)"
+                        style="color:#555;font-size:14px"
+                      >删除个人评论</h4>
+                    </span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="block">
+              <el-pagination
+                :page-size="pagesize"
+                :pager-count="11"
+                layout="prev, pager, next"
+                :total="allpages"
+                @current-change="current_change"
+              ></el-pagination>
+            </div>
+          </div>
+          <div v-else>
+            <h4 style="color:#999;text-align:center">还没评论，抢个沙发吧</h4>
+          </div>
         </div>
         <!-- 最后的插入评论 -->
         <div class="clearfix com-form">
@@ -79,19 +94,18 @@
               <textarea v-model="newcommentContent" placeholder="说点什么吧..." id="textarea"></textarea>
             </div>
             <div v-if="isShow === false" id="readonly" class="ml-5 mb-5">
-              <h3>由于您的当前用户状态不正常，已禁止评论功能</h3>
+              <h3 style="color:red;text-align:center">由于您的当前用户状态不正常，已禁止评论功能</h3>
             </div>
             <el-form v-if="isShow === true">
               <el-form-item>
-                <el-button type="primary" @click="addComment()" id="toke">评论</el-button>
+                <el-button @click="addComment()" id="toke">评论</el-button>
               </el-form-item>
             </el-form>
           </div>
         </div>
       </div>
     </div>
-    <!-- 返回顶部 -->
-    <el-backtop :bottom="200"></el-backtop>
+    <el-backtop :bottom="100"></el-backtop>
   </div>
 </template>
 <script>
@@ -118,7 +132,10 @@ export default {
       //当前登录用户id
       userId: "",
       loading: false,
-      isShow: true
+      isShow: true,
+      currentPage: 1,
+      pagesize: 10,
+      allpages: 0
     };
   },
   created() {
@@ -157,6 +174,13 @@ export default {
         .then(res => {
           // console.log(2, res);
           this.discuss = res.data.data;
+          for (let i = 0; i < this.discuss.length; i++) {
+            this.discuss[i].commentTime = this.discuss[0].commentTime.slice(
+              0,
+              this.discuss[i].commentTime.indexOf("T")
+            );
+          }
+          this.allpages = res.data.data.length;
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -308,6 +332,7 @@ export default {
         pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
+      console.log(path);
       return path;
     },
     //添加评论
@@ -405,6 +430,18 @@ export default {
         sessionStorage.setItem("strategyuserId", userId);
         this.$router.push("/index/focus");
       }
+    },
+    current_change: function(currentPage) {
+      this.currentPage = currentPage;
+    },
+    getHeadPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      if (pic == null || pic == "" || pic == "headPic") {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
     }
   }
 };
@@ -566,7 +603,7 @@ export default {
 /* 评论区style */
 .com-form .fm-tare textarea {
   height: 200px;
-  width: 850px;
+  width: 1000px;
   padding: 14px;
   border: 1px solid #e5e5e5;
   resize: none;
@@ -574,7 +611,7 @@ export default {
   border-radius: 5px;
   font-size: 14px;
   color: #666;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .com-form .user-log textarea {
@@ -592,8 +629,8 @@ textarea {
 }
 
 .com-box ul li {
-  border-bottom: 1px solid #e5e5e5;
-  padding: 30px 0;
+  border-top: 1px solid #e5e5e5;
+  padding: 15px 0;
 }
 
 .com-box h2 {
@@ -601,20 +638,21 @@ textarea {
   color: #333;
   font-weight: normal;
   line-height: 24px;
-  /* margin: 36px 0; */
+  margin: 36px 0;
 }
 
 .com-box {
+  position: relative;
   border-top: 1px solid #e5e5e5;
-  /* margin-left: 300px; */
-  width: 800px;
-  /* margin-top: 50px; */
   margin: 0 auto;
 }
 .contain {
   background-color: #eee;
   width: 1200px;
   margin: 0 auto;
+}
+.com-form {
+  margin-top: 50px;
 }
 .com-form .fm-tare button {
   width: 114px;
@@ -631,31 +669,22 @@ textarea {
   text-align: center;
   padding: 0;
   line-height: 30px;
-  float: right;
-  margin-right: 40px;
+  margin-left: 850px;
 }
-/* .info-span {
-  width: 114px;
-  height: 30px;
-  background: #ff9d00;
-  border: 0;
-  outline: 0;
+.com-box .info {
+  width: 1000px;
+  float: left;
+}
+.com-box .info a {
+  color: #ff9d00;
   cursor: pointer;
-  display: block;
-  margin: 20px 0;
-  border-radius: 5px;
-  font-size: 16px;
-  color: rgb(255, 255, 255);
-  text-align: center;
-  padding: 0;
-  line-height: 30px;
-  margin-left: 720px;
-} */
-
+}
 .com-box .info .info-span {
-  float: right;
+  margin-top: 20px;
+  width: 100%;
 }
 .com-box .info .info-span span {
+  float: right;
   margin-right: 20px;
   cursor: pointer;
 }
@@ -673,6 +702,7 @@ li {
   height: 48px;
   border-radius: 50%;
   float: left;
+  cursor: pointer;
 }
 .com-box li .img img {
   width: 48px;
@@ -704,11 +734,14 @@ li {
   line-height: 28px;
   margin-top: 8px;
 }
-.com-form {
-  margin-left: 250px;
-  margin-top: 10px;
-}
+
 .com-cont {
   margin-left: 48px;
+}
+.block {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 </style>
