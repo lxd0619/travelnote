@@ -831,6 +831,7 @@
       <!-- 最后div清除浮动 -->
       <div class="lastdiv"></div>
     </div>
+    <el-backtop :bottom="100"></el-backtop>
   </div>
 </template>
 
@@ -899,7 +900,7 @@ export default {
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null || pic=="") {
+      if (pic == null || pic == "") {
         pic = "primaryHead01.jpeg";
       }
       path = "http://localhost:3000/coverPic/" + pic;
@@ -910,7 +911,7 @@ export default {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
-      window.open("/index/linestrategy");
+      this.$router.push("/index/linestrategy");
     },
     //人群路线划分
     lineClassify() {

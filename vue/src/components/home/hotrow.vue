@@ -111,7 +111,7 @@ export default {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
-      window.open("/index/linestrategy");
+      this.$router.push("/index/linestrategy");
     },
      goUser(userId){
       sessionStorage.setItem('strategyuserId',userId)

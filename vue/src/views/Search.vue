@@ -1,95 +1,98 @@
 <template>
-<el-row type="flex" class="row-bg" justify="center">
-  <el-col :span="22">
-    <el-container>
-      <el-header height class="mt-3"><h5>所查询到的攻略内容如下:</h5></el-header>
-      <el-main height>
-        <el-row :gutter="40">
-          <el-col :span="16">
-            <div class="card-deck flex-column mb-5">
-              <!-- 热门景点攻略 -->
-              <div v-if="show">
-                <div
-                  class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-                  v-for="article in articles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
-                  :key="article.strategyId"
-                >
-                  <img
-                    class="card-img-top"
-                    :src="getCoverPic(article.cover)"
-                    alt="Card image cap"
-                    style="width: 14rem;height: 11rem;"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a
-                        href="#"
-                        class="card-link"
-                        @click="go(article.type,article.strategyId)"
-                      >{{article.title}}</a>
-                    </h5>
-                    <p
-                      class="card-text overflow-hidden"
-                      style="height: 4em;text-overflow:ellipsis;"
-                      v-html="article.ssInfo"
-                    ></p>
-                    <p class="text-muted">
-                      <i class="fa fa-map-marker mr-3" aria-hidden="true">{{article.cityName}}</i>
-                      by {{article.userName}}
-                      <img
-                        :src="getHeadPic(article.headPic)"
-                        alt="head"
-                        class="mr-3"
-                        circle
-                      />
-                      <i class="el-icon-star-off mr-2">{{article.ssCollectionNum}}</i>
-                      <i
-                        class="fa fa-thumbs-o-up mr-2 float-right"
-                        aria-hidden="true"
-                      >{{article.ssLikeNum}}</i>
-                    </p>
+  <el-row type="flex" class="row-bg" justify="center">
+    <el-col :span="22">
+      <el-container>
+        <el-header height class="mt-3">
+          <h5>所查询到的攻略内容如下:</h5>
+        </el-header>
+        <el-main height>
+          <el-row :gutter="40">
+            <el-col :span="16">
+              <div class="card-deck flex-column mb-5">
+                <!-- 热门景点攻略 -->
+                <div v-if="show">
+                  <div
+                    class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
+                    v-for="article in articles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+                    :key="article.strategyId"
+                  >
+                    <img
+                      class="card-img-top"
+                      :src="getCoverPic(article.cover)"
+                      alt="Card image cap"
+                      style="width: 14rem;height: 11rem;"
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a
+                          href="#"
+                          class="card-link"
+                          @click="go(article.type,article.strategyId)"
+                        >{{article.title}}</a>
+                      </h5>
+                      <p
+                        class="card-text overflow-hidden"
+                        style="height: 4em;text-overflow:ellipsis;"
+                        v-html="article.ssInfo"
+                      ></p>
+                      <p class="text-muted">
+                        <i class="fa fa-map-marker mr-3" aria-hidden="true">{{article.cityName}}</i>
+                        by {{article.userName}}
+                        <img
+                          :src="getHeadPic(article.headPic)"
+                          alt="head"
+                          class="mr-3"
+                          circle
+                        />
+                        <i class="el-icon-star-off mr-2">{{article.ssCollectionNum}}</i>
+                        <i
+                          class="fa fa-thumbs-o-up mr-2 float-right"
+                          aria-hidden="true"
+                        >{{article.ssLikeNum}}</i>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="block mt-5">
+                    <el-pagination
+                      :page-size="pagesize"
+                      :pager-count="11"
+                      layout="prev, pager, next"
+                      :total="allpages"
+                      @current-change="current_change"
+                    ></el-pagination>
                   </div>
                 </div>
-                <div class="block mt-5">
-                  <el-pagination
-                    :page-size="pagesize"
-                    :pager-count="11"
-                    layout="prev, pager, next"
-                    :total="allpages"
-                    @current-change="current_change"
-                  ></el-pagination>
+                <div v-else>
+                  <h1>暂无数据</h1>
                 </div>
               </div>
-              <div v-else>
-                <h1>暂无数据</h1>
+            </el-col>
+            <el-col :span="8">
+              <div class="rightTitle">
+                <h4>达人分享秀</h4>
               </div>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="rightTitle">
-              <h4>达人分享秀</h4>
-            </div>
-            <div class="rightPic">
-              <div class="partPic">
-                <img src="../assets/view/leftPic1.jpg" alt width="200px" height="110px" /> 描述neirshjsjhjdkkjd
+              <div class="rightPic">
+                <div class="partPic">
+                  <img src="../assets/view/leftPic1.jpg" alt width="200px" height="110px" /> 描述neirshjsjhjdkkjd
+                </div>
               </div>
-            </div>
-            <div class="rightPic">
-              <div class="partPic">
-                <img src="../assets/view/leftPic1.jpg" alt width="200px" height="110px" /> 描述neirshjsjhjdkkjd
+              <div class="rightPic">
+                <div class="partPic">
+                  <img src="../assets/view/leftPic1.jpg" alt width="200px" height="110px" /> 描述neirshjsjhjdkkjd
+                </div>
               </div>
-            </div>
-            <div class="rightPic">
-              <div class="partPic">
-                <img src="../assets/view/leftPic1.jpg" alt width="200px" height="110px" /> 描述neirshjsjhjdkkjd
+              <div class="rightPic">
+                <div class="partPic">
+                  <img src="../assets/view/leftPic1.jpg" alt width="200px" height="110px" /> 描述neirshjsjhjdkkjd
+                </div>
               </div>
-            </div>
-          </el-col>
-        </el-row>
-      </el-main>
-    </el-container>
-</el-col>
-</el-row>
+            </el-col>
+          </el-row>
+        </el-main>
+      </el-container>
+    </el-col>
+    <el-backtop :bottom="100"></el-backtop>
+  </el-row>
 </template>
 <script>
 export default {
@@ -145,7 +148,7 @@ export default {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
-      window.open("/index/FVstrategy");
+      this.$router.push("/index/FVstrategy");
     },
     current_change(currentPage) {
       this.currentPage = currentPage;

@@ -176,7 +176,7 @@ export default {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
-      window.open("/index/FVstrategy");
+      this.$router.push("/index/FVstrategy");
     },
     addFriends() {
       let _this = this

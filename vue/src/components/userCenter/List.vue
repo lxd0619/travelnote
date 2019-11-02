@@ -136,7 +136,7 @@ export default {
     },
     go(userId) {
       sessionStorage.setItem("strategyuserId", userId);
-      window.open("/index/focus");
+      this.$router.push("/index/focus");
     },
     addFriends(strategyuserId) {
       this.$axios

@@ -90,9 +90,9 @@ export default {
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
       if (type == "personalrow") {
-        window.open("/index/LineStrategy");
+        this.$router.push("/index/LineStrategy");
       }
-      window.open("/index/FVstrategy");
+      this.$router.push("/index/FVstrategy");
     }
   }
 };

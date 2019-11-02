@@ -322,7 +322,7 @@ export default {
     goFocus(strategyuserId) {
       var strategyuserId = JSON.stringify(strategyuserId);
       sessionStorage.setItem("strategyuserId", strategyuserId);
-      window.open("/index/focus");
+      this.$router.push("/index/focus");
     },
 
     //添加评论

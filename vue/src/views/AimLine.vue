@@ -182,11 +182,11 @@ export default {
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
       if (strategy.type == "personalrow") {
-        window.open("/index/linestrategy");
+        this.$router.push("/index/linestrategy");
       } else if (strategy.type == "scenerystrategy") {
-        window.open("/index/fvstrategy");
+        this.$router.push("/index/fvstrategy");
       } else if (strategy.type == "foodstrategy") {
-        window.open("/index/fvstrategy");
+        this.$router.push("/index/fvstrategy");
       }
     },
     current_change: function(currentPage) {

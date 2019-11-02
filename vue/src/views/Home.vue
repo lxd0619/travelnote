@@ -180,7 +180,6 @@
                 />
               </a>
               <h6 class="text-center">热门景点排行榜</h6>
-              <input type="text" class="disabled" >
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <em>01</em>
@@ -279,7 +278,7 @@ export default {
       var cityName = JSON.stringify(city);
       sessionStorage.setItem("cityName", cityName);
       // this.$router.push("/index/index/aimline");
-      window.open("/index/aimline");
+      this.$router.push("/index/aimline");
     },
     goLine() {
       this.$router.push("/index/line");
