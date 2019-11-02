@@ -53,7 +53,7 @@
               :key="dis.commentId"
             >
               <div class="img">
-                <img :src="getHeadPic(dis.headPic)" />
+                <img :src="getPic(dis.headPic)" />
               </div>
               <div class="info">
                 <span>{{dis.userName}}</span>
@@ -632,7 +632,7 @@ textarea {
   float: right;
   margin-right: 40px;
 }
-.info-span {
+/* .info-span {
   width: 114px;
   height: 30px;
   background: #ff9d00;
@@ -648,6 +648,17 @@ textarea {
   padding: 0;
   line-height: 30px;
   margin-left: 720px;
+} */
+
+.com-box .info .info-span {
+  float: right;
+}
+.com-box .info .info-span span {
+  margin-right: 20px;
+  cursor: pointer;
+}
+.com-box .info .info-span span:hover {
+  color: #ff9d00;
 }
 
 li {

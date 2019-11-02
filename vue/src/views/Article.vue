@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div :style="{'backgroundImage':'url(' + getCoverPic(strategyInfo[0].cover) + ')','width':'100%','height':'100%','position':'fixed','background-repeat':'no-repeat','background-size':'100% 100%'}"></div>
     <div id="main">
       <div class="nav">
         <span>攻略详情</span>
@@ -77,7 +78,12 @@ export default {
       .then(res => {
         console.log(res);
         if (res.data.data) {
+
           this.strategyInfo = res.data.data;
+           this.strategyInfo[0].ssTime = this.strategyInfo[0].ssTime.slice(
+          0,
+          this.strategyInfo[0].ssTime.indexOf("T")
+        );
           if (this.strategyInfo[0].ssStatus == -1) {
             //攻略未审核
             this.flage = true;
@@ -200,15 +206,29 @@ export default {
           });
         $("#myModal").modal("hide");
       }
-    }
+    },
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      if (pic == "cover" || pic == null) {
+        pic = "primaryCover.jpg";
+      }
+      let path = "http://localhost:3000/coverPic/" + pic;
+      console.log(path)
+      return path;
+    },
   }
 };
 </script>
 <style scoped>
+.main{
+  width: 100%;
+  position: absolute;
+}
 .nav {
+  position: relative;
   width: 100%;
   height: 60px;
-  background-color: #00b894;
+  /* background-color: #00b894; */
 }
 .nav span {
   color: white;
@@ -230,6 +250,7 @@ export default {
   left: 50%;
   transform: translate(-50%, 0);
   width: 75%;
+  margin-bottom: 20px;
 }
 #content {
   margin-top: 50px;

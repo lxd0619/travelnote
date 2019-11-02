@@ -42,7 +42,7 @@
           :key="li.strategyId"
         >
           <a @click="strategydetail(li.type,li.strategyId)">
-            <img id="img" src="require('' +li.cover)" style="width: 200px ;height: 200px;" />
+            <img id="img" :src="getCoverPic(li.cover)" style="width: 200px ;height: 200px;" />
             <p>{{li.title}}</p>
             <span>作者：{{li.userName}}</span>
           </a>
@@ -104,7 +104,15 @@ export default {
       var strategyInfo = JSON.stringify(strategy);
       sessionStorage.setItem("strategy", strategyInfo);
       this.$router.push("/article");
-    }
+    },
+         getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      if (pic == "cover" || pic == null) {
+        pic = "primaryCover.jpg";
+      }
+      let path = "http://localhost:3000/coverPic/" + pic;
+      return path;
+    },
   }
 };
 </script>
