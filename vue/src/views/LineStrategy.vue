@@ -21,17 +21,31 @@
                   />
                   {{stra.userName}}
                 </div>
-                <div class="img-span" @click="updateCollectionNum()" id="operation" v-if='stra.ssStatus < 0 ? false:true'>
+                <div
+                  class="img-span"
+                  @click="updateCollectionNum()"
+                  id="operation"
+                  v-if="stra.ssStatus < 0 ? false:true"
+                >
                   <i
                     class="el-icon-star-off"
                     aria-hidden="true"
                     id="icon"
                   >收藏({{stra.prCollectionNum}})</i>
                 </div>
-                <div class="img-span" @click="updateLikeNum()" id="operation1" v-if='stra.ssStatus < 0 ? false:true'>
+                <div
+                  class="img-span"
+                  @click="updateLikeNum()"
+                  id="operation1"
+                  v-if="stra.ssStatus < 0 ? false:true"
+                >
                   <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞({{stra.prLikeNum}})</i>
                 </div>
-                <div class="img-span" @click="report(stra.userId)" v-if='stra.ssStatus < 0 ? false:true'>
+                <div
+                  class="img-span"
+                  @click="report(stra.userId)"
+                  v-if="stra.ssStatus < 0 ? false:true"
+                >
                   <i class="el-icon-warning" aria-hidden="true">举报</i>
                 </div>
               </div>
@@ -54,7 +68,7 @@
           <div class="l-comment">
             <div class="com-box">
               <h2>评论</h2>
-              <div v-if='discuss ? true:false'>
+              <div v-if="discuss ? true:false">
                 <ul id="comments" data-page="1" data-id="0">
                   <li
                     class="clearfix comment_item item_1203904"
@@ -82,15 +96,6 @@
                     </div>
                   </li>
                 </ul>
-                <div class="block">
-                  <el-pagination
-                    :page-size="pagesize"
-                    :pager-count="11"
-                    layout="prev, pager, next"
-                    :total="allpages"
-                    @current-change="current_change"
-                  ></el-pagination>
-                </div>
               </div>
               <div v-else>
                 <h4 style="color:#999;text-align:center">还没评论，抢个沙发吧</h4>
@@ -107,7 +112,7 @@
                 </div>
                 <el-form v-if="isShow === true">
                   <el-form-item>
-                    <el-button  @click="addComment()" id="toke">评论</el-button>
+                    <el-button @click="addComment()" id="toke">评论</el-button>
                   </el-form-item>
                 </el-form>
               </div>
@@ -116,7 +121,8 @@
         </div>
       </div>
     </div>
-    <el-backtop :bottom="100"></el-backtop>
+    <!-- 返回顶部 -->
+    <el-backtop :bottom="200"></el-backtop>
   </div>
 </template>
 <script>
@@ -166,67 +172,54 @@ export default {
       .catch(err => {
         console.log("错误信息" + err);
       });
-    if (localStorage.getItem("mytoken")) {
-      var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
-      var userStatus = jwt_decode(localStorage.getItem("mytoken")).userStatus;
-      this.userId = userId;
-
-      if (userStatus == -1) {
-        this.isShow = false;
-      }
-
-      // console.log(this.info); //内容
-      //加载攻略数据
-
-      //筛选评论
-      this.$axios
-        .post("http://localhost:3000/operation/seldiscuss", {
-          strategyId: this.info.id,
-          strategyType: this.info.type
-        })
-        .then(res => {
-          // console.log(2, res);
-          this.discuss = res.data.data;
-          for (let i = 0; i < this.discuss.length; i++) {
-            this.discuss[i].commentTime = this.discuss[0].commentTime.slice(
-              0,
-              this.discuss[i].commentTime.indexOf("T")
-            );
-          }
-          this.allpages = res.data.data.length;
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
-        });
-      /**判断当前用户是否点赞过 */
-      this.$axios
-        .post("http://localhost:3000/operation/isLike", {
-          strategyId: this.info.id,
-          strategyType: this.info.type,
-          userId: this.userId
-        })
-        .then(res => {
-          console.log(1, res);
-          if (res.data.data) {
-            $("#operation1").addClass("operated");
-          }
-        });
-      /**判断该用户是否收藏该攻略 */
-      this.$axios
-        .post("http://localhost:3000/operation/iscollect", {
-          strategyId: this.info.id,
-          strategyType: this.info.type,
-          userId: this.userId
-        })
-        .then(res => {
-          console.log(2, res);
-          if (res.data.data) {
-            $("#operation").addClass("operated");
-            $("#icon").removeClass("el-icon-star-off");
-            $("#icon").addClass("el-icon-star-on");
-          }
-        });
-    }
+    //筛选评论
+    this.$axios
+      .post("http://localhost:3000/operation/seldiscuss", {
+        strategyId: this.info.id,
+        strategyType: this.info.type
+      })
+      .then(res => {
+        // console.log(2, res);
+        this.discuss = res.data.data;
+        for (let i = 0; i < this.discuss.length; i++) {
+          this.discuss[i].commentTime = this.discuss[0].commentTime.slice(
+            0,
+            this.discuss[i].commentTime.indexOf("T")
+          );
+        }
+        this.allpages = res.data.data.length;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
+    /**判断当前用户是否点赞过 */
+    this.$axios
+      .post("http://localhost:3000/operation/isLike", {
+        strategyId: this.info.id,
+        strategyType: this.info.type,
+        userId: this.userId
+      })
+      .then(res => {
+        console.log(1, res);
+        if (res.data.data) {
+          $("#operation1").addClass("operated");
+        }
+      });
+    /**判断该用户是否收藏该攻略 */
+    this.$axios
+      .post("http://localhost:3000/operation/iscollect", {
+        strategyId: this.info.id,
+        strategyType: this.info.type,
+        userId: this.userId
+      })
+      .then(res => {
+        console.log(2, res);
+        if (res.data.data) {
+          $("#operation").addClass("operated");
+          $("#icon").removeClass("el-icon-star-off");
+          $("#icon").addClass("el-icon-star-on");
+        }
+      });
   },
 
   methods: {
