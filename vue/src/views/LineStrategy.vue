@@ -68,14 +68,15 @@
                   </div>
                   <div class="info">
                     <a @click="goFocus(dis.userId)">{{dis.userName}}:</a>
-                    <span class="com-cont ml-1">
-                      {{dis.commentContent}}
-                    </span>
+                    <span class="com-cont ml-1">{{dis.commentContent}}</span>
                     <br />
                     <div class="info-span">
                       <h4>{{dis.commentTime}}</h4>
                       <span v-if="dis.userId==userId" :key="dis.commentId">
-                        <h4 @click="delComment(dis.commentId)" style="color:#555;font-size:14px">删除个人评论</h4>
+                        <h4
+                          @click="delComment(dis.commentId)"
+                          style="color:#555;font-size:14px"
+                        >删除个人评论</h4>
                       </span>
                     </div>
                   </div>
@@ -136,7 +137,6 @@ export default {
       // newReplyContent: "",
       //当前登录用户id
       userId: "",
-      count: 10,
       loading: false,
       isShow: true,
       currentPage: 1,
@@ -147,16 +147,6 @@ export default {
   created() {
     //获取传来的攻略类型和id
     var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
-    var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
-    var userStatus = jwt_decode(localStorage.getItem("mytoken")).userStatus;
-    this.userId = userId;
-
-    if (userStatus == -1) {
-      this.isShow = false;
-    }
-    this.info = info;
-    // console.log(this.info); //内容
-    //加载攻略数据
     this.$axios
       .post("http://localhost:3000/operation/strategydetail", {
         strategyType: this.info.type,
@@ -170,54 +160,67 @@ export default {
       .catch(err => {
         console.log("错误信息" + err);
       });
-    //筛选评论
-    this.$axios
-      .post("http://localhost:3000/operation/seldiscuss", {
-        strategyId: this.info.id,
-        strategyType: this.info.type
-      })
-      .then(res => {
-        // console.log(2, res);
-        this.discuss = res.data.data;
-        for(let i=0;i<this.discuss.length;i++){
-          this.discuss[i].commentTime = this.discuss[0].commentTime.slice(
-          0,
-          this.discuss[i].commentTime.indexOf("T")
-        );
-        }
-        this.allpages = res.data.data.length;
-      })
-      .catch(err => {
-        console.log("错误信息" + err);
-      });
-    /**判断当前用户是否点赞过 */
-    this.$axios
-      .post("http://localhost:3000/operation/isLike", {
-        strategyId: this.info.id,
-        strategyType: this.info.type,
-        userId: this.userId
-      })
-      .then(res => {
-        console.log(1, res);
-        if (res.data.data) {
-          $("#operation1").addClass("operated");
-        }
-      });
-    /**判断该用户是否收藏该攻略 */
-    this.$axios
-      .post("http://localhost:3000/operation/iscollect", {
-        strategyId: this.info.id,
-        strategyType: this.info.type,
-        userId: this.userId
-      })
-      .then(res => {
-        console.log(2, res);
-        if (res.data.data) {
-          $("#operation").addClass("operated");
-          $("#icon").removeClass("el-icon-star-off");
-          $("#icon").addClass("el-icon-star-on");
-        }
-      });
+    if (localStorage.getItem("mytoken")) {
+      var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
+      var userStatus = jwt_decode(localStorage.getItem("mytoken")).userStatus;
+      this.userId = userId;
+
+      if (userStatus == -1) {
+        this.isShow = false;
+      }
+      this.info = info;
+      // console.log(this.info); //内容
+      //加载攻略数据
+
+      //筛选评论
+      this.$axios
+        .post("http://localhost:3000/operation/seldiscuss", {
+          strategyId: this.info.id,
+          strategyType: this.info.type
+        })
+        .then(res => {
+          // console.log(2, res);
+          this.discuss = res.data.data;
+          for (let i = 0; i < this.discuss.length; i++) {
+            this.discuss[i].commentTime = this.discuss[0].commentTime.slice(
+              0,
+              this.discuss[i].commentTime.indexOf("T")
+            );
+          }
+          this.allpages = res.data.data.length;
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+      /**判断当前用户是否点赞过 */
+      this.$axios
+        .post("http://localhost:3000/operation/isLike", {
+          strategyId: this.info.id,
+          strategyType: this.info.type,
+          userId: this.userId
+        })
+        .then(res => {
+          console.log(1, res);
+          if (res.data.data) {
+            $("#operation1").addClass("operated");
+          }
+        });
+      /**判断该用户是否收藏该攻略 */
+      this.$axios
+        .post("http://localhost:3000/operation/iscollect", {
+          strategyId: this.info.id,
+          strategyType: this.info.type,
+          userId: this.userId
+        })
+        .then(res => {
+          console.log(2, res);
+          if (res.data.data) {
+            $("#operation").addClass("operated");
+            $("#icon").removeClass("el-icon-star-off");
+            $("#icon").addClass("el-icon-star-on");
+          }
+        });
+    }
   },
 
   methods: {
@@ -589,7 +592,7 @@ li {
 }
 .com-box .info .info-span {
   margin-top: 20px;
-  width:100%;
+  width: 100%;
 }
 .com-box .info .info-span span {
   float: right;

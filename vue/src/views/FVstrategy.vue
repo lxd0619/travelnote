@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="stra in strategy" :key="stra.strategyId">
-      <div class="jumbotron" :style="{'backgroundImage':'url(' + getCoverPic(stra.cover) + ')'}"></div>
+      <img :src="getCoverPic(stra.cover)" alt="" class="jumbotron">
       <div class="container mt-3">
         <h3 id="artTitle">{{stra.title}}</h3>
         <div id="title">
@@ -19,7 +19,6 @@
                   {{stra.userName}}
                 </span>
               </div>
-
               <div
                 @click="updateCollectionNum()"
                 class="operation"
@@ -49,28 +48,35 @@
               class="clearfix comment_item"
               data-id="1203904"
               data-replied="0"
-              v-for="(dis) in discuss"
+              v-for="(dis) in discuss.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
               :key="dis.commentId"
             >
-              <div class="img">
-                <img :src="getPic(dis.headPic)" />
+              <div class="img mr-2" @click="goFocus(dis.userId)">
+                <img :src="getHeadPic(dis.headPic)" />
               </div>
               <div class="info">
-                <span>{{dis.userName}}</span>
-                <span class="com-cont">{{dis.commentContent}}</span>
+                <a @click="goFocus(dis.userId)">{{dis.userName}}:</a>
+                <span class="com-cont ml-1">{{dis.commentContent}}</span>
                 <br />
-              <h4>{{dis.commentTime}}</h4> 
-                <div
-                  class="info-span"
-                  v-if="dis.userId==userId"
-                  @click="delComment(dis.commentId)"
-                  :key="dis.commentId"
-                >
-                  <span>删除个人评论</span>
+
+                <div class="info-span">
+                  <h4 >{{dis.commentTime}}</h4>
+                  <span v-if="dis.userId==userId" :key="dis.commentId">
+                    <h4 @click="delComment(dis.commentId)" style="color:#555;font-size:14px">删除个人评论</h4>
+                  </span>
                 </div>
               </div>
             </li>
           </ul>
+          <div class="block">
+            <el-pagination
+              :page-size="pagesize"
+              :pager-count="11"
+              layout="prev, pager, next"
+              :total="allpages"
+              @current-change="current_change"
+            ></el-pagination>
+          </div>
         </div>
         <!-- 最后的插入评论 -->
         <div class="clearfix com-form">
@@ -116,7 +122,10 @@ export default {
       //当前登录用户id
       userId: "",
       loading: false,
-      isShow: true
+      isShow: true,
+      currentPage: 1,
+      pagesize: 10,
+      allpages: 0
     };
   },
   created() {
@@ -155,6 +164,13 @@ export default {
         .then(res => {
           // console.log(2, res);
           this.discuss = res.data.data;
+          for (let i = 0; i < this.discuss.length; i++) {
+            this.discuss[i].commentTime = this.discuss[0].commentTime.slice(
+              0,
+              this.discuss[i].commentTime.indexOf("T")
+            );
+          }
+          this.allpages = res.data.data.length;
         })
         .catch(err => {
           console.log("错误信息" + err);
@@ -306,6 +322,7 @@ export default {
         pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
+      console.log(path)
       return path;
     },
     //添加评论
@@ -403,7 +420,19 @@ export default {
         sessionStorage.setItem("strategyuserId", userId);
         this.$router.push("/index/focus");
       }
-    }
+    },
+    current_change: function(currentPage) {
+      this.currentPage = currentPage;
+    },
+    getHeadPic(pic) {
+      //给图片名加上服务器端访问路径
+      let path = "";
+      if (pic == null || pic == "" || pic == "headPic") {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
+      return path;
+    },
   }
 };
 </script>
@@ -414,16 +443,15 @@ export default {
 }
 .jumbotron {
   height: 40rem;
-  background-repeat: no-repeat;
-  background-size: cover;
+  width: 100%;
 }
 .container {
   margin: 0 auto;
 }
-#article{
+#article {
   margin: 2rem;
 }
-#artTitle{
+#artTitle {
   color: #ff9d00;
 }
 #readonly h3 {
@@ -592,7 +620,7 @@ textarea {
 
 .com-box ul li {
   border-bottom: 1px solid #e5e5e5;
-  padding: 30px 0;
+  padding: 10px 0;
 }
 
 .com-box h2 {
@@ -604,10 +632,8 @@ textarea {
 }
 
 .com-box {
+  position: relative;
   border-top: 1px solid #e5e5e5;
-  /* margin-left: 300px; */
-  width: 800px;
-  /* margin-top: 50px; */
   margin: 0 auto;
 }
 .contain {
@@ -630,31 +656,20 @@ textarea {
   text-align: center;
   padding: 0;
   line-height: 30px;
-  float: right;
-  margin-right: 40px;
+  /* float: right;
+  margin-right: 40px; */
 }
-/* .info-span {
-  width: 114px;
-  height: 30px;
-  background: #ff9d00;
-  border: 0;
-  outline: 0;
-  cursor: pointer;
-  display: block;
-  margin: 20px 0;
-  border-radius: 5px;
-  font-size: 16px;
-  color: rgb(255, 255, 255);
-  text-align: center;
-  padding: 0;
-  line-height: 30px;
-  margin-left: 720px;
-} */
+.com-box .info {
+  width: 1000px;
+  float: left;
+}
 
 .com-box .info .info-span {
-  float: right;
+  margin-top: 20px;
+  width: 100%;
 }
 .com-box .info .info-span span {
+  float: right;
   margin-right: 20px;
   cursor: pointer;
 }
@@ -678,8 +693,8 @@ li {
   height: 48px;
 }
 
-.com-box .info{
-  width:1000px;
+.com-box .info {
+  width: 1000px;
   float: left;
 }
 
@@ -709,5 +724,11 @@ li {
 }
 .com-cont {
   margin-left: 48px;
+}
+.block {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 </style>

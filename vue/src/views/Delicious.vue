@@ -109,17 +109,15 @@
 
                 <dl class="art clearfix">
                   <dt>
-                    <img :src="getCoverPic(recommend.cover)" style="width: 220px height:200px;" />
+                    <img :src="getCoverPic(recommend.cover)" style="width: 220px height:200px;" id="artCover"/>
                   </dt>
-                 
-                 
                   <dd>
                     <div class="info overflow">{{recommend.fsInfo}}</div>
                     <div class="ext-r">
                       <span class="author">
                         <span class="nums">
                           作者：
-                          <img src="../assets/headPic/head2.jpg" width="35px" height="35px" />
+                          <img src="../assets/headPic/head2.jpg" width="35px" height="35px" class="rounded-circle"/>
                         </span>
                         <img src="../assets/food/收藏_line.png" width="20px" height="20px" />
                         收藏({{recommend.fsCollectionNum}})
@@ -223,6 +221,10 @@ export default {
 };
 </script>
 <style scoped>
+#artCover{
+  height: 13rem;
+  width: 18rem;
+}
 #centerNav > ul > li > a {
   color: #fff;
   font-size: 20px;
