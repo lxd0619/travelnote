@@ -15,7 +15,7 @@
               href="#"
               @click="go(article.type,article.strategyId)"
               class="card-title"
-            >{{article.title}}</a>
+            >{{article.title}}......{{article.ssStatus}}</a>
             <el-button
               type="danger"
               icon="el-icon-delete"
@@ -65,7 +65,7 @@ export default {
       ],
       currentPage: 1,
       allPage: 0,
-      pagesize: 4,
+      pagesize: 5,
       show: true,
     };
   },
@@ -113,7 +113,7 @@ export default {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
-      this.$router.push("/index/FVstrategy");
+      window.open("/index/FVstrategy");
     },
     current_change(currentPage) {
       this.currentPage = currentPage;

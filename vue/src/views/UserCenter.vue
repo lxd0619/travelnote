@@ -1,87 +1,100 @@
 <template>
-  <div>
-    <div v-if="show">
-      <div class="card-deck flex-column" id="article">
-        <div
-          class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded  "
-          v-for="article in articles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
-          :key="article.strategyId"
-        >
-          
-          <img class="card-img-top" :src="getPic(article.cover)" alt="article image" />
-          <div class='unread' v-if="article.ssStutas ==-4"><i class='el-icon-lock'></i></div>
-          <div class="card-body">
-            <a
-              @click="go(article.type,article.strategyId)"
-              class="card-title"
-              style="cursor:pointer;"
-            >{{article.title}} {{article.ssStatus}}</a>
-            <el-button
-              type="danger"
-              icon="el-icon-delete"
-              @click="delArticle(article.type,article.strategyId)"
-              circle
-              class="float-right"
-              id="delBtn"
-            ></el-button>
-            <p
-              class="card-text overflow-hidden"
-              style="display:-webkit-box;-webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden"
-              v-html="article.ssInfo"
-            ></p>
-            <p class="text-muted">
-              <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>
-              <i class="el-icon-star-off mr-2">{{article.ssCollectionNum}}</i>
-              <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true">{{article.ssLikeNum}}</i>
-            </p>
-          </div>
-           
-        </div>
-      </div>
-      <!-- 分页 -->
-      <div class="block">
-        <el-pagination
-          :page-size="pagesize"
-          :pager-count="11"
-          layout="prev, pager, next"
-          :total="allPage"
-          @current-change="current_change"
-        ></el-pagination>
+  <div class="person">
+    <div class="jumbotron jumbotron-fluid" id="topPic">
+      <div class="container">
+        <h1 class="text-light mt-5">旅游札记</h1>
+        <br />
+        <h3 class="text-light">更懂世界，更懂你！！！</h3>
       </div>
     </div>
-    <div v-else>
-      <h3>快去分享你的快乐吧~</h3>
+
+    <div class="container">
+      <div class="row mb-5">
+        <!-- 左侧边栏 -->
+        <div
+          class="col-lg-3 d-flex flex-column align-items-center d-md-none d-lg-block border-right"
+        >
+          <!-- 圆形头像 -->
+          <div
+            class="rounded-circle float-right mr-5"
+            id="headPic"
+            :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"
+          ></div>
+          <div class="mt-3 float-right mr-5 text-center" style="width:10rem;">
+            <h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4>
+          </div>
+          <div id="relations" class="mt-3 float-right">
+            <ul class="d-flex justify-content-between text-center mr-5" @click="fanslist()">
+              <li class="border-right border-bottom border-top">
+                粉丝：
+                <span>{{fans.length}}</span>
+              </li>
+              <li class="border-bottom border-top">
+                关注：
+                <span>{{attentions.length}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- 中间部分 -->
+        <div class="col-md-12 col-lg-9" id="content">
+          <UserCenterMiddle v-if="show"></UserCenterMiddle>
+          <List v-else></List>
+        </div>
+        <!-- 右侧导航 -->
+        <el-backtop :bottom="100"></el-backtop>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import UserCenterMiddle from "../components/UserCenter_middle";
+import List from "../components/userCenter/List";
+
 export default {
-  name: "UserArticle",
+  name: "UserCenter",
+  components: {
+    UserCenterMiddle,
+    List
+  },
   data() {
     return {
-      articles: [
+      userInfo: [
         {
+          headPic: ""
         }
       ],
-      currentPage: 1,
-      allPage: 0,
-      pagesize: 4,
-      show: true,
+      fans: [],
+      attentions: [],
+      show: true
     };
   },
   created() {
-    // 查询用户攻略
+    // 获取用户信息
     this.$axios
-      .post("http://localhost:3000/userCenter/userArticle")
+      .get("http://localhost:3000/userCenter/getUserInfo")
       .then(res => {
-        if (res.data.data) {
-          this.show = true;
-          this.articles = res.data.data;
-          this.allPage = res.data.data.length;
-         
-          console.log(this.articles)
-        } else {
-          this.show = false;
+        console.log(res.data.data);
+        this.userInfo = res.data.data;
+        this.userInfo[0].registerTime = this.userInfo[0].registerTime.slice(
+          0,
+          this.userInfo[0].registerTime.indexOf("T")
+        );
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
+      });
+    // 获取用户粉丝
+    this.$axios
+      .post("http://localhost:3000/userCenter/fans")
+      .then(res => {
+        console.log(res.data.data);
+        this.fans = res.data.data;
+        if (res.data.data == 0) {
+          this.fans = [];
         }
       })
       .catch(err => {
@@ -90,16 +103,39 @@ export default {
       .finally(function() {
         // always executed
       });
+    // 获取用户关注
+    this.$axios
+      .post("http://localhost:3000/userCenter/attentions")
+      .then(res => {
+        console.log("关注查询结果" + res.data.data);
+        this.attentions = res.data.data;
+        if (res.data.data == 0) {
+          this.attentions = [];
+        }
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      })
+      .finally(function() {
+        // always executed
+      });
+    $(function() {
+      $('[data-toggle="popover"]').popover({
+        container: "body"
+      });
+      $('input[type="file"]').change(function() {
+        var fread = new FileReader();
+        fread.onload = function(e) {
+          $(".rounded-circle").css(
+            "background-image",
+            "url(" + e.target.result + ")"
+          );
+        };
+        fread.readAsDataURL(this.files[0]);
+      });
+    });
   },
   methods: {
-    getPic(pic) {
-      //给图片名加上服务器端访问路径
-      if (pic == "cover" || pic == null) {
-        pic = "primaryCover.jpg";
-      }
-      let path = "http://localhost:3000/coverPic/" + pic;
-      return path;
-    },
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
@@ -109,116 +145,85 @@ export default {
       path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
-    go(type, id) {
-      var strategy = { type, id };
-      var info = JSON.stringify(strategy);
-      sessionStorage.setItem("info", info);
-      this.$router.push("/index/FVstrategy");
-    },
-    current_change(currentPage) {
-      this.currentPage = currentPage;
-    },
-    delArticle(type, strategyId) {
-      this.$axios
-        .post("http://localhost:3000/userCenter/delArticle", {
-          type: type,
-          strategyId: strategyId
-        })
-        .then(res => {
-          this.$message({
-            showClose: true,
-            message: "删除攻略成功！",
-            type: "success"
-          });
-          for (var i = 0; i < this.articles.length; i++) {
-            if (this.articles[i].strategyId == strategyId) {
-              this.articles.splice(i, 1);
-              this.allPage = this.articles.length;
-            }
-          }
-          if (this.articles.length == 0) {
-            this.show = false;
-          }
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
-          this.$message({
-            showClose: true,
-            message: "出错啦！删除失败！",
-            type: "error"
-          });
-        })
-        .finally(function() {
-          // always executed
-        });
+    fanslist() {
+      this.show = false;
+      console.log(this.userInfo[0].userId);
+      sessionStorage.setItem("strategyuserId", this.userInfo[0].userId);
+      var fanslist = JSON.stringify(this.fans);
+      var attentions = JSON.stringify(this.attentions);
+      sessionStorage.setItem("fanslist", fanslist);
+      sessionStorage.setItem("attentions", attentions);
     }
   }
 };
 </script>
 <style scoped>
-.unread{
-  width:825px;
-  height: 210px;
-  background: rgba(19, 19, 19, 0.5);
-  margin: 8px 0px;
-  margin-top: 0;
-  border-radius: 5px;
-  position: absolute;
-  top:0;
-  left:0;
-  font-size: 100px;
+.jumbotron {
+  background: url("../assets/bgPic/indexPic1.jpg") no-repeat center center;
+  background-size: cover;
 }
-.unread i{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  color:rgb(246, 245, 236);
+.rounded-circle {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
-.unread:hover{
-  background: rgba(0, 0, 0, 0.5);
-}
-h3 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #ccc;
-}
-.block {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-#article img:first-child {
-  width: 13rem;
-  height: 11rem;
-}
-.card-body {
-  padding-bottom: 0;
+
+#headPic {
+  height: 10rem;
   width: 10rem;
-  height: 5rem;
 }
-.text-muted {
-  margin: 0;
+
+#headPic img {
+  height: 10rem;
+  width: 10rem;
 }
-/* .text-muted img {
-  width: 20px;
-  height: 20px;
-} */
-.card {
-  color: #666;
+
+#relations ul {
+  list-style: none;
+  width: 10rem;
+  padding: 0;
+  cursor: pointer;
 }
-.card a {
-  font-size: 20px;
-  color: #333;
+#relations ul li {
+  float: left;
+  height: 3em;
+  line-height: 3em;
+  width: 80px;
 }
-.card:hover a {
+#relations ul li span {
   color: #ff9d00;
 }
-#delBtn {
+/* #headPic:hover::before {
+  content: "";
+  display: block;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 75px;
+  background: rgba(0, 0, 0, 0.5) url("../assets/camera.png") 50% no-repeat;
+  cursor: pointer;
+} */
+
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
   position: relative;
-  top: -1rem;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>
