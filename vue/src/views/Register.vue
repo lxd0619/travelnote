@@ -283,6 +283,7 @@ export default {
             console.log(res);
             if (res.data.data) {
               this.$message({
+                showClose: true,
                 message: res.data.msg,
                 type: "success"
               });
@@ -339,6 +340,7 @@ export default {
             console.log("返回的数据：" + res);
             if (res.data.data) {
               this.$message({
+                showClose: true,
                 message: res.data.msg,
                 type: "success"
               });

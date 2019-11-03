@@ -24,14 +24,24 @@
                 class="operation"
                 id="operation"
                 style="cursor:pointer"
-                v-if='stra.ssStatus < 0 ? false:true'
+                v-if="stra.ssStatus < 0 ? false:true"
               >
                 <i class="el-icon-star-off" aria-hidden="true" id="icon">收藏 {{stra.ssCollectionNum}}</i>
               </div>
-              <div class="img-span" @click="updateLikeNum()" id="operation1" style="cursor:pointer" v-if='stra.ssStatus < 0 ? false:true'>
+              <div
+                class="img-span"
+                @click="updateLikeNum()"
+                id="operation1"
+                style="cursor:pointer"
+                v-if="stra.ssStatus < 0 ? false:true"
+              >
                 <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
               </div>
-              <div class="img-span" @click="report(stra.userId)" v-if='stra.ssStatus < 0 ? false:true' >
+              <div
+                class="img-span"
+                @click="report(stra.userId)"
+                v-if="stra.ssStatus < 0 ? false:true"
+              >
                 <i class="el-icon-warning" aria-hidden="true">举报</i>
               </div>
             </div>
@@ -218,85 +228,101 @@ export default {
   methods: {
     //更新收藏数
     updateCollectionNum() {
-      var judge;
-      this.$axios
-        .post("http://localhost:3000/operation/collect", {
-          strategyId: this.info.id,
-          strategyType: this.info.type,
-          userId: this.userId
-        })
-        .then(res => {
-          console.log(res);
-          judge = parseInt(res.data.data);
-          if (judge == 1) {
-            this.strategy[0].ssCollectionNum =
-              parseInt(this.strategy[0].ssCollectionNum) + 1;
-            this.$message({
-              showClose: true,
-              message: "收藏成功！",
-              type: "success"
-            });
-            $("#operation").addClass("operated");
-            $("#icon").removeClass("el-icon-star-off");
-            $("#icon").addClass("el-icon-star-on");
-          } else if (judge == -1) {
-            this.strategy[0].ssCollectionNum =
-              parseInt(this.strategy[0].ssCollectionNum) - 1;
-            this.$message({
-              showClose: true,
-              message: "取消收藏成功！",
-              type: "warning"
-            });
-            if (this.strategy[0].ssCollectionNum < 0) {
-              this.strategy[0].ssCollectionNum = 0;
+      if (localStorage.getItem("mytoken")) {
+        var judge;
+        this.$axios
+          .post("http://localhost:3000/operation/collect", {
+            strategyId: this.info.id,
+            strategyType: this.info.type,
+            userId: this.userId
+          })
+          .then(res => {
+            judge = parseInt(res.data.data);
+            if (judge == 1) {
+              this.strategy[0].ssCollectionNum =
+                parseInt(this.strategy[0].ssCollectionNum) + 1;
+              this.$message({
+                showClose: true,
+                message: "收藏成功！",
+                type: "success"
+              });
+              $("#operation").addClass("operated");
+              $("#icon").removeClass("el-icon-star-off");
+              $("#icon").addClass("el-icon-star-on");
+            } else if (judge == -1) {
+              this.strategy[0].ssCollectionNum =
+                parseInt(this.strategy[0].ssCollectionNum) - 1;
+              this.$message({
+                showClose: true,
+                message: "取消收藏成功！",
+                type: "warning"
+              });
+              if (this.strategy[0].ssCollectionNum < 0) {
+                this.strategy[0].ssCollectionNum = 0;
+              }
+              $("#operation").removeClass("operated");
+              $("#icon").removeClass("el-icon-star-on");
+              $("#icon").addClass("el-icon-star-off");
             }
-            $("#operation").removeClass("operated");
-            $("#icon").removeClass("el-icon-star-on");
-            $("#icon").addClass("el-icon-star-off");
-          }
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else {
+        this.$message({
+          showClose: true,
+          message: "亲，请先登录呦！",
+          type: "warning"
         });
+      }
     },
     //更新点赞数
     updateLikeNum() {
-      var judge;
-      this.$axios
-        .post("http://localhost:3000/operation/like", {
-          strategyId: this.info.id,
-          strategyType: this.info.type,
-          userId: this.userId
-        })
-        .then(res => {
-          console.log(res);
-          judge = parseInt(res.data.data);
-          if (judge == 1) {
-            this.strategy[0].ssLikeNum =
-              parseInt(this.strategy[0].ssLikeNum) + 1;
-            this.$message({
-              showClose: true,
-              message: "点赞成功！",
-              type: "success"
-            });
-            $("#operation1").addClass("operated");
-          } else if (judge == -1) {
-            this.strategy[0].ssLikeNum =
-              parseInt(this.strategy[0].ssLikeNum) - 1;
-            this.$message({
-              showClose: true,
-              message: "取消点赞成功！",
-              type: "warning"
-            });
-            $("#operation1").removeClass("operated");
-          }
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
+      if (localStorage.getItem("mytoken")) {
+        var judge;
+        this.$axios
+          .post("http://localhost:3000/operation/like", {
+            strategyId: this.info.id,
+            strategyType: this.info.type,
+            userId: this.userId
+          })
+          .then(res => {
+            console.log(res);
+            judge = parseInt(res.data.data);
+            if (judge == 1) {
+              this.strategy[0].ssLikeNum =
+                parseInt(this.strategy[0].ssLikeNum) + 1;
+              this.$message({
+                showClose: true,
+                message: "点赞成功！",
+                type: "success"
+              });
+              $("#operation1").addClass("operated");
+            } else if (judge == -1) {
+              this.strategy[0].ssLikeNum =
+                parseInt(this.strategy[0].ssLikeNum) - 1;
+              this.$message({
+                showClose: true,
+                message: "取消点赞成功！",
+                type: "warning"
+              });
+              $("#operation1").removeClass("operated");
+            }
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else {
+        this.$message({
+          showClose: true,
+          message: "亲，请先登录呦！",
+          type: "warning"
         });
+      }
     },
     //举报
     report(id) {
+      if (localStorage.getItem("mytoken")) {
       var judge;
       this.$axios
         .post("http://localhost:3000/operation/report", {
@@ -315,6 +341,14 @@ export default {
         .catch(err => {
           console.log("错误信息" + err);
         });
+         }
+       else{
+         this.$message({
+              showClose: true,
+              message: "亲，请先登录呦！",
+              type: "warning"
+            });
+       }
     },
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
@@ -354,6 +388,7 @@ export default {
             })
             .then(res => {
               this.discuss = res.data.data;
+              this.allpages = res.data.data.length;
             })
             .catch(err => {
               console.log("错误信息" + err);
@@ -383,6 +418,8 @@ export default {
             .then(res => {
               // console.log(2, res);
               this.discuss = res.data.data;
+              this.allpages = res.data.data.length;
+              this.currentPage = this.currentPage - 1;
             })
             .catch(err => {
               console.log("错误信息" + err);

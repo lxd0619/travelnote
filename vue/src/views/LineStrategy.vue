@@ -96,6 +96,15 @@
                     </div>
                   </li>
                 </ul>
+                <div class="block">
+                  <el-pagination
+                    :page-size="pagesize"
+                    :pager-count="11"
+                    layout="prev, pager, next"
+                    :total="allpages"
+                    @current-change="current_change"
+                  ></el-pagination>
+                </div>
               </div>
               <div v-else>
                 <h4 style="color:#999;text-align:center">还没评论，抢个沙发吧</h4>
@@ -152,162 +161,212 @@ export default {
       isShow: true,
       currentPage: 1,
       pagesize: 10,
-      allpages: 0
+      allpages: 0,
+      userStatus: ""
     };
   },
   created() {
     //获取传来的攻略类型和id
     var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
     this.info = info;
-    this.$axios
-      .post("http://localhost:3000/operation/strategydetail", {
-        strategyType: this.info.type,
-        strategyId: this.info.id
-      })
-      .then(res => {
-        console.log(3, res.data.data);
-        // console.log(1, res.data.data);
-        this.strategy = res.data.data;
-      })
-      .catch(err => {
-        console.log("错误信息" + err);
-      });
-    //筛选评论
-    this.$axios
-      .post("http://localhost:3000/operation/seldiscuss", {
-        strategyId: this.info.id,
-        strategyType: this.info.type
-      })
-      .then(res => {
-        // console.log(2, res);
-        this.discuss = res.data.data;
-        for (let i = 0; i < this.discuss.length; i++) {
-          this.discuss[i].commentTime = this.discuss[0].commentTime.slice(
-            0,
-            this.discuss[i].commentTime.indexOf("T")
-          );
-        }
-        this.allpages = res.data.data.length;
-      })
-      .catch(err => {
-        console.log("错误信息" + err);
-      });
-    /**判断当前用户是否点赞过 */
-    this.$axios
-      .post("http://localhost:3000/operation/isLike", {
-        strategyId: this.info.id,
-        strategyType: this.info.type,
-        userId: this.userId
-      })
-      .then(res => {
-        console.log(1, res);
-        if (res.data.data) {
-          $("#operation1").addClass("operated");
-        }
-      });
-    /**判断该用户是否收藏该攻略 */
-    this.$axios
-      .post("http://localhost:3000/operation/iscollect", {
-        strategyId: this.info.id,
-        strategyType: this.info.type,
-        userId: this.userId
-      })
-      .then(res => {
-        console.log(2, res);
-        if (res.data.data) {
-          $("#operation").addClass("operated");
-          $("#icon").removeClass("el-icon-star-off");
-          $("#icon").addClass("el-icon-star-on");
-        }
-      });
+    if (localStorage.getItem("mytoken")) {
+      var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
+      var userStatus = jwt_decode(localStorage.getItem("mytoken")).userStatus;
+      this.userId = userId;
+      if (userStatus == -1) {
+        this.isShow = false;
+      }
+      this.$axios
+        .post("http://localhost:3000/operation/strategydetail", {
+          strategyType: this.info.type,
+          strategyId: this.info.id
+        })
+        .then(res => {
+          console.log(3, res.data.data);
+          // console.log(1, res.data.data);
+          this.strategy = res.data.data;
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+      //筛选评论
+      this.$axios
+        .post("http://localhost:3000/operation/seldiscuss", {
+          strategyId: this.info.id,
+          strategyType: this.info.type
+        })
+        .then(res => {
+          console.log(3, res);
+          this.discuss = res.data.data;
+          for (let i = 0; i < this.discuss.length; i++) {
+            this.discuss[i].commentTime = this.discuss[0].commentTime.slice(
+              0,
+              this.discuss[i].commentTime.indexOf("T")
+            );
+          }
+          this.allpages = res.data.data.length;
+          console.log(this.allpages);
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+      /**判断当前用户是否点赞过 */
+      this.$axios
+        .post("http://localhost:3000/operation/isLike", {
+          strategyId: this.info.id,
+          strategyType: this.info.type,
+          userId: this.userId
+        })
+        .then(res => {
+          console.log(1, res);
+          if (res.data.data) {
+            $("#operation1").addClass("operated");
+          }
+        });
+      /**判断该用户是否收藏该攻略 */
+      this.$axios
+        .post("http://localhost:3000/operation/iscollect", {
+          strategyId: this.info.id,
+          strategyType: this.info.type,
+          userId: this.userId
+        })
+        .then(res => {
+          console.log(2, res);
+          if (res.data.data) {
+            $("#operation").addClass("operated");
+            $("#icon").removeClass("el-icon-star-off");
+            $("#icon").addClass("el-icon-star-on");
+          }
+        });
+    }
   },
 
   methods: {
     //更新收藏数
     updateCollectionNum() {
-      var judge;
-      this.$axios
-        .post("http://localhost:3000/operation/collect", {
-          strategyId: this.info.id,
-          strategyType: this.info.type,
-          userId: this.userId
-        })
-        .then(res => {
-          console.log(res);
-          judge = parseInt(res.data.data);
-          if (judge == 1) {
-            this.strategy[0].prCollectionNum =
-              parseInt(this.strategy[0].prCollectionNum) + 1;
-            this.$message("收藏成功！");
-            $("#operation").addClass("operated");
-            $("#icon").removeClass("el-icon-star-off");
-            $("#icon").addClass("el-icon-star-on");
-          } else if (judge == -1) {
-            this.strategy[0].prCollectionNum =
-              parseInt(this.strategy[0].prCollectionNum) - 1;
-            if (this.strategy[0].prCollectionNum < 0) {
-              this.strategy[0].prCollectionNum = 0;
+      if (localStorage.getItem("mytoken")) {
+        var judge;
+        this.$axios
+          .post("http://localhost:3000/operation/collect", {
+            strategyId: this.info.id,
+            strategyType: this.info.type,
+            userId: this.userId
+          })
+          .then(res => {
+            console.log(res);
+            judge = parseInt(res.data.data);
+            if (judge == 1) {
+              this.strategy[0].prCollectionNum =
+                parseInt(this.strategy[0].prCollectionNum) + 1;
+              this.$message({
+                showClose: true,
+                message: "收藏成功！",
+                type: "success"
+              });
+              $("#operation").addClass("operated");
+              $("#icon").removeClass("el-icon-star-off");
+              $("#icon").addClass("el-icon-star-on");
+            } else if (judge == -1) {
+              this.strategy[0].prCollectionNum =
+                parseInt(this.strategy[0].prCollectionNum) - 1;
+              if (this.strategy[0].prCollectionNum < 0) {
+                this.strategy[0].prCollectionNum = 0;
+              }
+              this.$message({
+                showClose: true,
+                message: "取消收藏成功！",
+                type: "warning"
+              });
+              $("#operation").removeClass("operated");
+              $("#icon").removeClass("el-icon-star-on");
+              $("#icon").addClass("el-icon-star-off");
             }
-            this.$message("取消收藏成功！");
-            $("#operation").removeClass("operated");
-            $("#icon").removeClass("el-icon-star-on");
-            $("#icon").addClass("el-icon-star-off");
-          }
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else {
+        this.$message({
+          showClose: true,
+          message: "亲，请先登录呦！",
+          type: "warning"
         });
+      }
     },
     //更新点赞数
     updateLikeNum() {
-      var judge;
-      this.$axios
-        .post("http://localhost:3000/operation/like", {
-          strategyId: this.info.id,
-          strategyType: this.info.type,
-          userId: this.userId
-        })
-        .then(res => {
-          console.log(res);
-          judge = parseInt(res.data.data);
-          if (judge == 1) {
-            this.strategy[0].prLikeNum =
-              parseInt(this.strategy[0].prLikeNum) + 1;
-            console.log(this.strategy.prLikeNum);
-            this.$message("点赞成功！");
-            $("#operation1").addClass("operated");
-          } else if (judge == -1) {
-            this.strategy[0].prLikeNum =
-              parseInt(this.strategy[0].prLikeNum) - 1;
-            console.log(this.strategy.prLikeNum);
-            this.$message("取消点赞成功！");
-            $("#operation1").removeClass("operated");
-          }
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
+      if (localStorage.getItem("mytoken")) {
+        var judge;
+        this.$axios
+          .post("http://localhost:3000/operation/like", {
+            strategyId: this.info.id,
+            strategyType: this.info.type,
+            userId: this.userId
+          })
+          .then(res => {
+            console.log(res);
+            judge = parseInt(res.data.data);
+            if (judge == 1) {
+              this.strategy[0].prLikeNum =
+                parseInt(this.strategy[0].prLikeNum) + 1;
+              console.log(this.strategy.prLikeNum);
+              this.$message({
+                showClose: true,
+                message: "点赞成功！",
+                type: "success"
+              });
+              $("#operation1").addClass("operated");
+            } else if (judge == -1) {
+              this.strategy[0].prLikeNum =
+                parseInt(this.strategy[0].prLikeNum) - 1;
+              console.log(this.strategy.prLikeNum);
+              this.$message({
+                showClose: true,
+                message: "取消点赞成功！",
+                type: "warning"
+              });
+              $("#operation1").removeClass("operated");
+            }
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else {
+        this.$message({
+          showClose: true,
+          message: "亲，请先登录呦！",
+          type: "warning"
         });
+      }
     },
     //举报
     report(id) {
-      var judge;
-      this.$axios
-        .post("http://localhost:3000/operation/report", {
-          strategyId: this.info.id,
-          strategyType: this.info.type,
-          writerId: id
-        })
-        .then(res => {
-          console.log(res);
-          if (res.data.data) {
-            this.$message(res.data.msg);
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
+      if (localStorage.getItem("mytoken")) {
+        var judge;
+        this.$axios
+          .post("http://localhost:3000/operation/report", {
+            strategyId: this.info.id,
+            strategyType: this.info.type,
+            writerId: id
+          })
+          .then(res => {
+            console.log(res);
+            if (res.data.data) {
+              this.$message.warning(res.data.msg);
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else {
+        this.$message({
+          showClose: true,
+          message: "亲，请先登录呦！",
+          type: "warning"
         });
+      }
     },
 
     //获取头像
@@ -338,8 +397,7 @@ export default {
           // commentContent,strategyId,userId,commentTime,strategyType
         })
         .then(res => {
-          this.discuss = res.data.data;
-
+          console.log(res);
           //添加评论后实时刷新评论
           this.$axios
             .post("http://localhost:3000/operation/seldiscuss", {
@@ -348,6 +406,7 @@ export default {
             })
             .then(res => {
               this.discuss = res.data.data;
+              this.allpages = res.data.data.length;
               this.newcommentContent = "";
             })
             .catch(err => {
@@ -376,7 +435,6 @@ export default {
               // commentContent,strategyId,userId,commentTime,strategyType
             })
             .then(res => {
-              this.discuss = res.data.data;
               //删除评论后实时刷新评论
               this.$axios
                 .post("http://localhost:3000/operation/seldiscuss", {
@@ -385,6 +443,8 @@ export default {
                 })
                 .then(res => {
                   this.discuss = res.data.data;
+                  this.allpages = res.data.data.length;
+                  this.currentPage = this.currentPage - 1;
                 })
                 .catch(err => {
                   console.log("错误信息" + err);

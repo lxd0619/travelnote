@@ -18,7 +18,8 @@
           <div
             class="rounded-circle float-right mr-5"
             id="headPic"
-           :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"></div>
+            :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"
+          ></div>
           <div class="mt-3 float-right mr-5 text-center" style="width:10rem;">
             <h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4>
           </div>
@@ -33,7 +34,7 @@
                 <span>{{attentions.length}}</span>
               </li>
             </ul>
-            <div v-if='show2'>
+            <div v-if="show2">
               <el-button type="warning" v-if="show" @click="addFriends">添加关注</el-button>
               <el-button type="warning" v-else @click="addFriends">取消关注</el-button>
             </div>
@@ -75,8 +76,8 @@ export default {
       pagesize: 3,
       visitor: "",
       show3: true,
-      show2:true,
-      show:true,
+      show2: true,
+      show: true
     };
   },
   components: {
@@ -87,8 +88,8 @@ export default {
     this.visitor = jwt_decode(localStorage.getItem("mytoken")).userId;
     var strategyuserId = JSON.parse(sessionStorage.getItem("strategyuserId"));
     this.strategyuserId = strategyuserId;
-    if(this.visitor==this.strategyuserId){
-      this.show2=false
+    if (this.visitor == this.strategyuserId) {
+      this.show2 = false;
     }
     // 获取用户信息
     this.$axios
@@ -155,7 +156,7 @@ export default {
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-       if (pic == null || pic == "" || pic == "headPic") {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
@@ -179,30 +180,37 @@ export default {
       this.$router.push("/index/FVstrategy");
     },
     addFriends() {
-      let _this = this
-      console.log('type',_this.fans)
-      this.$axios
-        .post("http://localhost:3000/userCenter/addFriends", {
-          relationUserId: this.strategyuserId
-        })
-        .then(res => {
-          if (res.data.data == 1) {
-            this.show = false;
-            var info={ relationUserId: this.visitor }
-            console.log(typeof(info))
-            console.log(info,this.fans)
-            console.log(typeof(this.fans))
-            this.fans.push(info) ;
-        
-          } else if (res.data.data == -1) {
-            this.show = true;
-            for (var i = 0; i < this.fans.length; i++) {
-              if (this.fans[i].relationUserId == this.visitor) {
-                this.fans.splice(this.fans[i],1);
+      if (localStorage.getItem("mytoken")) {
+        let _this = this;
+        console.log("type", _this.fans);
+        this.$axios
+          .post("http://localhost:3000/userCenter/addFriends", {
+            relationUserId: this.strategyuserId
+          })
+          .then(res => {
+            if (res.data.data == 1) {
+              this.show = false;
+              var info = { relationUserId: this.visitor };
+              console.log(typeof info);
+              console.log(info, this.fans);
+              console.log(typeof this.fans);
+              this.fans.push(info);
+            } else if (res.data.data == -1) {
+              this.show = true;
+              for (var i = 0; i < this.fans.length; i++) {
+                if (this.fans[i].relationUserId == this.visitor) {
+                  this.fans.splice(this.fans[i], 1);
+                }
               }
             }
-          }
+          });
+      } else {
+        this.$message({
+          showClose: true,
+          message: "亲，请先登录呦！",
+          type: "warning"
         });
+      }
     },
     fanslist() {
       this.show3 = false;
