@@ -323,32 +323,31 @@ export default {
     //举报
     report(id) {
       if (localStorage.getItem("mytoken")) {
-      var judge;
-      this.$axios
-        .post("http://localhost:3000/operation/report", {
-          strategyId: this.info.id,
-          strategyType: this.info.type,
-          writerId: id
-        })
-        .then(res => {
-          console.log(res);
-          if (res.data.data) {
-            this.$message.warning(res.data.msg);
-          } else {
-            this.$message.error(res.data.msg);
-          }
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
+        var judge;
+        this.$axios
+          .post("http://localhost:3000/operation/report", {
+            strategyId: this.info.id,
+            strategyType: this.info.type,
+            writerId: id
+          })
+          .then(res => {
+            console.log(res);
+            if (res.data.data) {
+              this.$message.warning(res.data.msg);
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else {
+        this.$message({
+          showClose: true,
+          message: "亲，请先登录呦！",
+          type: "warning"
         });
-         }
-       else{
-         this.$message({
-              showClose: true,
-              message: "亲，请先登录呦！",
-              type: "warning"
-            });
-       }
+      }
     },
     getHeadPic(pic) {
       //给图片名加上服务器端访问路径
@@ -401,28 +400,37 @@ export default {
     // 删除评论
     delComment(commentId) {
       console.log(commentId);
-      this.$axios
-        .post("http://localhost:3000/operation/deldiscuss", {
-          commentId: commentId,
-          strategyId: this.info.id,
-          // userId:, 在后台token获取
-          strategyType: this.info.type
-          // commentContent,strategyId,userId,commentTime,strategyType
-        })
-        .then(res => {
+      this.$confirm("此操作将删除该评论, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
           this.$axios
-            .post("http://localhost:3000/operation/seldiscuss", {
+            .post("http://localhost:3000/operation/deldiscuss", {
+              commentId: commentId,
               strategyId: this.info.id,
+              // userId:, 在后台token获取
               strategyType: this.info.type
+              // commentContent,strategyId,userId,commentTime,strategyType
             })
             .then(res => {
-              // console.log(2, res);
-              this.discuss = res.data.data;
-              this.allpages = res.data.data.length;
-              this.currentPage = this.currentPage - 1;
-            })
-            .catch(err => {
-              console.log("错误信息" + err);
+              this.$axios
+                .post("http://localhost:3000/operation/seldiscuss", {
+                  strategyId: this.info.id,
+                  strategyType: this.info.type
+                })
+                .then(res => {
+                  // console.log(2, res);
+                  this.discuss = res.data.data;
+                  this.allpages = res.data.data.length;
+                  if (this.allpages % this.pagesize == 0) {
+                    this.currentPage = this.currentPage - 1;
+                  }
+                })
+                .catch(err => {
+                  console.log("错误信息" + err);
+                });
             });
         })
         .catch(err => {

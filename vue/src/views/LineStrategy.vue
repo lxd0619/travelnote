@@ -443,8 +443,11 @@ export default {
                 })
                 .then(res => {
                   this.discuss = res.data.data;
-                  this.allpages = res.data.data.length;
-                  this.currentPage = this.currentPage - 1;
+                  this.allpages =res.data.data.length;
+                  if(this.allpages%this.pagesize==0){
+                      this.currentPage = this.currentPage - 1;
+                  }
+                  
                 })
                 .catch(err => {
                   console.log("错误信息" + err);
