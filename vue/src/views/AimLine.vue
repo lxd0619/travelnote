@@ -29,7 +29,7 @@
             初次访问{{cityName}}的蜂蜂会选择这条线路
           </p>
           <hr />
-          {{strategy.prinfo}}
+          <div v-html="strategy.prinfo"></div>
           <br />
           <a href class="map-last-a" @click="go(strategy.type,strategy.strategyId)">查看详情></a>
         </div>
@@ -50,7 +50,7 @@
                 <img :src="getCoverPic(strategy.cover)" />
                 <div class="txt">
                   <h3>{{strategy.title}}</h3>
-                  <span>{{strategy.ssInfo}}</span>
+                  <span v-html="strategy.ssInfo"></span>
                 </div>
               </a>
             </li>
