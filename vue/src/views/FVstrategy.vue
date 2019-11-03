@@ -353,7 +353,6 @@ export default {
               strategyType: this.info.type
             })
             .then(res => {
-              // console.log(2, res);
               this.discuss = res.data.data;
             })
             .catch(err => {
@@ -361,7 +360,6 @@ export default {
             });
         })
         .catch(err => {
-          alert("@@@@2222@");
           console.log("错误信息" + err);
         });
     },
