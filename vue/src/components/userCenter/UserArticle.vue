@@ -113,7 +113,7 @@ export default {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
-      this.$router.push("/index/FVstrategy");
+      window.open("/index/FVstrategy");
     },
     current_change(currentPage) {
       this.currentPage = currentPage;

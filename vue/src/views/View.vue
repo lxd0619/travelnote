@@ -245,7 +245,7 @@ export default {
 .item p {
   margin-left: 7px;
   margin-top: 10px;
-  font-family: 楷体;
+  /* font-family: 楷体; */
   width: 200px;
   overflow: hidden;
   height: 25px;

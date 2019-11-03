@@ -28,7 +28,7 @@ var operationController = {
         var likeInfo = {
             strategyId: req.body.strategyId,
             strategyType: req.body.strategyType,
-            userId: req.body.userId
+            userId: req.user.userId
         }
         console.log(likeInfo)
         operationDAO.TestLike(sql, likeInfo, function (err, results1) {
@@ -138,7 +138,7 @@ var operationController = {
         var collectInfo = {
             strategyId: req.body.strategyId,
             strategyType: req.body.strategyType,
-            userId: req.body.userId
+            userId: req.user.userId
         }
         console.log(collectInfo)
         operationDAO.TestCollect(sql, collectInfo, function (err, results1) {
@@ -222,7 +222,6 @@ var operationController = {
                             }
                         }
                     })
-
 
                 }
             }
