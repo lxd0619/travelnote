@@ -68,7 +68,6 @@ export default {
         .post("http://localhost:3000/login/login", this.loginUser)
         .then(res => {
           if (res.data.data) {
-            console.log(this.loginUser.password);
             if (this.checked) {
               localStorage.setItem("tel", this.loginUser.tel);
               localStorage.setItem("password", this.loginUser.password);
