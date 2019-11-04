@@ -7,7 +7,7 @@
             <div
               class="rounded-circle mr-5"
               id="headPic"
-              :style="{'backgroundImage':'url(' + getPic(userInfo[0].headPic) + ')','position':'relative','top':'3px'}"
+              :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')','position':'relative','top':'3px'}"
             ></div>
             <div
               class="mt-3 mr-5 text-center"
@@ -119,11 +119,13 @@ export default {
     this.News(0);
   },
   methods: {
-    getPic(pic) {
-      console.log(pic);
+    getHeadPic(pic) {
       //给图片名加上服务器端访问路径
-      let path = "http://localhost:3000/uploadHeadPic/" + pic;
-      console.log(path);
+      let path = "";
+      if (pic == null || pic == "" || pic == "headPic") {
+        pic = "primaryHead.jpeg";
+      }
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
     current_change(currentPage) {
@@ -211,6 +213,8 @@ ul li {
 #headPic {
   height: 6rem;
   width: 6rem;
+  margin: 1rem 0;
+  margin-left: 1rem;
 }
 #headPic img {
   height: 8rem;
