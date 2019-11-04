@@ -75,8 +75,8 @@
          <img :src="getCoverPic(article.cover)" width="260px" height="238px" />
           <div class="intro_box">   
           
-            <h3>{{article.title}}</h3>
-            <p v-html="article.ssInfo"></p>
+            <h4>{{article.title}}</h4>
+            <!-- <p v-html="article.ssInfo"></p> -->
             <span>
               <img src="../assets/food/收藏_line.png" width="17px" height="17px" />
               点赞({{article.ssLikeNum}})
@@ -100,7 +100,7 @@
                 <em>01</em>
                 {{hostarticle.title}}
               </h3>
-              <p style="overflow:hidden">{{hostarticle.ssInfo}}</p>
+              <p style="overflow:hidden" v-html="hostarticle.ssInfo"></p>
 
              <div class="tripb_pic">
               <em></em>
@@ -121,7 +121,7 @@
                     <em></em>
                     {{hotarticle.title}}
                   </h3>
-                  <p style="overflow:hideen">{{hotarticle.ssInfo}}</p>
+                  <p style="overflow:hideen" v-html="hotarticle.ssInfo"></p>
                 </div>
               </a>
             </li>
@@ -295,6 +295,10 @@ export default {
   height: 15px;
 }
 .tit p {
+ 
+  -webkit-line-clamp:3; 
+  -webkit-box-orient:vertical; 
+  overflow:hidden;
   font-size: 12px;
   height: 38px;
 }
@@ -306,13 +310,15 @@ export default {
   overflow: hidden;
 }
 .txt h3 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
   overflow: hidden;
   font-size: 20px;
-  font-family: 楷体;
+  /* font-family: 楷体; */
   margin-left: 10px;
 }
 .tripb .tit h3 em {
-  font-family: Arial;
+  /* font-family: Arial; */
   font-size: 30px;
   font-weight: 700;
   color: #0061a4;
@@ -335,7 +341,7 @@ ul {
 .tripb .tit h3 {
   padding: 10px 0px 0px 0px;
   width: 200px;
-  height: 40px;
+  height: 45px;
   font-size: 15px;
   color: #333;
   font-weight: 700;
@@ -377,8 +383,8 @@ h1 {
   color: #454545;
   line-height: 50px;
   text-align: center;
-  font-family: "Microsoft YaHei", HelveticaNeue, "Helvetica Neue", Arial,
-    Helvetica, sans-serif;
+  /* font-family: "Microsoft YaHei", HelveticaNeue, "Helvetica Neue", Arial,
+    Helvetica, sans-serif; */
 }
 
 .mb5 {
@@ -482,16 +488,16 @@ h1 {
   color: #666;
   height: 25px;
   overflow: hidden;
-  font-family: 宋体;
+  /* font-family: 宋体; */
   margin-top: 5px;
 }
-.stragyespecail h3 {
-  font-family: initial;
-  font-size: 1px;
+.stragyespecail h4 {
   color: rgb(58, 57, 57);
-  font-family: 楷体;
   width: 250px;
-  height: 20px;
+  font-size: 15px;
+  /* height: 20px; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
   overflow: hidden;
   text-align: center;
   margin-top: 5px;
@@ -641,7 +647,7 @@ h1 {
 }
 h2 {
   text-align: center;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; */
 }
 .tab_title ul {
   float: left;

@@ -370,6 +370,7 @@ export default {
     },
     //添加评论
     addComment() {
+       if (localStorage.getItem("mytoken")) {
       this.$axios
         .put("http://localhost:3000/operation/adddiscuss", {
           commentContent: this.newcommentContent,
@@ -396,6 +397,13 @@ export default {
         .catch(err => {
           console.log("错误信息" + err);
         });
+       }else {
+        this.$message({
+          showClose: true,
+          message: "亲，请先登录呦！",
+          type: "warning"
+        });
+       }
     },
     // 删除评论
     delComment(commentId) {

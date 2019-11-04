@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="bg"></div>
-    <a href="/index">去首页</a>
+    <a href="/index/home">去首页</a>
     <div id="content">
       <h1>登录</h1>
       <form action="#">

@@ -22,7 +22,7 @@ axios.interceptors.response.use(function (response) {
   console.log('错误' + error)
   if (error.response.status == 401) {
     localStorage.removeItem('mytoken')
-    router.push('/login')   //跳转到登录组件
+    // router.push('/login')   //跳转到登录组件
   }
   return Promise.reject(error);
 });

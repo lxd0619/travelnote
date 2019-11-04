@@ -26,7 +26,7 @@
             ></el-button>
             <p
               class="card-text overflow-hidden"
-              style="display:-webkit-box;-webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden"
+              style="display:-webkit-box;-webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;height:100px;"
               v-html="article.ssInfo"
             ></p>
             <p class="text-muted">

@@ -108,7 +108,7 @@ export default {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
-      this.$router.push("/index/FVstrategy");
+      this.$router.push("/index/fvstrategy");
     },
      goUser(userId){
       sessionStorage.setItem('strategyuserId',userId)

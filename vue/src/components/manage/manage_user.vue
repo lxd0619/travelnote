@@ -42,7 +42,7 @@
             <el-radio-group v-model="radio">
               <el-radio :label="0">正常</el-radio>
               <el-radio :label="10">警告</el-radio>
-              <el-radio :label="-1">封号</el-radio>
+              <el-radio :label="-1">禁言</el-radio>
             </el-radio-group>
           </div>
           <div class="modal-footer">
@@ -81,7 +81,7 @@ export default {
         ) {
           this.list[i].status = "警告("+this.list[i].userStatus+"次)";
         } else {
-          this.list[i].status = "封号";
+          this.list[i].status = "禁言";
         }
       }
       this.allpages = res.data.data.length;
@@ -117,7 +117,7 @@ export default {
             //       console.log(this.list[i].status)
             //     } else {
             //       console.log(4)
-            //       this.list[i].status = "封号";
+            //       this.list[i].status = "禁言";
             //     }
             //   }
             // }
@@ -133,7 +133,7 @@ export default {
       }else if(this.radio==10){
         var message='@'+this.userId+':您收到一条系统警告消息<br>由于您的攻略多次被举报，经审核，予以您警告'
       }else{
-        var message='@'+this.userId+'：您收到一条系统封号消息<br>更具《中华人民共和国网络安全法》和《互联网信息服务管理办法》规定，经核实，您已违规，现予以您封号处理'
+        var message='@'+this.userId+'：您收到一条系统禁言消息<br>更具《中华人民共和国网络安全法》和《互联网信息服务管理办法》规定，经核实，您已违规，现予以您禁言处理'
       }
       this.$axios.post('http://localhost:3000/manage/sendMessage',{
         sysMsgContent:message,

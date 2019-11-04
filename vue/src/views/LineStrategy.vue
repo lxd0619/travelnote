@@ -169,14 +169,7 @@ export default {
     //获取传来的攻略类型和id
     var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
     this.info = info;
-    if (localStorage.getItem("mytoken")) {
-      var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
-      var userStatus = jwt_decode(localStorage.getItem("mytoken")).userStatus;
-      this.userId = userId;
-      if (userStatus == -1) {
-        this.isShow = false;
-      }
-      this.$axios
+     this.$axios
         .post("http://localhost:3000/operation/strategydetail", {
           strategyType: this.info.type,
           strategyId: this.info.id
@@ -189,6 +182,14 @@ export default {
         .catch(err => {
           console.log("错误信息" + err);
         });
+    if (localStorage.getItem("mytoken")) {
+      var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
+      var userStatus = jwt_decode(localStorage.getItem("mytoken")).userStatus;
+      this.userId = userId;
+      if (userStatus == -1) {
+        this.isShow = false;
+      }
+     
       //筛选评论
       this.$axios
         .post("http://localhost:3000/operation/seldiscuss", {
@@ -388,6 +389,7 @@ export default {
 
     //添加评论
     addComment() {
+      if (localStorage.getItem("mytoken")) {
       this.$axios
         .put("http://localhost:3000/operation/adddiscuss", {
           commentContent: this.newcommentContent,
@@ -416,6 +418,13 @@ export default {
         .catch(err => {
           console.log("错误信息" + err);
         });
+         } else {
+        this.$message({
+          showClose: true,
+          message: "亲，请先登录呦！",
+          type: "warning"
+        });
+      }
     },
     // 删除评论
     delComment(commentId) {
