@@ -12,10 +12,10 @@
           <div class='unread' v-if="article.ssStutas ==-4"><i class='el-icon-lock'></i></div>
           <div class="card-body">
             <a
-              href="#"
               @click="go(article.type,article.strategyId)"
               class="card-title"
-            >{{article.title}}......{{article.ssStatus}}</a>
+              style="cursor:pointer;"
+            >{{article.title}} {{article.ssStatus}}</a>
             <el-button
               type="danger"
               icon="el-icon-delete"
@@ -26,7 +26,7 @@
             ></el-button>
             <p
               class="card-text overflow-hidden"
-              style="height: 4em;text-overflow: ellipsis;"
+              style="display:-webkit-box;-webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;height:100px;"
               v-html="article.ssInfo"
             ></p>
             <p class="text-muted">

@@ -33,7 +33,7 @@ var registController = {
                 }
                 console.log(flag,flag2)
                 if (flag == true || flag2 == true) {
-                    res.json({code:200,data:1,msg:'信息已发送'})
+                    res.json({code:200,data:1234,msg:'信息已发送'})
                     // var code = ''
                     // for (var i = 0; i < 7; i++) {
                     //     code += Math.floor(Math.random() * 10);

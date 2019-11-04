@@ -51,7 +51,7 @@ export default {
       collections: [],
       currentPage: 1,
       allpages: null,
-      pagesize: 5,
+      pagesize: 4,
       show: false
     };
   },
