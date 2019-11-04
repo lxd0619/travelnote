@@ -47,7 +47,7 @@
               data-target="#myModal"
               @click="detail(ms.sysMsgId,ms.sysMsgContent)"
             >
-              <a href>详情>></a>
+              <a>详情>></a>
               <span v-html="ms.sysMsgContent"></span>
             </li>
           </ul>
@@ -158,6 +158,9 @@ export default {
           if (res.data.data) {
             this.li = content;
             this.sysnumber--
+            if(this.sysnumber<=0){
+              this.sysnumber=0
+            }
           } else {
             this.$message.error(res.data.msg);
           }
