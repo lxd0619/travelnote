@@ -135,6 +135,7 @@ h1 {
   transform: translate(-50%, 0);
 }
 .card-body{
+  padding-top: 5px;
   padding-bottom: 0;
   width: 10rem;
   height: 5rem;
