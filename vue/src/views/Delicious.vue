@@ -81,11 +81,10 @@
             <h3>{{fsarticle.title}}</h3>
             <p>{{fsarticle.fsInfo}}</p>
             <span>点赞({{fsarticle.fsLikeNum}})</span>
-            <span>收藏({{fsarticle.fsCollecti}})</span>
+            <span>收藏({{fsarticle.fsCollectionNum}})</span>
           </div>
         </div>
       </div>
-
       <div class="gonglve_wrap clearfix">
         <div class="cont-main _j_feed_list">
           <div class="gl-post">
