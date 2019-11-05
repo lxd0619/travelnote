@@ -57,11 +57,12 @@
                     placeholder="全站搜索..."
                     aria-label="搜索"
                     v-model="keyWord"
+                    @keydown.enter="goSearch"
                   />
                   <a
                     style="background:none; margin-left:-2rem; color:#ff9d00;"
                     href="/index/search"
-                    @click.prevent="goSearch(keyWord)"
+                    @click.prevent="goSearch"
                   >
                     <i class="fa fa-search" aria-hidden="true"></i>
                   </a>
@@ -262,10 +263,12 @@ export default {
     goRegister() {
       this.$router.push("/register");
     },
-    goSearch(keyWord) {
-      this.$router.push({
-        path: `/index/search/${keyWord}`
-      });
+    goSearch() {
+      let keyWord = this.keyWord
+      // this.$router.push({
+      //   path: `/index/search/${keyWord}`
+      // });      
+      window.open(`/index/search/${keyWord}`)
     },
     goUserCenter() {
       this.$router.push("/index/userCenter");

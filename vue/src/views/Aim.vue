@@ -6,7 +6,7 @@
         <form action="#" id="searchForm">
           <div id="formDiv">
             <p>Don't fear the unknow</p>
-            <input type="text" placeholder="我想去..." v-model="searchName" />
+            <input type="text" placeholder="我想去..." v-model="searchName" @keydown.enter="goSearch(searchName)"/>
             <input type="button" value="搜索" @click="goSearch(searchName)" />
             <p>苏州 上海 北京 陕西</p>
           </div>
