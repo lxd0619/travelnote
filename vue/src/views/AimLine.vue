@@ -1,7 +1,7 @@
 <template>
   <div style="margin-bottom: 100px;">
     <div class="container-fluid" style="background-color: #fafafa;">
-      <div class="container">
+      <div class="container" style="padding-top:10px;padding-bottom:10px;">
         <span class="con-span">目的地</span>
         <span>></span>
         <span>{{cityName}}</span>
