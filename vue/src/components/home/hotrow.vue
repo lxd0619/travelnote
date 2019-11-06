@@ -23,7 +23,8 @@
           <p
             class="card-text overflow-hidden"
             style="height: 4em;text-overflow:ellipsis;"
-          >{{article.prInfo}}</p>
+            v-html="article.prInfo"
+          ></p>
           <p class="text-muted">
             <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.cityName}},</i>
             by  <a href="#" class="card-link" @click="goUser(article.userId)">{{article.userName}} </a>

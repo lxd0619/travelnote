@@ -1,8 +1,9 @@
 <template>
   <div>
     <div v-for="stra in strategy" :key="stra.strategyId">
+      <img :src="getCoverPic(stra.cover)" alt class="jumbotron" />
       <div class="container-fluid" style="background-color: #fafafa;">
-        <div class="container">
+        <div class="container" style="padding-top:10px;padding-bottom:10px;">
           <span class="con-span">目的地</span>
           <span>></span>
           <span class="con-span">{{stra.cityName}}</span>
@@ -58,8 +59,7 @@
       <div class="container">
         <div class="main">
           <h5>路线概览</h5>
-          <div class="route">
-            {{stra.ssInfo}}
+          <div class="route" v-html="stra.ssInfo">
             <!-- 改名了 -->
           </div>
         </div>
@@ -241,7 +241,6 @@ export default {
         });
     }
   },
-
   methods: {
     //更新收藏数
     updateCollectionNum() {
@@ -380,6 +379,15 @@ export default {
       path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
+    getCoverPic(pic) {
+      //给图片名加上服务器端访问路径
+      if (pic == "cover" || pic == null) {
+        pic = "primaryCover.jpg";
+      }
+      let path = "http://localhost:3000/coverPic/" + pic;
+      console.log(path);
+      return path;
+    },
     // 跳转到作者首页
     goFocus(strategyuserId) {
       var strategyuserId = JSON.stringify(strategyuserId);
@@ -494,6 +502,10 @@ export default {
   margin: 0;
   padding: 0;
 }
+.jumbotron {
+  height: 40rem;
+  width: 100%;
+} 
 .container {
   margin: 0 auto;
 }
