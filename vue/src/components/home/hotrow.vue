@@ -25,7 +25,7 @@
             style="height: 4em;text-overflow:ellipsis;"
           >{{article.prInfo}}</p>
           <p class="text-muted">
-            <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.city}},</i>
+            <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.cityName}},</i>
             by  <a href="#" class="card-link" @click="goUser(article.userId)">{{article.userName}} </a>
             <img
               :src="getHeadPic(article.headPic)"

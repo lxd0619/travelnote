@@ -169,7 +169,7 @@ export default {
       //给图片名加上服务器端访问路径
       let path = "";
       if (pic == null || pic==""||pic=="cover") {
-        pic = "primaryCover01.jpg";
+        pic = "primaryCover.jpg";
       }
       path = "http://localhost:3000/coverPic/" + pic;
       return path;
@@ -207,7 +207,7 @@ export default {
 }
 
 .container h3 {
-  padding: 20px;
+  padding: 10px;
   padding-left: 0px;
 }
 
@@ -278,8 +278,8 @@ export default {
 
 .main_news ul li a > img {
   float: left;
-  width: 260px;
-  height: 150px;
+  width: 14rem;
+  height: 10rem;
 }
 
 .main_news ul li a .txt {
@@ -292,14 +292,17 @@ export default {
 
 .main_news ul li a .txt h3 {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;
   color: #454545;
 }
 
 .main_news ul li a .txt span {
-  font-size: 14px;
+  font-size: 10px;
   line-height: 18px;
   color: #737373;
+}
+.main_news ul li a .txt span h1{
+  font-size: 20px!important;
 }
 
 .container .foods {

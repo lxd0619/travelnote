@@ -37,9 +37,7 @@ var userController = {
     },
     /**查询他人粉丝 */
     Friends: function (req, res) {
-        console.log(9)
         var userId = req.body.userId
-        console.log(8)
         userDAO.fans(userId, function (err, results) {
             if (err) {
                 res.json({ code: 500, data: 0, msg: '粉丝查询失败' })
@@ -222,7 +220,7 @@ var userController = {
             switch (type) {
                 case 'scenerystrategy': sqlstr = "insert into scenerystrategy (type,title,cover,ssInfo,cityName,userId,ssTime) values (?,?,?,?,?,?,?)"; var ins = [type, title, cover, article, cityName, userId, insertTime]; break;
                 case 'foodstrategy': sqlstr = 'insert into foodstrategy (type,title,cover,fsInfo,cityName,userId,fsTime) values (?,?,?,?,?,?,?)'; var ins = [type, title, cover, article, cityName, userId, insertTime]; break;
-                case 'personalrow': sqlstr = 'insert into personalrow (type,title,cover,dayNum,season,crowdType,prInfo,userId,prTime) values (?,?,?,?,?,?,?,?,?)'; var ins = [type, title, cover, dayNum, season, crowdType, article, userId, insertTime]; break;
+                case 'personalrow': sqlstr = 'insert into personalrow (type,title,cover,cityName,dayNum,season,crowdType,prInfo,userId,prTime) values (?,?,?,?,?,?,?,?,?,?)'; var ins = [type, title, cover, cityName,dayNum, season, crowdType, article, userId, insertTime]; break;
                 default: console.log('没有该类型');
             }
             // console.log('ins:' + ins)
