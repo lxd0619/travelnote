@@ -1,39 +1,15 @@
 # travelnote1.0
 
-#### 介绍
-{**以下是码云平台说明，您可以替换此简介**
-码云是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+旅游札记 介绍
 
-#### 软件架构
-软件架构说明
+该项目主要包含首页、目的地、景点/美食攻略、个性路线以及个人中心和管理员等模块，用户可以进行攻略的模糊查询以及点赞、收藏、评论和举报等操作，登录之后也可以编写自己的攻略并发表，修改个人信息；而后台管理员可以对攻略进行审核。
 
+#### 技术点
 
-#### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 使用说明
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+1.前端使用Vue以及Bootstrap、elementUI框架实现响应式布局；
+2.前端实现路由导航、搭建路由守卫、懒加载、http请求响应拦截等功能；
+3.利用Vue实现双向绑定和组件之间传值,实现页面的动态效果;
+4.使用axios实现前后端数据交互；
+5.后端使用Express框架、进行跨域的设置、加密等操作，使用Formidable等模块；
+6.使用MySql数据库进行数据的增删改查等操作；
+7.ueX实现数据的状态管理。
