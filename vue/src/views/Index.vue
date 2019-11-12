@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
       <div class="container">
         <div class="row" style="margin: 0 auto">
           <!-- LOGO -->

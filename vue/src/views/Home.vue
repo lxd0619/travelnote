@@ -12,18 +12,38 @@
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img class="d-block w-100" src="../assets/bgPic/indexPic1.jpg" />
+          <div class="carousel-caption d-none d-md-block">
+            <h2>9/Nov.2019</h2>
+            <h4>出去旅游吧！</h4>
+          </div>
         </div>
         <div class="carousel-item">
           <img class="d-block w-100" src="../assets/bgPic/indexPic2.jpg" />
+          <div class="carousel-caption d-none d-md-block">
+            <h2>8/Nov.2019</h2>
+            <h4>去一个小城去享受美好时光</h4>
+          </div>
         </div>
         <div class="carousel-item">
           <img class="d-block w-100" src="../assets/bgPic/indexPic3.jpg" />
+          <div class="carousel-caption d-none d-md-block">
+            <h2>7/Nov.2019</h2>
+            <h4>雾中楼宇若隐若现</h4>
+          </div>
         </div>
         <div class="carousel-item">
           <img class="d-block w-100" src="../assets/bgPic/indexPic4.jpg" />
+          <div class="carousel-caption d-none d-md-block">
+            <h2>6/Nov.2019</h2>
+            <h4>万家灯火 ，哪盏灯为你而亮</h4>
+          </div>
         </div>
         <div class="carousel-item">
           <img class="d-block w-100" src="../assets/bgPic/indexPic5.jpg" />
+          <div class="carousel-caption d-none d-md-block">
+            <h2>5/Nov.2019</h2>
+            <h4>魔都——上海，魂牵梦萦之地</h4>
+          </div>
         </div>
       </div>
       <a class="carousel-control-prev" href="#circleContent" role="button" data-slide="prev">
@@ -292,6 +312,16 @@ export default {
 }
 #leftCard .carousel-item {
   height: 25em;
+}
+#circleContent .carousel-caption h2::first-letter{
+  color: #ff9d00;
+  font-size: 50px;
+}
+#circleContent .carousel-caption {
+  position: absolute;
+  left: -40rem;
+  top: 10rem;
+  text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.1);
 }
 .card img {
   width: 14em;
