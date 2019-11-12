@@ -1,29 +1,29 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Aim from './views/Aim.vue'
-import AimLine from './views/AimLine.vue'
-import Delicious from './views/Delicious.vue'
-import Editor from './views/Editor.vue'
-import Home from './views/Home.vue'
-import Index from './views/Index.vue'
-import Line from './views/Line.vue'
-import LineStrategy from './views/LineStrategy.vue'
-import Login from './views/Login.vue'
-import Manage from './views/Manage.vue'
-import NotFound from './views/Not404.vue'
-import Register from './views/Register.vue'
-import Search from './views/Search.vue'
-import UserCenter from './views/UserCenter.vue'
-import View from './views/View.vue'
-import Forget_pwd from './views/Forget_pwd.vue'
-import Article from './views/Article.vue'
-import Message from './views/Message.vue'
-import ViewDetail from './views/ViewDetail.vue'
-import DetailCity from './views/DetailCity.vue'
-import FoodCity from './views/FoodCity.vue'
-import FoodDetail from './views/FoodDetail.vue'
-import FVstrategy from './views/FVstrategy.vue'
-import Focus from './views/Focus.vue'
+const Aim =()=>import('./views/Aim.vue')
+const AimLine=()=>import('./views/AimLine.vue')
+const Delicious=()=>import('./views/Delicious.vue')
+const Editor=()=>import('./views/Editor.vue')
+const Home=()=>import('./views/Home.vue')
+const Index=()=>import('./views/Index.vue')
+const Line=()=>import('./views/Line.vue')
+const LineStrategy =()=>import('./views/LineStrategy.vue')
+const Login=()=>import ('./views/Login.vue')
+const Manage=()=>import('./views/Manage.vue')
+const NotFound=()=> import ('./views/Not404.vue')
+const Register =()=>import('./views/Register.vue')
+const Search =()=>import ('./views/Search.vue')
+const UserCenter=()=>import ('./views/UserCenter.vue')
+const View=()=>import('./views/View.vue')
+const Forget_pwd=()=>import ('./views/Forget_pwd.vue')
+const Article=()=>import ('./views/Article.vue')
+const Message=()=>import ('./views/Message.vue')
+const ViewDetail=()=>import('./views/ViewDetail.vue')
+const DetailCity=()=>import('./views/DetailCity.vue')
+const FoodCity =()=>import ('./views/FoodCity.vue')
+const FoodDetail =()=>import ('./views/FoodDetail.vue')
+const FVstrategy =()=>import ('./views/FVstrategy.vue')
+const Focus =()=>import ('./views/Focus.vue')
 
 import jwt_decode from "jwt-decode";
 
