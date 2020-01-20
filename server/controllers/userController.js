@@ -178,7 +178,7 @@ var userController = {
         // //当每个文件上传时都会触发的事件方法，用于多文件上传
         // form.on('file', function (err, file) {
         //     console.log(file)
-        //     results.data.push('http://localhost:3000/userCenter/coverPic/' + path.parse(file.path).base)
+        //     results.data.push('userCenter/coverPic/' + path.parse(file.path).base)
         // })
         // form.parse(req, function (err, fields, files) {
         //     if (err) {

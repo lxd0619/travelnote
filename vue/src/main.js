@@ -7,6 +7,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 //导入并使用axios
 import axios from './http'
+axios.defaults.baseURL = 'http://localhost:3000/'
 Vue.prototype.$axios = axios
 
 Vue.config.productionTip = false
