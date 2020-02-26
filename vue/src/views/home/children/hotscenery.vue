@@ -106,7 +106,7 @@ export default {
       if (pic == "cover" || pic == null || pic == "") {
         pic = "primaryCover.jpg";
       }
-      let path = "coverPic/" + pic;
+      let path = "http://localhost:3000/coverPic/" + pic;
       return path;
     },
     getHeadPic(pic) {
@@ -115,7 +115,7 @@ export default {
       if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
-      path = "uploadHeadPic/" + pic;
+      path = "http://localhost:3000/uploadHeadPic/" + pic;
       return path;
     },
     go(type, id) {
