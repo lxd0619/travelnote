@@ -29,7 +29,12 @@
             id="message"
             @blur="test_msg()"
           />
-          <input type="button" value="发送验证码" @click="sendMessage()" id="check" />
+          <input
+            type="button"
+            value="发送验证码"
+            @click="sendMessage()"
+            id="check"
+          />
           <span class="tipMsg"></span>
         </div>
         <input type="button" value="找回密码" @click="findPwd()" />
@@ -372,7 +377,7 @@ aside div ~ [type="button"] {
 }
 /* 错误提示信息样式 */
 .error {
-  padding-left:10px;
+  padding-left: 10px;
   color: #f00;
 }
 </style>

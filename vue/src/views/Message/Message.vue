@@ -1,3 +1,4 @@
+/**消息中心 */
 <template>
   <div>
     <div id="content">
@@ -7,19 +8,21 @@
             <div
               class="rounded-circle mr-5"
               id="headPic"
-              :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')','position':'relative','top':'3px'}"
+              :style="{
+                backgroundImage: 'url(' + getHeadPic(userInfo[0].headPic) + ')',
+                position: 'relative',
+                top: '3px'
+              }"
             ></div>
             <div
               class="mt-3 mr-5 text-center"
               style="height:29px;position:relative; transform:translate(0,-100%);"
             >
-              <h4>{{userInfo[0].userName}}</h4>
+              <h4>{{ userInfo[0].userName }}</h4>
             </div>
           </li>
           <li>
-            <h5>
-              <i class="el-icon-message"></i> 消息中心
-            </h5>
+            <h5><i class="el-icon-message"></i> 消息中心</h5>
 
             <p @click="News(0)">
               <span>
@@ -30,9 +33,7 @@
             </p>
 
             <p @click="News(1)">
-              <span>
-                <i class="el-icon-chat-round"></i>已读消息
-              </span>
+              <span> <i class="el-icon-chat-round"></i>已读消息 </span>
             </p>
           </li>
         </ul>
@@ -41,11 +42,14 @@
         <div v-if="show">
           <ul>
             <li
-              v-for="ms in msg.slice((currentPage-1)*pagesize,(currentPage)*pagesize) "
+              v-for="ms in msg.slice(
+                (currentPage - 1) * pagesize,
+                currentPage * pagesize
+              )"
               :key="ms.sysMsgId"
               data-toggle="modal"
               data-target="#myModal"
-              @click="detail(ms.sysMsgId,ms.sysMsgContent)"
+              @click="detail(ms.sysMsgId, ms.sysMsgContent)"
             >
               <a>详情>></a>
               <span v-html="ms.sysMsgContent"></span>
@@ -60,19 +64,34 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="myModalLabel">详情</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body" v-html="li"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="close">OK</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" @click="close">
+              OK
+            </button>
           </div>
         </div>
       </div>
@@ -95,7 +114,7 @@ export default {
       pagesize: 10,
       allpages: 0,
       show: false,
-      show1:false,
+      show1: false,
       li: ""
     };
   },
@@ -136,12 +155,12 @@ export default {
         .post("http://localhost:3000/userCenter/sysMessage", { type: type })
         .then(res => {
           if (res.data.data) {
-            if ((type == 0)) {
+            if (type == 0) {
               this.show1 = true;
             } else {
               this.show1 = false;
-            }  
-            this.show=true
+            }
+            this.show = true;
             this.sysnumber = res.data.data.length;
             this.msg = res.data.data;
             this.allpages = res.data.data.length;
@@ -159,9 +178,9 @@ export default {
         .then(res => {
           if (res.data.data) {
             this.li = content;
-            this.sysnumber--
-            if(this.sysnumber<=0){
-              this.sysnumber=0
+            this.sysnumber--;
+            if (this.sysnumber <= 0) {
+              this.sysnumber = 0;
             }
           } else {
             this.$message.error(res.data.msg);

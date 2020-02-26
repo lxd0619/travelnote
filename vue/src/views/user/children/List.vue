@@ -5,7 +5,10 @@
         <div style="height:650px;">
           <ul>
             <li
-              v-for="li in list.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+              v-for="li in list.slice(
+                (currentPage - 1) * pagesize,
+                currentPage * pagesize
+              )"
               :key="li.index"
               @click="go(li.userId)"
             >
@@ -15,7 +18,7 @@
                 class="rounded-circle"
                 style="width:5rem;height:5rem;"
               />
-              <h4>{{li.userName}}</h4>
+              <h4>{{ li.userName }}</h4>
             </li>
           </ul>
         </div>
@@ -33,7 +36,10 @@
         <div style="height:650px;">
           <ul>
             <li
-              v-for="group in attentionslist.slice((currentPage1-1)*pagesize,(currentPage1)*pagesize)"
+              v-for="group in attentionslist.slice(
+                (currentPage1 - 1) * pagesize,
+                currentPage1 * pagesize
+              )"
               :key="group.index"
             >
               <img
@@ -42,13 +48,14 @@
                 class="rounded-circle"
                 style="width:5rem;height:5rem;"
               />
-              <h4 @click="go(group.userId)">{{group.userName}}</h4>
+              <h4 @click="go(group.userId)">{{ group.userName }}</h4>
               <el-button
                 type="warning"
                 v-if="show"
                 @click="addFriends(group.userId)"
                 style="float:right; margin-top:15px; margin-right:15px;"
-              >取消关注</el-button>
+                >取消关注</el-button
+              >
             </li>
           </ul>
         </div>

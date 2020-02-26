@@ -29,7 +29,9 @@
                   <a href="#" target="_blank" @click="go('山西省')">山西省</a>
                 </dd>
                 <dd data-events="click">
-                  <a href="#" target="_blank" @click="go('内蒙古自治区')">内蒙古自治区</a>
+                  <a href="#" target="_blank" @click="go('内蒙古自治区')"
+                    >内蒙古自治区</a
+                  >
                 </dd>
               </dl>
             </li>
@@ -40,7 +42,9 @@
               <dl class="termini_name">
                 <dt>东北地区</dt>
                 <dd>
-                  <a href="#" target="_blank" @click="go('黑龙江省')">黑龙江省</a>
+                  <a href="#" target="_blank" @click="go('黑龙江省')"
+                    >黑龙江省</a
+                  >
                 </dd>
                 <dd>
                   <a href="#" target="_blank" @click="go('吉林省')">吉林省</a>
@@ -107,10 +111,14 @@
                   <a href="# " target="_blank " @click="go('海南省')">海南省</a>
                 </dd>
                 <dd data-events="click ">
-                  <a href="# " target="_blank " @click="go('香港')">香港特别行政区</a>
+                  <a href="# " target="_blank " @click="go('香港')"
+                    >香港特别行政区</a
+                  >
                 </dd>
                 <dd data-events="click ">
-                  <a href="# " target="_blank " @click="go('澳门')">澳门特别行政区</a>
+                  <a href="# " target="_blank " @click="go('澳门')"
+                    >澳门特别行政区</a
+                  >
                 </dd>
               </dl>
             </li>
@@ -133,7 +141,9 @@
                   <a href="# " target="_blank " @click="go('云南省')">云南省</a>
                 </dd>
                 <dd data-events="click ">
-                  <a href="# " target="_blank " @click="go('西藏')">西藏自治区</a>
+                  <a href="# " target="_blank " @click="go('西藏')"
+                    >西藏自治区</a
+                  >
                 </dd>
               </dl>
             </li>
@@ -153,10 +163,14 @@
                   <a href="# " target="_blank " @click="go('青海省')">青海省</a>
                 </dd>
                 <dd data-events="click ">
-                  <a href="# " target="_blank " @click="go('新疆')">新疆维吾尔自治区</a>
+                  <a href="# " target="_blank " @click="go('新疆')"
+                    >新疆维吾尔自治区</a
+                  >
                 </dd>
                 <dd data-events="click ">
-                  <a href="# " target="_blank " @click="go('宁夏')">宁夏回族自治区</a>
+                  <a href="# " target="_blank " @click="go('宁夏')"
+                    >宁夏回族自治区</a
+                  >
                 </dd>
               </dl>
             </li>
@@ -170,43 +184,46 @@
               <div class="bg bg1"></div>
             </div>
             <div class="content">
-                  <p>爱至苍山洱海，心如古木不惊</p>
-                </div>
-             
+              <p>爱至苍山洱海，心如古木不惊</p>
+            </div>
           </div>
 
           <div class="mine-item">
             <div class="figcaption">
               <div class="bg bg2"></div>
-               <div class="content">
-                  <p>桂林山水甲天下</p>
-                </div>
+              <div class="content">
+                <p>桂林山水甲天下</p>
+              </div>
             </div>
           </div>
           <div class="mine-item">
             <div class="figcaption">
               <div class="bg bg3"></div>
-               <div class="content">
-                  <p>冰雪大世界 江北冰灯十里明， 碧栏金塔小楼红。 飞桥七彩凌霄卧， 好似长虹挂月空</p>
-                </div>
+              <div class="content">
+                <p>
+                  冰雪大世界 江北冰灯十里明， 碧栏金塔小楼红。 飞桥七彩凌霄卧，
+                  好似长虹挂月空
+                </p>
+              </div>
             </div>
-           
           </div>
           <div class="mine-item">
             <div class="figcaption">
               <div class="bg bg4"></div>
-               <div class="content">
-                  <p>西藏是个神秘的地方，有着灿烂的阳光，洁白的云朵，纯净的天空，稀薄的空气，连绵的雪山，安静的湖泊</p>
-                </div>
+              <div class="content">
+                <p>
+                  西藏是个神秘的地方，有着灿烂的阳光，洁白的云朵，纯净的天空，稀薄的空气，连绵的雪山，安静的湖泊
+                </p>
+              </div>
             </div>
           </div>
           <div class="mine-item">
             <div class="figcaption">
               <div class="bg bg5"></div>
             </div>
-             <div class="content">
-                  <p>别浦高楼曾漫倚，对江南千里</p>
-                </div>
+            <div class="content">
+              <p>别浦高楼曾漫倚，对江南千里</p>
+            </div>
           </div>
         </div>
       </section>
@@ -220,9 +237,18 @@
           </h3>
         </span>
         <div class="total">
-          <div class="detailtitle"  @click="went(message.type,message.strategyId)" v-for="message in messages.slice(0,2)" :key="message.strategyId">
-            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
-            <h3>“{{message.title}}”</h3>
+          <div
+            class="detailtitle"
+            @click="went(message.type, message.strategyId)"
+            v-for="message in messages.slice(0, 2)"
+            :key="message.strategyId"
+          >
+            <img
+              :src="getCoverPic(message.cover)"
+              width="250px"
+              height="250px"
+            />
+            <h3>“{{ message.title }}”</h3>
           </div>
         </div>
       </div>
@@ -236,9 +262,18 @@
           </h3>
         </span>
         <div class="total">
-          <div class="detailtitle"  @click="went(message.type,message.strategyId)"  v-for="message in messages1.slice(0,2)" :key="message.strategyId">
-            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
-            <h3>“{{message.title}}”</h3>
+          <div
+            class="detailtitle"
+            @click="went(message.type, message.strategyId)"
+            v-for="message in messages1.slice(0, 2)"
+            :key="message.strategyId"
+          >
+            <img
+              :src="getCoverPic(message.cover)"
+              width="250px"
+              height="250px"
+            />
+            <h3>“{{ message.title }}”</h3>
           </div>
         </div>
       </div>
@@ -252,9 +287,18 @@
           </h3>
         </span>
         <div class="total">
-          <div class="detailtitle" @click="went(message.type,message.strategyId)" v-for="message in messages2.slice(0,2)" :key="message.strategyId">
-            <img :src="getCoverPic(message.cover)" width="250px" height="250px" />
-            <h3>“{{message.title}}”</h3>
+          <div
+            class="detailtitle"
+            @click="went(message.type, message.strategyId)"
+            v-for="message in messages2.slice(0, 2)"
+            :key="message.strategyId"
+          >
+            <img
+              :src="getCoverPic(message.cover)"
+              width="250px"
+              height="250px"
+            />
+            <h3>“{{ message.title }}”</h3>
           </div>
         </div>
       </div>
@@ -336,7 +380,7 @@ export default {
     },
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
-      if (pic == "cover" || pic == null || pic =="") {
+      if (pic == "cover" || pic == null || pic == "") {
         pic = "primaryCover.jpg";
       }
       let path = "coverPic/" + pic;
@@ -347,7 +391,7 @@ export default {
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
       this.$router.push("/index/fvstrategy");
-    },
+    }
   }
 };
 </script>
@@ -633,15 +677,15 @@ a {
   text-overflow: ellipsis;
   color: #333;
 }
-.total{
+.total {
   box-shadow: 0px 5px 5px #eee;
-   background-color: rgb(252, 255,255);
-   transition: 0.3s all;
+  background-color: rgb(252, 255, 255);
+  transition: 0.3s all;
 }
-.detailtitle img:hover{
+.detailtitle img:hover {
   width: 255px;
   height: 253px;
-   transition: 0.3s all;
+  transition: 0.3s all;
 }
 .likecollection {
   margin-top: 40px;
@@ -709,7 +753,7 @@ a {
   transform: translate3d(0, 0, 0);
   display: inline-block;
   position: relative;
-  width:200px;
+  width: 200px;
   height: 100%;
   min-height: 400px;
   max-height: 800px;
@@ -721,7 +765,6 @@ a {
 .mine-item:hover .figcaption:after {
   opacity: 0;
 }
-
 
 .mine-item:hover .figcaption:before {
   transform: translateY(0);
@@ -782,16 +825,11 @@ a {
 .bg5 {
   background-image: url(../../../assets/view/江南水乡1.jpg);
 }
-.content{
+.content {
   font-size: 18px;
   color: aliceblue;
-  margin-top:130px;
+  margin-top: 130px;
   text-align: center;
   font-family: 宋体;
 }
-
-
 </style>
-
-
-

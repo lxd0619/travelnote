@@ -149,7 +149,8 @@ export default {
       }
     },
     pwd_tip(flag) {
-      var span = document.getElementById("password").nextElementSibling.nextElementSibling;
+      var span = document.getElementById("password").nextElementSibling
+        .nextElementSibling;
       if (flag == "focus") {
         span.className = "tipMsg";
         span.innerHTML = "密码必须英文+数字，长度8至15位";
@@ -157,7 +158,7 @@ export default {
         if (this.registerUser.password == "") {
           span.className = "error";
           span.innerHTML = "密码不能为空";
-         this.registerUser.password= "";
+          this.registerUser.password = "";
           this.isPasswordOk = false;
           return;
         }
@@ -166,7 +167,7 @@ export default {
         if (!res) {
           span.className = "error";
           span.innerHTML = "密码必须英文+数字";
-          this.registerUser.password= "";
+          this.registerUser.password = "";
           this.isPasswordOk = false;
           return;
         }
@@ -195,7 +196,8 @@ export default {
       }
     },
     pwdcheck_tip(flag) {
-      var span = document.getElementById("password2").nextElementSibling.nextElementSibling;
+      var span = document.getElementById("password2").nextElementSibling
+        .nextElementSibling;
       if (flag == "focus") {
         span.className = "tipMsg";
         span.innerHTML = "确认密码";
@@ -221,7 +223,8 @@ export default {
       }
     },
     tel_tip(flag) {
-      var span = document.getElementById("tel").nextElementSibling.nextElementSibling;
+      var span = document.getElementById("tel").nextElementSibling
+        .nextElementSibling;
       if (flag == "focus") {
         span.className = "tipMsg";
         span.innerHTML = "请输入手机号";
@@ -248,7 +251,8 @@ export default {
       }
     },
     mess_tip(flag) {
-      var span = document.getElementById("messagecheck").nextElementSibling.nextElementSibling;
+      var span = document.getElementById("messagecheck").nextElementSibling
+        .nextElementSibling;
       if (flag == "focus") {
         span.className = "tipMsg";
         span.innerHTML = "请输入验证码";

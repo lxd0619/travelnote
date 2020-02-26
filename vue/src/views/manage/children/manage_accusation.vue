@@ -11,7 +11,8 @@
           aria-controls="nav-hotScenery"
           aria-selected="true"
           @click="List('scenerystrategy')"
-        >景点攻略</a>
+          >景点攻略</a
+        >
         <a
           class="nav-item nav-link text-dark"
           id="nav-hotFoods-tab"
@@ -21,7 +22,8 @@
           aria-controls="nav-hotFoods"
           aria-selected="false"
           @click="List('foodstrategy')"
-        >美食攻略</a>
+          >美食攻略</a
+        >
         <a
           class="nav-item nav-link text-dark"
           id="nav-hotlines-tab"
@@ -31,22 +33,30 @@
           aria-controls="nav-hotlines"
           aria-selected="false"
           @click="List('personalrow')"
-        >个性路线</a>
+          >个性路线</a
+        >
       </div>
     </nav>
     <div v-if="show1">
       <div id="content">
         <div
           id="bottom_img"
-          v-for="li in list.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+          v-for="li in list.slice(
+            (currentPage - 1) * pagesize,
+            currentPage * pagesize
+          )"
           :key="li.strategyId"
         >
-          <a @click="strategydetail(li.type,li.strategyId)">
-            <img id="img" :src="getCoverPic(li.cover)" style="width: 200px ;height: 200px;" />
-            <p>{{li.title}}</p>
-            <span>作者：{{li.userName}}</span>
+          <a @click="strategydetail(li.type, li.strategyId)">
+            <img
+              id="img"
+              :src="getCoverPic(li.cover)"
+              style="width: 200px ;height: 200px;"
+            />
+            <p>{{ li.title }}</p>
+            <span>作者：{{ li.userName }}</span>
             <br />
-            <span>被举报次数：{{li.ssStatus}}</span>
+            <span>被举报次数：{{ li.ssStatus }}</span>
           </a>
         </div>
       </div>
@@ -145,11 +155,11 @@ h1 {
   margin: 10px 20px;
   text-align: center;
   line-height: 30px;
-  cursor:pointer;
+  cursor: pointer;
 }
-#bottom_img:hover{
-   box-shadow: 0px 5px 5px rgb(204, 204, 204);
-   transition: 0.3s all;
+#bottom_img:hover {
+  box-shadow: 0px 5px 5px rgb(204, 204, 204);
+  transition: 0.3s all;
 }
 ul {
   list-style: none;

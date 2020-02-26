@@ -62,7 +62,7 @@ export default {
       flag5: false
     };
   },
- 
+
   components: {
     manageAuditing,
     manageAccusation,
@@ -101,7 +101,7 @@ export default {
       this.flag4 = false;
       this.flag5 = false;
     },
-     ban() {
+    ban() {
       this.flag1 = false;
       this.flag2 = false;
       this.flag3 = true;
@@ -124,11 +124,11 @@ export default {
     },
     out() {
       localStorage.removeItem("mytoken");
-      let  _this = this;
-       this.$message({
-              message: "退出成功",
-              type: "success"
-            });
+      let _this = this;
+      this.$message({
+        message: "退出成功",
+        type: "success"
+      });
       var mytime = setTimeout(function() {
         _this.$router.push("/login"); //路由转向登录组件
       }, 3000);

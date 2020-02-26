@@ -17,7 +17,8 @@
             role="tab"
             aria-controls="v-pills-userInfo"
             aria-selected="true"
-          >个人资料</a>
+            >个人资料</a
+          >
           <a
             class="nav-link"
             id="v-pills-headPic-tab"
@@ -26,7 +27,8 @@
             role="tab"
             aria-controls="v-pills-headPic"
             aria-selected="true"
-          >修改头像</a>
+            >修改头像</a
+          >
           <a
             class="nav-link"
             id="v-pills-updpws-tab"
@@ -35,7 +37,8 @@
             role="tab"
             aria-controls="v-pills-updpws"
             aria-selected="false"
-          >修改密码</a>
+            >修改密码</a
+          >
           <a
             class="nav-link"
             id="v-pills-updtel-tab"
@@ -44,7 +47,8 @@
             role="tab"
             aria-controls="v-pills-updtel"
             aria-selected="false"
-          >修改手机号</a>
+            >修改手机号</a
+          >
         </div>
       </div>
       <!-- 个人资料内容 -->
@@ -93,7 +97,9 @@
                     v-model="userInfo[0].sex"
                     checked
                   />
-                  <label class="form-check-label" for="inlineRadio1">保密</label>
+                  <label class="form-check-label" for="inlineRadio1"
+                    >保密</label
+                  >
                 </div>
                 <div class="form-check form-check-inline">
                   <input
@@ -132,7 +138,9 @@
               </div>
               <!-- 手机号 -->
               <div class="form-group row">
-                <label for="inputUserTel" class="col-sm-4 col-form-label">手机号</label>
+                <label for="inputUserTel" class="col-sm-4 col-form-label"
+                  >手机号</label
+                >
                 <div class="col-sm-8">
                   <input
                     type="text"
@@ -168,7 +176,13 @@
                   />
                 </div>
               </div>
-              <button type="button" class="btn btn-outline-primary" @click="submitForm()">保存</button>
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                @click="submitForm()"
+              >
+                保存
+              </button>
             </form>
           </div>
           <!-- 修改头像 -->
@@ -183,7 +197,10 @@
                 <div id="updHead" class="ml-5 bg-secondary">
                   <div
                     class="rounded-circle h-100 w-100 bg-white"
-                    :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"
+                    :style="{
+                      backgroundImage:
+                        'url(' + getHeadPic(userInfo[0].headPic) + ')'
+                    }"
                   ></div>
                 </div>
                 <div></div>
@@ -193,7 +210,6 @@
                     class="upload-demo"
                     ref="upload"
                     list-type="picture-card"
-                    
                     :before-upload="beforeupload"
                     :auto-upload="false"
                     :multiple="false"
@@ -204,7 +220,9 @@
 
                   <el-form ref="form" :model="form" label-width="80px">
                     <el-form-item>
-                      <el-button type="primary" @click="onSubmit">确认提交</el-button>
+                      <el-button type="primary" @click="onSubmit"
+                        >确认提交</el-button
+                      >
                       <el-button>取消</el-button>
                     </el-form-item>
                   </el-form>
@@ -221,7 +239,9 @@
           >
             <!-- 手机号 -->
             <div class="form-group row">
-              <label for="inputUserTel" class="col-sm-3 col-form-label">手机号</label>
+              <label for="inputUserTel" class="col-sm-3 col-form-label"
+                >手机号</label
+              >
               <div class="col-sm-9 d-flex flex-column">
                 <input
                   type="text"
@@ -239,7 +259,13 @@
                     v-model="code"
                   />
                   <div class="input-group-append">
-                    <button class="btn btn-outline-primary" type="button" @click="sendMsg(1)">发送验证码</button>
+                    <button
+                      class="btn btn-outline-primary"
+                      type="button"
+                      @click="sendMsg(1)"
+                    >
+                      发送验证码
+                    </button>
                   </div>
                 </div>
               </div>
@@ -260,7 +286,9 @@
                     v-model="password"
                     @blur="pwdCheck()"
                   />
-                  <small class="form-text text-muted">密码必须是数字+字母</small>
+                  <small class="form-text text-muted"
+                    >密码必须是数字+字母</small
+                  >
                 </div>
               </div>
               <!-- 确认密码 -->
@@ -287,7 +315,13 @@
                 data-toggle="popover"
                 data-placement="bottom"
               >
-                <button class="btn btn-outline-secondary" type="button" @click="updatePwd()">保存</button>
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  @click="updatePwd()"
+                >
+                  保存
+                </button>
               </span>
             </form>
           </div>
@@ -300,9 +334,15 @@
           >
             <!-- 手机号 -->
             <div class="form-group row">
-              <label for="inputUserTel" class="col-sm-3 col-form-label">手机号</label>
+              <label for="inputUserTel" class="col-sm-3 col-form-label"
+                >手机号</label
+              >
               <div class="col-sm-9 d-flex flex-column">
-                <input type="text" class="form-control" v-model="userInfo[0].tel" />
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="userInfo[0].tel"
+                />
                 <div class="input-group mb-3 mt-3">
                   <input
                     type="text"
@@ -313,12 +353,24 @@
                     v-model="code"
                   />
                   <div class="input-group-append">
-                    <button class="btn btn-outline-primary" type="button" @click="sendMsg(0)">发送验证码</button>
+                    <button
+                      class="btn btn-outline-primary"
+                      type="button"
+                      @click="sendMsg(0)"
+                    >
+                      发送验证码
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-            <button class="btn btn-outline-primary" type="button" @click="UpdateTel">确认修改</button>
+            <button
+              class="btn btn-outline-primary"
+              type="button"
+              @click="UpdateTel"
+            >
+              确认修改
+            </button>
           </div>
         </div>
       </div>
@@ -405,7 +457,7 @@ export default {
         .post("http://localhost:3000/userCenter/updateUser", this.userInfo[0])
         .then(res => {
           alert("修改成功！");
-          this.percentage = 0
+          this.percentage = 0;
           if (this.userInfo[0].userName) {
             this.percentage += 20;
           }

@@ -12,7 +12,9 @@
                   <p>旅行</p>
                 </div>
                 <div class="content">
-                  <p>人生至少要有两次冲动，一为奋不顾身的爱情，一为说走就走的旅行</p>
+                  <p>
+                    人生至少要有两次冲动，一为奋不顾身的爱情，一为说走就走的旅行
+                  </p>
                 </div>
               </div>
             </div>
@@ -35,7 +37,9 @@
                   <p>自我</p>
                 </div>
                 <div class="content">
-                  <p>在路上，不为旅行，不因某人，只为在未知的途中遇见未知的自己</p>
+                  <p>
+                    在路上，不为旅行，不因某人，只为在未知的途中遇见未知的自己
+                  </p>
                 </div>
               </div>
             </div>
@@ -46,7 +50,9 @@
                   <p>感动</p>
                 </div>
                 <div class="content">
-                  <p>人生最好的旅行，就是你在一个陌生的地方，发现一种久违的感动</p>
+                  <p>
+                    人生最好的旅行，就是你在一个陌生的地方，发现一种久违的感动
+                  </p>
                 </div>
               </div>
             </div>
@@ -57,7 +63,9 @@
                   <p>时光</p>
                 </div>
                 <div class="content">
-                  <p>流转的时光，都会成为命途中美丽的点缀，看天，看雪，安安静静，不言不语都是好风景</p>
+                  <p>
+                    流转的时光，都会成为命途中美丽的点缀，看天，看雪，安安静静，不言不语都是好风景
+                  </p>
                 </div>
               </div>
             </div>
@@ -71,19 +79,31 @@
       <div class="ViewProduce">View Produce</div>
       <div class="sheadsecond">景点攻略</div>
       <div class="specialFood">
-        <div class="stragyespecail"   @click="go(article.type,article.strategyId)" v-for="article in articles.slice(0,8)" :key="article.strategyId">
-         <img :src="getCoverPic(article.cover)" width="260px" height="238px" />
-          <div class="intro_box">   
-          
-            <h4>{{article.title}}</h4>
+        <div
+          class="stragyespecail"
+          @click="go(article.type, article.strategyId)"
+          v-for="article in articles.slice(0, 8)"
+          :key="article.strategyId"
+        >
+          <img :src="getCoverPic(article.cover)" width="260px" height="238px" />
+          <div class="intro_box">
+            <h4>{{ article.title }}</h4>
             <!-- <p v-html="article.ssInfo"></p> -->
             <span>
-              <img src="../../assets/food/收藏_line.png" width="17px" height="17px" />
-              点赞({{article.ssLikeNum}})
+              <img
+                src="../../assets/food/收藏_line.png"
+                width="17px"
+                height="17px"
+              />
+              点赞({{ article.ssLikeNum }})
             </span>
             <span>
-              <img src="../../assets/food/点赞_line.png" width="17px" height="17px" />
-              收藏({{article.ssCollectionNum}})
+              <img
+                src="../../assets/food/点赞_line.png"
+                width="17px"
+                height="17px"
+              />
+              收藏({{ article.ssCollectionNum }})
             </span>
           </div>
         </div>
@@ -95,31 +115,44 @@
 
         <div class="tripb">
           <a href="#" target="_blank">
-            <div class="tit"  @click="go(hostarticle.type,hostarticle.strategyId)"  v-for="hostarticle in hotarticles.slice(0,1)" :key="hostarticle.strategyId">
+            <div
+              class="tit"
+              @click="go(hostarticle.type, hostarticle.strategyId)"
+              v-for="hostarticle in hotarticles.slice(0, 1)"
+              :key="hostarticle.strategyId"
+            >
               <h3>
                 <em>01</em>
-                {{hostarticle.title}}
+                {{ hostarticle.title }}
               </h3>
               <p style="overflow:hidden" v-html="hostarticle.ssInfo"></p>
 
-             <div class="tripb_pic">
-              <em></em>
-              
-          <img :src="getCoverPic(hostarticle.cover)" height="230px" width="250px" />
-            </div> 
+              <div class="tripb_pic">
+                <em></em>
+
+                <img
+                  :src="getCoverPic(hostarticle.cover)"
+                  height="230px"
+                  width="250px"
+                />
+              </div>
             </div>
-            
           </a>
         </div>
         <div class="main_news trips_con" style="width:900px">
-          <ul style="width:400px;float:left;margin-left:50px" @click="go(hotarticle.type,hotarticle.strategyId)" v-for="hotarticle in hotarticles.slice(1,7)" :key="hotarticle.strategyId">
+          <ul
+            style="width:400px;float:left;margin-left:50px"
+            @click="go(hotarticle.type, hotarticle.strategyId)"
+            v-for="hotarticle in hotarticles.slice(1, 7)"
+            :key="hotarticle.strategyId"
+          >
             <li>
               <a href="#" target="_blank">
                 <img :src="getCoverPic(hotarticle.cover)" />
                 <div class="txt">
                   <h3>
                     <em></em>
-                    {{hotarticle.title}}
+                    {{ hotarticle.title }}
                   </h3>
                   <p style="overflow:hideen" v-html="hotarticle.ssInfo"></p>
                 </div>
@@ -139,13 +172,19 @@
         </div>
         <router-view></router-view>
         <div class="contain strategy">
-          <ul style="display: flex;flex-direction: row;justify-content:space-between">
-            <li v-for="bottom in articles.slice(1,5)" :key="bottom.strategyId" @click="go(bottom.type,bottom.strategyId)">
+          <ul
+            style="display: flex;flex-direction: row;justify-content:space-between"
+          >
+            <li
+              v-for="bottom in articles.slice(1, 5)"
+              :key="bottom.strategyId"
+              @click="go(bottom.type, bottom.strategyId)"
+            >
               <a href="#" target="_blank">
                 <img :src="getCoverPic(bottom.cover)" />
                 <div class="strategy_msk"></div>
                 <div class="strategy_txt tit">
-                  <div class="strategy_tit">{{bottom.title}}</div>
+                  <div class="strategy_tit">{{ bottom.title }}</div>
                 </div>
               </a>
             </li>
@@ -162,7 +201,7 @@ export default {
   data() {
     return {
       articles: [],
-    info:[],
+      info: [],
       hotarticles: [],
       strategyType: "scenerystrategy"
     };
@@ -192,21 +231,21 @@ export default {
         console.log("错误信息" + err);
       });
   },
-  methods:{
+  methods: {
     getCoverPic(pic) {
-      if (pic == "cover" || pic == null || pic =="") {
+      if (pic == "cover" || pic == null || pic == "") {
         pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
-    }, 
-      go(type, id) {
+    },
+    go(type, id) {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
       // window.open("/index/fvstrategy");
       this.$router.push("/index/fvstrategy");
-    },
+    }
   }
 };
 </script>
@@ -295,10 +334,9 @@ export default {
   height: 15px;
 }
 .tit p {
- 
-  -webkit-line-clamp:3; 
-  -webkit-box-orient:vertical; 
-  overflow:hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   font-size: 12px;
   height: 38px;
 }
@@ -472,15 +510,15 @@ h1 {
   margin-left: 18px;
   margin-bottom: 30px;
 }
-.stragyespecail:hover{
-   box-shadow: 0px 5px 5px #eee;
-   background-color: rgb(252, 255,255);
-   transition: 0.3s all;
+.stragyespecail:hover {
+  box-shadow: 0px 5px 5px #eee;
+  background-color: rgb(252, 255, 255);
+  transition: 0.3s all;
 }
-.stragyespecail img:hover{
+.stragyespecail img:hover {
   width: 265px;
   height: 242px;
-   transition: 0.3s all;
+  transition: 0.3s all;
 }
 .stragyespecail p {
   font-size: 16px;
@@ -549,8 +587,8 @@ h1 {
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgb(190, 236, 236);
-  opacity: 0.8;
+  background: rgb(75, 74, 74);
+  opacity: 0.3;
   /*不透明度。0透明1不透明*/
   /* transition: opacity 0.5s ease; */
 }

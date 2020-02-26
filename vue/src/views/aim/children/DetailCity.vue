@@ -2,44 +2,70 @@
   <div class="Detail">
     <div class="head"></div>
     <div v-if="show1">
-    <div class="contain">
-      <div class="pub_wrap termini">
-        <div class="title clearfix">
-          <span class="right_more">
-            <a href="#" target="_blank"></a>
-          </span>
-          <h2 class="clearfix" v-for="message in messages.slice(0,1)"  :key="message.index">
-            <a class="pr10" href="#" target="_blank">{{message.cityName}}的攻略</a>
-          </h2>
-        </div>
-      </div>
-      <div class="domestic"  @click="went(message.type,message.strategyId)" v-for="message in messages.slice((currentPage-1)*1,(currentPage)*1)" :key="message.strategyId">
-       <div class="total">
-          <div class="leftimg">
-            <img :src="getCoverPic(message.cover)" width="320px" height="130px" />
-          </div>
-          <div class="rightfont">
-            <div class="detailtitle">
-              <h3>“{{message.title}}”</h3>
-            </div>
-            <div class="detail_p">
-              <p>{{message.ssInfo}}</p>
-            </div>
-            <div class="likecollection">
-              <span>
-                <img src="../assets/food/收藏_line.png" width="17px" height="17px" />
-                点赞({{message.ssLikeNum}})
-              </span>
-              <span>
-                <img src="../assets/food/点赞_line.png" width="17px" height="17px" />
-                收藏({{message.ssCollection}})
-              </span>
-            </div>
+      <div class="contain">
+        <div class="pub_wrap termini">
+          <div class="title clearfix">
+            <span class="right_more">
+              <a href="#" target="_blank"></a>
+            </span>
+            <h2
+              class="clearfix"
+              v-for="message in messages.slice(0, 1)"
+              :key="message.index"
+            >
+              <a class="pr10" href="#" target="_blank"
+                >{{ message.cityName }}的攻略</a
+              >
+            </h2>
           </div>
         </div>
-          <hr/>
-      </div>
-       <div class="block">
+        <div
+          class="domestic"
+          @click="went(message.type, message.strategyId)"
+          v-for="message in messages.slice(
+            (currentPage - 1) * 1,
+            currentPage * 1
+          )"
+          :key="message.strategyId"
+        >
+          <div class="total">
+            <div class="leftimg">
+              <img
+                :src="getCoverPic(message.cover)"
+                width="320px"
+                height="130px"
+              />
+            </div>
+            <div class="rightfont">
+              <div class="detailtitle">
+                <h3>“{{ message.title }}”</h3>
+              </div>
+              <div class="detail_p">
+                <p>{{ message.ssInfo }}</p>
+              </div>
+              <div class="likecollection">
+                <span>
+                  <img
+                    src="../../../assets/food/收藏_line.png"
+                    width="17px"
+                    height="17px"
+                  />
+                  点赞({{ message.ssLikeNum }})
+                </span>
+                <span>
+                  <img
+                    src="../../../assets/food/点赞_line.png"
+                    width="17px"
+                    height="17px"
+                  />
+                  收藏({{ message.ssCollection }})
+                </span>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+        <div class="block">
           <el-pagination
             :page-size="1"
             :pager-count="11"
@@ -48,8 +74,8 @@
             @current-change="current_change"
           ></el-pagination>
         </div>
-      <hr />
-    </div>
+        <hr />
+      </div>
       <div id="foot"></div>
     </div>
     <div v-else id="content">
@@ -63,7 +89,7 @@ export default {
   data: function() {
     return {
       messages: [],
-       currentPage: 1,
+      currentPage: 1,
       allpages: 0,
       show1: true
     };
@@ -81,34 +107,32 @@ export default {
           this.allpages = res.data.data.length;
           console.log(this.allpages);
         } else {
-           this.show1=false
+          this.show1 = false;
         }
-
       })
       .catch(err => {
         console.log(err);
       });
   },
-    methods: {
+  methods: {
     current_change(currentPage) {
       this.currentPage = currentPage;
     },
-     getCoverPic(pic) {
+    getCoverPic(pic) {
       //给图片名加上服务器端访问路径
-      if (pic == "cover" || pic == null || pic =="") {
+      if (pic == "cover" || pic == null || pic == "") {
         pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
     },
-      went(type, id) {
+    went(type, id) {
       var strategy = { type, id };
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
       this.$router.push("/index/fvstrategy");
-    },
+    }
   }
-  
 };
 </script>
 <style scoped>
@@ -382,27 +406,27 @@ a {
 }
 
 .pic_auto1 {
-  background: url(../assets/view/leftPic1.jpg) no-repeat center 0;
+  background: url(../../../assets/view/leftPic1.jpg) no-repeat center 0;
 }
 
 .pic_auto2 {
-  background: url(../assets/view/leftPic2.jpg) no-repeat center 0;
+  background: url(../../../assets/view/leftPic2.jpg) no-repeat center 0;
 }
 
 .pic_auto3 {
-  background: url(../assets/view/leftPic3.jpg) no-repeat center 0;
+  background: url(../../../assets/view/leftPic3.jpg) no-repeat center 0;
 }
 
 .pic_auto4 {
-  background: url(../assets/view/leftPic4.jpg) no-repeat center 0;
+  background: url(../../../assets/view/leftPic4.jpg) no-repeat center 0;
 }
 
 .pic_auto5 {
-  background: url(../assets/view/leftPic5.jpg) no-repeat center 0;
+  background: url(../../../assets/view/leftPic5.jpg) no-repeat center 0;
 }
 
 .pic_auto6 {
-  background: url(../assets/view/leftPic6.jpg) no-repeat center 0;
+  background: url(../../../assets/view/leftPic6.jpg) no-repeat center 0;
 }
 
 .pic_auto {
@@ -454,7 +478,7 @@ a {
 .leftimg {
   border-right: 1px solid #333;
   width: 335px;
- height: 145px;
+  height: 145px;
   overflow: s;
   float: left;
   margin-top: 20px;
@@ -463,15 +487,15 @@ a {
   margin-left: 40px;
   margin-bottom: 15px;
 }
-.leftimg img:hover{
+.leftimg img:hover {
   height: 135px;
   width: 323px;
   transition: 0.3s all;
 }
-.leftimg :hover{
-   box-shadow: 0px 5px 5px #eee;
-   background-color: rgb(252, 255,255);
-   transition: 0.3s all;
+.leftimg :hover {
+  box-shadow: 0px 5px 5px #eee;
+  background-color: rgb(252, 255, 255);
+  transition: 0.3s all;
 }
 .rightfont {
   float: right;
@@ -504,6 +528,3 @@ a {
   margin-left: 600px;
 }
 </style>
-
-
-

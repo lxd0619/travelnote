@@ -18,20 +18,25 @@
           <div
             class="rounded-circle float-right mr-5"
             id="headPic"
-            :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"
+            :style="{
+              backgroundImage: 'url(' + getHeadPic(userInfo[0].headPic) + ')'
+            }"
           ></div>
           <div class="mt-3 float-right mr-5 text-center" style="width:10rem;">
-            <h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4>
+            <h4 style="color:#ff9d00">{{ userInfo[0].userName }}</h4>
           </div>
           <div id="relations" class="mt-3 float-right">
-            <ul class="d-flex justify-content-between text-center mr-5" @click="fanslist()">
+            <ul
+              class="d-flex justify-content-between text-center mr-5"
+              @click="fanslist()"
+            >
               <li class="border-right border-bottom border-top">
                 粉丝：
-                <span>{{fans.length}}</span>
+                <span>{{ fans.length }}</span>
               </li>
               <li class="border-bottom border-top">
                 关注：
-                <span>{{attentions.length}}</span>
+                <span>{{ attentions.length }}</span>
               </li>
             </ul>
           </div>

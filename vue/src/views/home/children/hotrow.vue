@@ -3,7 +3,10 @@
     <div v-if="show">
       <div
         class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-        v-for="article in prarticles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+        v-for="article in prarticles.slice(
+          (currentPage - 1) * pagesize,
+          currentPage * pagesize
+        )"
         :key="article.strategyId"
       >
         <img
@@ -17,8 +20,9 @@
             <a
               href="#"
               class="card-link"
-              @click="go(article.type,article.strategyId)"
-            >{{article.title}}</a>
+              @click="go(article.type, article.strategyId)"
+              >{{ article.title }}</a
+            >
           </h5>
           <p
             class="card-text overflow-hidden"
@@ -26,18 +30,31 @@
             v-html="article.prInfo"
           ></p>
           <p class="text-muted">
-            <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.cityName}},</i>
-            by  <a href="#" class="card-link" @click="goUser(article.userId)">{{article.userName}} </a>
+            <i class="fa fa-map-marker mr-2" aria-hidden="true">
+              {{ article.cityName }},</i
+            >
+            by
+            <a href="#" class="card-link" @click="goUser(article.userId)"
+              >{{ article.userName }}
+            </a>
             <img
               :src="getHeadPic(article.headPic)"
               alt="head"
               class="mr-3 rounded-circle"
             />
-            <i class="fa fa-clock-o mr-2" aria-hidden="true"> {{article.dayNum}}天</i>
-            <i class="fa fa-leaf mr-2" aria-hidden="true"> {{article.season}}</i>
-            <i class="fa fa-users mr-2" aria-hidden="true"> {{article.crowdType}}</i>
-            <i class="el-icon-star-off mr-2"> {{article.prCollectionNum}}</i>
-            <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true"> {{article.prLikeNum}}</i>
+            <i class="fa fa-clock-o mr-2" aria-hidden="true">
+              {{ article.dayNum }}天</i
+            >
+            <i class="fa fa-leaf mr-2" aria-hidden="true">
+              {{ article.season }}</i
+            >
+            <i class="fa fa-users mr-2" aria-hidden="true">
+              {{ article.crowdType }}</i
+            >
+            <i class="el-icon-star-off mr-2"> {{ article.prCollectionNum }}</i>
+            <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true">
+              {{ article.prLikeNum }}</i
+            >
           </p>
         </div>
       </div>
@@ -98,10 +115,11 @@ export default {
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
-    },getHeadPic(pic) {
+    },
+    getHeadPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null || pic == "" || pic =="headPic") {
+      if (pic == null || pic == "" || pic == "headPic") {
         pic = "primaryHead.jpeg";
       }
       path = "http://localhost:3000/uploadHeadPic/" + pic;
@@ -114,9 +132,9 @@ export default {
       sessionStorage.setItem("info", info);
       this.$router.push("/index/linestrategy");
     },
-     goUser(userId){
-      sessionStorage.setItem('strategyuserId',userId)
-      this.$router.push('/index/focus')
+    goUser(userId) {
+      sessionStorage.setItem("strategyuserId", userId);
+      this.$router.push("/index/focus");
     },
     current_change(currentPage) {
       this.currentPage = currentPage;
@@ -138,21 +156,21 @@ h1 {
   left: 50%;
   transform: translate(-50%, 0);
 }
-.card-body{
+.card-body {
   padding-top: 5px;
   padding-bottom: 0;
   width: 10rem;
   height: 5rem;
 }
-.text-muted{
+.text-muted {
   margin: 0;
   height: 1rem;
   line-height: 1rem;
 }
-.text-muted a{
+.text-muted a {
   color: #666;
 }
-.text-muted span{
+.text-muted span {
   color: #ff9d00;
 }
 .text-muted img {
@@ -164,8 +182,8 @@ h1 {
 }
 .card:hover {
   color: #333;
-  box-shadow: 0px 5px 5px #eee!important;
-  background-color: rgba(250, 248, 248, 0.6)!important;
+  box-shadow: 0px 5px 5px #eee !important;
+  background-color: rgba(250, 248, 248, 0.6) !important;
   transform: 0.3s all !important;
 }
 .card-title a {

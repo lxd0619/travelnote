@@ -6,53 +6,53 @@
         <div class="container" style="padding-top:10px;padding-bottom:10px;">
           <span class="con-span">目的地</span>
           <span>></span>
-          <span class="con-span">{{stra.cityName}}</span>
+          <span class="con-span">{{ stra.cityName }}</span>
           <span>></span>
-          <span>{{stra.cityName}}攻略</span>
+          <span>{{ stra.cityName }}攻略</span>
           <div id="title">
-            <h2>{{stra.title}}</h2>
+            <h2>{{ stra.title }}</h2>
             <div id="h2-right">
               <div class="ext-r row" style="justify-content:space-around;">
                 <div class="img-span" @click="goFocus(stra.userId)">
                   <img
-                    :src=" getHeadPic(stra.headPic)"
+                    :src="getHeadPic(stra.headPic)"
                     width="48"
                     height="48"
                     style="border-radius:50%"
                   />
-                  {{stra.userName}}
+                  {{ stra.userName }}
                 </div>
                 <div
                   class="img-span"
                   @click="updateCollectionNum()"
                   id="operation"
-                  v-if="stra.ssStatus < 0 ? false:true"
+                  v-if="stra.ssStatus < 0 ? false : true"
                 >
-                  <i
-                    class="el-icon-star-off"
-                    aria-hidden="true"
-                    id="icon"
-                  >收藏({{stra.prCollectionNum}})</i>
+                  <i class="el-icon-star-off" aria-hidden="true" id="icon"
+                    >收藏({{ stra.prCollectionNum }})</i
+                  >
                 </div>
                 <div
                   class="img-span"
                   @click="updateLikeNum()"
                   id="operation1"
-                  v-if="stra.ssStatus < 0 ? false:true"
+                  v-if="stra.ssStatus < 0 ? false : true"
                 >
-                  <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞({{stra.prLikeNum}})</i>
+                  <i class="fa fa-thumbs-o-up" aria-hidden="true"
+                    >点赞({{ stra.prLikeNum }})</i
+                  >
                 </div>
                 <div
                   class="img-span"
                   @click="report(stra.userId)"
-                  v-if="stra.ssStatus < 0 ? false:true"
+                  v-if="stra.ssStatus < 0 ? false : true"
                 >
                   <i class="el-icon-warning" aria-hidden="true">举报</i>
                 </div>
               </div>
             </div>
           </div>
-          <p>初次访问{{stra.cityName}}的蜂蜂会选择这条线路</p>
+          <p>初次访问{{ stra.cityName }}的蜂蜂会选择这条线路</p>
         </div>
       </div>
 
@@ -68,29 +68,40 @@
           <div class="l-comment">
             <div class="com-box">
               <h2>评论</h2>
-              <div v-if="discuss ? true:false">
+              <div v-if="discuss ? true : false">
                 <ul id="comments" data-page="1" data-id="0">
                   <li
                     class="clearfix comment_item item_1203904"
                     data-id="1203904"
                     data-replied="0"
-                    v-for="(dis) in discuss.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+                    v-for="dis in discuss.slice(
+                      (currentPage - 1) * pagesize,
+                      currentPage * pagesize
+                    )"
                     :key="dis.commentId"
                   >
                     <div class="img mr-2" @click="goFocus(dis.userId)">
-                      <img :src="getHeadPic(dis.headPic)" width="48" height="48" />
+                      <img
+                        :src="getHeadPic(dis.headPic)"
+                        width="48"
+                        height="48"
+                      />
                     </div>
                     <div class="info">
-                      <a @click="goFocus(dis.userId)">{{dis.userName}}:</a>
-                      <span class="com-cont ml-1">{{dis.commentContent}}</span>
+                      <a @click="goFocus(dis.userId)">{{ dis.userName }}:</a>
+                      <span class="com-cont ml-1">{{
+                        dis.commentContent
+                      }}</span>
                       <br />
                       <div class="info-span">
-                        <h4>{{dis.commentTime}}</h4>
-                        <span v-if="dis.userId==userId" :key="dis.commentId">
+                        <h4>{{ dis.commentTime }}</h4>
+                        <span v-if="dis.userId == userId" :key="dis.commentId">
                           <h4
                             @click="delComment(dis.commentId)"
                             style="color:#555;font-size:14px"
-                          >删除个人评论</h4>
+                          >
+                            删除个人评论
+                          </h4>
                         </span>
                       </div>
                     </div>
@@ -107,17 +118,25 @@
                 </div>
               </div>
               <div v-else>
-                <h4 style="color:#999;text-align:center">还没评论，抢个沙发吧</h4>
+                <h4 style="color:#999;text-align:center">
+                  还没评论，抢个沙发吧
+                </h4>
               </div>
               <!-- 最后的插入评论 -->
             </div>
             <div class="clearfix com-form">
               <div class="fm-tare user-log">
                 <div v-if="isShow === true">
-                  <textarea v-model="newcommentContent" placeholder="说点什么吧..." id="textarea"></textarea>
+                  <textarea
+                    v-model="newcommentContent"
+                    placeholder="说点什么吧..."
+                    id="textarea"
+                  ></textarea>
                 </div>
                 <div v-if="isShow === false" id="readonly" class="ml-5 mb-5">
-                  <h3 style="color:red;text-align:center">由于您的当前用户状态不正常，已禁止评论功能</h3>
+                  <h3 style="color:red;text-align:center">
+                    由于您的当前用户状态不正常，已禁止评论功能
+                  </h3>
                 </div>
                 <el-form v-if="isShow === true">
                   <el-form-item>
@@ -169,19 +188,19 @@ export default {
     //获取传来的攻略类型和id
     var info = JSON.parse(sessionStorage.getItem("info")); //info=[type,id]
     this.info = info;
-     this.$axios
-        .post("http://localhost:3000/operation/strategydetail", {
-          strategyType: this.info.type,
-          strategyId: this.info.id
-        })
-        .then(res => {
-          console.log(3, res.data.data);
-          // console.log(1, res.data.data);
-          this.strategy = res.data.data;
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
-        });
+    this.$axios
+      .post("http://localhost:3000/operation/strategydetail", {
+        strategyType: this.info.type,
+        strategyId: this.info.id
+      })
+      .then(res => {
+        console.log(3, res.data.data);
+        // console.log(1, res.data.data);
+        this.strategy = res.data.data;
+      })
+      .catch(err => {
+        console.log("错误信息" + err);
+      });
     if (localStorage.getItem("mytoken")) {
       var userId = jwt_decode(localStorage.getItem("mytoken")).userId;
       var userStatus = jwt_decode(localStorage.getItem("mytoken")).userStatus;
@@ -189,7 +208,7 @@ export default {
       if (userStatus == -1) {
         this.isShow = false;
       }
-     
+
       //筛选评论
       this.$axios
         .post("http://localhost:3000/operation/seldiscuss", {
@@ -398,35 +417,35 @@ export default {
     //添加评论
     addComment() {
       if (localStorage.getItem("mytoken")) {
-      this.$axios
-        .put("http://localhost:3000/operation/adddiscuss", {
-          commentContent: this.newcommentContent,
-          strategyId: this.info.id,
-          // userId:, 在后台token获取
-          strategyType: this.info.type
-          // commentContent,strategyId,userId,commentTime,strategyType
-        })
-        .then(res => {
-          console.log(res);
-          //添加评论后实时刷新评论
-          this.$axios
-            .post("http://localhost:3000/operation/seldiscuss", {
-              strategyId: this.info.id,
-              strategyType: this.info.type
-            })
-            .then(res => {
-              this.discuss = res.data.data;
-              this.allpages = res.data.data.length;
-              this.newcommentContent = "";
-            })
-            .catch(err => {
-              console.log("错误信息" + err);
-            });
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
-        });
-         } else {
+        this.$axios
+          .put("http://localhost:3000/operation/adddiscuss", {
+            commentContent: this.newcommentContent,
+            strategyId: this.info.id,
+            // userId:, 在后台token获取
+            strategyType: this.info.type
+            // commentContent,strategyId,userId,commentTime,strategyType
+          })
+          .then(res => {
+            console.log(res);
+            //添加评论后实时刷新评论
+            this.$axios
+              .post("http://localhost:3000/operation/seldiscuss", {
+                strategyId: this.info.id,
+                strategyType: this.info.type
+              })
+              .then(res => {
+                this.discuss = res.data.data;
+                this.allpages = res.data.data.length;
+                this.newcommentContent = "";
+              })
+              .catch(err => {
+                console.log("错误信息" + err);
+              });
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else {
         this.$message({
           showClose: true,
           message: "亲，请先登录呦！",
@@ -460,11 +479,10 @@ export default {
                 })
                 .then(res => {
                   this.discuss = res.data.data;
-                  this.allpages =res.data.data.length;
-                  if(this.allpages%this.pagesize==0){
-                      this.currentPage = this.currentPage - 1;
+                  this.allpages = res.data.data.length;
+                  if (this.allpages % this.pagesize == 0) {
+                    this.currentPage = this.currentPage - 1;
                   }
-                  
                 })
                 .catch(err => {
                   console.log("错误信息" + err);
@@ -505,7 +523,7 @@ export default {
 .jumbotron {
   height: 40rem;
   width: 100%;
-} 
+}
 .container {
   margin: 0 auto;
 }

@@ -1,20 +1,37 @@
 <template>
   <div>
-    <div :style="{'backgroundImage':'url(' + getCoverPic(strategyInfo[0].cover) + ')','width':'100%','height':'100%','position':'fixed','background-repeat':'no-repeat','background-size':'100% 100%'}"></div>
+    <div
+      :style="{
+        backgroundImage: 'url(' + getCoverPic(strategyInfo[0].cover) + ')',
+        width: '100%',
+        height: '100%',
+        position: 'fixed',
+        'background-repeat': 'no-repeat',
+        'background-size': '100% 100%'
+      }"
+    ></div>
     <div id="main">
       <div class="nav">
         <span>攻略详情</span>
         <a href="/manage">返回</a>
       </div>
       <div id="left">
-        <div id="content" v-for="info in strategyInfo.slice(0,1)" :key="info.strategyId">
-          <h1>{{info.title}}</h1>
-          <p>作者：{{info.userName}}</p>
-          <P>时间:{{info.ssTime}}</P>
+        <div
+          id="content"
+          v-for="info in strategyInfo.slice(0, 1)"
+          :key="info.strategyId"
+        >
+          <h1>{{ info.title }}</h1>
+          <p>作者：{{ info.userName }}</p>
+          <P>时间:{{ info.ssTime }}</P>
           <div v-html="info.ssInfo"></div>
         </div>
         <div id="button" v-if="flage">
-          <el-button type="success" icon="el-icon-check" @click="OK()"></el-button>
+          <el-button
+            type="success"
+            icon="el-icon-check"
+            @click="OK()"
+          ></el-button>
           <el-button
             type="danger"
             icon="el-icon-close"
@@ -25,12 +42,23 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">{{msg2}}</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h4 class="modal-title" id="myModalLabel">{{ msg2 }}</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -45,8 +73,17 @@
             ></textarea>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" id="sure" @click="push()">确定</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              取消
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="sure"
+              @click="push()"
+            >
+              确定
+            </button>
           </div>
         </div>
       </div>
@@ -78,18 +115,17 @@ export default {
       .then(res => {
         console.log(res);
         if (res.data.data) {
-
           this.strategyInfo = res.data.data;
-           this.strategyInfo[0].ssTime = this.strategyInfo[0].ssTime.slice(
-          0,
-          this.strategyInfo[0].ssTime.indexOf("T")
-        );
+          this.strategyInfo[0].ssTime = this.strategyInfo[0].ssTime.slice(
+            0,
+            this.strategyInfo[0].ssTime.indexOf("T")
+          );
           if (this.strategyInfo[0].ssStatus == -1) {
             //攻略未审核
             this.flage = true;
             this.ok_ssStatus = 0; //攻略通过审核，为正常攻略
             this.fail_ssStatus = -2; //攻略驳回状态
-            this.msg1 = "是否确认通过"; 
+            this.msg1 = "是否确认通过";
             this.msg2 = "请输入驳回原因";
             this.msg3 = "未通过审核";
             this.msg4 = "审核通过";
@@ -121,7 +157,14 @@ export default {
       var ssStatus = this.ok_ssStatus;
       var Info = { tableName, ssStatus, strategyId };
       var userId = this.strategyInfo[0].userId;
-      var sysMsgContent ="@" +this.strategyInfo[0].userName +":您的攻略[" + this.strategyInfo[0].title +']'+this.msg4+'</br>'
+      var sysMsgContent =
+        "@" +
+        this.strategyInfo[0].userName +
+        ":您的攻略[" +
+        this.strategyInfo[0].title +
+        "]" +
+        this.msg4 +
+        "</br>";
       var message = { sysMsgContent, userId };
       console.log(this.strategyInfo[0].ssStatus, Info);
       if (confirm(this.msg1)) {
@@ -153,8 +196,8 @@ export default {
                   console.log(res);
                 });
               this.$router.push("/manage");
-            }else{
-              this.$message.error("状态修改失败")
+            } else {
+              this.$message.error("状态修改失败");
             }
             console.log(res);
           });
@@ -169,7 +212,15 @@ export default {
         var ssStatus = this.fail_ssStatus;
         var Info = { tableName, ssStatus, strategyId };
         var userId = this.strategyInfo[0].userId;
-        var sysMsgContent ="@" +this.strategyInfo[0].userName +":您的攻略[" + this.strategyInfo[0].title +']'+this.msg3+'</br>' +this.sysMsgContent;
+        var sysMsgContent =
+          "@" +
+          this.strategyInfo[0].userName +
+          ":您的攻略[" +
+          this.strategyInfo[0].title +
+          "]" +
+          this.msg3 +
+          "</br>" +
+          this.sysMsgContent;
         console.log(sysMsgContent);
         var message = { sysMsgContent, userId };
         console.log(sysMsgContent);
@@ -213,14 +264,14 @@ export default {
         pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
-      console.log(path)
+      console.log(path);
       return path;
-    },
+    }
   }
 };
 </script>
 <style scoped>
-.main{
+.main {
   width: 100%;
   position: absolute;
 }

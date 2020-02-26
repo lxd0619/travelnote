@@ -4,22 +4,31 @@
       <div class="card-deck flex-column" id="article">
         <div
           class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded  "
-          v-for="article in articles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+          v-for="article in articles.slice(
+            (currentPage - 1) * pagesize,
+            currentPage * pagesize
+          )"
           :key="article.strategyId"
         >
-          
-          <img class="card-img-top" :src="getPic(article.cover)" alt="article image" />
-          <div class='unread' v-if="article.ssStutas ==-4"><i class='el-icon-lock'></i></div>
+          <img
+            class="card-img-top"
+            :src="getPic(article.cover)"
+            alt="article image"
+          />
+          <div class="unread" v-if="article.ssStutas == -4">
+            <i class="el-icon-lock"></i>
+          </div>
           <div class="card-body">
             <a
-              @click="go(article.type,article.strategyId)"
+              @click="go(article.type, article.strategyId)"
               class="card-title"
               style="cursor:pointer;"
-            >{{article.title}} {{article.ssStatus}}</a>
+              >{{ article.title }} {{ article.ssStatus }}</a
+            >
             <el-button
               type="danger"
               icon="el-icon-delete"
-              @click="delArticle(article.type,article.strategyId)"
+              @click="delArticle(article.type, article.strategyId)"
               circle
               class="float-right"
               id="delBtn"
@@ -30,12 +39,17 @@
               v-html="article.ssInfo"
             ></p>
             <p class="text-muted">
-              <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>
-              <i class="el-icon-star-off mr-2">{{article.ssCollectionNum}}</i>
-              <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true">{{article.ssLikeNum}}</i>
+              <i class="fa fa-map-marker mr-2" aria-hidden="true">{{
+                article.cityName
+              }}</i>
+              <i class="el-icon-star-off mr-2">{{ article.ssCollectionNum }}</i>
+              <i
+                class="fa fa-thumbs-o-up mr-2 float-right"
+                aria-hidden="true"
+                >{{ article.ssLikeNum }}</i
+              >
             </p>
           </div>
-           
         </div>
       </div>
       <!-- 分页 -->
@@ -59,14 +73,11 @@ export default {
   name: "UserArticle",
   data() {
     return {
-      articles: [
-        {
-        }
-      ],
+      articles: [{}],
       currentPage: 1,
       allPage: 0,
       pagesize: 4,
-      show: true,
+      show: true
     };
   },
   created() {
@@ -78,8 +89,8 @@ export default {
           this.show = true;
           this.articles = res.data.data;
           this.allPage = res.data.data.length;
-         
-          console.log(this.articles)
+
+          console.log(this.articles);
         } else {
           this.show = false;
         }
@@ -156,26 +167,26 @@ export default {
 };
 </script>
 <style scoped>
-.unread{
-  width:825px;
+.unread {
+  width: 825px;
   height: 210px;
   background: rgba(19, 19, 19, 0.5);
   margin: 8px 0px;
   margin-top: 0;
   border-radius: 5px;
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   font-size: 100px;
 }
-.unread i{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  color:rgb(246, 245, 236);
+.unread i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(246, 245, 236);
 }
-.unread:hover{
+.unread:hover {
   background: rgba(0, 0, 0, 0.5);
 }
 h3 {

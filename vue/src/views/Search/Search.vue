@@ -13,7 +13,10 @@
                 <div v-if="show">
                   <div
                     class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-                    v-for="article in articles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+                    v-for="article in articles.slice(
+                      (currentPage - 1) * pagesize,
+                      currentPage * pagesize
+                    )"
                     :key="article.strategyId"
                   >
                     <img
@@ -27,8 +30,9 @@
                         <a
                           href="#"
                           class="card-link"
-                          @click="go(article.type,article.strategyId)"
-                        >{{article.title}}</a>
+                          @click="go(article.type, article.strategyId)"
+                          >{{ article.title }}</a
+                        >
                       </h5>
                       <p
                         class="card-text overflow-hidden"
@@ -36,19 +40,24 @@
                         v-html="article.ssInfo"
                       ></p>
                       <p class="text-muted">
-                        <i class="fa fa-map-marker mr-3" aria-hidden="true">{{article.cityName}}</i>
-                        by {{article.userName}}
+                        <i class="fa fa-map-marker mr-3" aria-hidden="true">{{
+                          article.cityName
+                        }}</i>
+                        by {{ article.userName }}
                         <img
                           :src="getHeadPic(article.headPic)"
                           alt="head"
                           class="mr-3"
                           circle
                         />
-                        <i class="el-icon-star-off mr-2">{{article.ssCollectionNum}}</i>
+                        <i class="el-icon-star-off mr-2">{{
+                          article.ssCollectionNum
+                        }}</i>
                         <i
                           class="fa fa-thumbs-o-up mr-2 float-right"
                           aria-hidden="true"
-                        >{{article.ssLikeNum}}</i>
+                          >{{ article.ssLikeNum }}</i
+                        >
                       </p>
                     </div>
                   </div>
@@ -73,17 +82,35 @@
               </div>
               <div class="rightPic">
                 <div class="partPic">
-                  <img src="../assets/view/leftPic1.jpg" alt width="200px" height="110px" /> 描述neirshjsjhjdkkjd
+                  <img
+                    src="../../assets/view/leftPic1.jpg"
+                    alt
+                    width="200px"
+                    height="110px"
+                  />
+                  描述neirshjsjhjdkkjd
                 </div>
               </div>
               <div class="rightPic">
                 <div class="partPic">
-                  <img src="../assets/view/leftPic1.jpg" alt width="200px" height="110px" /> 描述neirshjsjhjdkkjd
+                  <img
+                    src="../../assets/view/leftPic1.jpg"
+                    alt
+                    width="200px"
+                    height="110px"
+                  />
+                  描述neirshjsjhjdkkjd
                 </div>
               </div>
               <div class="rightPic">
                 <div class="partPic">
-                  <img src="../assets/view/leftPic1.jpg" alt width="200px" height="110px" /> 描述neirshjsjhjdkkjd
+                  <img
+                    src="../../assets/view/leftPic1.jpg"
+                    alt
+                    width="200px"
+                    height="110px"
+                  />
+                  描述neirshjsjhjdkkjd
                 </div>
               </div>
             </el-col>

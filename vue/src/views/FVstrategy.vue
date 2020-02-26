@@ -1,9 +1,10 @@
+/**攻略详情页 */
 <template>
   <div>
     <div v-for="stra in strategy" :key="stra.strategyId">
       <img :src="getCoverPic(stra.cover)" alt class="jumbotron" />
       <div class="container mt-3">
-        <h3 id="artTitle">{{stra.title}}</h3>
+        <h3 id="artTitle">{{ stra.title }}</h3>
         <div id="title">
           <div id="h2-right">
             <div class="ext-r row" style="justify-content:space-around;">
@@ -16,7 +17,7 @@
                     height="35px"
                     class="rounded-circle"
                   />
-                  {{stra.userName}}
+                  {{ stra.userName }}
                 </span>
               </div>
               <div
@@ -24,23 +25,27 @@
                 class="operation"
                 id="operation"
                 style="cursor:pointer"
-                v-if="stra.ssStatus < 0 ? false:true"
+                v-if="stra.ssStatus < 0 ? false : true"
               >
-                <i class="el-icon-star-off" aria-hidden="true" id="icon">收藏 {{stra.ssCollectionNum}}</i>
+                <i class="el-icon-star-off" aria-hidden="true" id="icon"
+                  >收藏 {{ stra.ssCollectionNum }}</i
+                >
               </div>
               <div
                 class="img-span"
                 @click="updateLikeNum()"
                 id="operation1"
                 style="cursor:pointer"
-                v-if="stra.ssStatus < 0 ? false:true"
+                v-if="stra.ssStatus < 0 ? false : true"
               >
-                <i class="fa fa-thumbs-o-up" aria-hidden="true">点赞 {{stra.ssLikeNum}}</i>
+                <i class="fa fa-thumbs-o-up" aria-hidden="true"
+                  >点赞 {{ stra.ssLikeNum }}</i
+                >
               </div>
               <div
                 class="img-span"
                 @click="report(stra.userId)"
-                v-if="stra.ssStatus < 0 ? false:true"
+                v-if="stra.ssStatus < 0 ? false : true"
               >
                 <i class="el-icon-warning" aria-hidden="true">举报</i>
               </div>
@@ -54,30 +59,35 @@
       <div class="container">
         <div class="com-box mt-5">
           <h2>评论</h2>
-          <div v-if="discuss ? true:false">
+          <div v-if="discuss ? true : false">
             <ul id="comments" data-page="1" data-id="0">
               <li
                 class="clearfix comment_item"
                 data-id="1203904"
                 data-replied="0"
-                v-for="(dis) in discuss.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+                v-for="dis in discuss.slice(
+                  (currentPage - 1) * pagesize,
+                  currentPage * pagesize
+                )"
                 :key="dis.commentId"
               >
                 <div class="img mr-2" @click="go(dis.userId)">
                   <img :src="getHeadPic(dis.headPic)" />
                 </div>
                 <div class="info">
-                  <a @click="go(dis.userId)">{{dis.userName}}:</a>
-                  <span class="com-cont ml-1">{{dis.commentContent}}</span>
+                  <a @click="go(dis.userId)">{{ dis.userName }}:</a>
+                  <span class="com-cont ml-1">{{ dis.commentContent }}</span>
                   <br />
 
                   <div class="info-span">
-                    <h4>{{dis.commentTime}}</h4>
-                    <span v-if="dis.userId==userId" :key="dis.commentId">
+                    <h4>{{ dis.commentTime }}</h4>
+                    <span v-if="dis.userId == userId" :key="dis.commentId">
                       <h4
                         @click="delComment(dis.commentId)"
                         style="color:#555;font-size:14px"
-                      >删除个人评论</h4>
+                      >
+                        删除个人评论
+                      </h4>
                     </span>
                   </div>
                 </div>
@@ -101,10 +111,16 @@
         <div class="clearfix com-form">
           <div class="fm-tare user-log">
             <div v-if="isShow === true">
-              <textarea v-model="newcommentContent" placeholder="说点什么吧..." id="textarea"></textarea>
+              <textarea
+                v-model="newcommentContent"
+                placeholder="说点什么吧..."
+                id="textarea"
+              ></textarea>
             </div>
             <div v-if="isShow === false" id="readonly" class="ml-5 mb-5">
-              <h3 style="color:red;text-align:center">由于您的当前用户状态不正常，已禁止评论功能</h3>
+              <h3 style="color:red;text-align:center">
+                由于您的当前用户状态不正常，已禁止评论功能
+              </h3>
             </div>
             <el-form v-if="isShow === true">
               <el-form-item>
@@ -370,40 +386,40 @@ export default {
     },
     //添加评论
     addComment() {
-       if (localStorage.getItem("mytoken")) {
-      this.$axios
-        .put("http://localhost:3000/operation/adddiscuss", {
-          commentContent: this.newcommentContent,
-          strategyId: this.info.id,
-          // userId:, 在后台token获取
-          strategyType: this.info.type
-          // commentContent,strategyId,userId,commentTime,strategyType
-        })
-        .then(res => {
-          this.newcommentContent = "";
-          this.$axios
-            .post("http://localhost:3000/operation/seldiscuss", {
-              strategyId: this.info.id,
-              strategyType: this.info.type
-            })
-            .then(res => {
-              this.discuss = res.data.data;
-              this.allpages = res.data.data.length;
-            })
-            .catch(err => {
-              console.log("错误信息" + err);
-            });
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
-        });
-       }else {
+      if (localStorage.getItem("mytoken")) {
+        this.$axios
+          .put("http://localhost:3000/operation/adddiscuss", {
+            commentContent: this.newcommentContent,
+            strategyId: this.info.id,
+            // userId:, 在后台token获取
+            strategyType: this.info.type
+            // commentContent,strategyId,userId,commentTime,strategyType
+          })
+          .then(res => {
+            this.newcommentContent = "";
+            this.$axios
+              .post("http://localhost:3000/operation/seldiscuss", {
+                strategyId: this.info.id,
+                strategyType: this.info.type
+              })
+              .then(res => {
+                this.discuss = res.data.data;
+                this.allpages = res.data.data.length;
+              })
+              .catch(err => {
+                console.log("错误信息" + err);
+              });
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else {
         this.$message({
           showClose: true,
           message: "亲，请先登录呦！",
           type: "warning"
         });
-       }
+      }
     },
     // 删除评论
     delComment(commentId) {

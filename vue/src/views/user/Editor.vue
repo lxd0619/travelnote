@@ -6,13 +6,20 @@
         <el-main>
           <el-row>
             <!-- 表单 -->
-            <el-form :model="articleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+            <el-form
+              :model="articleForm"
+              :rules="rules"
+              ref="ruleForm"
+              class="demo-ruleForm"
+            >
               <!--elementui的上传图片的upload组件-->
               <el-row :gutter="20">
                 <el-col :span="12">
                   <div class="mt-3">
                     <h4 class="display-5 text-right">设置攻略封面</h4>
-                    <p class="lead text-right mt-5">图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
+                    <p class="lead text-right mt-5">
+                      图片建议选择尺寸大于1680px的高清大图，如相机原图
+                    </p>
                   </div>
                 </el-col>
                 <el-col :span="12">
@@ -33,8 +40,15 @@
               <el-col :span="12" :offset="6">
                 <el-row :gutter="40">
                   <el-col :span="7">
-                    <el-form-item label="攻略类型" class="text-right" prop="type">
-                      <el-select v-model="articleForm.type" placeholder="请选择攻略类型">
+                    <el-form-item
+                      label="攻略类型"
+                      class="text-right"
+                      prop="type"
+                    >
+                      <el-select
+                        v-model="articleForm.type"
+                        placeholder="请选择攻略类型"
+                      >
                         <el-option
                           v-for="type in types"
                           :key="type.value"
@@ -44,10 +58,22 @@
                       </el-select>
                     </el-form-item>
                     <el-form-item label="标题" class="text-right" prop="title">
-                      <el-input v-model="articleForm.title" name="title" style="width:200px;"></el-input>
+                      <el-input
+                        v-model="articleForm.title"
+                        name="title"
+                        style="width:200px;"
+                      ></el-input>
                     </el-form-item>
-                    <el-form-item label="城市名称" class="text-right" prop="cityName">
-                      <el-input v-model="articleForm.cityName" name="cityName" style="width:200px;"></el-input>
+                    <el-form-item
+                      label="城市名称"
+                      class="text-right"
+                      prop="cityName"
+                    >
+                      <el-input
+                        v-model="articleForm.cityName"
+                        name="cityName"
+                        style="width:200px;"
+                      ></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="7" class="float-right">
@@ -57,7 +83,10 @@
                       prop="dayNum"
                       v-if="articleForm.type === 'personalrow'"
                     >
-                      <el-select v-model="articleForm.dayNum" placeholder="请选择几日游">
+                      <el-select
+                        v-model="articleForm.dayNum"
+                        placeholder="请选择几日游"
+                      >
                         <el-option
                           v-for="day in days"
                           :key="day.value"
@@ -72,7 +101,10 @@
                       prop="season"
                       v-if="articleForm.type === 'personalrow'"
                     >
-                      <el-select v-model="articleForm.season" placeholder="请选择适宜季节">
+                      <el-select
+                        v-model="articleForm.season"
+                        placeholder="请选择适宜季节"
+                      >
                         <el-option
                           v-for="season in seasons"
                           :key="season.value"
@@ -87,7 +119,10 @@
                       prop="crowdType"
                       v-if="articleForm.type === 'personalrow'"
                     >
-                      <el-select v-model="articleForm.crowdType" placeholder="请选择面向人群">
+                      <el-select
+                        v-model="articleForm.crowdType"
+                        placeholder="请选择面向人群"
+                      >
                         <el-option
                           v-for="crowdType in crowdTypes"
                           :key="crowdType.value"
@@ -127,7 +162,9 @@
             class="btn btn-outline-primary float-right mt-3 mb-5 mr-5"
             :plain="true"
             @click="upload('ruleForm')"
-          >发表游记</button>
+          >
+            发表游记
+          </button>
         </div>
         <!-- 返回顶部 -->
         <el-backtop :bottom="200"></el-backtop>
