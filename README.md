@@ -13,3 +13,18 @@
 - 后端使用Express框架、进行跨域的设置、加密等操作，使用Formidable等模块；
 - 使用MySql数据库进行数据的增删改查等操作；
 - VueX实现数据的状态管理。
+
+
+
+运行方式：
+
+```
+后端：
+cd server
+npm install
+nodemon
+前端:
+cd vue
+npm install
+npm run dev
+```
