@@ -9,31 +9,55 @@
         <div id="con-platformRecommend-main">
           <br />
           <div class="line-row">
-            <div class="item-list clearfix row" style="justify-content: space-around" v-if="show01">
+            <div
+              class="item-list clearfix row"
+              style="justify-content: space-around"
+              v-if="show01"
+            >
               <div
                 class="item-coat J_item box-shadow"
-                @click="go(strategy.type,strategy.strategyId)"
+                @click="go(strategy.type, strategy.strategyId)"
                 v-for="strategy in platformRecommendstrategy"
                 :key="strategy.strategyId"
               >
                 <div class="item">
-                  <img :src="getCoverPic(strategy.cover)" width="280px" height="200px" alt />
+                  <img
+                    :src="getCoverPic(strategy.cover)"
+                    width="280px"
+                    height="200px"
+                    alt
+                  />
                   <div class="totalPart">
                     <a href="#" target="_blank" class="detail">
-                      <p class="title">{{strategy.title}}</p>
+                      <p class="title">{{ strategy.title }}</p>
                     </a>
-                    <div class="ext-r row" style="justify-content:space-around;">
+                    <div
+                      class="ext-r row"
+                      style="justify-content:space-around;"
+                    >
                       <div>
-                        <img src="../../assets/line/shou.png" width="15px" height="15px" />
-                        <span>({{strategy.prCollectionNum}})</span>
+                        <img
+                          src="../../assets/line/shou.png"
+                          width="15px"
+                          height="15px"
+                        />
+                        <span>({{ strategy.prCollectionNum }})</span>
                       </div>
 
                       <div>
-                        <img src="../../assets/line/zan.png" width="15px" height="15px" />
-                        <span>({{strategy.prLikeNum}})</span>
+                        <img
+                          src="../../assets/line/zan.png"
+                          width="15px"
+                          height="15px"
+                        />
+                        <span>({{ strategy.prLikeNum }})</span>
                       </div>
                       <div>
-                        <img src="../../assets/line/browsing-history.png" width="20px" height="15px" />
+                        <img
+                          src="../../assets/line/browsing-history.png"
+                          width="20px"
+                          height="15px"
+                        />
                         <!-- <span>浏览量</span> -->
                       </div>
                     </div>
@@ -51,27 +75,47 @@
         <div id="con-personalRecommend-main">
           <br />
           <div class="line-row">
-            <div class="item-list clearfix row" style="justify-content: space-around" v-if="show02">
+            <div
+              class="item-list clearfix row"
+              style="justify-content: space-around"
+              v-if="show02"
+            >
               <div
                 class="item-coat J_item box-shadow"
-                @click="go(strategy.type,strategy.strategyId)"
-                v-for="strategy in personalrecommendstrategy.slice(0,8)"
+                @click="go(strategy.type, strategy.strategyId)"
+                v-for="strategy in personalrecommendstrategy.slice(0, 8)"
                 :key="strategy.strategyId"
               >
                 <div class="item">
-                  <img :src="getCoverPic(strategy.cover)" width="280px" height="200px" alt />
+                  <img
+                    :src="getCoverPic(strategy.cover)"
+                    width="280px"
+                    height="200px"
+                    alt
+                  />
                   <div class="totalPart">
                     <a href="#" target="_blank" class="detail">
-                      <p class="title">{{strategy.title}}</p>
+                      <p class="title">{{ strategy.title }}</p>
                     </a>
-                    <div class="ext-r row" style="justify-content:space-around;">
+                    <div
+                      class="ext-r row"
+                      style="justify-content:space-around;"
+                    >
                       <div>
-                        <img src="../../assets/line/shou.png" width="15px" height="15px" />
-                        <span>({{strategy.prCollectionNum}})</span>
+                        <img
+                          src="../../assets/line/shou.png"
+                          width="15px"
+                          height="15px"
+                        />
+                        <span>({{ strategy.prCollectionNum }})</span>
                       </div>
                       <div>
-                        <img src="../../assets/line/zan.png" width="15px" height="15px" />
-                        <span>({{strategy.prLikeNum}})</span>
+                        <img
+                          src="../../assets/line/zan.png"
+                          width="15px"
+                          height="15px"
+                        />
+                        <span>({{ strategy.prLikeNum }})</span>
                       </div>
                     </div>
                   </div>
@@ -120,7 +164,8 @@
                   role="tab"
                   aria-controls="nav-default"
                   aria-selected="true"
-                >综合排序</a>
+                  >综合排序</a
+                >
                 <a
                   class="nav-item nav-link"
                   id="nav-people-tab"
@@ -129,8 +174,13 @@
                   role="tab"
                   aria-controls="nav-people"
                   aria-selected="false"
-                  @click="lineClass='crowdType',lineType='活力行',lineClassify()"
-                >人群划分</a>
+                  @click="
+                    (lineClass = 'crowdType'),
+                      (lineType = '活力行'),
+                      lineClassify()
+                  "
+                  >人群划分</a
+                >
                 <a
                   class="nav-item nav-link"
                   id="nav-time-tab"
@@ -139,8 +189,11 @@
                   role="tab"
                   aria-controls="nav-time"
                   aria-selected="false"
-                  @click="lineClass='dayNum',lineType='1',lineClassify()"
-                >时间长度</a>
+                  @click="
+                    (lineClass = 'dayNum'), (lineType = '1'), lineClassify()
+                  "
+                  >时间长度</a
+                >
                 <a
                   class="nav-item nav-link"
                   id="nav-season-tab"
@@ -149,8 +202,11 @@
                   role="tab"
                   aria-controls="nav-season"
                   aria-selected="false"
-                  @click="lineClass='season',lineType='春',lineClassify()"
-                >季节</a>
+                  @click="
+                    (lineClass = 'season'), (lineType = '春'), lineClassify()
+                  "
+                  >季节</a
+                >
               </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -164,14 +220,14 @@
                 <div class="main_news" v-if="show03">
                   <ul>
                     <li
-                      @click="go(strategy.type,strategy.strategyId)"
+                      @click="go(strategy.type, strategy.strategyId)"
                       v-for="strategy in personalrecommendstrategy.slice(8)"
                       :key="strategy.strategyId"
                     >
                       <a href="#" target="_blank">
                         <img :src="getCoverPic(strategy.cover)" />
                         <div class="txt">
-                          <h3>{{strategy.title}}</h3>
+                          <h3>{{ strategy.title }}</h3>
                           <!-- <span>{{strategy.prInfo}}</span> -->
                         </div>
                       </a>
@@ -198,8 +254,13 @@
                       role="tab"
                       aria-controls="nav-people1"
                       aria-selected="true"
-                      @click="lineClass='crowdType',lineType='活力行',lineClassify()"
-                    >活力行</a>
+                      @click="
+                        (lineClass = 'crowdType'),
+                          (lineType = '活力行'),
+                          lineClassify()
+                      "
+                      >活力行</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-people2-tab"
@@ -208,8 +269,13 @@
                       role="tab"
                       aria-controls="nav-people2"
                       aria-selected="false"
-                      @click="lineClass='crowdType',lineType='夕阳游',lineClassify()"
-                    >夕阳游</a>
+                      @click="
+                        (lineClass = 'crowdType'),
+                          (lineType = '夕阳游'),
+                          lineClassify()
+                      "
+                      >夕阳游</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-people3-tab"
@@ -218,8 +284,13 @@
                       role="tab"
                       aria-controls="nav-people3"
                       aria-selected="false"
-                      @click="lineClass='crowdType',lineType='亲子游',lineClassify()"
-                    >亲子游</a>
+                      @click="
+                        (lineClass = 'crowdType'),
+                          (lineType = '亲子游'),
+                          lineClassify()
+                      "
+                      >亲子游</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-people4-tab"
@@ -228,8 +299,13 @@
                       role="tab"
                       aria-controls="nav-people4"
                       aria-selected="false"
-                      @click="lineClass='crowdType',lineType='情侣游',lineClassify()"
-                    >情侣游</a>
+                      @click="
+                        (lineClass = 'crowdType'),
+                          (lineType = '情侣游'),
+                          lineClassify()
+                      "
+                      >情侣游</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-people5-tab"
@@ -238,8 +314,13 @@
                       role="tab"
                       aria-controls="nav-people5"
                       aria-selected="false"
-                      @click="lineClass='crowdType',lineType='蜜月行',lineClassify()"
-                    >蜜月行</a>
+                      @click="
+                        (lineClass = 'crowdType'),
+                          (lineType = '蜜月行'),
+                          lineClassify()
+                      "
+                      >蜜月行</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-people6-tab"
@@ -248,8 +329,13 @@
                       role="tab"
                       aria-controls="nav-people6"
                       aria-selected="false"
-                      @click="lineClass='crowdType',lineType='伙伴游',lineClassify()"
-                    >伙伴游</a>
+                      @click="
+                        (lineClass = 'crowdType'),
+                          (lineType = '伙伴游'),
+                          lineClassify()
+                      "
+                      >伙伴游</a
+                    >
                   </div>
                 </nav>
                 <!-- 第2行人群划分内容 -->
@@ -264,14 +350,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -289,14 +375,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -314,14 +400,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -339,14 +425,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -364,14 +450,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -389,14 +475,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -424,8 +510,11 @@
                       role="tab"
                       aria-controls="nav-time1"
                       aria-selected="true"
-                      @click="lineClass='dayNum',lineType='1',lineClassify()"
-                    >一日游</a>
+                      @click="
+                        (lineClass = 'dayNum'), (lineType = '1'), lineClassify()
+                      "
+                      >一日游</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-time2-tab"
@@ -434,8 +523,11 @@
                       role="tab"
                       aria-controls="nav-time2"
                       aria-selected="false"
-                      @click="lineClass='dayNum',lineType='2',lineClassify()"
-                    >二日游</a>
+                      @click="
+                        (lineClass = 'dayNum'), (lineType = '2'), lineClassify()
+                      "
+                      >二日游</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-time3-tab"
@@ -444,8 +536,11 @@
                       role="tab"
                       aria-controls="nav-time3"
                       aria-selected="false"
-                      @click="lineClass='dayNum',lineType='3',lineClassify()"
-                    >三日游</a>
+                      @click="
+                        (lineClass = 'dayNum'), (lineType = '3'), lineClassify()
+                      "
+                      >三日游</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-time4-tab"
@@ -454,8 +549,11 @@
                       role="tab"
                       aria-controls="nav-time4"
                       aria-selected="false"
-                      @click="lineClass='dayNum',lineType='4',lineClassify()"
-                    >四日游</a>
+                      @click="
+                        (lineClass = 'dayNum'), (lineType = '4'), lineClassify()
+                      "
+                      >四日游</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-time5-tab"
@@ -464,8 +562,11 @@
                       role="tab"
                       aria-controls="nav-time5"
                       aria-selected="false"
-                      @click="lineClass='dayNum',lineType='5',lineClassify()"
-                    >五日游</a>
+                      @click="
+                        (lineClass = 'dayNum'), (lineType = '5'), lineClassify()
+                      "
+                      >五日游</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-time6-tab"
@@ -474,8 +575,11 @@
                       role="tab"
                       aria-controls="nav-time6"
                       aria-selected="false"
-                      @click="lineClass='dayNum',lineType='6',lineClassify()"
-                    >七日游</a>
+                      @click="
+                        (lineClass = 'dayNum'), (lineType = '6'), lineClassify()
+                      "
+                      >七日游</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-time7-tab"
@@ -484,8 +588,11 @@
                       role="tab"
                       aria-controls="nav-time7"
                       aria-selected="false"
-                      @click="lineClass='dayNum',lineType='0',lineClassify()"
-                    >多日游</a>
+                      @click="
+                        (lineClass = 'dayNum'), (lineType = '0'), lineClassify()
+                      "
+                      >多日游</a
+                    >
                   </div>
                 </nav>
                 <!-- 第2行时间长度内容 -->
@@ -500,14 +607,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -525,14 +632,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -550,14 +657,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -575,14 +682,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -600,14 +707,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -625,14 +732,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -650,14 +757,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -685,8 +792,13 @@
                       role="tab"
                       aria-controls="nav-season1"
                       aria-selected="true"
-                      @click="lineClass='season',lineType='春',lineClassify()"
-                    >浪漫春日</a>
+                      @click="
+                        (lineClass = 'season'),
+                          (lineType = '春'),
+                          lineClassify()
+                      "
+                      >浪漫春日</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-season2-tab"
@@ -695,8 +807,13 @@
                       role="tab"
                       aria-controls="nav-season2"
                       aria-selected="false"
-                      @click="lineClass='season',lineType='夏',lineClassify()"
-                    >活力盛夏</a>
+                      @click="
+                        (lineClass = 'season'),
+                          (lineType = '夏'),
+                          lineClassify()
+                      "
+                      >活力盛夏</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-season3-tab"
@@ -705,8 +822,13 @@
                       role="tab"
                       aria-controls="nav-season3"
                       aria-selected="false"
-                      @click="lineClass='season',lineType='秋',lineClassify()"
-                    >金秋时节</a>
+                      @click="
+                        (lineClass = 'season'),
+                          (lineType = '秋'),
+                          lineClassify()
+                      "
+                      >金秋时节</a
+                    >
                     <a
                       class="nav-item nav-link"
                       id="nav-season4-tab"
@@ -715,8 +837,13 @@
                       role="tab"
                       aria-controls="nav-season4"
                       aria-selected="false"
-                      @click="lineClass='season',lineType='冬',lineClassify()"
-                    >冬日热旅</a>
+                      @click="
+                        (lineClass = 'season'),
+                          (lineType = '冬'),
+                          lineClassify()
+                      "
+                      >冬日热旅</a
+                    >
                   </div>
                 </nav>
                 <!-- 第2行季节内容 -->
@@ -731,14 +858,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -756,14 +883,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -781,14 +908,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>
@@ -806,14 +933,14 @@
                     <div class="main_news" v-if="people01">
                       <ul>
                         <li
-                          @click="go(strategy.type,strategy.strategyId)"
+                          @click="go(strategy.type, strategy.strategyId)"
                           v-for="strategy in people"
                           :key="strategy.strategyId"
                         >
                           <a href="#" target="_blank">
                             <img :src="getCoverPic(strategy.cover)" />
                             <div class="txt">
-                              <h3>{{strategy.title}}</h3>
+                              <h3>{{ strategy.title }}</h3>
                             </div>
                           </a>
                         </li>

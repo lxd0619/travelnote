@@ -4,7 +4,10 @@
     <div v-if="show">
       <div
         class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-        v-for="article in ssarticles.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+        v-for="article in ssarticles.slice(
+          (currentPage - 1) * pagesize,
+          currentPage * pagesize
+        )"
         :key="article.strategyId"
       >
         <img
@@ -18,8 +21,9 @@
             <a
               href="#"
               class="card-link"
-              @click="go(article.type,article.strategyId)"
-            >{{article.title}}</a>
+              @click="go(article.type, article.strategyId)"
+              >{{ article.title }}</a
+            >
           </h5>
           <p
             class="card-text overflow-hidden"
@@ -27,15 +31,22 @@
             v-html="article.ssInfo"
           ></p>
           <p class="text-muted">
-            <i class="fa fa-map-marker mr-2" aria-hidden="true"> {{article.cityName}},</i>
-            by <a href="#" class="card-link" @click="goUser(article.userId)">{{article.userName}} </a>
+            <i class="fa fa-map-marker mr-2" aria-hidden="true">
+              {{ article.cityName }},</i
+            >
+            by
+            <a href="#" class="card-link" @click="goUser(article.userId)"
+              >{{ article.userName }}
+            </a>
             <img
               :src="getHeadPic(article.headPic)"
               alt="head"
               class="mr-3 rounded-circle"
             />
-            <i class="el-icon-star-off mr-2"> {{article.ssCollectionNum}}</i>
-            <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true"> {{article.ssLikeNum}}</i>
+            <i class="el-icon-star-off mr-2"> {{ article.ssCollectionNum }}</i>
+            <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true">
+              {{ article.ssLikeNum }}</i
+            >
           </p>
         </div>
       </div>
@@ -92,7 +103,7 @@ export default {
   methods: {
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
-      if (pic == "cover" || pic == null || pic =="") {
+      if (pic == "cover" || pic == null || pic == "") {
         pic = "primaryCover.jpg";
       }
       let path = "coverPic/" + pic;
@@ -113,9 +124,9 @@ export default {
       sessionStorage.setItem("info", info);
       this.$router.push("/index/fvstrategy");
     },
-    goUser(userId){
-      sessionStorage.setItem('strategyuserId',userId)
-      this.$router.push('/index/focus')
+    goUser(userId) {
+      sessionStorage.setItem("strategyuserId", userId);
+      this.$router.push("/index/focus");
     },
     current_change(currentPage) {
       this.currentPage = currentPage;
@@ -148,10 +159,10 @@ h1 {
   height: 1rem;
   line-height: 1rem;
 }
-.text-muted a{
+.text-muted a {
   color: #666;
 }
-.text-muted span{
+.text-muted span {
   color: #ff9d00;
 }
 .text-muted img {
@@ -163,8 +174,8 @@ h1 {
 }
 .card:hover {
   color: #333;
-  box-shadow: 0px 5px 5px #eee!important;
-  background-color: rgba(250, 248, 248, 0.6)!important;
+  box-shadow: 0px 5px 5px #eee !important;
+  background-color: rgba(250, 248, 248, 0.6) !important;
   transform: 0.3s all !important;
 }
 .card-title a {

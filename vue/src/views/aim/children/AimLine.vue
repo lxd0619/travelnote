@@ -4,19 +4,25 @@
       <div class="container" style="padding-top:10px;padding-bottom:10px;">
         <span class="con-span">目的地</span>
         <span>></span>
-        <span>{{cityName}}</span>
+        <span>{{ cityName }}</span>
         <div>
-          <h1>{{cityName}}</h1>
+          <h1>{{ cityName }}</h1>
         </div>
       </div>
     </div>
     <div class="container">
       <!-- 路线 -->
-      <h3>{{cityName}}经典路线</h3>
+      <h3>{{ cityName }}经典路线</h3>
       <div class="line" v-if="show01">
-        <div class="line-map" v-for="strategy in personalRowStrategy" :key="strategy.strategyId">
+        <div
+          class="line-map"
+          v-for="strategy in personalRowStrategy"
+          :key="strategy.strategyId"
+        >
           <a href>
-            <h5 @click="go(strategy.type,strategy.strategyId)">{{strategy.title}}</h5>
+            <h5 @click="go(strategy.type, strategy.strategyId)">
+              {{ strategy.title }}
+            </h5>
           </a>
           <img
             class
@@ -25,31 +31,43 @@
             style="width: 340px;height: 180px;"
           />
           <p>
-            <span>{{strategy.firstchoice}}</span>
-            初次访问{{cityName}}的蜂蜂会选择这条线路
+            <span>{{ strategy.firstchoice }}</span>
+            初次访问{{ cityName }}的蜂蜂会选择这条线路
           </p>
           <hr />
           <div v-html="strategy.prinfo"></div>
           <br />
-          <a href class="map-last-a" @click="go(strategy.type,strategy.strategyId)">查看详情></a>
+          <a
+            href
+            class="map-last-a"
+            @click="go(strategy.type, strategy.strategyId)"
+            >查看详情></a
+          >
         </div>
       </div>
-      <div class="nonedata" v-else>暂无{{cityName}}路线攻略</div>
+      <div class="nonedata" v-else>暂无{{ cityName }}路线攻略</div>
       <div class="clearboth"></div>
       <!-- 景点 -->
-      <h3>{{cityName}}景点攻略</h3>
+      <h3>{{ cityName }}景点攻略</h3>
       <div class="view" v-if="show02">
         <hr />
         <div class="main_news">
           <ul>
             <li
-              v-for="strategy in sceneryStrategy.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+              v-for="strategy in sceneryStrategy.slice(
+                (currentPage - 1) * pagesize,
+                currentPage * pagesize
+              )"
               :key="strategy.strategyId"
             >
-              <a href @click="go(strategy.type,strategy.strategyId)" target="_blank">
+              <a
+                href
+                @click="go(strategy.type, strategy.strategyId)"
+                target="_blank"
+              >
                 <img :src="getCoverPic(strategy.cover)" />
                 <div class="txt">
-                  <h3>{{strategy.title}}</h3>
+                  <h3>{{ strategy.title }}</h3>
                   <span v-html="strategy.ssInfo"></span>
                 </div>
               </a>
@@ -71,24 +89,27 @@
           </div>
         </div>
       </div>
-      <div class="nonedata" v-else>暂无{{cityName}}景点攻略</div>
+      <div class="nonedata" v-else>暂无{{ cityName }}景点攻略</div>
       <div class="clearboth"></div>
       <!-- 美食 -->
-      <h3>{{cityName}}美食攻略</h3>
+      <h3>{{ cityName }}美食攻略</h3>
       <div class="foods" v-if="show03">
         <hr />
-        <div class="main-show" v-for="strategy in foodStrategy" :key="strategy.strategyId">
-          <div class="show-img" @click="go(strategy.type,strategy.strategyId)">
+        <div
+          class="main-show"
+          v-for="strategy in foodStrategy"
+          :key="strategy.strategyId"
+        >
+          <div class="show-img" @click="go(strategy.type, strategy.strategyId)">
             <img :src="getCoverPic(strategy.cover)" alt />
-            <span class="img-span">{{strategy.title}}</span>
+            <span class="img-span">{{ strategy.title }}</span>
             <div class="d-txt">
-              <p class="p-left">{{strategy.fsInfo}}</p>
+              <p class="p-left">{{ strategy.fsInfo }}</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="nonedata" v-else>暂无{{cityName}}美食攻略</div>
-
+      <div class="nonedata" v-else>暂无{{ cityName }}美食攻略</div>
     </div>
     <div class="clearboth"></div>
   </div>
@@ -117,17 +138,17 @@ export default {
     //获取传来cityName
     var cityName = JSON.parse(sessionStorage.getItem("cityName"));
     this.cityName = cityName;
-    console.log('当前的城市',this.cityName)
+    console.log("当前的城市", this.cityName);
     //加载路线攻略
     this.$axios
       .post("http://localhost:3000/aim/aimpersonalrow", {
         cityName: this.cityName
       })
       .then(res => {
-        if(res.data.data){
-        this.personalRowStrategy = res.data.data;
-        this.show01 = true;
-         }
+        if (res.data.data) {
+          this.personalRowStrategy = res.data.data;
+          this.show01 = true;
+        }
       })
       .catch(err => {
         console.log("错误信息" + err);
@@ -138,11 +159,11 @@ export default {
         cityName: this.cityName
       })
       .then(res => {
-        console.log(this.cityName,res.data.data);
-        if(res.data.data){
-        this.sceneryStrategy = res.data.data;
-        this.allpages = res.data.data.length;
-        this.show02 = true;
+        console.log(this.cityName, res.data.data);
+        if (res.data.data) {
+          this.sceneryStrategy = res.data.data;
+          this.allpages = res.data.data.length;
+          this.show02 = true;
         }
       })
       .catch(err => {
@@ -154,10 +175,10 @@ export default {
         cityName: this.cityName
       })
       .then(res => {
-        if(res.data.data){
-        // console.log(1, res);
-        this.foodStrategy = res.data.data;
-        this.show03 = true;
+        if (res.data.data) {
+          // console.log(1, res);
+          this.foodStrategy = res.data.data;
+          this.show03 = true;
         }
       })
       .catch(err => {
@@ -168,17 +189,16 @@ export default {
     getCoverPic(pic) {
       //给图片名加上服务器端访问路径
       let path = "";
-      if (pic == null || pic==""||pic=="cover") {
+      if (pic == null || pic == "" || pic == "cover") {
         pic = "primaryCover.jpg";
       }
       path = "http://localhost:3000/coverPic/" + pic;
       return path;
-      
     },
     //页面跳转
     go(type, id) {
       var strategy = { type, id };
-      console.log(this.cityName,strategy)
+      console.log(this.cityName, strategy);
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
       if (strategy.type == "personalrow") {
@@ -192,11 +212,11 @@ export default {
     current_change: function(currentPage) {
       this.currentPage = currentPage;
     }
-  },
+  }
 };
 </script>
 
- <style scoped>
+<style scoped>
 .container-fluid .container .con-span {
   color: #888;
   font-size: 12px;
@@ -301,8 +321,8 @@ export default {
   line-height: 18px;
   color: #737373;
 }
-.main_news ul li a .txt span h1{
-  font-size: 20px!important;
+.main_news ul li a .txt span h1 {
+  font-size: 20px !important;
 }
 
 .container .foods {
@@ -323,7 +343,7 @@ export default {
 
 .main-show .show-img:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 18px 0 rgba(0, 0, 0, 0.19);
-  background-color: rgb(255,255,255);
+  background-color: rgb(255, 255, 255);
   transition: 0.5s all;
 }
 

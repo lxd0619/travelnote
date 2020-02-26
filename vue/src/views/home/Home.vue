@@ -1,7 +1,11 @@
 <template>
   <div class="home">
     <!-- 轮播图 -->
-    <div id="circleContent" class="carousel slide carousel-fade" data-ride="carousel">
+    <div
+      id="circleContent"
+      class="carousel slide carousel-fade"
+      data-ride="carousel"
+    >
       <ol class="carousel-indicators">
         <li data-target="#circleContent" data-slide-to="0" class="active"></li>
         <li data-target="#circleContent" data-slide-to="1"></li>
@@ -46,15 +50,26 @@
           </div>
         </div>
       </div>
-      <a class="carousel-control-prev" href="#circleContent" role="button" data-slide="prev">
+      <a
+        class="carousel-control-prev"
+        href="#circleContent"
+        role="button"
+        data-slide="prev"
+      >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
       </a>
-      <a class="carousel-control-next" href="#circleContent" role="button" data-slide="next">
+      <a
+        class="carousel-control-next"
+        href="#circleContent"
+        role="button"
+        data-slide="next"
+      >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-    </div>z
+    </div>
+    z
     <el-container>
       <el-main height>
         <div
@@ -68,32 +83,55 @@
             <div class="col-lg-3 d-md-none d-lg-block">
               <div class="card border-white" id="leftCard">
                 <div class="card-header text-center bg-white">热门景点推荐</div>
-                <div id="littleCircle" class="carousel slide" data-ride="carousel">
+                <div
+                  id="littleCircle"
+                  class="carousel slide"
+                  data-ride="carousel"
+                >
                   <ol class="carousel-indicators">
-                    <li data-target="#littleCircle" data-slide-to="0" class="active"></li>
+                    <li
+                      data-target="#littleCircle"
+                      data-slide-to="0"
+                      class="active"
+                    ></li>
                     <li data-target="#littleCircle" data-slide-to="1"></li>
                     <li data-target="#littleCircle" data-slide-to="2"></li>
                   </ol>
                   <div class="carousel-inner">
                     <div class="carousel-item active">
-                      <img class="d-block w-100" src="../../assets/scenerySpot/suMuseum.jpeg" />
+                      <img
+                        class="d-block w-100"
+                        src="../../assets/scenerySpot/suMuseum.jpeg"
+                      />
                       <div class="carousel-caption w-75 mt-3">
                         <h5 class="text-dark">苏州博物馆</h5>
-                        <p class="text-dark">·传统的苏州园林风格，高低错落，深灰色屋面与白墙相衬，整个博物馆宛若一座小园林。</p>
+                        <p class="text-dark">
+                          ·传统的苏州园林风格，高低错落，深灰色屋面与白墙相衬，整个博物馆宛若一座小园林。
+                        </p>
                       </div>
                     </div>
                     <div class="carousel-item">
-                      <img class="d-block w-100" src="../../assets/scenerySpot/shanTang.jpeg" />
+                      <img
+                        class="d-block w-100"
+                        src="../../assets/scenerySpot/shanTang.jpeg"
+                      />
                       <div class="carousel-caption w-75">
                         <h5 class="text-dark">七里山塘</h5>
-                        <p class="text-dark">东连“红尘中一、二等富贵风流之地”阊门，西接“吴中第一名胜”虎丘，长约七里。</p>
+                        <p class="text-dark">
+                          东连“红尘中一、二等富贵风流之地”阊门，西接“吴中第一名胜”虎丘，长约七里。
+                        </p>
                       </div>
                     </div>
                     <div class="carousel-item">
-                      <img class="d-block w-100" src="../../assets/scenerySpot/tongLi.jpeg" />
+                      <img
+                        class="d-block w-100"
+                        src="../../assets/scenerySpot/tongLi.jpeg"
+                      />
                       <div class="carousel-caption w-75">
                         <h5 class="text-dark">同里古镇</h5>
-                        <p class="text-dark">·江南六同里古镇是大古镇之一，始建于宋代，至今已有1000多年历史。</p>
+                        <p class="text-dark">
+                          ·江南六同里古镇是大古镇之一，始建于宋代，至今已有1000多年历史。
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -103,7 +141,10 @@
                     role="button"
                     data-slide="prev"
                   >
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span
+                      class="carousel-control-prev-icon"
+                      aria-hidden="true"
+                    ></span>
                     <span class="sr-only">Previous</span>
                   </a>
                   <a
@@ -112,7 +153,10 @@
                     role="button"
                     data-slide="next"
                   >
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span
+                      class="carousel-control-next-icon"
+                      aria-hidden="true"
+                    ></span>
                     <span class="sr-only">Next</span>
                   </a>
                 </div>
@@ -129,7 +173,11 @@
             <div class="col-md-12 col-lg-7" id="middle">
               <!-- 中间导航栏 -->
               <nav>
-                <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <div
+                  class="nav nav-tabs nav-justified"
+                  id="nav-tab"
+                  role="tablist"
+                >
                   <a
                     class="nav-item nav-link active text-dark"
                     id="nav-hotScenery-tab"
@@ -138,7 +186,8 @@
                     role="tab"
                     aria-controls="nav-hotScenery"
                     aria-selected="true"
-                  >热门景点攻略</a>
+                    >热门景点攻略</a
+                  >
                   <a
                     class="nav-item nav-link text-dark"
                     id="nav-hotFoods-tab"
@@ -147,7 +196,8 @@
                     role="tab"
                     aria-controls="nav-hotFoods"
                     aria-selected="false"
-                  >热门美食攻略</a>
+                    >热门美食攻略</a
+                  >
                   <a
                     class="nav-item nav-link text-dark"
                     id="nav-hotlines-tab"
@@ -156,7 +206,8 @@
                     role="tab"
                     aria-controls="nav-hotlines"
                     aria-selected="false"
-                  >热门路线</a>
+                    >热门路线</a
+                  >
                 </div>
               </nav>
 
@@ -307,13 +358,13 @@ export default {
 };
 </script>
 <style scoped>
-#circleContent .carousel-item {
+/* #circleContent .carousel-item {
   height: 40em;
-}
+} */
 #leftCard .carousel-item {
   height: 25em;
 }
-#circleContent .carousel-caption h2::first-letter{
+#circleContent .carousel-caption h2::first-letter {
   color: #ff9d00;
   font-size: 50px;
 }

@@ -1,3 +1,4 @@
+/**导航栏 */
 <template>
   <div class="index">
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
@@ -27,17 +28,28 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/index/aim" @click.prevent="goAim">目的地</a>
+                <a class="nav-link" href="/index/aim" @click.prevent="goAim"
+                  >目的地</a
+                >
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="/index/view" @click.prevent="goView">景点攻略</a>
+                <a class="nav-link" href="/index/view" @click.prevent="goView"
+                  >景点攻略</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/index/delicious" @click.prevent="goDelicious">美食攻略</a>
+                <a
+                  class="nav-link"
+                  href="/index/delicious"
+                  @click.prevent="goDelicious"
+                  >美食攻略</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/index/line" @click.prevent="goLine">个性路线</a>
+                <a class="nav-link" href="/index/line" @click.prevent="goLine"
+                  >个性路线</a
+                >
               </li>
               <!-- 搜索框 -->
               <li class="nav-item d-flex justify-content-center">
@@ -81,13 +93,24 @@
                 >
                   <i class="fa fa-bell-o mr-2" aria-hidden="true"></i>
                   消息中心
-                  <el-badge :value="sysnumber" class="item" v-if="show"></el-badge>
+                  <el-badge
+                    :value="sysnumber"
+                    class="item"
+                    v-if="show"
+                  ></el-badge>
                 </a>
-                <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                <div
+                  class="dropdown-menu text-center"
+                  aria-labelledby="navbarDropdown"
+                >
                   <a class="dropdown-item" href="/index/message">
                     <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i>
                     系统通知
-                    <el-badge :value="sysnumber" class="item" v-if="show"></el-badge>
+                    <el-badge
+                      :value="sysnumber"
+                      class="item"
+                      v-if="show"
+                    ></el-badge>
                   </a>
                   <!-- <a class="dropdown-item" href="#">
                     <i class="fa fa-commenting-o mr-2" aria-hidden="true"></i>
@@ -103,7 +126,8 @@
                   href="/login"
                   @click.prevent="goLogin"
                   v-if="isShow === false"
-                >登录</a>
+                  >登录</a
+                >
               </li>
               <li class="nav-item" id="register">
                 <a
@@ -111,7 +135,8 @@
                   href="/register"
                   @click.prevent="goRegister"
                   v-if="isShow === false"
-                >注册</a>
+                  >注册</a
+                >
               </li>
               <li class="nav-item dropdown ml-2">
                 <a
@@ -138,11 +163,16 @@
                   aria-labelledby="userDropdown"
                   v-if="isShow === true"
                 >
-                  <a class="dropdown-item" href="/index/userCenter" @click.prevent="goUserCenter">
+                  <a
+                    class="dropdown-item"
+                    href="/index/userCenter"
+                    @click.prevent="goUserCenter"
+                  >
                     <i class="fa fa-user-o mr-2" aria-hidden="true"></i>个人中心
                   </a>
                   <a class="dropdown-item" href="#" @click.prevent="goEditor">
-                    <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>撰写攻略
+                    <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i
+                    >撰写攻略
                   </a>
                   <div class="dropdown-divider"></div>
                   <a
@@ -151,7 +181,8 @@
                     @click.prevent="goHome"
                     @click="logout"
                   >
-                    <i class="fa fa-sign-out mr-2" aria-hidden="true"></i>退出登录
+                    <i class="fa fa-sign-out mr-2" aria-hidden="true"></i
+                    >退出登录
                   </a>
                 </div>
               </li>
@@ -240,14 +271,14 @@ export default {
       this.$router.push("/index/delicious");
     },
     goEditor() {
-      if(this.userInfo[0].userStatus == -1){
+      if (this.userInfo[0].userStatus == -1) {
         this.$message({
           showClose: true,
-          message: '警告哦，由于您的当前用户状态不正常，已禁止撰写攻略功能！',
-          type: 'warning',
-          duration:2000
+          message: "警告哦，由于您的当前用户状态不正常，已禁止撰写攻略功能！",
+          type: "warning",
+          duration: 2000
         });
-      }else{
+      } else {
         this.$router.push("/index/editor");
       }
     },
@@ -264,11 +295,11 @@ export default {
       this.$router.push("/register");
     },
     goSearch() {
-      let keyWord = this.keyWord
+      let keyWord = this.keyWord;
       // this.$router.push({
       //   path: `/index/search/${keyWord}`
-      // });      
-      window.open(`/index/search/${keyWord}`)
+      // });
+      window.open(`/index/search/${keyWord}`);
     },
     goUserCenter() {
       this.$router.push("/index/userCenter");
@@ -286,6 +317,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.fixed-top{
+  position: sticky;
+}
 #navHeadPic {
   width: 40px;
   height: 40px;

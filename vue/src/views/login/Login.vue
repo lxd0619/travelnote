@@ -57,8 +57,8 @@ export default {
   created() {
     if (localStorage.getItem("password")) {
       this.checked = true;
-      this.loginUser.tel=localStorage.getItem("tel");
-      this.loginUser.password=localStorage.getItem("password")
+      this.loginUser.tel = localStorage.getItem("tel");
+      this.loginUser.password = localStorage.getItem("password");
     }
   },
   methods: {
@@ -72,19 +72,18 @@ export default {
               localStorage.setItem("password", this.loginUser.password);
             }
             localStorage.setItem("mytoken", res.data.token); //1.把token保存到本地存储
-            var role = jwt_decode(localStorage.getItem('mytoken')).role
+            var role = jwt_decode(localStorage.getItem("mytoken")).role;
             this.$message({
               message: "登录成功，即将进入精彩时刻！",
               type: "success"
             });
             let _this = this;
             var mytime = setTimeout(function() {
-              if(role=='normal'){
+              if (role == "normal") {
                 _this.$router.push("/index/home"); //路由转向登录组件
-              }else{
+              } else {
                 _this.$router.push("/manage"); //路由转向登录组件
               }
-              
             }, 3000);
           } else {
             this.$message.error(res.data.msg);
@@ -124,7 +123,7 @@ export default {
   }
 };
 </script>
-<style  scoped>
+<style scoped>
 body {
   font-family: sans-serif;
   margin: 0px;

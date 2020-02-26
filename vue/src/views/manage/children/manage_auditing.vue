@@ -11,7 +11,8 @@
           aria-controls="nav-hotScenery"
           aria-selected="true"
           @click="List('scenerystrategy')"
-        >景点攻略</a>
+          >景点攻略</a
+        >
         <a
           class="nav-item nav-link text-dark"
           id="nav-hotFoods-tab"
@@ -21,7 +22,8 @@
           aria-controls="nav-hotFoods"
           aria-selected="false"
           @click="List('foodstrategy')"
-        >美食攻略</a>
+          >美食攻略</a
+        >
         <a
           class="nav-item nav-link text-dark"
           id="nav-hotlines-tab"
@@ -31,20 +33,28 @@
           aria-controls="nav-hotlines"
           aria-selected="false"
           @click="List('personalrow')"
-        >个性路线</a>
+          >个性路线</a
+        >
       </div>
     </nav>
     <div v-if="show1">
       <div id="content">
         <div
           id="bottom_img"
-          v-for="li in list.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+          v-for="li in list.slice(
+            (currentPage - 1) * pagesize,
+            currentPage * pagesize
+          )"
           :key="li.strategyId"
         >
-          <a @click="strategydetail(li.type,li.strategyId)">
-            <img id="img" :src="getCoverPic(li.cover)" style="width: 200px ;height: 200px;" />
-            <p>{{li.title}}</p>
-            <span>作者：{{li.userName}}</span>
+          <a @click="strategydetail(li.type, li.strategyId)">
+            <img
+              id="img"
+              :src="getCoverPic(li.cover)"
+              style="width: 200px ;height: 200px;"
+            />
+            <p>{{ li.title }}</p>
+            <span>作者：{{ li.userName }}</span>
           </a>
         </div>
       </div>
@@ -72,7 +82,7 @@ export default {
       allpages: null,
       currentPage: 1,
       show1: false,
-      pagesize:10
+      pagesize: 10
     };
   },
   created() {
@@ -91,8 +101,8 @@ export default {
           this.list = res.data.data;
           this.allpages = res.data.data.length;
           console.log(this.allpages);
-        }else{
-          this.show1=false
+        } else {
+          this.show1 = false;
         }
       });
     },
@@ -106,14 +116,14 @@ export default {
       sessionStorage.setItem("strategy", strategyInfo);
       this.$router.push("/article");
     },
-     getCoverPic(pic) {
+    getCoverPic(pic) {
       //给图片名加上服务器端访问路径
       if (pic == "cover" || pic == null) {
         pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
       return path;
-    },
+    }
   }
 };
 </script>
@@ -126,12 +136,12 @@ body {
   width: 1200px;
   height: 640px;
 }
-h1{
+h1 {
   position: absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  color:#ccc;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ccc;
 }
 #bottom_img {
   /* width: 1380px; */
@@ -145,9 +155,9 @@ h1{
   line-height: 30px;
   cursor: pointer;
 }
-#bottom_img:hover{
-   box-shadow: 0px 5px 5px rgb(204, 204, 204);
-   transition: 0.3s all;
+#bottom_img:hover {
+  box-shadow: 0px 5px 5px rgb(204, 204, 204);
+  transition: 0.3s all;
 }
 ul {
   list-style: none;

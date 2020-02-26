@@ -1,3 +1,4 @@
+/**关注页面 */
 <template>
   <div class="person">
     <div class="jumbotron jumbotron-fluid" id="topPic">
@@ -18,25 +19,34 @@
           <div
             class="rounded-circle float-right mr-5"
             id="headPic"
-            :style="{'backgroundImage':'url(' + getHeadPic(userInfo[0].headPic) + ')'}"
+            :style="{
+              backgroundImage: 'url(' + getHeadPic(userInfo[0].headPic) + ')'
+            }"
           ></div>
           <div class="mt-3 float-right mr-5 text-center" style="width:10rem;">
-            <h4 style="color:#ff9d00">{{userInfo[0].userName}}</h4>
+            <h4 style="color:#ff9d00">{{ userInfo[0].userName }}</h4>
           </div>
           <div id="relations" class="mt-3 float-right">
-            <ul class="d-flex justify-content-between text-center mr-5" @click="fanslist()">
+            <ul
+              class="d-flex justify-content-between text-center mr-5"
+              @click="fanslist()"
+            >
               <li class="border-right border-bottom border-top">
                 粉丝：
-                <span>{{fans.length}}</span>
+                <span>{{ fans.length }}</span>
               </li>
               <li class="border-bottom border-top">
                 关注：
-                <span>{{attentions.length}}</span>
+                <span>{{ attentions.length }}</span>
               </li>
             </ul>
             <div v-if="show2">
-              <el-button type="warning" v-if="show" @click="addFriends">添加关注</el-button>
-              <el-button type="warning" v-else @click="addFriends">取消关注</el-button>
+              <el-button type="warning" v-if="show" @click="addFriends"
+                >添加关注</el-button
+              >
+              <el-button type="warning" v-else @click="addFriends"
+                >取消关注</el-button
+              >
             </div>
           </div>
         </div>
@@ -53,8 +63,8 @@
 </template>
 <script>
 import jwt_decode from "jwt-decode";
-import OtherInfo from "./user/children/OtherInfo";
-import List from "./user/children//List";
+import OtherInfo from "../User/children/OtherInfo";
+import List from "../User/children/List";
 
 export default {
   name: "UserCenter",
@@ -224,7 +234,7 @@ export default {
 </script>
 <style scoped>
 .jumbotron {
-  background: url("../assets/bgPic/indexPic1.jpg") no-repeat center center;
+  background: url("../../assets/bgPic/indexPic1.jpg") no-repeat center center;
   background-size: cover;
 }
 .rounded-circle {

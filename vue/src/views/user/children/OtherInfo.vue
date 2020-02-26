@@ -4,16 +4,24 @@
       <div class="card-deck flex-column" id="article">
         <div
           class="card d-flex flex-row mb-2 shadow-sm p-3 bg-white rounded"
-          v-for="article in list.slice((currentPage-1)*pagesize,(currentPage)*pagesize)"
+          v-for="article in list.slice(
+            (currentPage - 1) * pagesize,
+            currentPage * pagesize
+          )"
           :key="article.strategyId"
         >
-          <img class="card-img-top" :src="getPic(article.cover)" alt="article image" />
+          <img
+            class="card-img-top"
+            :src="getPic(article.cover)"
+            alt="article image"
+          />
           <div class="card-body">
             <a
               href="#"
-              @click="go(article.type,article.strategyId)"
+              @click="go(article.type, article.strategyId)"
               class="card-title"
-            >{{article.title}}</a>
+              >{{ article.title }}</a
+            >
 
             <p
               class="card-text overflow-hidden"
@@ -21,9 +29,15 @@
               v-html="article.ssInfo"
             ></p>
             <p class="text-muted">
-              <i class="fa fa-map-marker mr-2" aria-hidden="true">{{article.cityName}}</i>
-              <i class="el-icon-star-off mr-2">{{article.ssCollectionNum}}</i>
-              <i class="fa fa-thumbs-o-up mr-2 float-right" aria-hidden="true">{{article.ssLikeNum}}</i>
+              <i class="fa fa-map-marker mr-2" aria-hidden="true">{{
+                article.cityName
+              }}</i>
+              <i class="el-icon-star-off mr-2">{{ article.ssCollectionNum }}</i>
+              <i
+                class="fa fa-thumbs-o-up mr-2 float-right"
+                aria-hidden="true"
+                >{{ article.ssLikeNum }}</i
+              >
             </p>
           </div>
         </div>

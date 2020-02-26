@@ -8,37 +8,62 @@
             <span class="right_more">
               <a href="#" target="_blank"></a>
             </span>
-            <h2 class="clearfix" v-for="message in messages.slice(0,1)"  :key="message.index">
-              <a class="pr10" href="#" target="_blank">{{message.cityName}}的攻略</a>
+            <h2
+              class="clearfix"
+              v-for="message in messages.slice(0, 1)"
+              :key="message.index"
+            >
+              <a class="pr10" href="#" target="_blank"
+                >{{ message.cityName }}的攻略</a
+              >
             </h2>
           </div>
         </div>
-        <div class="domestic"  @click="go(message.type,message.strategyId)" v-for="message in messages.slice((currentPage-1)*1,(currentPage)*1)"
-          :key="message.index" >
-           <div class="total">
-          <div class="leftimg">
-            <img :src="getCoverPic(message.cover)" width="320px" height="130px" />
+        <div
+          class="domestic"
+          @click="go(message.type, message.strategyId)"
+          v-for="message in messages.slice(
+            (currentPage - 1) * 1,
+            currentPage * 1
+          )"
+          :key="message.index"
+        >
+          <div class="total">
+            <div class="leftimg">
+              <img
+                :src="getCoverPic(message.cover)"
+                width="320px"
+                height="130px"
+              />
+            </div>
+            <div class="rightfont">
+              <div class="detailtitle">
+                <h3>“{{ message.title }}”</h3>
+              </div>
+              <div class="detail_p">
+                <p>{{ message.fsInfo }}</p>
+              </div>
+              <div class="likecollection">
+                <span>
+                  <img
+                    src="../../../assets/food/收藏_line.png"
+                    width="17px"
+                    height="17px"
+                  />
+                  点赞({{ message.fsLikeNum }})
+                </span>
+                <span>
+                  <img
+                    src="../../../assets/food/点赞_line.png"
+                    width="17px"
+                    height="17px"
+                  />
+                  收藏({{ message.fsCollection }})
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="rightfont">
-            <div class="detailtitle">
-              <h3>“{{message.title}}”</h3>
-            </div>
-            <div class="detail_p">
-              <p>{{message.fsInfo}}</p>
-            </div>
-            <div class="likecollection">
-              <span>
-                <img src="../../../assets/food/收藏_line.png" width="17px" height="17px" />
-                点赞({{message.fsLikeNum}})
-              </span>
-              <span>
-                <img src="../../../assets/food/点赞_line.png" width="17px" height="17px" />
-                收藏({{message.fsCollection}})
-              </span>
-            </div>
-          </div>
-        </div>
-          <hr/>
+          <hr />
         </div>
         <div class="block">
           <el-pagination
@@ -82,7 +107,7 @@ export default {
           this.allpages = res.data.data.length;
           console.log(this.allpages);
         } else {
-           this.show1=false
+          this.show1 = false;
         }
 
         // console.log("data:"+JSON.stringify(res.data.data))
@@ -95,9 +120,9 @@ export default {
     current_change(currentPage) {
       this.currentPage = currentPage;
     },
-   getCoverPic(pic) {
+    getCoverPic(pic) {
       //给图片名加上服务器端访问路径
-      if (pic == "cover" || pic == null || pic =="") {
+      if (pic == "cover" || pic == null || pic == "") {
         pic = "primaryCover.jpg";
       }
       let path = "http://localhost:3000/coverPic/" + pic;
@@ -108,8 +133,7 @@ export default {
       var info = JSON.stringify(strategy);
       sessionStorage.setItem("info", info);
       this.$router.push("/index/fvstrategy");
-    },
-   
+    }
   }
 };
 </script>
@@ -236,7 +260,7 @@ a {
   display: inline-block;
 }
 
-.domestic img{
+.domestic img {
   margin-left: 20px;
 }
 
@@ -266,7 +290,6 @@ a {
 .pr5 {
   padding-right: 5px;
 }
-
 
 .tab_theme {
   overflow: hidden;
@@ -434,12 +457,12 @@ a {
   margin: 0px auto;
   padding-left: 50px;
 }
-.scale_tour{
-      font-size: 14px;
-    color: #666;
-    line-height: 24px;
-    height: 72px;
-    overflow: hidden;
+.scale_tour {
+  font-size: 14px;
+  color: #666;
+  line-height: 24px;
+  height: 72px;
+  overflow: hidden;
 }
 .total {
   background-color: rgb(255, 255, 255);
@@ -492,6 +515,3 @@ a {
   margin-left: 600px;
 }
 </style>
-
-
-

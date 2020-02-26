@@ -4,6 +4,7 @@ var bcrypt = require('bcrypt')
 var request = require('request');
 var querystring = require('querystring')
 var registController = {
+    //发送手机信息
     telCheck: function (req, res) {
         var tel = req.body.tel
         var type = req.body.type
@@ -34,32 +35,33 @@ var registController = {
                 console.log(flag,flag2)
                 if (flag == true || flag2 == true) {
                     res.json({code:200,data:1234,msg:'信息已发送'})
-                    // var code = ''
-                    // for (var i = 0; i < 7; i++) {
-                    //     code += Math.floor(Math.random() * 10);
-                    // }
-                    // var queryData = querystring.stringify({
-                    //     "mobile": tel,  // 接受短信的用户手机号码
-                    //     "tpl_id": "184667",  // 您申请的短信模板ID，根据实际情况修改
-                    //     "tpl_value": "#code#=" + code,  // 您设置的模板变量，根据实际情况修改
-                    //     "key": "e68c457462268bbd58c58e7cc89f1755",  // 应用APPKEY(应用详细页查询)
-                    // });
-                    // var queryUrl = 'http://v.juhe.cn/sms/send?' + queryData;
-                    // request(queryUrl, queryData, function (error, response, body) {
-                    //     var code1 = querystring.parse(queryData).tpl_value.split('=')
-                    //     if (!error && response.statusCode == 200) {
-                    //         console.log(body) // 打印接口返回内容
-                    //         var jsonObj = JSON.parse(body); // 解析接口返回的JSON内容
-                    //         console.log(jsonObj)
-                    //         res.json({ code: 200, data: code1[1], msg: '信息已发送' })
-                    //     } else {
-                    //         console.log('请求异常');
-                    //     }
-                    // })
+                    var code = ''
+                    for (var i = 0; i < 7; i++) {
+                        code += Math.floor(Math.random() * 10);
+                    }
+                    var queryData = querystring.stringify({
+                        "mobile": tel,  // 接受短信的用户手机号码
+                        "tpl_id": "184667",  // 您申请的短信模板ID，根据实际情况修改
+                        "tpl_value": "#code#=" + code,  // 您设置的模板变量，根据实际情况修改
+                        "key": "e68c457462268bbd58c58e7cc89f1755",  // 应用APPKEY(应用详细页查询)
+                    });
+                    var queryUrl = 'http://v.juhe.cn/sms/send?' + queryData;
+                    request(queryUrl, queryData, function (error, response, body) {
+                        var code1 = querystring.parse(queryData).tpl_value.split('=')
+                        if (!error && response.statusCode == 200) {
+                            console.log(body) // 打印接口返回内容
+                            var jsonObj = JSON.parse(body); // 解析接口返回的JSON内容
+                            console.log(jsonObj)
+                            res.json({ code: 200, data: code1[1], msg: '信息已发送' })
+                        } else {
+                            console.log('请求异常');
+                        }
+                    })
                 }
             }
         })
     },
+    //注册密码加密
     regist: function (req, res) {
         var userName = req.body.username.trim()
         var password = req.body.password.trim()
