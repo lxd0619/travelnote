@@ -63,8 +63,8 @@
 </template>
 <script>
 import jwt_decode from "jwt-decode";
-import OtherInfo from "../User/children/OtherInfo";
-import List from "../User/children/List";
+import OtherInfo from "../user/children/OtherInfo";
+import List from "../user/children/List";
 
 export default {
   name: "UserCenter",

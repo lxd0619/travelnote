@@ -2,32 +2,32 @@ import Vue from "vue";
 import Router from "vue-router";
 
 const Index = () => import("./views/Index.vue"); //导航栏
-const Home = () => import("./views/Home/Home.vue"); //主页
-const Login = () => import("./views/Login/Login.vue"); //登录
-const Register = () => import("./views/Register/Register.vue"); //注册
-const Forget_pwd = () => import("./views/Login/Forget_pwd.vue"); //忘记密码
+const Home = () => import("./views/home/Home.vue"); //主页
+const Login = () => import("./views/login/Login.vue"); //登录
+const Register = () => import("./views/register/Register.vue"); //注册
+const Forget_pwd = () => import("./views/login/Forget_pwd.vue"); //忘记密码
 
-const Aim = () => import("./views/Aim/Aim.vue"); //目的地
-const AimLine = () => import("./views/Aim/children/AimLine.vue"); //目的地路线
-const DetailCity = () => import("./views/Aim/children/DetailCity.vue"); //城市详情页
+const Aim = () => import("./views/aim/Aim.vue"); //目的地
+const AimLine = () => import("./views/aim/children/AimLine.vue"); //目的地路线
+const DetailCity = () => import("./views/aim/children/DetailCity.vue"); //城市详情页
 
-const Delicious = () => import("./views/Food/Delicious.vue"); //美食
-const FoodCity = () => import("./views/Food/children/FoodCity.vue"); //特色美食
-const FoodDetail = () => import("./views/Food/children/FoodDetail.vue"); //美食详情
+const Delicious = () => import("./views/food/Delicious.vue"); //美食
+const FoodCity = () => import("./views/food/children/FoodCity.vue"); //特色美食
+const FoodDetail = () => import("./views/food/children/FoodDetail.vue"); //美食详情
 
-const Line = () => import("./views/Line/Line.vue"); //个性路线
-const LineStrategy = () => import("./views/Line/children/LineStrategy.vue"); //个性路线攻略
+const Line = () => import("./views/line/Line.vue"); //个性路线
+const LineStrategy = () => import("./views/line/children/LineStrategy.vue"); //个性路线攻略
 
-const View = () => import("./views/Viewpoint/View.vue"); //景点
-const ViewDetail = () => import("./views/Viewpoint/children/ViewDetail.vue"); //景点详情
+const View = () => import("./views/viewpoint/View.vue"); //景点
+const ViewDetail = () => import("./views/viewpoint/children/ViewDetail.vue"); //景点详情
 
 const FVstrategy = () => import("./views/FVstrategy.vue"); //攻略详情页
-const Editor = () => import("./views/User/Editor.vue"); //编辑攻略
-const UserCenter = () => import("./views/User/UserCenter.vue"); //用户中心
+const Editor = () => import("./views/user/Editor.vue"); //编辑攻略
+const UserCenter = () => import("./views/user/UserCenter.vue"); //用户中心
 const Message = () => import("./views/Message/Message.vue"); //消息
 const Focus = () => import("./views/Attention/Focus.vue"); //关注页
-const Manage = () => import("./views/Manage/Manage.vue"); //管理员
-const Article = () => import("./views/Manage/children/Article.vue"); //管理文章详情
+const Manage = () => import("./views/manage/Manage.vue"); //管理员
+const Article = () => import("./views/manage/children/Article.vue"); //管理文章详情
 const Search = () => import("./views/Search/Search.vue"); //搜索
 const NotFound = () => import("./views/Not404.vue"); //404
 
