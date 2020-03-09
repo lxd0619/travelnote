@@ -69,7 +69,6 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-    z
     <el-container>
       <el-main height>
         <div
@@ -80,7 +79,7 @@
         >
           <div class="row">
             <!-- 侧边栏 -->
-            <div class="col-lg-3 d-md-none d-lg-block">
+            <div class="col-lg-3 d-none d-lg-block">
               <div class="card border-white" id="leftCard">
                 <div class="card-header text-center bg-white">热门景点推荐</div>
                 <div
@@ -242,7 +241,7 @@
               </div>
             </div>
             <!-- 排行榜 -->
-            <div class="col-lg-2 d-md-none d-lg-block" id="right">
+            <div class="col-lg-2 d-none d-lg-block" id="right">
               <a href="#" @click="goLine">
                 <img
                   class="card-img-top mb-5 shadow-sm rounded"
@@ -361,6 +360,7 @@ export default {
 /* #circleContent .carousel-item {
   height: 40em;
 } */
+
 #leftCard .carousel-item {
   height: 25em;
 }
